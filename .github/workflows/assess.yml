@@ -44,7 +44,7 @@ jobs:
           echo "resolved PDK_ROOT=$PDK_ROOT"
           test -f "$PDK_ROOT/libs.tech/ngspice/sky130.lib.spice"
 
-      - name: Assess (gate: a committed winner must still beat the part)
+      - name: "Assess (gate: a committed winner must still beat the part)"
         run: |
           python tools/assess.py --gate \
             --candidates candidates/manifest.json \
