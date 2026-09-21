@@ -109,13 +109,32 @@ CI (`.github/workflows/assess.yml`) does the same on a clean ubuntu runner:
 installs ngspice, fetches the pinned PDK from the open source, runs the oracle,
 and fails the build if a committed "beats the part" claim doesn't hold.
 
+### Generate with Gemini (optional)
+
+The default generator is a deterministic grid. To have an agent propose designs
+instead ("hey Gemini, beat this part"), get a free API key from
+[Google AI Studio](https://aistudio.google.com), then:
+
+```bash
+export GEMINI_API_KEY=...                 # free tier is fine
+./run.sh propose --backend llm --n 40     # ask Gemini for 40 designs
+```
+
+Gemini returns candidate cells; they are sanitized to the two loadable devices,
+pre-filtered in ngspice, and only the ones that actually beat the part on EDP
+are written to `candidates/manifest.json` (tagged with the model that produced
+them). The public oracle then re-judges them, so the model never grades its own
+work. Point `GEMINI_MODEL` at a stronger model (e.g. `gemini-2.5-pro`) to raise
+the quality; the loop and the judge are identical, which makes it a clean way to
+compare how different models perform on the same task.
+
 ## Layout
 
 ```
 tools/
   candidate.py   build a driver cell from a device-layer spec (unit inverters)
   measure.py     the measurement operator (ngspice): delay, energy, area, function
-  propose.py     generation: deterministic grid (+ LLM seam); pre-filters locally
+  propose.py     generation: deterministic grid OR Gemini; pre-filters locally
   assess.py      the oracle: re-measure, judge Pareto dominance, dedupe, report
   anchor.py      disclosure-safe provenance records for verified wins
 candidates/manifest.json   the committed designs CI re-verifies

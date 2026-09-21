@@ -15,7 +15,9 @@ if (-not (Test-Path "$Pdk\libs.tech\ngspice\sky130.lib.spice")) {
 }
 docker build -q -t q2edp . | Out-Null
 $rest = $args
-function Run { docker run --rm -v "${Pdk}:/pdk:ro" -v "${PWD}:/work" -w /work q2edp @args }
+# GEMINI_API_KEY / GEMINI_MODEL are forwarded for `propose --backend llm`
+# (a free key from https://aistudio.google.com works).
+function Run { docker run --rm -e GEMINI_API_KEY -e GEMINI_MODEL -v "${Pdk}:/pdk:ro" -v "${PWD}:/work" -w /work q2edp @args }
 switch ($Cmd) {
   "assess"  { Run python3 tools/assess.py --gate @rest }
   "propose" { Run python3 tools/propose.py --measure @rest }

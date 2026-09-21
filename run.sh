@@ -15,7 +15,11 @@ test -f "$PDK/libs.tech/ngspice/sky130.lib.spice" || {
   echo "sky130A not found at PDK=$PDK (set PDK=/path/to/sky130A)"; exit 1; }
 
 docker build -q -t q2edp . >/dev/null
-run() { docker run --rm -v "$PDK:/pdk:ro" -v "$PWD:/work" -w /work q2edp "$@"; }
+# GEMINI_API_KEY / GEMINI_MODEL are forwarded for `propose --backend llm`
+# (a free key from https://aistudio.google.com works). They are ignored by the
+# grid backend and by assess/anchor.
+run() { docker run --rm -e GEMINI_API_KEY -e GEMINI_MODEL \
+          -v "$PDK:/pdk:ro" -v "$PWD:/work" -w /work q2edp "$@"; }
 
 case "$CMD" in
   assess)  run python3 tools/assess.py --gate "$@" ;;

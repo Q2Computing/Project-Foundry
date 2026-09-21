@@ -1,0 +1,3 @@
+# Optional. Only the Gemini generator (propose.py --backend llm) needs this.
+# The grid generator, the oracle (assess.py), anchoring, and CI need none of it.
+google-genai
