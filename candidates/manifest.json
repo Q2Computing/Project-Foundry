@@ -1,0 +1,15 @@
+{
+  "operating_point": {"load": "250f", "slew": "0.05n", "corner": "tt"},
+  "baseline": "sky130_fd_sc_hd__buf_16",
+  "_note": "Agent-proposed custom drivers to beat buf_16 (the largest sky130 HD buffer) at a 250fF load. Built from the same nfet_01v8 + pfet_01v8_hvt unit devices the foundry cells use. The oracle (tools/assess.py, run in CI) re-measures every row from scratch and decides. 'do more with less' == lower EDP.",
+  "candidates": [
+    {"label": "drive32_2stage_f3", "spec": [{"m": 11, "nvt": "", "pvt": "_hvt"}, {"m": 32, "nvt": "", "pvt": "_hvt"}]},
+    {"label": "drive40_2stage_f3", "spec": [{"m": 13, "nvt": "", "pvt": "_hvt"}, {"m": 40, "nvt": "", "pvt": "_hvt"}]},
+    {"label": "drive48_2stage_f3", "spec": [{"m": 16, "nvt": "", "pvt": "_hvt"}, {"m": 48, "nvt": "", "pvt": "_hvt"}]},
+    {"label": "drive24_2stage_f3", "spec": [{"m": 8, "nvt": "", "pvt": "_hvt"}, {"m": 24, "nvt": "", "pvt": "_hvt"}]},
+    {"label": "drive32_2stage_f2p5", "spec": [{"m": 13, "nvt": "", "pvt": "_hvt"}, {"m": 32, "nvt": "", "pvt": "_hvt"}]},
+    {"label": "drive32_4stage_f3", "spec": [{"m": 1, "nvt": "", "pvt": "_hvt"}, {"m": 4, "nvt": "", "pvt": "_hvt"}, {"m": 11, "nvt": "", "pvt": "_hvt"}, {"m": 32, "nvt": "", "pvt": "_hvt"}]},
+    {"label": "buf16_equivalent_validator", "spec": [{"m": 6, "nvt": "", "pvt": "_hvt"}, {"m": 16, "nvt": "", "pvt": "_hvt"}]},
+    {"label": "underdrive10_loses", "spec": [{"m": 4, "nvt": "", "pvt": "_hvt"}, {"m": 10, "nvt": "", "pvt": "_hvt"}]}
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "record": {
+    "artifact_hash": "0xeabfb63c6b5236194213343cabb0539182ead028f0cc12c8f518575d1d5f5ab1",
+    "label": 618,
+    "context": 16,
+    "note": "custom driver beats sky130_fd_sc_hd__buf_16 @ 250f: EDP +6.2% (disclosure-safe: hash commits the design; netlist not published)",
+    "call": "record(0xeabfb63c6b5236194213343cabb0539182ead028f0cc12c8f518575d1d5f5ab1, 618, 16)"
+  },
+  "bundle": {
+    "schema": "q2.edp.provenance.v1",
+    "pdk": "sky130A",
+    "pdk_version": "0fe599b2afb6708d281543108caf8310912f54af",
+    "baseline": "sky130_fd_sc_hd__buf_16",
+    "operating_point": {
+      "load": "250f",
+      "slew": "0.05n",
+      "corner": "tt"
+    },
+    "design_canonical": "[{\"m\":8,\"nvt\":\"\",\"pvt\":\"_hvt\"},{\"m\":24,\"nvt\":\"\",\"pvt\":\"_hvt\"}]",
+    "measured": {
+      "tpd_ns": 0.125408,
+      "energy_fj": 1098.6948,
+      "area_um": 52.8,
+      "edp": 137.784678
+    }
+  }
+}

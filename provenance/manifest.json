@@ -1,0 +1,41 @@
+{
+  "contract": "q2-anchor",
+  "abi": "record(bytes32,uint16,uint16)",
+  "records": [
+    {
+      "artifact_hash": "0xbbe5a7f195b272f026f74a60c2884d73334cdf7029edc32cddcf90f510cf8f7c",
+      "label": 1482,
+      "context": 16,
+      "note": "custom driver beats sky130_fd_sc_hd__buf_16 @ 250f: EDP +14.8% (disclosure-safe: hash commits the design; netlist not published)",
+      "call": "record(0xbbe5a7f195b272f026f74a60c2884d73334cdf7029edc32cddcf90f510cf8f7c, 1482, 16)"
+    },
+    {
+      "artifact_hash": "0xca265e2f152c4f1726950b0a50bc6927a366df1d3c82b3ebdc5288b1049818b3",
+      "label": 1003,
+      "context": 16,
+      "note": "custom driver beats sky130_fd_sc_hd__buf_16 @ 250f: EDP +10.0% (disclosure-safe: hash commits the design; netlist not published)",
+      "call": "record(0xca265e2f152c4f1726950b0a50bc6927a366df1d3c82b3ebdc5288b1049818b3, 1003, 16)"
+    },
+    {
+      "artifact_hash": "0xad4a2497f40c9c2eebc36b24fa2078a2f1b6a8ff8c2a43204df05253ecaf1d43",
+      "label": 832,
+      "context": 16,
+      "note": "custom driver beats sky130_fd_sc_hd__buf_16 @ 250f: EDP +8.3% (disclosure-safe: hash commits the design; netlist not published)",
+      "call": "record(0xad4a2497f40c9c2eebc36b24fa2078a2f1b6a8ff8c2a43204df05253ecaf1d43, 832, 16)"
+    },
+    {
+      "artifact_hash": "0x725a5d2ebcc5fac026e61ae0a481ab332186326db7d7c2df6ff1d34d7793fd69",
+      "label": 811,
+      "context": 16,
+      "note": "custom driver beats sky130_fd_sc_hd__buf_16 @ 250f: EDP +8.1% (disclosure-safe: hash commits the design; netlist not published)",
+      "call": "record(0x725a5d2ebcc5fac026e61ae0a481ab332186326db7d7c2df6ff1d34d7793fd69, 811, 16)"
+    },
+    {
+      "artifact_hash": "0xeabfb63c6b5236194213343cabb0539182ead028f0cc12c8f518575d1d5f5ab1",
+      "label": 618,
+      "context": 16,
+      "note": "custom driver beats sky130_fd_sc_hd__buf_16 @ 250f: EDP +6.2% (disclosure-safe: hash commits the design; netlist not published)",
+      "call": "record(0xeabfb63c6b5236194213343cabb0539182ead028f0cc12c8f518575d1d5f5ab1, 618, 16)"
+    }
+  ]
+}

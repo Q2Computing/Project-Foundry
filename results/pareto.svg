@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" font-family="ui-sans-serif,system-ui" font-size="12">
+<rect width="640" height="420" fill="#0d1117"/>
+<line x1="56" y1="364" x2="584" y2="364" stroke="#30363d"/>
+<line x1="56" y1="56" x2="56" y2="364" stroke="#30363d"/>
+<text x="280" y="402" fill="#8b949e">delay t_pd (ns) →</text>
+<text x="18" y="250" fill="#8b949e" transform="rotate(-90 18 250)">energy (fJ/cycle) →</text>
+<circle cx="107.828" cy="178.858" r="4" fill="#3fb950"/>
+<circle cx="130.015" cy="183.238" r="4" fill="#3fb950"/>
+<circle cx="111.169" cy="137.807" r="4" fill="#3fb950"/>
+<circle cx="88.9439" cy="91.4591" r="4" fill="#3fb950"/>
+<circle cx="178.313" cy="231.083" r="4" fill="#3fb950"/>
+<circle cx="246.169" cy="278.206" r="4" fill="#6e7681"/>
+<circle cx="386.639" cy="315.484" r="4" fill="#6e7681"/>
+<circle cx="544.738" cy="123.205" r="4" fill="#6e7681"/>
+<circle cx="246.17" cy="278.205" r="6" fill="#f85149"/>
+<text x="254.17" y="272.205" fill="#f85149">buf_16 (part to beat)</text>
+<text x="56" y="24" fill="#c9d1d9">Energy–delay: custom candidates vs buf_16 @ 250f</text>
+</svg>
