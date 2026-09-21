@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 """
-propose.py -- the generation step (isolated from the oracle).
+propose.py: the generation step (isolated from the oracle).
 
 Produces candidate driver designs that try to beat a foundry part. Two backends:
 
-  * grid  -- a deterministic device-layer sweep: stage count, taper ratio,
+  * grid, a deterministic device-layer sweep: stage count, taper ratio,
              output width, Vt flavor. Reproducible; needs no API. This is what
              seeds the search and what CI could regenerate.
-  * llm   -- SEAM (not wired here): an external agent ("hey Gemini, beat this
+  * llm, SEAM (not wired here): an external agent ("hey Gemini, beat this
              part") proposes specs as JSON. Hundreds of shots, nondeterministic,
              run offline where an API key is fine. It must emit the SAME spec
              schema; the oracle judges it identically. Kept out of CI on purpose
-             -- the judge stays independent of the generator.
+, the judge stays independent of the generator.
 
 With --measure, candidates are pre-filtered locally in ngspice and only
 functional, unique survivors are written to the manifest, so the committed set
@@ -32,8 +32,8 @@ import candidate as C
 def grid_specs():
     """Device-layer sweep of non-inverting driver chains (unit-multiplicity).
 
-    Built from the SAME two devices the sky130 HD cells use -- nfet_01v8 (svt)
-    and pfet_01v8_hvt -- so a win is "same transistors, arranged better", not a
+    Built from the SAME two devices the sky130 HD cells use, nfet_01v8 (svt)
+    and pfet_01v8_hvt, so a win is "same transistors, arranged better", not a
     faster-device trick. The levers the fixed 2-stage ladder lacks: stage count,
     free taper, and drive strength PAST the ladder's drive-16 ceiling.
     (Vt-mixing is a phase-2 lever; the lvt device wrapper is not loaded by the

@@ -14,5 +14,5 @@
 <circle cx="544.738" cy="123.205" r="4" fill="#6e7681"/>
 <circle cx="246.17" cy="278.205" r="6" fill="#f85149"/>
 <text x="254.17" y="272.205" fill="#f85149">buf_16 (part to beat)</text>
-<text x="56" y="24" fill="#c9d1d9">Energy–delay: custom candidates vs buf_16 @ 250f</text>
+<text x="56" y="24" fill="#c9d1d9">Energy-delay: custom candidates vs buf_16 @ 250f</text>
 </svg>

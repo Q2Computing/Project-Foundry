@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-candidate.py -- build a custom driver cell from a device-layer spec.
+candidate.py: build a custom driver cell from a device-layer spec.
 
 Faithful to how sky130 actually builds drive strength: the fd_pr models are
 binned only to ~1um, so a foundry buffer is many UNIT inverters in parallel
@@ -14,7 +14,7 @@ An even number of stages => non-inverting (matches a foundry buffer's function).
 
 spec = [{"m": int, "nvt": "", "pvt": "_hvt"}, ...]   (even length)
 emit_subckt() writes `.subckt <name> A VGND VNB VPB VPWR X` as literal parallel
-unit devices -- identical modeling to the foundry cells, so both sides are
+unit devices, identical modeling to the foundry cells, so both sides are
 measured on the same ruler. The canonical form is hashed for dedup/provenance.
 """
 import hashlib

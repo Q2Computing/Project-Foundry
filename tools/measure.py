@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-measure.py -- the single SPICE measurement operator.
+measure.py: the single SPICE measurement operator.
 
 Every candidate and every foundry baseline cell is measured HERE, in the same
 ngspice testbench, so the numbers sit on one ruler. Given a cell (a foundry
@@ -41,7 +41,7 @@ def find_subckt_ports(lib_path, cell):
 
 
 def device_widths(lib_path, cell):
-    """Sum of device widths (um) inside a subckt -- a transistor-area proxy.
+    """Sum of device widths (um) inside a subckt, a transistor-area proxy.
 
     Not a layout area. It is the honest netlist-level cost that a device-layer
     designer trades against speed; real cell area comes later from the layout

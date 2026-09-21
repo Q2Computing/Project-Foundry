@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
 """
-assess.py -- the independent oracle.
+assess.py: the independent oracle.
 
 Given ONE foundry part to beat (the baseline cell) and a set of agent-proposed
 candidate designs, this re-measures everything from scratch in the same ngspice
-bench and decides -- deterministically -- which candidates actually beat the
+bench and decides, deterministically, which candidates actually beat the
 part. It never generates designs; generation is a separate, isolated step. This
 is what runs in GitHub Actions, so the verdict is a public, re-runnable oracle
 rather than Q2's word.
 
 A candidate BEATS the baseline when it is:
-  1. functional  -- output swings rail-to-rail (a real buffer),
-  2. dominating   -- no worse on any of {area, delay, energy} and strictly
+  1. functional, output swings rail-to-rail (a real buffer),
+  2. dominating, no worse on any of {area, delay, energy} and strictly
                      better on at least one (Pareto dominance), and
-  3. unique       -- a design hash not already recorded.
+  3. unique, a design hash not already recorded.
 
 Objectives (all minimized): area_um (transistor-width proxy), tpd_ns, energy_fj.
 Reported scalars: EDP = energy*delay, ED2P = energy*delay^2.
@@ -38,7 +38,7 @@ EDP_MARGIN = 0.01  # a candidate must improve EDP by >=1% to count as a win
 
 
 def dominates(a, b):
-    """a Pareto-dominates b over OBJ (minimize all three) -- the strongest win.
+    """a Pareto-dominates b over OBJ (minimize all three), the strongest win.
 
     Rare against a foundry cell on the frontier: more speed costs area+energy, so
     a faster driver can't also be smaller and lower-energy. Reported when it
@@ -100,7 +100,7 @@ def svg_pareto(base, cands, path):
     e.append('<text x="%g" y="%g" fill="#f85149">%s (part to beat)</text>'
              % (sx(base["tpd_ns"]) + 8, sy(base["energy_fj"]) - 6,
                 base["cell"].replace("sky130_fd_sc_hd__", "")))
-    e.append('<text x="%g" y="24" fill="#c9d1d9">Energy–delay: custom '
+    e.append('<text x="%g" y="24" fill="#c9d1d9">Energy-delay: custom '
              'candidates vs %s @ %s</text>'
              % (m, base["cell"].replace("sky130_fd_sc_hd__", ""), base["cl"]))
     e.append("</svg>")
@@ -205,7 +205,7 @@ def write_md(base, cands, winners, a, path):
          "less'). Area is the reported cost of extra speed, never hidden.", "",
          "| design | tpd (ns) | E (fJ) | area (um) | EDP | dEDP | verdict |",
          "|---|---|---|---|---|---|---|",
-         "| **%s** | %.4f | %.1f | %.1f | %.2f | -- | part to beat |"
+         "| **%s** | %.4f | %.1f | %.1f | %.2f | n/a | part to beat |"
          % (b, base["tpd_ns"], base["energy_fj"], base["area_um"], base["edp"])]
     for c in cands:
         name = c.get("label") or c["cell"]
@@ -236,8 +236,8 @@ def write_md(base, cands, winners, a, path):
                  "(tpd %.4f ns, E %.1f fJ, area %.1f um vs the part's %.1f um). "
                  "The ladder caps at its top drive strength; this load wants more, "
                  "so the custom cell extends the frontier past the cap. It does "
-                 "**not** Pareto-dominate -- the extra speed costs area and energy "
-                 "-- which is the honest shape of beating a frontier point."
+                 "**not** Pareto-dominate; the extra speed costs area and energy, "
+                 "which is the honest shape of beating a frontier point."
                  % (w.get("label") or w["cell"], de, dt, base["cell"],
                     w["tpd_ns"], w["energy_fj"], w["area_um"], base["area_um"]))
         par = [w for w in winners if w["pareto_dominates"]]
@@ -247,7 +247,7 @@ def write_md(base, cands, winners, a, path):
                      "(better on area, delay AND energy)." % len(par))
     else:
         L.append("No candidate beat the foundry part on EDP at this operating "
-                 "point. The part stands -- a dated negative finding is itself a "
+                 "point. The part stands, a dated negative finding is itself a "
                  "result.")
     L += ["", "_Deck-clean + SPICE-characterized on the open PDK, not "
           "foundry-qualified. `area_um` is a transistor-width proxy, not laid-out "

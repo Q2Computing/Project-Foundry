@@ -2,8 +2,8 @@ name: EDP assessment (independent oracle)
 
 # Re-measures every committed candidate against the foundry part, from scratch,
 # on the open sky130 PDK. This job IS the oracle: the verdict is public and
-# re-runnable, not Q2's word. It never generates designs -- generation is a
-# separate, isolated step -- it only judges what was committed. A false or
+# re-runnable, not Q2's word. It never generates designs, generation is a
+# separate, isolated step, it only judges what was committed. A false or
 # tampered "beats the part" claim fails the build (--gate).
 
 on:

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-anchor.py -- disclosure-safe provenance for verified improvements.
+anchor.py: disclosure-safe provenance for verified improvements.
 
 Turns the oracle's winners into records for the q2-anchor Stylus contract:
     record(bytes32 artifact_hash, uint16 label, uint16 context)
@@ -10,7 +10,7 @@ canonical bundle (the design's canonical netlist form + the measured metrics +
 the operating point + the PDK version). The hash is the on-chain artifact; the
 netlist itself need never be published. A holder of the netlist can recompute
 the hash and verify; without it the record is an opaque commitment. That is the
-whole point -- anchor the *fact* of a unique, measured improvement without
+whole point, anchor the *fact* of a unique, measured improvement without
 exposing the IP that produced it.
 
 label  (uint16): basis points of EDP improvement vs the part, capped at 65535.
