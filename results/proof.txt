@@ -1,0 +1,39 @@
+======================================================================
+1) THE FOUNDRY PART: the real buf_16 subckt straight from the sky130 PDK
+   file: /pdk/libs.ref/sky130_fd_sc_hd/spice/sky130_fd_sc_hd.spice
+----------------------------------------------------------------------
+.subckt sky130_fd_sc_hd__buf_16 A VGND VNB VPB VPWR X
+   X0 X a_109_47# VPWR VPB sky130_fd_pr__pfet_01v8_hvt w=1e+06u l=150000u
+   X1 VPWR a_109_47# X VPB sky130_fd_pr__pfet_01v8_hvt w=1e+06u l=150000u
+   X2 VGND a_109_47# X VNB sky130_fd_pr__nfet_01v8 w=650000u l=150000u
+   ... (44 unit transistors total; every device is nfet_01v8 0.65u or pfet_01v8_hvt 1.0u)
+.ends
+
+======================================================================
+2) THE CUSTOM CELL: built from the SAME two fd_pr devices, arranged as [13,32]
+----------------------------------------------------------------------
+.subckt q2_custom_13_32 A VGND VNB VPB VPWR X
+XN0_0 VGND A n1 VNB sky130_fd_pr__nfet_01v8 w=650000u l=150000u
+XP0_0 VPWR A n1 VPB sky130_fd_pr__pfet_01v8_hvt w=1000000u l=150000u
+   ... (90 unit transistors; a 13-unit input stage driving a 32-unit output stage)
+
+======================================================================
+3) NGSPICE OWN OUTPUT (unedited .measure lines from the simulator):
+----------------------------------------------------------------------
+    tpdr_buf16          =  1.562475e-10 targ=  2.181248e-09 trig=  2.025000e-09
+    tpdf_buf16          =  1.352053e-10 targ=  1.216021e-08 trig=  1.202500e-08
+    charge_buf16        =   -5.59887e-13 from=  2.00000e-09 to=  2.20000e-08
+    tpdr_custom         =  1.022546e-10 targ=  2.127255e-09 trig=  2.025000e-09
+    tpdf_custom         =  1.063481e-10 targ=  1.213135e-08 trig=  1.202500e-08
+    charge_custom       =   -6.66360e-13 from=  2.00000e-09 to=  2.20000e-08
+
+======================================================================
+4) THE RESULT computed straight from ngspice's numbers above:
+----------------------------------------------------------------------
+   buf_16 : delay=0.1457 ns  energy=1007.8 fJ  EDP=146.86
+   custom : delay=0.1043 ns  energy=1199.4 fJ  EDP=125.10
+   -> custom is 28.4% faster, uses +19.0% energy,
+      and has 14.8% lower EDP. The delay win is real: 
+      ngspice measured the custom output crossing 50% sooner into the same 250fF load.
+
+wrote results/waveforms.json (506 trace points, real device params)

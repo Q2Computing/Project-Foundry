@@ -26,6 +26,7 @@ case "$CMD" in
   propose)  run python3 tools/propose.py --measure "$@" ;;  # measured survivors
   generate) run python3 tools/propose.py "$@" ;;            # raw proposals (for compare)
   compare)  run python3 tools/compare.py "$@" ;;
+  proof)    run python3 tools/proof.py "$@" ;;        # raw head-to-head ngspice proof
   anchor)   run python3 tools/anchor.py "$@" ;;
-  *) echo "usage: run.sh {assess|propose|generate|compare|anchor} [args]"; exit 2 ;;
+  *) echo "usage: run.sh {assess|propose|generate|compare|proof|anchor} [args]"; exit 2 ;;
 esac

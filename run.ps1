@@ -23,6 +23,7 @@ switch ($Cmd) {
   "propose"  { Run python3 tools/propose.py --measure @rest }  # measured survivors
   "generate" { Run python3 tools/propose.py @rest }            # raw proposals (for compare)
   "compare"  { Run python3 tools/compare.py @rest }
+  "proof"    { Run python3 tools/proof.py @rest }
   "anchor"   { Run python3 tools/anchor.py @rest }
-  default    { Write-Host "usage: run.ps1 {assess|propose|generate|compare|anchor} [args]"; exit 2 }
+  default    { Write-Host "usage: run.ps1 {assess|propose|generate|compare|proof|anchor} [args]"; exit 2 }
 }

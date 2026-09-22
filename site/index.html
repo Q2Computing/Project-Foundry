@@ -55,6 +55,7 @@
     text-transform:uppercase;letter-spacing:.06em}
   tr.part td{color:var(--ink)}
   td.better{color:var(--green)} td.worse{color:var(--red)}
+  .delta{font-family:var(--mono);font-size:11px;margin-left:6px;opacity:.95}
   .caption{color:var(--dim);font-size:13px;margin-top:10px}
   .tbl-wrap{overflow-x:auto}
   .plot{background:var(--panel);border:1px solid var(--line);border-radius:12px;
@@ -100,7 +101,7 @@
       the design stays private. Measurement and CI are live today; the on-chain
       settlement is designed and prepared, not yet submitted</p>
     <div class="cta">
-      <a class="btn primary" href="./explore.html">Watch the agent design in 3D</a>
+      <a class="btn primary" href="./waveform.html">See the SPICE proof</a>
       <a class="btn stylus" href="#stylus">Settlement on Stylus</a>
       <a class="btn" href="https://github.com/Q2Computing/Project-Foundry">Repository</a>
       <a class="btn" href="https://github.com/Q2Computing/Project-Foundry/actions/workflows/assess.yml">The oracle</a>
@@ -155,9 +156,11 @@
 <section>
   <div class="wrap">
     <h2>Same ruler, every candidate</h2>
-    <p class="body">Green is better than the foundry part, red is worse, measured
-      per axis. The part itself is white: it is neither good nor bad, it is the
-      cell the foundry qualified so it will not fail in manufacturing</p>
+    <p class="body">Each axis is compared to the foundry part: a down arrow is a
+      decrease, an up arrow an increase, green where the change helps and red
+      where it hurts. Not every axis improves. The custom cells are faster and
+      lower EDP but cost more energy and area, and that is shown, not hidden. The
+      part itself is white: neither good nor bad, it is the qualified cell</p>
     <div class="tbl-wrap">
       <table>
         <thead><tr><th>design</th><th>tpd (ns)</th><th>E (fJ)</th>
@@ -165,15 +168,24 @@
         <tbody>
           <tr class="part"><td>buf_16 (part)</td><td>0.146</td><td>1008</td>
             <td>36.3</td><td>146.9</td><td>baseline</td></tr>
-          <tr><td>custom [13,32]</td><td class="better">0.104</td>
-            <td class="worse">1199</td><td class="worse">74.2</td>
-            <td class="better">125.1</td><td class="better">+14.8% EDP</td></tr>
-          <tr><td>custom [11,32]</td><td class="better">0.111</td>
-            <td class="worse">1191</td><td class="worse">70.9</td>
-            <td class="better">132.1</td><td class="better">+10.0% EDP</td></tr>
-          <tr><td>custom [16,48]</td><td class="better">0.099</td>
-            <td class="worse">1368</td><td class="worse">106</td>
-            <td class="better">135.0</td><td class="better">+8.1% EDP</td></tr>
+          <tr><td>custom [13,32]</td>
+            <td class="better">0.104<span class="delta">&#8595;28%</span></td>
+            <td class="worse">1199<span class="delta">&#8593;19%</span></td>
+            <td class="worse">74.2<span class="delta">&#8593;104%</span></td>
+            <td class="better">125.1<span class="delta">&#8595;15%</span></td>
+            <td class="better">+14.8% EDP</td></tr>
+          <tr><td>custom [11,32]</td>
+            <td class="better">0.111<span class="delta">&#8595;24%</span></td>
+            <td class="worse">1191<span class="delta">&#8593;18%</span></td>
+            <td class="worse">70.9<span class="delta">&#8593;95%</span></td>
+            <td class="better">132.1<span class="delta">&#8595;10%</span></td>
+            <td class="better">+10.0% EDP</td></tr>
+          <tr><td>custom [16,48]</td>
+            <td class="better">0.099<span class="delta">&#8595;32%</span></td>
+            <td class="worse">1368<span class="delta">&#8593;36%</span></td>
+            <td class="worse">106<span class="delta">&#8593;192%</span></td>
+            <td class="better">135.0<span class="delta">&#8595;8%</span></td>
+            <td class="better">+8.1% EDP</td></tr>
         </tbody>
       </table>
     </div>
