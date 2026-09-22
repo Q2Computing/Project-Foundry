@@ -19,8 +19,10 @@ $rest = $args
 # (a free key from https://aistudio.google.com works).
 function Run { docker run --rm -e GEMINI_API_KEY -e GEMINI_MODEL -v "${Pdk}:/pdk:ro" -v "${PWD}:/work" -w /work q2edp @args }
 switch ($Cmd) {
-  "assess"  { Run python3 tools/assess.py --gate @rest }
-  "propose" { Run python3 tools/propose.py --measure @rest }
-  "anchor"  { Run python3 tools/anchor.py @rest }
-  default   { Write-Host "usage: run.ps1 {assess|propose|anchor} [args]"; exit 2 }
+  "assess"   { Run python3 tools/assess.py --gate @rest }
+  "propose"  { Run python3 tools/propose.py --measure @rest }  # measured survivors
+  "generate" { Run python3 tools/propose.py @rest }            # raw proposals (for compare)
+  "compare"  { Run python3 tools/compare.py @rest }
+  "anchor"   { Run python3 tools/anchor.py @rest }
+  default    { Write-Host "usage: run.ps1 {assess|propose|generate|compare|anchor} [args]"; exit 2 }
 }

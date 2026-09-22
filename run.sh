@@ -22,8 +22,10 @@ run() { docker run --rm -e GEMINI_API_KEY -e GEMINI_MODEL \
           -v "$PDK:/pdk:ro" -v "$PWD:/work" -w /work q2edp "$@"; }
 
 case "$CMD" in
-  assess)  run python3 tools/assess.py --gate "$@" ;;
-  propose) run python3 tools/propose.py --measure "$@" ;;
-  anchor)  run python3 tools/anchor.py "$@" ;;
-  *) echo "usage: run.sh {assess|propose|anchor} [args]"; exit 2 ;;
+  assess)   run python3 tools/assess.py --gate "$@" ;;
+  propose)  run python3 tools/propose.py --measure "$@" ;;  # measured survivors
+  generate) run python3 tools/propose.py "$@" ;;            # raw proposals (for compare)
+  compare)  run python3 tools/compare.py "$@" ;;
+  anchor)   run python3 tools/anchor.py "$@" ;;
+  *) echo "usage: run.sh {assess|propose|generate|compare|anchor} [args]"; exit 2 ;;
 esac

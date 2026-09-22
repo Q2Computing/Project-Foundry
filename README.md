@@ -128,6 +128,24 @@ work. Point `GEMINI_MODEL` at a stronger model (e.g. `gemini-2.5-pro`) to raise
 the quality; the loop and the judge are identical, which makes it a clean way to
 compare how different models perform on the same task.
 
+### Compare models
+
+Generate one raw manifest per model, then score them head to head:
+
+```bash
+GEMINI_MODEL=gemini-2.5-flash ./run.sh generate --backend llm --out candidates/flash.json
+GEMINI_MODEL=gemini-2.5-pro   ./run.sh generate --backend llm --out candidates/pro.json
+./run.sh compare candidates/flash.json candidates/pro.json
+```
+
+`compare.py` re-measures every proposal from every model against the same
+baseline in one ngspice pass and writes a scoreboard
+(`results/model_comparison.md`): proposals, functional cells, EDP winners, and
+best and median gain per model. Generation differs per model; the scorer is the
+same deterministic measurement, so the ranking is a reproducible fact. Use
+`generate` (raw proposals) for a fair win rate, not `propose` (which keeps only
+survivors).
+
 ## Layout
 
 ```
@@ -136,6 +154,7 @@ tools/
   measure.py     the measurement operator (ngspice): delay, energy, area, function
   propose.py     generation: deterministic grid OR Gemini; pre-filters locally
   assess.py      the oracle: re-measure, judge Pareto dominance, dedupe, report
+  compare.py     score how different LLM models perform on the same task
   anchor.py      disclosure-safe provenance records for verified wins
 candidates/manifest.json   the committed designs CI re-verifies
 results/                   leaderboard.json, report.md, pareto.svg (CI artifacts)
