@@ -53,9 +53,10 @@
   th:first-child,td:first-child{text-align:left;font-family:var(--mono)}
   thead th{color:var(--dim);font-weight:600;font-size:12px;
     text-transform:uppercase;letter-spacing:.06em}
-  tr.part td{color:var(--ink)}
+  td{color:var(--ink)}
   td.better{color:var(--green)} td.worse{color:var(--red)}
-  .delta{font-family:var(--mono);font-size:11px;margin-left:6px;opacity:.95}
+  .delta{font-family:var(--mono);font-size:11px;margin-left:6px}
+  .delta.better{color:var(--green)} .delta.worse{color:var(--red)}
   .caption{color:var(--dim);font-size:13px;margin-top:10px}
   .tbl-wrap{overflow-x:auto}
   .plot{background:var(--panel);border:1px solid var(--line);border-radius:12px;
@@ -169,22 +170,22 @@
           <tr class="part"><td>buf_16 (part)</td><td>0.146</td><td>1008</td>
             <td>36.3</td><td>146.9</td><td>baseline</td></tr>
           <tr><td>custom [13,32]</td>
-            <td class="better">0.104<span class="delta">&#8595;28%</span></td>
-            <td class="worse">1199<span class="delta">&#8593;19%</span></td>
-            <td class="worse">74.2<span class="delta">&#8593;104%</span></td>
-            <td class="better">125.1<span class="delta">&#8595;15%</span></td>
+            <td>0.104<span class="delta better">&#8595;28%</span></td>
+            <td>1199<span class="delta worse">&#8593;19%</span></td>
+            <td>74.2<span class="delta worse">&#8593;104%</span></td>
+            <td>125.1<span class="delta better">&#8595;15%</span></td>
             <td class="better">+14.8% EDP</td></tr>
           <tr><td>custom [11,32]</td>
-            <td class="better">0.111<span class="delta">&#8595;24%</span></td>
-            <td class="worse">1191<span class="delta">&#8593;18%</span></td>
-            <td class="worse">70.9<span class="delta">&#8593;95%</span></td>
-            <td class="better">132.1<span class="delta">&#8595;10%</span></td>
+            <td>0.111<span class="delta better">&#8595;24%</span></td>
+            <td>1191<span class="delta worse">&#8593;18%</span></td>
+            <td>70.9<span class="delta worse">&#8593;95%</span></td>
+            <td>132.1<span class="delta better">&#8595;10%</span></td>
             <td class="better">+10.0% EDP</td></tr>
           <tr><td>custom [16,48]</td>
-            <td class="better">0.099<span class="delta">&#8595;32%</span></td>
-            <td class="worse">1368<span class="delta">&#8593;36%</span></td>
-            <td class="worse">106<span class="delta">&#8593;192%</span></td>
-            <td class="better">135.0<span class="delta">&#8595;8%</span></td>
+            <td>0.099<span class="delta better">&#8595;32%</span></td>
+            <td>1368<span class="delta worse">&#8593;36%</span></td>
+            <td>106<span class="delta worse">&#8593;192%</span></td>
+            <td>135.0<span class="delta better">&#8595;8%</span></td>
             <td class="better">+8.1% EDP</td></tr>
         </tbody>
       </table>
