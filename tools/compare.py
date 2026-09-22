@@ -132,6 +132,7 @@ def main():
     with open(os.path.join(a.out, "model_comparison.json"), "w") as fh:
         json.dump(report, fh, indent=2)
     write_md(base, board, load, os.path.join(a.out, "model_comparison.md"))
+    write_svg(base, board, os.path.join(a.out, "model_comparison.svg"))
 
     print("\nmodel scoreboard (best EDP gain vs the part):")
     for r in board:
@@ -139,6 +140,42 @@ def main():
         print(f"  {r['model']:28s} proposed={r['proposed']:3d} "
               f"functional={r['functional']:3d} winners={r['winners']:3d} "
               f"best={bg}")
+
+
+def write_svg(base, board, path):
+    """Horizontal bar scoreboard: best EDP gain per model (green), losers red."""
+    rows = [r for r in board]
+    W, rowh, pad, left = 640, 34, 20, 190
+    H = pad * 2 + 40 + rowh * max(1, len(rows))
+    gains = [r["best_gain_pct"] or 0 for r in rows]
+    top = max([g for g in gains if g > 0] + [1])
+    plotw = W - left - 90
+    e = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d" '
+         'font-family="ui-sans-serif,system-ui" font-size="13">' % (W, H)]
+    e.append('<rect width="%d" height="%d" fill="#0d1117"/>' % (W, H))
+    e.append('<text x="%d" y="26" fill="#c9d1d9" font-size="14">Best EDP gain by '
+             'model vs %s</text>' % (pad, base["cell"].replace("sky130_fd_sc_hd__", "")))
+    y0 = pad + 40
+    for i, r in enumerate(rows):
+        y = y0 + i * rowh
+        g = r["best_gain_pct"]
+        e.append('<text x="%d" y="%d" fill="#e6edf3" text-anchor="end">%s</text>'
+                 % (left - 12, y + 15, r["model"][:22]))
+        e.append('<rect x="%d" y="%d" width="%d" height="18" rx="4" fill="#161b22" '
+                 'stroke="#30363d"/>' % (left, y + 3, plotw))
+        if g and g > 0:
+            w = max(2, plotw * min(g, top) / top)
+            e.append('<rect x="%d" y="%d" width="%g" height="18" rx="4" '
+                     'fill="#3fb950"/>' % (left, y + 3, w))
+            e.append('<text x="%d" y="%d" fill="#3fb950">+%.1f%%</text>'
+                     % (left + plotw + 8, y + 16, g))
+        else:
+            gv = "%.1f%%" % g if g is not None else "n/a"
+            e.append('<text x="%d" y="%d" fill="#f85149">%s</text>'
+                     % (left + plotw + 8, y + 16, gv))
+    e.append("</svg>")
+    with open(path, "w") as fh:
+        fh.write("\n".join(e))
 
 
 def write_md(base, board, load, path):

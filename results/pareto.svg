@@ -9,10 +9,10 @@
 <circle cx="111.169" cy="137.807" r="4" fill="#3fb950"/>
 <circle cx="88.9439" cy="91.4591" r="4" fill="#3fb950"/>
 <circle cx="178.313" cy="231.083" r="4" fill="#3fb950"/>
-<circle cx="246.169" cy="278.206" r="4" fill="#6e7681"/>
-<circle cx="386.639" cy="315.484" r="4" fill="#6e7681"/>
-<circle cx="544.738" cy="123.205" r="4" fill="#6e7681"/>
-<circle cx="246.17" cy="278.205" r="6" fill="#f85149"/>
-<text x="254.17" y="272.205" fill="#f85149">buf_16 (part to beat)</text>
+<circle cx="246.169" cy="278.206" r="4" fill="#f85149"/>
+<circle cx="386.639" cy="315.484" r="4" fill="#f85149"/>
+<circle cx="544.738" cy="123.205" r="4" fill="#f85149"/>
+<circle cx="246.17" cy="278.205" r="6" fill="#e6edf3"/>
+<text x="254.17" y="272.205" fill="#e6edf3">buf_16 (foundry part)</text>
 <text x="56" y="24" fill="#c9d1d9">Energy-delay: custom candidates vs buf_16 @ 250f</text>
 </svg>

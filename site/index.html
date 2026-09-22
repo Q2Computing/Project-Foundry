@@ -4,11 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Q2 EDP Driver</title>
-<meta name="description" content="Beat a foundry standard cell on energy-delay product, then prove it in public with a GitHub Actions oracle on the open sky130 PDK">
+<meta name="description" content="Beat a foundry standard cell on energy-delay product, verify it in public with a GitHub Actions oracle on the open sky130 PDK, and settle the provenance on Arbitrum Stylus">
 <style>
   :root{
     --bg:#0d1117; --panel:#161b22; --line:#30363d; --ink:#e6edf3;
     --dim:#8b949e; --green:#3fb950; --red:#f85149; --blue:#58a6ff;
+    --amber:#e3b341; --violet:#a371f7;
     --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
     --sans:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
   }
@@ -18,19 +19,21 @@
   a{color:var(--blue);text-decoration:none}
   a:hover{text-decoration:underline}
   .wrap{max-width:920px;margin:0 auto;padding:0 20px}
-  header{border-bottom:1px solid var(--line);padding:64px 0 40px}
+  header{border-bottom:1px solid var(--line);padding:60px 0 40px}
   .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;
     text-transform:uppercase;color:var(--dim)}
   h1{font-size:clamp(30px,5vw,46px);line-height:1.1;margin:14px 0 10px;
     letter-spacing:-.02em;text-wrap:balance}
-  .lede{font-size:18px;color:var(--dim);max-width:60ch;margin:0}
+  .lede{font-size:18px;color:var(--dim);max-width:62ch;margin:0}
   .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
   .btn{display:inline-block;padding:9px 16px;border-radius:8px;
-    border:1px solid var(--line);font-size:14px;font-weight:600}
+    border:1px solid var(--line);font-size:14px;font-weight:600;color:var(--ink)}
   .btn.primary{background:var(--green);color:#04260f;border-color:transparent}
+  .btn.stylus{border-color:var(--violet);color:#d2c1f5}
   section{padding:44px 0;border-bottom:1px solid var(--line)}
   h2{font-size:13px;font-family:var(--mono);letter-spacing:.12em;
     text-transform:uppercase;color:var(--dim);margin:0 0 20px;font-weight:600}
+  p.body{max-width:64ch;color:var(--dim);font-size:15px}
   .stat{display:flex;gap:40px;flex-wrap:wrap}
   .stat .big{font-size:clamp(34px,6vw,56px);font-weight:700;letter-spacing:-.02em;
     line-height:1}
@@ -41,6 +44,7 @@
     padding:18px}
   .card .k{font-family:var(--mono);font-size:12px;color:var(--green);
     letter-spacing:.1em;text-transform:uppercase}
+  .card.anchor .k{color:var(--violet)}
   .card h3{margin:8px 0 6px;font-size:17px}
   .card p{margin:0;color:var(--dim);font-size:14px}
   table{width:100%;border-collapse:collapse;font-size:14px;
@@ -49,9 +53,9 @@
   th:first-child,td:first-child{text-align:left;font-family:var(--mono)}
   thead th{color:var(--dim);font-weight:600;font-size:12px;
     text-transform:uppercase;letter-spacing:.06em}
-  tr.part td{color:var(--red)}
-  tr.win td{color:var(--ink)}
-  tr.win td:first-child{color:var(--green)}
+  tr.part td{color:var(--ink)}
+  td.better{color:var(--green)} td.worse{color:var(--red)}
+  .caption{color:var(--dim);font-size:13px;margin-top:10px}
   .tbl-wrap{overflow-x:auto}
   .plot{background:var(--panel);border:1px solid var(--line);border-radius:12px;
     padding:12px}
@@ -59,28 +63,45 @@
   .legend{display:flex;gap:20px;flex-wrap:wrap;color:var(--dim);font-size:13px;
     margin-top:12px}
   .dot{display:inline-block;width:10px;height:10px;border-radius:50%;
-    margin-right:7px;vertical-align:middle}
+    margin-right:7px;vertical-align:middle;border:1px solid rgba(255,255,255,.14)}
   .points{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-  .points .card p{margin-top:6px}
   .note{background:#1c1408;border:1px solid #3d2c0a;border-radius:12px;
     padding:16px 18px;color:#e3b341;font-size:14px}
-  footer{padding:40px 0 70px;color:var(--dim);font-size:14px}
-  code{font-family:var(--mono);background:var(--panel);border:1px solid var(--line);
+  .race{display:grid;gap:12px;max-width:640px}
+  .race .row{display:grid;grid-template-columns:180px 1fr auto;gap:12px;
+    align-items:center}
+  .race .lbl{font-family:var(--mono);font-size:13px}
+  .race .bar{height:20px;background:#0d1117;border:1px solid var(--line);
+    border-radius:6px;overflow:hidden}
+  .race .fill{height:100%;background:linear-gradient(90deg,#238636,#3fb950)}
+  .race .g{font-family:var(--mono);font-size:13px;color:var(--green);
+    text-align:right;min-width:56px}
+  .stylusbox{background:var(--panel);border:1px solid var(--violet);
+    border-radius:12px;padding:20px}
+  code{font-family:var(--mono);background:#0d1117;border:1px solid var(--line);
     border-radius:6px;padding:1px 6px;font-size:.92em}
-  @media(max-width:680px){.loop,.points{grid-template-columns:1fr}}
+  pre{background:#0d1117;border:1px solid var(--line);border-radius:10px;
+    padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:13px;
+    color:var(--ink)}
+  footer{padding:40px 0 70px;color:var(--dim);font-size:14px}
+  @media(max-width:680px){.loop,.points{grid-template-columns:1fr}
+    .race .row{grid-template-columns:120px 1fr auto}}
 </style>
 </head>
 <body>
 <header>
   <div class="wrap">
-    <div class="eyebrow">Q2 Computing / Project Foundry</div>
-    <h1>Beat a foundry cell. Prove it in public</h1>
+    <div class="eyebrow">Q2 Computing / Project Foundry / Arbitrum Stylus</div>
+    <h1>Beat a foundry cell. Prove it in public. Settle it on Stylus</h1>
     <p class="lede">An agent designs a custom standard cell to beat a sky130
       foundry part on energy and speed. GitHub Actions re-measures every claim
-      from scratch on the open PDK, so the verdict is a public fact, not a pitch</p>
+      from scratch on the open PDK, and the verified win is anchored on Arbitrum
+      Stylus, so the proof is public and the design stays private</p>
     <div class="cta">
-      <a class="btn primary" href="https://github.com/Q2Computing/Project-Foundry">View the repository</a>
-      <a class="btn" href="https://github.com/Q2Computing/Project-Foundry/actions/workflows/assess.yml">See the oracle run</a>
+      <a class="btn primary" href="./explore.html">Watch the agent design in 3D</a>
+      <a class="btn stylus" href="#stylus">Settlement on Stylus</a>
+      <a class="btn" href="https://github.com/Q2Computing/Project-Foundry">Repository</a>
+      <a class="btn" href="https://github.com/Q2Computing/Project-Foundry/actions/workflows/assess.yml">The oracle</a>
     </div>
   </div>
 </header>
@@ -89,21 +110,15 @@
   <div class="wrap">
     <h2>The result</h2>
     <div class="stat">
-      <div>
-        <div class="big green">+14.8%</div>
+      <div><div class="big green">+14.8%</div>
         <div class="sub">lower energy-delay product than buf_16, the largest
-          buffer sky130 ships</div>
-      </div>
-      <div>
-        <div class="big">28%</div>
+          buffer sky130 ships</div></div>
+      <div><div class="big">28%</div>
         <div class="sub">faster, at a 250 fF load the foundry ladder is too
-          quantized to serve well</div>
-      </div>
-      <div>
-        <div class="big">5</div>
+          quantized to serve well</div></div>
+      <div><div class="big">5</div>
         <div class="sub">custom drivers beat the part, built from the foundry's
-          own two transistors</div>
-      </div>
+          own two transistors</div></div>
     </div>
   </div>
 </section>
@@ -124,11 +139,11 @@
         <p>GitHub Actions re-measures the baseline and every candidate in one
           ngspice bench on the open sky130 PDK, then decides who wins</p>
       </div>
-      <div class="card">
+      <div class="card anchor">
         <div class="k">anchor</div>
-        <h3>Provenance is recorded</h3>
-        <p>Each verified, unique win is hashed and prepared for an on-chain
-          record. The hash commits the design, the netlist stays private</p>
+        <h3>Stylus settles it</h3>
+        <p>Each verified, unique win is hashed and recorded by an Arbitrum Stylus
+          contract. The hash commits the design, the netlist stays private</p>
       </div>
     </div>
   </div>
@@ -137,6 +152,9 @@
 <section>
   <div class="wrap">
     <h2>Same ruler, every candidate</h2>
+    <p class="body">Green is better than the foundry part, red is worse, measured
+      per axis. The part itself is white: it is neither good nor bad, it is the
+      cell the foundry qualified so it will not fail in manufacturing</p>
     <div class="tbl-wrap">
       <table>
         <thead><tr><th>design</th><th>tpd (ns)</th><th>E (fJ)</th>
@@ -144,12 +162,15 @@
         <tbody>
           <tr class="part"><td>buf_16 (part)</td><td>0.146</td><td>1008</td>
             <td>36.3</td><td>146.9</td><td>baseline</td></tr>
-          <tr class="win"><td>custom [13,32]</td><td>0.104</td><td>1199</td>
-            <td>74.2</td><td>125.1</td><td>+14.8% EDP</td></tr>
-          <tr class="win"><td>custom [11,32]</td><td>0.111</td><td>1191</td>
-            <td>70.9</td><td>132.1</td><td>+10.0% EDP</td></tr>
-          <tr class="win"><td>custom [16,48]</td><td>0.099</td><td>1368</td>
-            <td>106</td><td>135.0</td><td>+8.1% EDP</td></tr>
+          <tr><td>custom [13,32]</td><td class="better">0.104</td>
+            <td class="worse">1199</td><td class="worse">74.2</td>
+            <td class="better">125.1</td><td class="better">+14.8% EDP</td></tr>
+          <tr><td>custom [11,32]</td><td class="better">0.111</td>
+            <td class="worse">1191</td><td class="worse">70.9</td>
+            <td class="better">132.1</td><td class="better">+10.0% EDP</td></tr>
+          <tr><td>custom [16,48]</td><td class="better">0.099</td>
+            <td class="worse">1368</td><td class="worse">106</td>
+            <td class="better">135.0</td><td class="better">+8.1% EDP</td></tr>
         </tbody>
       </table>
     </div>
@@ -165,18 +186,59 @@
         <circle cx="111.169" cy="137.807" r="4" fill="#3fb950"/>
         <circle cx="88.9439" cy="91.4591" r="4" fill="#3fb950"/>
         <circle cx="178.313" cy="231.083" r="4" fill="#3fb950"/>
-        <circle cx="246.169" cy="278.206" r="4" fill="#6e7681"/>
-        <circle cx="386.639" cy="315.484" r="4" fill="#6e7681"/>
-        <circle cx="544.738" cy="123.205" r="4" fill="#6e7681"/>
-        <circle cx="246.17" cy="278.205" r="6" fill="#f85149"/>
-        <text x="254.17" y="272.205" fill="#f85149">buf_16 (part to beat)</text>
+        <circle cx="246.169" cy="278.206" r="4" fill="#f85149"/>
+        <circle cx="386.639" cy="315.484" r="4" fill="#f85149"/>
+        <circle cx="544.738" cy="123.205" r="4" fill="#f85149"/>
+        <circle cx="246.17" cy="278.205" r="6" fill="#e6edf3"/>
+        <text x="254.17" y="272.205" fill="#e6edf3">buf_16 (foundry part)</text>
         <text x="56" y="24" fill="#c9d1d9">Energy-delay: custom candidates vs buf_16 @ 250f</text>
       </svg>
       <div class="legend">
-        <span><span class="dot" style="background:#f85149"></span>buf_16, the part</span>
-        <span><span class="dot" style="background:#3fb950"></span>custom drivers that win on EDP</span>
-        <span><span class="dot" style="background:#6e7681"></span>candidates that lose</span>
+        <span><span class="dot" style="background:#e6edf3"></span>buf_16, the foundry part</span>
+        <span><span class="dot" style="background:#3fb950"></span>beats it on EDP</span>
+        <span><span class="dot" style="background:#f85149"></span>worse than the part</span>
       </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Model race</h2>
+    <p class="body">Generation is pluggable. Point it at different LLM models and
+      the same oracle scores every proposal, so a model's standing is a
+      reproducible fact. Best EDP gain from each proposer, over one shared load</p>
+    <div class="race">
+      <div class="row"><div class="lbl">proposer A</div>
+        <div class="bar"><div class="fill" style="width:100%"></div></div>
+        <div class="g">+14.8%</div></div>
+      <div class="row"><div class="lbl">proposer B</div>
+        <div class="bar"><div class="fill" style="width:42%"></div></div>
+        <div class="g">+6.2%</div></div>
+    </div>
+    <p class="caption">Illustrative, from two example proposal sets scored by the
+      real ngspice oracle. Live model runs replace it:
+      <code>./run.sh generate --backend llm</code> per model, then
+      <code>./run.sh compare</code></p>
+  </div>
+</section>
+
+<section id="stylus">
+  <div class="wrap">
+    <h2>Settlement on Arbitrum Stylus</h2>
+    <p class="body">The point of a win is not a screenshot, it is a durable,
+      verifiable record. Each verified improvement is committed as a hash and
+      recorded by a Stylus contract on Arbitrum. Anyone holding the netlist can
+      recompute the hash and check it; no one else can read the design</p>
+    <div class="stylusbox">
+      <pre>record(bytes32 artifact_hash, uint16 label, uint16 context)
+// best win: EDP +14.8% vs buf_16
+record(0xbbe5a7f1...f8f7c, 1482, 16)
+//         hash of the design bundle   basis points   drive strength</pre>
+      <p class="caption" style="margin-top:14px">label is basis points of EDP
+        improvement, context is the part's drive strength. The hash is the
+        on-chain artifact; the netlist never has to be published. Written in Rust
+        and compiled to WASM with Arbitrum Stylus</p>
     </div>
   </div>
 </section>
@@ -185,22 +247,16 @@
   <div class="wrap">
     <h2>Why it holds up</h2>
     <div class="points">
-      <div class="card">
-        <h3>Same transistors</h3>
+      <div class="card"><h3>Same transistors</h3>
         <p>Candidates use only the nfet_01v8 and pfet_01v8_hvt units the foundry
           buffers are built from. A win is a better arrangement, not a faster
-          device</p>
-      </div>
-      <div class="card">
-        <h3>Independent judge</h3>
+          device</p></div>
+      <div class="card"><h3>Independent judge</h3>
         <p>The generator never grades its own work. A clean CI runner fetches the
-          pinned PDK and reproduces every number bit for bit</p>
-      </div>
-      <div class="card">
-        <h3>Disclosure safe</h3>
-        <p>Only a hash and a coarse label reach the public record. Anyone with the
-          netlist can verify, no one else can read it</p>
-      </div>
+          pinned PDK and reproduces every number bit for bit</p></div>
+      <div class="card"><h3>Disclosure safe</h3>
+        <p>Only a hash and a coarse label reach the chain. Anyone with the netlist
+          can verify, no one else can read it</p></div>
     </div>
     <div class="note" style="margin-top:20px">
       Scope, stated plainly: these are deck-clean, SPICE-characterized results on
@@ -213,6 +269,7 @@
 <footer>
   <div class="wrap">
     Q2 Computing / Project Foundry &#183;
+    <a href="./explore.html">3D view</a> &#183;
     <a href="https://github.com/Q2Computing/Project-Foundry">source</a> &#183;
     <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/results/report.md">full report</a> &#183;
     <a href="https://github.com/Q2Computing/Project-Foundry/actions">CI oracle</a>

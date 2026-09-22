@@ -91,13 +91,15 @@ def svg_pareto(base, cands, path):
     for c in cands:
         if not c["ok"]:
             continue
-        win = c.get("beats_baseline")
-        col = "#3fb950" if win else "#6e7681"
+        g = c.get("edp_gain_pct") or 0
+        # green beats the part, red is worse, white ties it
+        col = "#3fb950" if g > 0.05 else ("#f85149" if g < -0.05 else "#e6edf3")
         e.append('<circle cx="%g" cy="%g" r="4" fill="%s"/>'
                  % (sx(c["tpd_ns"]), sy(c["energy_fj"]), col))
-    e.append('<circle cx="%g" cy="%g" r="6" fill="#f85149"/>'
+    # the foundry part is white: neither good nor bad, just qualified not to fail
+    e.append('<circle cx="%g" cy="%g" r="6" fill="#e6edf3"/>'
              % (sx(base["tpd_ns"]), sy(base["energy_fj"])))
-    e.append('<text x="%g" y="%g" fill="#f85149">%s (part to beat)</text>'
+    e.append('<text x="%g" y="%g" fill="#e6edf3">%s (foundry part)</text>'
              % (sx(base["tpd_ns"]) + 8, sy(base["energy_fj"]) - 6,
                 base["cell"].replace("sky130_fd_sc_hd__", "")))
     e.append('<text x="%g" y="24" fill="#c9d1d9">Energy-delay: custom '
