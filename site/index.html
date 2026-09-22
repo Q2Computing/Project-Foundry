@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Q2 EDP Driver</title>
+<meta name="description" content="Beat a foundry standard cell on energy-delay product, then prove it in public with a GitHub Actions oracle on the open sky130 PDK">
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --line:#30363d; --ink:#e6edf3;
+    --dim:#8b949e; --green:#3fb950; --red:#f85149; --blue:#58a6ff;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+    line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px}
+  header{border-bottom:1px solid var(--line);padding:64px 0 40px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--dim)}
+  h1{font-size:clamp(30px,5vw,46px);line-height:1.1;margin:14px 0 10px;
+    letter-spacing:-.02em;text-wrap:balance}
+  .lede{font-size:18px;color:var(--dim);max-width:60ch;margin:0}
+  .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .btn{display:inline-block;padding:9px 16px;border-radius:8px;
+    border:1px solid var(--line);font-size:14px;font-weight:600}
+  .btn.primary{background:var(--green);color:#04260f;border-color:transparent}
+  section{padding:44px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:13px;font-family:var(--mono);letter-spacing:.12em;
+    text-transform:uppercase;color:var(--dim);margin:0 0 20px;font-weight:600}
+  .stat{display:flex;gap:40px;flex-wrap:wrap}
+  .stat .big{font-size:clamp(34px,6vw,56px);font-weight:700;letter-spacing:-.02em;
+    line-height:1}
+  .stat .big.green{color:var(--green)}
+  .stat .sub{color:var(--dim);font-size:14px;margin-top:8px;max-width:24ch}
+  .loop{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:18px}
+  .card .k{font-family:var(--mono);font-size:12px;color:var(--green);
+    letter-spacing:.1em;text-transform:uppercase}
+  .card h3{margin:8px 0 6px;font-size:17px}
+  .card p{margin:0;color:var(--dim);font-size:14px}
+  table{width:100%;border-collapse:collapse;font-size:14px;
+    font-variant-numeric:tabular-nums}
+  th,td{text-align:right;padding:10px 12px;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left;font-family:var(--mono)}
+  thead th{color:var(--dim);font-weight:600;font-size:12px;
+    text-transform:uppercase;letter-spacing:.06em}
+  tr.part td{color:var(--red)}
+  tr.win td{color:var(--ink)}
+  tr.win td:first-child{color:var(--green)}
+  .tbl-wrap{overflow-x:auto}
+  .plot{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:12px}
+  .plot svg{width:100%;height:auto;display:block;border-radius:8px}
+  .legend{display:flex;gap:20px;flex-wrap:wrap;color:var(--dim);font-size:13px;
+    margin-top:12px}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:50%;
+    margin-right:7px;vertical-align:middle}
+  .points{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .points .card p{margin-top:6px}
+  .note{background:#1c1408;border:1px solid #3d2c0a;border-radius:12px;
+    padding:16px 18px;color:#e3b341;font-size:14px}
+  footer{padding:40px 0 70px;color:var(--dim);font-size:14px}
+  code{font-family:var(--mono);background:var(--panel);border:1px solid var(--line);
+    border-radius:6px;padding:1px 6px;font-size:.92em}
+  @media(max-width:680px){.loop,.points{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Q2 Computing / Project Foundry</div>
+    <h1>Beat a foundry cell. Prove it in public</h1>
+    <p class="lede">An agent designs a custom standard cell to beat a sky130
+      foundry part on energy and speed. GitHub Actions re-measures every claim
+      from scratch on the open PDK, so the verdict is a public fact, not a pitch</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/Q2Computing/Project-Foundry">View the repository</a>
+      <a class="btn" href="https://github.com/Q2Computing/Project-Foundry/actions/workflows/assess.yml">See the oracle run</a>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>The result</h2>
+    <div class="stat">
+      <div>
+        <div class="big green">+14.8%</div>
+        <div class="sub">lower energy-delay product than buf_16, the largest
+          buffer sky130 ships</div>
+      </div>
+      <div>
+        <div class="big">28%</div>
+        <div class="sub">faster, at a 250 fF load the foundry ladder is too
+          quantized to serve well</div>
+      </div>
+      <div>
+        <div class="big">5</div>
+        <div class="sub">custom drivers beat the part, built from the foundry's
+          own two transistors</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>The loop</h2>
+    <div class="loop">
+      <div class="card">
+        <div class="k">generate</div>
+        <h3>An agent proposes</h3>
+        <p>A deterministic grid or Gemini proposes candidate cells: stage counts,
+          drive strengths, tapers. Exploratory and cheap</p>
+      </div>
+      <div class="card">
+        <div class="k">assess</div>
+        <h3>The oracle judges</h3>
+        <p>GitHub Actions re-measures the baseline and every candidate in one
+          ngspice bench on the open sky130 PDK, then decides who wins</p>
+      </div>
+      <div class="card">
+        <div class="k">anchor</div>
+        <h3>Provenance is recorded</h3>
+        <p>Each verified, unique win is hashed and prepared for an on-chain
+          record. The hash commits the design, the netlist stays private</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Same ruler, every candidate</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>design</th><th>tpd (ns)</th><th>E (fJ)</th>
+          <th>area (um)</th><th>EDP</th><th>vs buf_16</th></tr></thead>
+        <tbody>
+          <tr class="part"><td>buf_16 (part)</td><td>0.146</td><td>1008</td>
+            <td>36.3</td><td>146.9</td><td>baseline</td></tr>
+          <tr class="win"><td>custom [13,32]</td><td>0.104</td><td>1199</td>
+            <td>74.2</td><td>125.1</td><td>+14.8% EDP</td></tr>
+          <tr class="win"><td>custom [11,32]</td><td>0.111</td><td>1191</td>
+            <td>70.9</td><td>132.1</td><td>+10.0% EDP</td></tr>
+          <tr class="win"><td>custom [16,48]</td><td>0.099</td><td>1368</td>
+            <td>106</td><td>135.0</td><td>+8.1% EDP</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="plot" style="margin-top:20px">
+      <svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,system-ui" font-size="12" role="img" aria-label="Energy versus delay scatter">
+        <rect width="640" height="420" fill="#0d1117"/>
+        <line x1="56" y1="364" x2="584" y2="364" stroke="#30363d"/>
+        <line x1="56" y1="56" x2="56" y2="364" stroke="#30363d"/>
+        <text x="280" y="402" fill="#8b949e">delay t_pd (ns) &#8594;</text>
+        <text x="18" y="250" fill="#8b949e" transform="rotate(-90 18 250)">energy (fJ/cycle) &#8594;</text>
+        <circle cx="107.828" cy="178.858" r="4" fill="#3fb950"/>
+        <circle cx="130.015" cy="183.238" r="4" fill="#3fb950"/>
+        <circle cx="111.169" cy="137.807" r="4" fill="#3fb950"/>
+        <circle cx="88.9439" cy="91.4591" r="4" fill="#3fb950"/>
+        <circle cx="178.313" cy="231.083" r="4" fill="#3fb950"/>
+        <circle cx="246.169" cy="278.206" r="4" fill="#6e7681"/>
+        <circle cx="386.639" cy="315.484" r="4" fill="#6e7681"/>
+        <circle cx="544.738" cy="123.205" r="4" fill="#6e7681"/>
+        <circle cx="246.17" cy="278.205" r="6" fill="#f85149"/>
+        <text x="254.17" y="272.205" fill="#f85149">buf_16 (part to beat)</text>
+        <text x="56" y="24" fill="#c9d1d9">Energy-delay: custom candidates vs buf_16 @ 250f</text>
+      </svg>
+      <div class="legend">
+        <span><span class="dot" style="background:#f85149"></span>buf_16, the part</span>
+        <span><span class="dot" style="background:#3fb950"></span>custom drivers that win on EDP</span>
+        <span><span class="dot" style="background:#6e7681"></span>candidates that lose</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Why it holds up</h2>
+    <div class="points">
+      <div class="card">
+        <h3>Same transistors</h3>
+        <p>Candidates use only the nfet_01v8 and pfet_01v8_hvt units the foundry
+          buffers are built from. A win is a better arrangement, not a faster
+          device</p>
+      </div>
+      <div class="card">
+        <h3>Independent judge</h3>
+        <p>The generator never grades its own work. A clean CI runner fetches the
+          pinned PDK and reproduces every number bit for bit</p>
+      </div>
+      <div class="card">
+        <h3>Disclosure safe</h3>
+        <p>Only a hash and a coarse label reach the public record. Anyone with the
+          netlist can verify, no one else can read it</p>
+      </div>
+    </div>
+    <div class="note" style="margin-top:20px">
+      Scope, stated plainly: these are deck-clean, SPICE-characterized results on
+      the open PDK, not foundry-qualified cells. Area is a transistor-width proxy,
+      not laid-out area. Layout, DRC and LVS are the next step
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Q2 Computing / Project Foundry &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry">source</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/results/report.md">full report</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry/actions">CI oracle</a>
+  </div>
+</footer>
+</body>
+</html>
