@@ -1,0 +1,24 @@
+{
+  "corner": "tt",
+  "unit_inverter": {"nfet_um": 0.65, "pfet_um": 1.00, "L_um": 0.15, "CL_fF": 50},
+  "note": "Measured in the ngspice sky130 tt corner. sky130 offers nfet svt/lvt (no hvt) and pfet svt/hvt (no lvt), so the fabricable Vt span is nfet_svt+pfet_hvt (highest Vt) to nfet_lvt+pfet_svt (lowest Vt). Intermediate dopant is a hypothesis, not a foundry mask.",
+  "delay_ps_50pct": {
+    "g0_nsvt_phvt":  {"tphl": 169.8, "tplh": 368.0, "avg": 268.9},
+    "std_nsvt_psvt": {"tphl": 169.7, "tplh": 283.1, "avg": 226.4},
+    "nlvt_nlvt_phvt":{"tphl": 153.3, "tplh": 367.5, "avg": 260.4},
+    "g1_nlvt_psvt":  {"tphl": 153.2, "tplh": 282.7, "avg": 218.0}
+  },
+  "leakage_pA": {
+    "nfet_off_in_lo": {"svt": 1.926, "lvt": 5.954, "ratio": 3.09},
+    "pfet_off_in_hi": {"hvt": 2.644, "svt": 319.9, "ratio": 121.0},
+    "avg_50pct_duty": {"g0": 2.285, "g1": 162.9, "ratio": 71.3}
+  },
+  "edge_sensitivity": {
+    "nfet_svt_to_lvt_fall_pct": -9.7,
+    "pfet_hvt_to_svt_rise_pct": -23.1,
+    "full_span_avg_tpd_pct": -18.9
+  },
+  "fit": {"KV_full_span": 0.189, "LEAK_RATIO_full_span": 71.3,
+          "old_pfet_only": {"KV": 0.152, "LEAK_RATIO": 6465.0},
+          "why": "The pfet-only point saw a 6465x leakage cliff and a 23pct speed knob. Adding the measured nfet low-Vt point shows the true full-inverter span is 71x leak and 18.9pct speed, and that speed and leakage are asymmetric across the two transistors: nfet lvt is nearly free, pfet svt is the expensive knob."}
+}

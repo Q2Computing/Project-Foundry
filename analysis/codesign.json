@@ -1,0 +1,73 @@
+{
+  "calibration": {
+    "tau0_ns": 0.010640728529411761,
+    "p": 1.526038920875527,
+    "Cu_fF": 2.1804222222222225,
+    "kcell": 1.273,
+    "kv": 0.189,
+    "leak_ratio": 71.29102844638949,
+    "Ileak0_A": 2.285e-12
+  },
+  "entries": [
+    {
+      "context": "small load, hot path",
+      "design": {
+        "m1": 1.32,
+        "m2": 1.76,
+        "g_dopant": 1.0
+      },
+      "status": "measured-endpoint",
+      "note": "fabricable foundry flavor (g~0 nfet_svt+pfet_hvt / g~1 nfet_lvt+pfet_svt)",
+      "artifact_hash": "0xf39ce2a8694ce6d297b5b8e891084811b67b972fe82696fd254d7fa2839db7f5",
+      "stylus_call": "record(0xf39ce2a8694ce6d297b5b8e891084811b67b972fe82696fd254d7fa2839db7f5, 1000, 12)"
+    },
+    {
+      "context": "small load, idle-heavy",
+      "design": {
+        "m1": 1.2,
+        "m2": 1.67,
+        "g_dopant": 0.2294
+      },
+      "status": "predicted",
+      "note": "intermediate Vt implant: PREDICTED, awaiting distributed silicon",
+      "artifact_hash": "0x38b9656a5b0327795e208e716faecbf1dd669922f46875dacd55ea260dc467aa",
+      "stylus_call": "record(0x38b9656a5b0327795e208e716faecbf1dd669922f46875dacd55ea260dc467aa, 229, 12)"
+    },
+    {
+      "context": "large load, hot path",
+      "design": {
+        "m1": 21.95,
+        "m2": 29.35,
+        "g_dopant": 1.0
+      },
+      "status": "measured-endpoint",
+      "note": "fabricable foundry flavor (g~0 nfet_svt+pfet_hvt / g~1 nfet_lvt+pfet_svt)",
+      "artifact_hash": "0x4f528855e5e5805c38089468eeea034d7dbb099e9dfc81b05187e7f3f7fe8ddf",
+      "stylus_call": "record(0x4f528855e5e5805c38089468eeea034d7dbb099e9dfc81b05187e7f3f7fe8ddf, 1000, 200)"
+    },
+    {
+      "context": "large load, moderate",
+      "design": {
+        "m1": 20.39,
+        "m2": 28.06,
+        "g_dopant": 1.0
+      },
+      "status": "measured-endpoint",
+      "note": "fabricable foundry flavor (g~0 nfet_svt+pfet_hvt / g~1 nfet_lvt+pfet_svt)",
+      "artifact_hash": "0xb887e1e99e8271e648ef4b56c90cb7ff0c1b3a418d80fee39d944e34583b8aca",
+      "stylus_call": "record(0xb887e1e99e8271e648ef4b56c90cb7ff0c1b3a418d80fee39d944e34583b8aca, 1000, 200)"
+    },
+    {
+      "context": "large load, idle-heavy",
+      "design": {
+        "m1": 20.05,
+        "m2": 27.77,
+        "g_dopant": 0.2294
+      },
+      "status": "predicted",
+      "note": "intermediate Vt implant: PREDICTED, awaiting distributed silicon",
+      "artifact_hash": "0xe1b6cea49e7aaca071fc6199a621113af3e69ce03a8fdd16547fe8c7108b714a",
+      "stylus_call": "record(0xe1b6cea49e7aaca071fc6199a621113af3e69ce03a8fdd16547fe8c7108b714a, 229, 200)"
+    }
+  ]
+}

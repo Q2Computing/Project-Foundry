@@ -6,9 +6,19 @@ The Q2 thesis in one primitive. A driver cell is modeled as a differentiable
 function of its design x = (m1, m2, g):
 
   * m1, m2 : input / output stage multiplicities (sizing)
-  * g      : dopant/Vt knob, g=0 = hvt pfet (higher Vt, slow, low leak),
-             g=1 = svt pfet (lower Vt, fast, leaky). g in (0,1) is a PREDICTED
-             intermediate implant, fabricable only via distributed silicon.
+  * g      : dopant/Vt knob spanning two REAL foundry endpoints, both fabricable
+             today: g=0 = nfet_svt + pfet_hvt (highest Vt available, slow, low
+             leak), g=1 = nfet_lvt + pfet_svt (lowest Vt fabricable, fast, leaky).
+             sky130 ships nfet svt/lvt (no hvt) and pfet svt/hvt (no lvt), so
+             those two combos bound what a mask set can build. g in (0,1) is a
+             PREDICTED intermediate implant, fabricable only via distributed
+             silicon: it is the hypothesis the commons exists to measure.
+
+  The two speed knobs are physically ASYMMETRIC (measured, analysis/
+  vt_calibration.json): nfet svt->lvt buys -9.7% on the fall edge for 3x leak
+  (nearly free), while pfet hvt->svt buys -23% on the rise edge for 121x leak
+  (expensive). A single g here interpolates the full-inverter average of both;
+  the asymmetry is why context, not a fixed recipe, should pick the dopant.
 
 Everything is calibrated to SPICE:
   delay   = tau0 * (1 - kv*g) * (m2/m1 + L/m2 + 2p)          [logical effort + Vt]
@@ -42,10 +52,15 @@ TAU0, P, CU, VDD = LP["tau_ns"], LP["p"], LP["Cu_fF"], LP["vdd"]
 KCELL = 1.273                 # cell-energy coeff (analysis/model.py calibration)
 V2 = VDD * VDD
 
-# dopant calibration from the hvt vs svt unit-inverter measurement (scratch/vtcal)
-KV = 0.152                    # fractional speedup at g=1 (avg delay 57.75->49.0 ps)
-LEAK_RATIO = 316.8e-12 / 0.049e-12   # svt/hvt leakage ratio ~6465x
-ILEAK0 = 0.049e-12            # per-unit-inverter leakage at g=0 (hvt), A
+# dopant calibration from the measured unit-inverter Vt span (analysis/
+# vt_calibration.json). Endpoints are real fabricable flavor combos:
+#   g=0  nfet_svt + pfet_hvt : avg tpd 268.9 ps, avg leak 2.285 pA
+#   g=1  nfet_lvt + pfet_svt : avg tpd 218.0 ps, avg leak 162.9 pA
+# The earlier pfet-only read (KV=0.152, ratio=6465x) missed the nfet edge and
+# encoded a false leakage cliff; the full-inverter span is 18.9% speed and 71x leak.
+KV = 0.189                    # fractional speedup g=0->g=1 (268.9->218.0 ps avg tpd)
+LEAK_RATIO = 162.9 / 2.285    # full-inverter leakage ratio, measured ~71x
+ILEAK0 = 2.285e-12           # per-unit-inverter avg leakage at g=0, A
 
 
 def model(x, CL_fF, t_idle_ns):
@@ -117,7 +132,8 @@ def commons_entry(name, CL, t_idle, x, m):
     h = "0x" + hashlib.sha256(blob.encode()).hexdigest()
     return {"context": name, "design": spec,
             "status": "measured-endpoint" if fabricable else "predicted",
-            "note": ("fabricable Vt flavor (g~0 hvt / g~1 svt)" if fabricable
+            "note": ("fabricable foundry flavor (g~0 nfet_svt+pfet_hvt / g~1 nfet_lvt+pfet_svt)"
+                     if fabricable
                      else "intermediate Vt implant: PREDICTED, awaiting distributed silicon"),
             "artifact_hash": h,
             "stylus_call": f"record({h}, {min(65535, round(g*1000))}, {round(CL)})"}

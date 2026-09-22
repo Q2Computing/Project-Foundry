@@ -114,12 +114,18 @@
         <p style="color:var(--dim);font-size:13px;margin-top:12px" id="verdict"></p>
       </div>
     </div>
-    <div class="note">The dopant knob g runs from g=0 (high-Vt implant, low leakage,
-      slower) to g=1 (low-Vt implant, faster, leakier). g=0 and g=1 are real sky130
-      Vt flavors and are marked <b>fabricable</b>; any value in between is a
-      <b>predicted</b> implant, a simulation result awaiting distributed silicon to
-      measure. The differentiable model is calibrated to SPICE and matched it within
-      ~6% at a confirmed endpoint (<a href="./waveform.html">details</a>).</p>
+    <div class="note">The dopant knob g runs between two real sky130 endpoints, both
+      <b>fabricable</b> today: g=0 is nfet_svt + pfet_hvt (highest Vt, low leakage,
+      slower); g=1 is nfet_lvt + pfet_svt (lowest Vt available, faster, leakier).
+      sky130 ships nfet svt/lvt and pfet svt/hvt, so those two combos bound a mask
+      set. Any value in between is a <b>predicted</b> implant, a simulation result
+      awaiting distributed silicon to measure. Measured on the unit inverter, the two
+      speed knobs are asymmetric: nfet svt&#8594;lvt buys &#8722;9.7% on the fall edge
+      for 3&#215; leakage (nearly free), pfet hvt&#8594;svt buys &#8722;23% on the
+      rise edge for 121&#215; leakage (the expensive knob). That asymmetry is why
+      context, not a fixed recipe, should pick the dopant. The model is calibrated to
+      SPICE and matched it within ~6% at a confirmed endpoint
+      (<a href="./waveform.html">details</a>).</p>
   </div>
 </section>
 
@@ -132,7 +138,10 @@
 <script>
 // ---- SPICE-calibrated differentiable model (ported from analysis/codesign.py) --
 const TAU0=0.01064, P=1.526, CU=2.180, KCELL=1.273, VDD=1.8, V2=3.24;
-const KV=0.152, LEAK_RATIO=316.8e-12/0.049e-12, ILEAK0=0.049e-12;
+// Measured Vt span (analysis/vt_calibration.json): g=0 nfet_svt+pfet_hvt,
+// g=1 nfet_lvt+pfet_svt. Full-inverter 18.9% speed, 71x leak (not the pfet-only
+// 6465x); nfet lvt is nearly free, pfet svt is the expensive knob.
+const KV=0.189, LEAK_RATIO=162.9/2.285, ILEAK0=2.285e-12;
 
 function model(m1,m2,g,CL,tidle){
   const L=CL/CU;
@@ -199,7 +208,7 @@ function update(){
   document.getElementById('viz').innerHTML =
     stack(m1,col)+'<span class="arrow">&#8594;</span>'+stack(m2,col)
     +'<span class="arrow">&#8594;</span><span class="load"></span>';
-  const flav = g<0.02?"hvt (high-Vt, low leak)":g>0.98?"svt (low-Vt, fast)":"Vt implant g="+g.toFixed(2);
+  const flav = g<0.02?"nfet_svt + pfet_hvt (high-Vt, low leak)":g>0.98?"nfet_lvt + pfet_svt (low-Vt, fast)":"intermediate implant g="+g.toFixed(2);
   document.getElementById('spec').textContent =
     `input x${Math.round(m1)} -> output x${Math.round(m2)}  |  dopant: ${flav}`;
   const fab = g<0.02||g>0.98;
