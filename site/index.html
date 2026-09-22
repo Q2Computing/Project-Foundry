@@ -95,16 +95,17 @@
   <div class="wrap">
     <div class="eyebrow">Q2 Computing / Project Foundry / Arbitrum Stylus</div>
     <h1>Beat a foundry cell. Prove it in public. Settle it on Stylus</h1>
-    <p class="lede">Chip design is the last great engineering asset that capital
-      cannot hold. Every gain in a standard cell is real, measurable value, but it
-      is locked inside private tools and foreign fabs, invisible to the rails that
-      price everything else. Project Foundry turns a proven cell improvement into a
-      public, verifiable instrument: an agent designs a cell that beats a foundry
-      part on energy and speed, an independent oracle re-measures the claim from
-      scratch on the open sky130 PDK, and the verified win is anchored on Arbitrum
-      Stylus. Win the competition and the same loop scales onto sky130 and the open
-      3nm process, opening a new class of American, foundry-grade design assets that
-      institutional and retail capital can finally underwrite</p>
+    <p class="lede">Standard-cell design is a private consultancy. The knowledge of
+      how to trade threshold voltage, gate area, and leakage for speed sits inside a
+      few foundries and costly tool vendors. Project Foundry turns it into a public
+      commodity: on the open sky130 PDK an agent finds a fabricable improvement the
+      foundry left on the table, an independent oracle re-measures the claim from
+      scratch, and the verified win is anchored on Arbitrum Stylus. The method stays
+      open and contributable while each improvement still earns, so anyone can run
+      the oracle, check the result, and compete. The same discipline carries to the
+      open 3nm process, where the wins are worth real money, opening a class of
+      American, foundry-grade design assets that institutional and retail capital can
+      underwrite</p>
     <p class="caption">Measurement and CI run today. The Stylus settlement is
       written and prepared, not yet deployed</p>
     <div class="cta">
@@ -121,15 +122,15 @@
   <div class="wrap">
     <h2>The result</h2>
     <div class="stat">
-      <div><div class="big green">+14.8%</div>
-        <div class="sub">lower energy-delay product than buf_16, the largest
-          buffer sky130 ships</div></div>
-      <div><div class="big">28%</div>
-        <div class="sub">faster, at a 250 fF load the foundry ladder is too
-          quantized to serve well</div></div>
-      <div><div class="big">5</div>
-        <div class="sub">custom drivers beat the part, built from the foundry's
-          own two transistors</div></div>
+      <div><div class="big green">+22%</div>
+        <div class="sub">lower energy-delay than buf_16, at the same finger count and
+          slightly less energy: a threshold-voltage swap, not a bigger cell</div></div>
+      <div><div class="big">0</div>
+        <div class="sub">extra transistors added. The win is a dopant-mask change the
+          foundry's single library does not offer</div></div>
+      <div><div class="big">22 / 30</div>
+        <div class="sub">fabricable mask combinations beat the foundry ladder inside
+          its own energy-per-cycle band</div></div>
     </div>
   </div>
 </section>
@@ -141,8 +142,9 @@
       <div class="card">
         <div class="k">generate</div>
         <h3>An agent proposes</h3>
-        <p>A deterministic grid or Gemini proposes candidate cells: stage counts,
-          drive strengths, tapers. Exploratory and cheap</p>
+        <p>A deterministic grid or Gemini proposes fabricable cells: gate areas and
+          threshold-voltage mask mixes, kept inside the foundry energy band. Cheap
+          to enumerate</p>
       </div>
       <div class="card">
         <div class="k">assess</div>
@@ -163,114 +165,119 @@
 
 <section>
   <div class="wrap">
-    <h2>Three tiers, one ruler</h2>
-    <p class="body">Everything is measured on one ngspice bench at a 250 fF load,
-      and the picture is honest in three tiers. The <b>foundry system</b> is the
-      real sky130 buffer ladder, white, qualified silicon. A <b>differentiated
-      part</b> is a custom cell built from the foundry's own characterized devices,
-      so it is fabricable today; it is green when it beats its closest foundry
-      prefab on EDP and red when it loses to it, judged against the nearest part,
-      not one fixed reference. A <b>hypothesis</b> is an intermediate-Vt implant no
-      mask set ships yet: a white question mark, predicted by the model, waiting on
-      distributed silicon to measure. Not every custom wins, and that is shown, not
-      hidden</p>
+    <h2>The move inside the energy band</h2>
+    <p class="body">The whole sky130 high-density buffer ladder is one recipe:
+      standard-Vt nfet and high-Vt pfet, in every cell (confirmed from the PDK
+      netlist), tuned for low leakage. That leaves rise-edge speed on the table at
+      every drive strength. A real 32 or 64-bit datapath lives inside the ladder's
+      energy-per-cycle band, it does not pay for over-driven cells outside it. So the
+      honest question is whether, inside that band and at the same finger count, a
+      fabricable combination of the PDK's own threshold-voltage masks can beat the
+      ladder. It can. Swapping the high-Vt pfet for the standard one, and optionally
+      the nfet to low-Vt (real masks, mixable finger by finger, no new implant),
+      moves the same cell left: 22% lower EDP than buf_16 at the same size and
+      slightly less dynamic energy. The cost is leakage, which is exactly what the
+      foundry bought with high-Vt, so this is a hot-path move: worth it where the
+      cell switches enough to amortize it, wrong where it idles. Choosing it per
+      context is the differentiation, and one fixed library cannot make that
+      choice</p>
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th>design</th><th>tpd (ns)</th><th>E (fJ)</th>
-          <th>area (um)</th><th>EDP</th><th>vs buf_16</th></tr></thead>
+        <thead><tr><th>[6,16] cell, same size as buf_16</th><th>tpd (ns)</th>
+          <th>dyn E (fJ)</th><th>leak (nA)</th><th>EDP</th><th>vs buf_16</th></tr></thead>
         <tbody>
-          <tr class="part"><td>buf_16 (part)</td><td>0.146</td><td>1008</td>
-            <td>36.3</td><td>146.9</td><td>baseline</td></tr>
-          <tr><td>custom [13,32]</td>
-            <td>0.104<span class="delta better">&#8595;28%</span></td>
-            <td>1199<span class="delta worse">&#8593;19%</span></td>
-            <td>74.2<span class="delta worse">&#8593;104%</span></td>
-            <td>125.1<span class="delta better">&#8595;15%</span></td>
-            <td class="better">+14.8% EDP</td></tr>
-          <tr><td>custom [11,32]</td>
-            <td>0.111<span class="delta better">&#8595;24%</span></td>
-            <td>1191<span class="delta worse">&#8593;18%</span></td>
-            <td>70.9<span class="delta worse">&#8593;95%</span></td>
-            <td>132.1<span class="delta better">&#8595;10%</span></td>
-            <td class="better">+10.0% EDP</td></tr>
-          <tr><td>custom [16,48]</td>
-            <td>0.099<span class="delta better">&#8595;32%</span></td>
-            <td>1368<span class="delta worse">&#8593;36%</span></td>
-            <td>106<span class="delta worse">&#8593;192%</span></td>
-            <td>135.0<span class="delta better">&#8595;8%</span></td>
-            <td class="better">+8.1% EDP</td></tr>
+          <tr class="part"><td>buf_16, foundry svt / hvt</td><td>0.146</td>
+            <td>1008</td><td>0.02</td><td>146.9</td><td>baseline</td></tr>
+          <tr><td>pfet swap, svt / <b>svt</b></td>
+            <td>0.122<span class="delta better">&#8595;16%</span></td>
+            <td>1002<span class="delta better">&#8595;1%</span></td>
+            <td>3.51<span class="delta worse">&#8593;161x</span></td>
+            <td>122.1<span class="delta better">&#8595;17%</span></td>
+            <td class="better">+17% EDP</td></tr>
+          <tr><td>blend 50/50, mask mix</td>
+            <td>0.128<span class="delta better">&#8595;12%</span></td>
+            <td>1002<span class="delta better">&#8595;1%</span></td>
+            <td>1.79<span class="delta worse">&#8593;82x</span></td>
+            <td>128.5<span class="delta better">&#8595;12%</span></td>
+            <td class="better">+12% EDP</td></tr>
+          <tr><td>both low-Vt, <b>lvt</b> / <b>svt</b></td>
+            <td>0.115<span class="delta better">&#8595;21%</span></td>
+            <td>996<span class="delta better">&#8595;1%</span></td>
+            <td>3.55<span class="delta worse">&#8593;163x</span></td>
+            <td>114.3<span class="delta better">&#8595;22%</span></td>
+            <td class="better">+22% EDP</td></tr>
         </tbody>
       </table>
     </div>
     <div class="plot" style="margin-top:20px">
-      <svg viewBox="0 0 680 440" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,system-ui" font-size="12" role="img" aria-label="Energy versus delay in three tiers: the foundry buffer ladder in white, fabricable custom cells coloured green or red against their nearest prefab, and predicted intermediate-Vt hypotheses as white question marks">
-        <rect width="680" height="440" fill="#0d1117"/>
-        <line x1="130.2" y1="46" x2="130.2" y2="382" stroke="#233040"/>
-        <text x="130.2" y="400" fill="#8b949e" text-anchor="middle" font-size="11">0.1</text>
-        <line x1="258.8" y1="46" x2="258.8" y2="382" stroke="#233040"/>
-        <text x="258.8" y="400" fill="#8b949e" text-anchor="middle" font-size="11">0.2</text>
-        <line x1="428.9" y1="46" x2="428.9" y2="382" stroke="#233040"/>
-        <text x="428.9" y="400" fill="#8b949e" text-anchor="middle" font-size="11">0.5</text>
-        <line x1="557.5" y1="46" x2="557.5" y2="382" stroke="#233040"/>
-        <text x="557.5" y="400" fill="#8b949e" text-anchor="middle" font-size="11">1</text>
-        <line x1="64" y1="371.8" x2="656" y2="371.8" stroke="#233040"/>
-        <text x="55" y="375.8" fill="#8b949e" text-anchor="end" font-size="11">800</text>
-        <line x1="64" y1="270.0" x2="656" y2="270.0" stroke="#233040"/>
-        <text x="55" y="274.0" fill="#8b949e" text-anchor="end" font-size="11">1000</text>
-        <line x1="64" y1="168.2" x2="656" y2="168.2" stroke="#233040"/>
-        <text x="55" y="172.2" fill="#8b949e" text-anchor="end" font-size="11">1200</text>
-        <line x1="64" y1="66.4" x2="656" y2="66.4" stroke="#233040"/>
-        <text x="55" y="70.4" fill="#8b949e" text-anchor="end" font-size="11">1400</text>
-        <line x1="64" y1="382" x2="656" y2="382" stroke="#30363d"/>
-        <line x1="64" y1="46" x2="64" y2="382" stroke="#30363d"/>
-        <text x="360" y="430" fill="#8b949e" text-anchor="middle" font-size="12">delay t_pd (ns), log scale &#8594; faster is left</text>
-        <text x="18" y="214" fill="#8b949e" text-anchor="middle" font-size="12" transform="rotate(-90 18 214)">energy (fJ / cycle) &#8594;</text>
-        <text x="64" y="27" fill="#c9d1d9" font-size="14" font-weight="600">Energy vs delay at a 250 fF load, one ngspice ruler</text>
-        <polyline points="200.1,266.0 235.0,291.6 276.5,315.6 317.6,328.7 382.2,341.8 483.3,353.9 638.0,361.5" fill="none" stroke="#e6edf3" stroke-opacity="0.3" stroke-width="1.2"/>
-        <circle cx="200.1" cy="266.0" r="5" fill="#e6edf3"/>
-        <text x="200.1" y="282.0" fill="#e6edf3" font-size="10" text-anchor="middle">buf_16</text>
-        <circle cx="235.0" cy="291.6" r="5" fill="#e6edf3"/>
-        <text x="235.0" y="307.6" fill="#e6edf3" font-size="10" text-anchor="middle">buf_12</text>
-        <circle cx="276.5" cy="315.6" r="5" fill="#e6edf3"/>
-        <text x="276.5" y="331.6" fill="#e6edf3" font-size="10" text-anchor="middle">buf_8</text>
-        <circle cx="317.6" cy="328.7" r="5" fill="#e6edf3"/>
-        <text x="317.6" y="344.7" fill="#e6edf3" font-size="10" text-anchor="middle">buf_6</text>
-        <circle cx="382.2" cy="341.8" r="5" fill="#e6edf3"/>
-        <text x="382.2" y="357.8" fill="#e6edf3" font-size="10" text-anchor="middle">buf_4</text>
-        <circle cx="483.3" cy="353.9" r="5" fill="#e6edf3"/>
-        <text x="483.3" y="369.9" fill="#e6edf3" font-size="10" text-anchor="middle">buf_2</text>
-        <circle cx="638.0" cy="361.5" r="5" fill="#e6edf3"/>
-        <text x="638.0" y="377.5" fill="#e6edf3" font-size="10" text-anchor="middle">buf_1</text>
-        <circle cx="172.2" cy="219.8" r="5" fill="#3fb950"/>
-        <circle cx="149.5" cy="172.8" r="5" fill="#3fb950"/>
-        <circle cx="138.0" cy="168.5" r="5" fill="#3fb950"/>
-        <circle cx="127.7" cy="82.6" r="5" fill="#3fb950"/>
-        <circle cx="247.1" cy="302.6" r="5" fill="#f85149"/>
-        <circle cx="92.3" cy="181.1" r="5" fill="#3fb950"/>
-        <circle cx="80.6" cy="99.4" r="5" fill="#3fb950"/>
-        <line x1="92.3" y1="181.1" x2="96" y2="241" stroke="#3fb950" stroke-opacity="0.5"/>
-        <text x="96" y="250" fill="#3fb950" font-size="11" text-anchor="middle">[13,32] low-Vt</text>
-        <text x="96" y="263" fill="#3fb950" font-size="11" text-anchor="middle">fabricable, best EDP 96</text>
-        <text x="256.1" y="294.6" fill="#f85149" font-size="11" text-anchor="start">[4,10] loses to buf_12</text>
-        <circle cx="119.6" cy="174.8" r="7" fill="none" stroke="#e6edf3" stroke-dasharray="2 2" stroke-opacity="0.8"/>
-        <text x="119.6" y="178.8" fill="#e6edf3" font-size="12" text-anchor="middle" font-weight="700">?</text>
-        <circle cx="109.2" cy="91.0" r="7" fill="none" stroke="#e6edf3" stroke-dasharray="2 2" stroke-opacity="0.8"/>
-        <text x="109.2" y="95.0" fill="#e6edf3" font-size="12" text-anchor="middle" font-weight="700">?</text>
-        <rect x="372" y="52" width="284" height="104" rx="7" fill="#161b22" stroke="#30363d"/>
-        <circle cx="390" cy="72" r="5" fill="#e6edf3"/>
-        <text x="406" y="76" fill="#c9d1d9" font-size="11">foundry prefab  &#183;  buf_1 to buf_16 (qualified)</text>
-        <circle cx="384" cy="94" r="5" fill="#3fb950"/>
-        <circle cx="398" cy="94" r="5" fill="#f85149"/>
-        <text x="406" y="98" fill="#c9d1d9" font-size="11">custom cell vs nearest prefab:</text>
-        <text x="406" y="120" fill="#c9d1d9" font-size="11">green beats it, red loses to it</text>
-        <circle cx="390" cy="138" r="6.5" fill="none" stroke="#e6edf3" stroke-dasharray="2 2"/>
-        <text x="390" y="141.5" fill="#e6edf3" font-size="10" text-anchor="middle" font-weight="700">?</text>
-        <text x="406" y="142" fill="#c9d1d9" font-size="11">predicted implant  &#183;  hypothesis, awaiting silicon</text>
+      <svg viewBox="0 0 680 460" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,system-ui" font-size="12" role="img" aria-label="At a 250 fF load: the foundry buffer ladder and the same cells with their dopant masks swapped, both inside the foundry energy envelope, plus the rejected over-driven region above it">
+      <rect width="680" height="460" fill="#0d1117"/>
+      <rect x="64" y="170.1" width="592.0" height="207.4" fill="#3fb950" fill-opacity="0.06"/>
+      <line x1="64" y1="170.1" x2="656" y2="170.1" stroke="#3fb950" stroke-opacity="0.35" stroke-dasharray="4 3"/>
+      <text x="652" y="164.1" fill="#3fb950" fill-opacity="0.8" font-size="10" text-anchor="end">foundry energy envelope (buf_1..16, 820 to 1008 fJ)</text>
+      <line x1="85.2" y1="46" x2="85.2" y2="400" stroke="#233040"/>
+      <text x="85.2" y="418" fill="#8b949e" text-anchor="middle" font-size="11">0.1</text>
+      <line x1="224.9" y1="46" x2="224.9" y2="400" stroke="#233040"/>
+      <text x="224.9" y="418" fill="#8b949e" text-anchor="middle" font-size="11">0.2</text>
+      <line x1="409.5" y1="46" x2="409.5" y2="400" stroke="#233040"/>
+      <text x="409.5" y="418" fill="#8b949e" text-anchor="middle" font-size="11">0.5</text>
+      <line x1="549.1" y1="46" x2="549.1" y2="400" stroke="#233040"/>
+      <text x="549.1" y="418" fill="#8b949e" text-anchor="middle" font-size="11">1</text>
+      <line x1="64" y1="400.0" x2="656" y2="400.0" stroke="#233040"/>
+      <text x="55" y="404.0" fill="#8b949e" text-anchor="end" font-size="11">800</text>
+      <line x1="64" y1="289.4" x2="656" y2="289.4" stroke="#233040"/>
+      <text x="55" y="293.4" fill="#8b949e" text-anchor="end" font-size="11">900</text>
+      <line x1="64" y1="178.8" x2="656" y2="178.8" stroke="#233040"/>
+      <text x="55" y="182.8" fill="#8b949e" text-anchor="end" font-size="11">1000</text>
+      <line x1="64" y1="68.1" x2="656" y2="68.1" stroke="#233040"/>
+      <text x="55" y="72.1" fill="#8b949e" text-anchor="end" font-size="11">1100</text>
+      <line x1="64" y1="400" x2="656" y2="400" stroke="#30363d"/>
+      <line x1="64" y1="46" x2="64" y2="400" stroke="#30363d"/>
+      <text x="360" y="450" fill="#8b949e" text-anchor="middle" font-size="12">delay t_pd (ns), log scale &#8594; faster is left</text>
+      <text x="18" y="223" fill="#8b949e" text-anchor="middle" font-size="12" transform="rotate(-90 18 223)">energy (fJ / cycle) &#8594;</text>
+      <text x="64" y="27" fill="#c9d1d9" font-size="14" font-weight="600">Same finger count, swapped dopant masks: faster inside the same energy band</text>
+      <polyline points="161.1,170.1 199.0,225.6 244.1,277.8 288.7,306.2 358.8,334.8 468.6,361.2 636.4,377.6" fill="none" stroke="#e6edf3" stroke-opacity="0.4" stroke-width="1.4"/>
+      <circle cx="161.1" cy="170.1" r="5" fill="#e6edf3"/>
+      <text x="161.1" y="186.1" fill="#e6edf3" font-size="10" text-anchor="middle">buf_16</text>
+      <circle cx="199.0" cy="225.6" r="5" fill="#e6edf3"/>
+      <text x="199.0" y="241.6" fill="#e6edf3" font-size="10" text-anchor="middle">buf_12</text>
+      <circle cx="244.1" cy="277.8" r="5" fill="#e6edf3"/>
+      <text x="244.1" y="293.8" fill="#e6edf3" font-size="10" text-anchor="middle">buf_8</text>
+      <circle cx="288.7" cy="306.2" r="5" fill="#e6edf3"/>
+      <text x="288.7" y="322.2" fill="#e6edf3" font-size="10" text-anchor="middle">buf_6</text>
+      <circle cx="358.8" cy="334.8" r="5" fill="#e6edf3"/>
+      <text x="358.8" y="350.8" fill="#e6edf3" font-size="10" text-anchor="middle">buf_4</text>
+      <circle cx="468.6" cy="361.2" r="5" fill="#e6edf3"/>
+      <text x="468.6" y="377.2" fill="#e6edf3" font-size="10" text-anchor="middle">buf_2</text>
+      <circle cx="636.4" cy="377.6" r="5" fill="#e6edf3"/>
+      <text x="636.4" y="393.6" fill="#e6edf3" font-size="10" text-anchor="middle">buf_1</text>
+      <polyline points="242.6,310.9 197.6,284.3 157.4,246.5 134.8,220.4 112.9,183.3" fill="none" stroke="#3fb950" stroke-width="1.6"/>
+      <circle cx="242.6" cy="310.9" r="5" fill="#3fb950"/>
+      <circle cx="197.6" cy="284.3" r="5" fill="#3fb950"/>
+      <circle cx="157.4" cy="246.5" r="5" fill="#3fb950"/>
+      <circle cx="134.8" cy="220.4" r="5" fill="#3fb950"/>
+      <circle cx="112.9" cy="183.3" r="5" fill="#3fb950"/>
+      <line x1="155.1" y1="170.1" x2="120.9" y2="183.3" stroke="#3fb950" stroke-width="1.4"/>
+      <polygon points="114.9,183.3 124.9,179.3 124.9,187.3" fill="#3fb950"/>
+      <line x1="112.9" y1="186.3" x2="366" y2="244" stroke="#3fb950" stroke-opacity="0.5"/>
+      <text x="372" y="244" fill="#3fb950" font-size="11" text-anchor="start">[6,16] masks swapped to low-Vt:</text>
+      <text x="372" y="258" fill="#3fb950" font-size="11" text-anchor="start">same area as buf_16, EDP 114 vs 147</text>
+      <circle cx="94.6" cy="135.8" r="5" fill="#6e7681"/>
+      <text x="103.6" y="139.8" fill="#6e7681" font-size="11" text-anchor="start">[7,20] over-driven: outside the band</text>
+      <rect x="372" y="58" width="284" height="82" rx="7" fill="#161b22" stroke="#30363d"/>
+      <circle cx="390" cy="76" r="5" fill="#e6edf3"/>
+      <text x="406" y="80" fill="#c9d1d9" font-size="11">foundry ladder  buf_1..16  (svt nfet + hvt pfet)</text>
+      <circle cx="390" cy="100" r="5" fill="#3fb950"/>
+      <text x="406" y="104" fill="#c9d1d9" font-size="11">same cell, masks swapped to low-Vt (fabricable)</text>
+      <circle cx="390" cy="124" r="5" fill="#6e7681"/>
+      <text x="406" y="128" fill="#c9d1d9" font-size="11">over-driven cell (more fingers): outside the band</text>
       </svg>
-      <p class="caption">Every dot is measured on the same bench and reproducible
-        with analysis/threetier.py. The low-Vt parts use real sky130 flavors and
-        are fabricable now; the CI oracle currently gates the sizing win in the
-        table above, with Vt differentiation as the next measured step</p>
+      <p class="caption">Energy is dynamic energy per cycle at 250 fF, where a
+        switching cell spends about 1000 fJ; leakage is static supply current, and
+        3.5 nA is negligible against that until the cell sits idle. Every point is
+        measured on one ngspice bench, reproducible with analysis/linearcomb.py and
+        leak_inband.py. The foundry masks are confirmed from the PDK netlist: every
+        buffer is nfet_01v8 + pfet_01v8_hvt</p>
     </div>
   </div>
 </section>

@@ -1,0 +1,353 @@
+{
+  "load": "250f",
+  "band_fJ": [
+    820.3,
+    1007.8
+  ],
+  "foundry": [
+    {
+      "tpd": 1.5426254,
+      "E": 820.2708,
+      "edp": 1265.3705709583198,
+      "label": "buf_1"
+    },
+    {
+      "tpd": 0.6704837,
+      "E": 835.11,
+      "edp": 559.9276427069999,
+      "label": "buf_2"
+    },
+    {
+      "tpd": 0.38877225,
+      "E": 858.9150000000001,
+      "edp": 333.92231710875,
+      "label": "buf_4"
+    },
+    {
+      "tpd": 0.27452935,
+      "E": 884.7755999999999,
+      "edp": 242.89687036385996,
+      "label": "buf_6"
+    },
+    {
+      "tpd": 0.22001795,
+      "E": 910.4255999999999,
+      "edp": 200.30997413951997,
+      "label": "buf_8"
+    },
+    {
+      "tpd": 0.17589775,
+      "E": 957.609,
+      "edp": 168.44126847975,
+      "label": "buf_12"
+    },
+    {
+      "tpd": 0.14572685,
+      "E": 1007.7984000000001,
+      "edp": 146.86328626704002,
+      "label": "buf_16"
+    }
+  ],
+  "combos": [
+    {
+      "tpd": 0.27452935,
+      "E": 884.7755999999999,
+      "edp": 242.89687036385996,
+      "m1": 2,
+      "m2": 6,
+      "label": "foundry recipe  svt/hvt",
+      "win": false,
+      "why": "not below buf_6"
+    },
+    {
+      "tpd": 0.2292621,
+      "E": 882.8748,
+      "edp": 202.40973068507998,
+      "m1": 2,
+      "m2": 6,
+      "label": "pfet swap       svt/svt",
+      "win": true,
+      "why": "faster than buf_4 at <= its energy"
+    },
+    {
+      "tpd": 0.26300465,
+      "E": 882.3942000000001,
+      "edp": 232.07377773303,
+      "m1": 2,
+      "m2": 6,
+      "label": "nfet swap       lvt/hvt",
+      "win": true,
+      "why": "faster than buf_4 at <= its energy"
+    },
+    {
+      "tpd": 0.2184407,
+      "E": 880.5347999999999,
+      "edp": 192.34463808635996,
+      "m1": 2,
+      "m2": 6,
+      "label": "both low-Vt     lvt/svt",
+      "win": true,
+      "why": "faster than buf_4 at <= its energy"
+    },
+    {
+      "tpd": 0.24304179999999997,
+      "E": 882.6120000000001,
+      "edp": 214.5116091816,
+      "m1": 2,
+      "m2": 6,
+      "label": "blend 50/50     mix",
+      "win": true,
+      "why": "faster than buf_4 at <= its energy"
+    },
+    {
+      "tpd": 0.22001795,
+      "E": 910.4255999999999,
+      "edp": 200.30997413951997,
+      "m1": 3,
+      "m2": 8,
+      "label": "foundry recipe  svt/hvt",
+      "win": false,
+      "why": "not below buf_8"
+    },
+    {
+      "tpd": 0.18378195,
+      "E": 907.758,
+      "edp": 166.8295353681,
+      "m1": 3,
+      "m2": 8,
+      "label": "pfet swap       svt/svt",
+      "win": true,
+      "why": "faster than buf_6 at <= its energy"
+    },
+    {
+      "tpd": 0.210289,
+      "E": 907.155,
+      "edp": 190.764717795,
+      "m1": 3,
+      "m2": 8,
+      "label": "nfet swap       lvt/hvt",
+      "win": true,
+      "why": "faster than buf_6 at <= its energy"
+    },
+    {
+      "tpd": 0.17471019999999998,
+      "E": 904.5683999999999,
+      "edp": 158.03732607767998,
+      "m1": 3,
+      "m2": 8,
+      "label": "both low-Vt     lvt/svt",
+      "win": true,
+      "why": "faster than buf_6 at <= its energy"
+    },
+    {
+      "tpd": 0.19281394999999998,
+      "E": 907.3494000000001,
+      "edp": 174.94962184413,
+      "m1": 3,
+      "m2": 8,
+      "label": "blend 50/50     mix",
+      "win": true,
+      "why": "faster than buf_6 at <= its energy"
+    },
+    {
+      "tpd": 0.180976,
+      "E": 946.7730000000001,
+      "edp": 171.34319044800003,
+      "m1": 4,
+      "m2": 11,
+      "label": "foundry recipe  svt/hvt",
+      "win": true,
+      "why": "faster than buf_8 at <= its energy"
+    },
+    {
+      "tpd": 0.15117575,
+      "E": 943.128,
+      "edp": 142.578082746,
+      "m1": 4,
+      "m2": 11,
+      "label": "pfet swap       svt/svt",
+      "win": true,
+      "why": "faster than buf_8 at <= its energy"
+    },
+    {
+      "tpd": 0.17224240000000002,
+      "E": 942.3521999999999,
+      "edp": 162.31300457328,
+      "m1": 4,
+      "m2": 11,
+      "label": "nfet swap       lvt/hvt",
+      "win": true,
+      "why": "faster than buf_8 at <= its energy"
+    },
+    {
+      "tpd": 0.1431171,
+      "E": 938.7431999999999,
+      "edp": 134.35020442872,
+      "m1": 4,
+      "m2": 11,
+      "label": "both low-Vt     lvt/svt",
+      "win": true,
+      "why": "faster than buf_8 at <= its energy"
+    },
+    {
+      "tpd": 0.158537,
+      "E": 942.3629999999999,
+      "edp": 149.399402931,
+      "m1": 4,
+      "m2": 11,
+      "label": "blend 50/50     mix",
+      "win": true,
+      "why": "faster than buf_8 at <= its energy"
+    },
+    {
+      "tpd": 0.1619582,
+      "E": 972.0684000000002,
+      "edp": 157.43444834088004,
+      "m1": 5,
+      "m2": 13,
+      "label": "foundry recipe  svt/hvt",
+      "win": true,
+      "why": "faster than buf_12 at <= its energy"
+    },
+    {
+      "tpd": 0.13532875,
+      "E": 967.5647999999999,
+      "edp": 130.939334928,
+      "m1": 5,
+      "m2": 13,
+      "label": "pfet swap       svt/svt",
+      "win": true,
+      "why": "faster than buf_12 at <= its energy"
+    },
+    {
+      "tpd": 0.1538727,
+      "E": 966.6126000000002,
+      "edp": 148.73529061602,
+      "m1": 5,
+      "m2": 13,
+      "label": "nfet swap       lvt/hvt",
+      "win": true,
+      "why": "faster than buf_12 at <= its energy"
+    },
+    {
+      "tpd": 0.127899,
+      "E": 962.3916,
+      "edp": 123.08892324840002,
+      "m1": 5,
+      "m2": 13,
+      "label": "both low-Vt     lvt/svt",
+      "win": true,
+      "why": "faster than buf_12 at <= its energy"
+    },
+    {
+      "tpd": 0.14480735,
+      "E": 967.4676,
+      "edp": 140.09641936685998,
+      "m1": 5,
+      "m2": 13,
+      "label": "blend 50/50     mix",
+      "win": true,
+      "why": "faster than buf_12 at <= its energy"
+    },
+    {
+      "tpd": 0.14572685,
+      "E": 1007.7984000000001,
+      "edp": 146.86328626704002,
+      "m1": 6,
+      "m2": 16,
+      "label": "foundry recipe  svt/hvt",
+      "win": false,
+      "why": "not below buf_16"
+    },
+    {
+      "tpd": 0.12179449999999999,
+      "E": 1002.2237999999999,
+      "edp": 122.06534660909998,
+      "m1": 6,
+      "m2": 16,
+      "label": "pfet swap       svt/svt",
+      "win": true,
+      "why": "faster than buf_12 at <= its energy"
+    },
+    {
+      "tpd": 0.13801725,
+      "E": 1001.1204000000001,
+      "edp": 138.17188452690002,
+      "m1": 6,
+      "m2": 16,
+      "label": "nfet swap       lvt/hvt",
+      "win": true,
+      "why": "faster than buf_12 at <= its energy"
+    },
+    {
+      "tpd": 0.1147525,
+      "E": 995.8968,
+      "edp": 114.28164754199999,
+      "m1": 6,
+      "m2": 16,
+      "label": "both low-Vt     lvt/svt",
+      "win": true,
+      "why": "faster than buf_12 at <= its energy"
+    },
+    {
+      "tpd": 0.12832245,
+      "E": 1001.6765999999999,
+      "edp": 128.53759541966997,
+      "m1": 6,
+      "m2": 16,
+      "label": "blend 50/50     mix",
+      "win": true,
+      "why": "faster than buf_12 at <= its energy"
+    },
+    {
+      "tpd": 0.13351175,
+      "E": 1053.3906,
+      "edp": 140.64002243955,
+      "m1": 7,
+      "m2": 20,
+      "label": "foundry recipe  svt/hvt",
+      "win": false,
+      "why": "outside band (too much energy)"
+    },
+    {
+      "tpd": 0.11161265000000001,
+      "E": 1046.6963999999998,
+      "edp": 116.82455894946,
+      "m1": 7,
+      "m2": 20,
+      "label": "pfet swap       svt/svt",
+      "win": false,
+      "why": "outside band (too much energy)"
+    },
+    {
+      "tpd": 0.12595145000000002,
+      "E": 1045.4435999999998,
+      "edp": 131.67513731321998,
+      "m1": 7,
+      "m2": 20,
+      "label": "nfet swap       lvt/hvt",
+      "win": false,
+      "why": "outside band (too much energy)"
+    },
+    {
+      "tpd": 0.10475185,
+      "E": 1038.8034,
+      "edp": 108.81657793628999,
+      "m1": 7,
+      "m2": 20,
+      "label": "both low-Vt     lvt/svt",
+      "win": false,
+      "why": "outside band (too much energy)"
+    },
+    {
+      "tpd": 0.1165616,
+      "E": 1045.8306,
+      "edp": 121.90368806496,
+      "m1": 7,
+      "m2": 20,
+      "label": "blend 50/50     mix",
+      "win": false,
+      "why": "outside band (too much energy)"
+    }
+  ]
+}
