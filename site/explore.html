@@ -60,7 +60,7 @@
     <small>sky130 largest buffer, 250 fF load. Same transistors, better arrangement</small>
   </div>
 </div>
-<div class="badge">provenance anchored on Arbitrum Stylus</div>
+<div class="badge">provenance ready for Arbitrum Stylus (not yet on-chain)</div>
 <a class="home" href="./">back to overview</a>
 <div id="legend">
   foundry part<span class="dot" style="background:#e6edf3"></span><br>
@@ -212,7 +212,7 @@ function show(i){
   else if(d.gain>0){v.className="win";v.textContent="beats buf_16 by "+d.gain.toFixed(1)+"% EDP";}
   else{v.className="lose";v.textContent=d.gain.toFixed(1)+"% EDP: the part wins";}
   if(d.best){an.style.display="block";
-    an.innerHTML='<b>anchored on Arbitrum Stylus</b><br>record(hash, '+d.label+', '+d.context+')<br>'+d.anchor.slice(0,26)+"...";}
+    an.innerHTML='<b>Stylus record prepared</b> (not yet submitted)<br>record(hash, '+d.label+', '+d.context+')<br>'+d.anchor.slice(0,26)+"...";}
   else an.style.display="none";
 }
 show(0);

@@ -95,8 +95,10 @@
     <h1>Beat a foundry cell. Prove it in public. Settle it on Stylus</h1>
     <p class="lede">An agent designs a custom standard cell to beat a sky130
       foundry part on energy and speed. GitHub Actions re-measures every claim
-      from scratch on the open PDK, and the verified win is anchored on Arbitrum
-      Stylus, so the proof is public and the design stays private</p>
+      from scratch on the open PDK. Each verified win is committed as a hash and
+      prepared for an Arbitrum Stylus contract, so the proof can be public while
+      the design stays private. Measurement and CI are live today; the on-chain
+      settlement is designed and prepared, not yet submitted</p>
     <div class="cta">
       <a class="btn primary" href="./explore.html">Watch the agent design in 3D</a>
       <a class="btn stylus" href="#stylus">Settlement on Stylus</a>
@@ -141,9 +143,10 @@
       </div>
       <div class="card anchor">
         <div class="k">anchor</div>
-        <h3>Stylus settles it</h3>
-        <p>Each verified, unique win is hashed and recorded by an Arbitrum Stylus
-          contract. The hash commits the design, the netlist stays private</p>
+        <h3>Stylus records it</h3>
+        <p>Each verified, unique win is hashed for an Arbitrum Stylus contract to
+          record. The hash commits the design, the netlist stays private. Contract
+          written and checked; not deployed yet</p>
       </div>
     </div>
   </div>
@@ -209,15 +212,16 @@
       the same oracle scores every proposal, so a model's standing is a
       reproducible fact. Best EDP gain from each proposer, over one shared load</p>
     <div class="race">
-      <div class="row"><div class="lbl">proposer A</div>
+      <div class="row"><div class="lbl">example set A</div>
         <div class="bar"><div class="fill" style="width:100%"></div></div>
         <div class="g">+14.8%</div></div>
-      <div class="row"><div class="lbl">proposer B</div>
+      <div class="row"><div class="lbl">example set B</div>
         <div class="bar"><div class="fill" style="width:42%"></div></div>
         <div class="g">+6.2%</div></div>
     </div>
-    <p class="caption">Illustrative, from two example proposal sets scored by the
-      real ngspice oracle. Live model runs replace it:
+    <p class="caption">Placeholder, not a live model comparison. No LLM has been
+      run yet: these two bars are hand-picked example design sets, and only their
+      EDP gains are real ngspice measurements. A real race needs
       <code>./run.sh generate --backend llm</code> per model, then
       <code>./run.sh compare</code></p>
   </div>
@@ -227,8 +231,8 @@
   <div class="wrap">
     <h2>Settlement on Arbitrum Stylus</h2>
     <p class="body">The point of a win is not a screenshot, it is a durable,
-      verifiable record. Each verified improvement is committed as a hash and
-      recorded by a Stylus contract on Arbitrum. Anyone holding the netlist can
+      verifiable record. Each verified improvement is committed as a hash for a
+      Stylus contract on Arbitrum to record. Anyone holding the netlist can
       recompute the hash and check it; no one else can read the design</p>
     <div class="stylusbox">
       <pre>record(bytes32 artifact_hash, uint16 label, uint16 context)
@@ -237,8 +241,10 @@ record(0xbbe5a7f1...f8f7c, 1482, 16)
 //         hash of the design bundle   basis points   drive strength</pre>
       <p class="caption" style="margin-top:14px">label is basis points of EDP
         improvement, context is the part's drive strength. The hash is the
-        on-chain artifact; the netlist never has to be published. Written in Rust
-        and compiled to WASM with Arbitrum Stylus</p>
+        artifact; the netlist never has to be published. The contract is written
+        in Rust for Arbitrum Stylus and passes cargo stylus check. Status: not
+        deployed. anchor.py prepares this record() call, it does not submit it
+        (that needs a funded key)</p>
     </div>
   </div>
 </section>
