@@ -1,0 +1,25 @@
+{
+  "cell": "sky130_fd_sc_hd__fa_1",
+  "topology": "28T mirror adder (14 nfet + 14 pfet)",
+  "swap": "nfet_01v8->_lvt, pfet_01v8_hvt->pfet_01v8 (svt); identical topology",
+  "path": "carry Cin->Cout, A=1 B=0",
+  "load": "4f",
+  "foundry": {
+    "delay_ps": 167.0,
+    "energy_fJ": 60.0,
+    "edp": 10016.0,
+    "leak_pA": 8.41
+  },
+  "swap_perf": {
+    "delay_ps": 122.2,
+    "energy_fJ": 58.4,
+    "edp": 7130.0,
+    "leak_pA": 348.29
+  },
+  "delta": {
+    "delay_pct": -26.8,
+    "energy_pct": -2.7,
+    "edp_pct": -28.8,
+    "leak_x": 41.4
+  }
+}

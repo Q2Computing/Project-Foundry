@@ -328,6 +328,39 @@
 
 <section>
   <div class="wrap">
+    <h2>One rung up: the full adder</h2>
+    <p class="body">The swap is not a cell trick, it climbs. Applied to the foundry's
+      own 1-bit full adder, the atom of arithmetic that every ALU and multiplier is
+      built from, the same-area dopant swap keeps the identical 28-transistor
+      mirror-adder topology, so the truth table is unchanged by construction. On the
+      carry path it is faster and slightly leaner, at the same leakage tradeoff. We
+      stop here, at the last rung where the improvement is still provable against the
+      foundry part</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>fa_1 carry path Cin to Cout</th><th>tpd (ps)</th>
+          <th>dyn E (fJ)</th><th>leak (pA)</th><th>EDP</th><th>vs foundry</th></tr></thead>
+        <tbody>
+          <tr class="part"><td>foundry fa_1, svt / hvt</td><td>167</td><td>60.0</td>
+            <td>8.4</td><td>10016</td><td>baseline</td></tr>
+          <tr><td>same topology, low-Vt swap</td>
+            <td>122<span class="delta better">&#8595;27%</span></td>
+            <td>58.4<span class="delta better">&#8595;3%</span></td>
+            <td>348<span class="delta worse">&#8593;41x</span></td>
+            <td>7130<span class="delta better">&#8595;29%</span></td>
+            <td class="better">+29% EDP</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="caption">Identical 28T topology, only the Vt masks change, so functional
+      equivalence is exact by construction. Reproducible with analysis/fulladder.py.
+      Carry path at a 4 fF load; the leakage cost is the same hot-path tradeoff as the
+      cell</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
     <h2>Model race</h2>
     <p class="body">Generation is pluggable. Point it at different LLM models and
       the same oracle scores every proposal, so a model's standing is a
