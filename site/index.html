@@ -9,7 +9,7 @@
   :root{
     --bg:#0d1117; --panel:#161b22; --line:#30363d; --ink:#e6edf3;
     --dim:#8b949e; --green:#3fb950; --red:#f85149; --blue:#58a6ff;
-    --amber:#e3b341; --violet:#a371f7;
+    --amber:#e3b341; --violet:#a371f7; --elyellow:#f5f21f; --seablue:#23a3c2;
     --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
     --sans:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
   }
@@ -25,6 +25,8 @@
   h1{font-size:clamp(30px,5vw,46px);line-height:1.1;margin:14px 0 10px;
     letter-spacing:-.02em;text-wrap:balance}
   .lede{font-size:18px;color:var(--dim);max-width:62ch;margin:0}
+  .tagline{font-size:16px;color:var(--ink);font-weight:600;max-width:60ch;
+    margin:0 0 14px;letter-spacing:.01em}
   .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
   .btn{display:inline-block;padding:9px 16px;border-radius:8px;
     border:1px solid var(--line);font-size:14px;font-weight:600;color:var(--ink)}
@@ -44,7 +46,8 @@
     padding:18px}
   .card .k{font-family:var(--mono);font-size:12px;color:var(--green);
     letter-spacing:.1em;text-transform:uppercase}
-  .card.anchor .k{color:var(--violet)}
+  .card.gen .k{color:var(--elyellow)}
+  .card.anchor .k{color:var(--seablue)}
   .card h3{margin:8px 0 6px;font-size:17px}
   .card p{margin:0;color:var(--dim);font-size:14px}
   table{width:100%;border-collapse:collapse;font-size:14px;
@@ -62,6 +65,14 @@
   .plot{background:var(--panel);border:1px solid var(--line);border-radius:12px;
     padding:12px}
   .plot svg{width:100%;height:auto;display:block;border-radius:8px}
+  .seg-toggle{display:inline-flex;border:1px solid var(--line);border-radius:9px;
+    overflow:hidden;margin-top:4px}
+  .seg{background:var(--panel);color:var(--dim);border:0;padding:8px 20px;
+    font-size:13px;font-weight:600;font-family:var(--mono);cursor:pointer;
+    letter-spacing:.05em;text-transform:uppercase}
+  .seg+.seg{border-left:1px solid var(--line)}
+  .seg-perf.on{background:var(--violet);color:#160b2e}
+  .seg-energy.on{background:var(--amber);color:#2a1e05}
   .legend{display:flex;gap:20px;flex-wrap:wrap;color:var(--dim);font-size:13px;
     margin-top:12px}
   .dot{display:inline-block;width:10px;height:10px;border-radius:50%;
@@ -94,18 +105,20 @@
 <header>
   <div class="wrap">
     <div class="eyebrow">Q2 Computing / Project Foundry / Arbitrum Stylus</div>
-    <h1>Beat a foundry cell. Prove it in public. Settle it on Stylus</h1>
-    <p class="lede">Standard-cell design is a private consultancy. The knowledge of
-      how to trade threshold voltage, gate area, and leakage for speed sits inside a
-      few foundries and costly tool vendors. Project Foundry turns it into a public
-      commodity: on the open sky130 PDK an agent finds a fabricable improvement the
-      foundry left on the table, an independent oracle re-measures the claim from
-      scratch, and the verified win is anchored on Arbitrum Stylus. The method stays
-      open and contributable while each improvement still earns, so anyone can run
-      the oracle, check the result, and compete. The same discipline carries to the
-      open 3nm process, where the wins are worth real money, opening a class of
-      American, foundry-grade design assets that institutional and retail capital can
-      underwrite</p>
+    <h1>Prove your silicon in public. Keep the IP private</h1>
+    <p class="tagline">From foundry cell and RTL to GDSII signoff, proven on-chain and
+      owned off it</p>
+    <p class="lede">Q2 Computing lets a fabless team prove its worth in public without
+      giving the work away. Take a design from a foundry standard cell and RTL through
+      to GDSII signoff; an independent oracle re-measures every claim from scratch on
+      an open PDK, and the verified result is settled on Arbitrum Stylus. The proof is
+      public and anyone can recompute it, while the netlist, the layout, and the
+      innovation stay private. That split turns a private consultancy into a public
+      commodity: the method and the scoreboard are open, so more people can learn and
+      compete, while each proven improvement still earns. The same discipline carries
+      from the open sky130 node to the open 3nm process, where the wins are worth real
+      money, opening a class of American, foundry-grade design assets that
+      institutional and retail capital can underwrite</p>
     <p class="caption">Measurement and CI run today. The Stylus settlement is
       written and prepared, not yet deployed</p>
     <div class="cta">
@@ -139,21 +152,21 @@
   <div class="wrap">
     <h2>The loop</h2>
     <div class="loop">
-      <div class="card">
-        <div class="k">generate</div>
+      <div class="card gen">
+        <div class="k">&#9889; generate</div>
         <h3>An agent proposes</h3>
         <p>A deterministic grid or Gemini proposes fabricable cells: gate areas and
           threshold-voltage mask mixes, kept inside the foundry energy band. Cheap
           to enumerate</p>
       </div>
       <div class="card">
-        <div class="k">assess</div>
+        <div class="k">&#128202; assess</div>
         <h3>The oracle judges</h3>
         <p>GitHub Actions re-measures the baseline and every candidate in one
           ngspice bench on the open sky130 PDK, then decides who wins</p>
       </div>
       <div class="card anchor">
-        <div class="k">anchor</div>
+        <div class="k">&#9875; anchor</div>
         <h3>Stylus records it</h3>
         <p>Each verified, unique win is hashed for an Arbitrum Stylus contract to
           record. The hash commits the design, the netlist stays private. Contract
@@ -165,121 +178,148 @@
 
 <section>
   <div class="wrap">
-    <h2>The move inside the energy band</h2>
-    <p class="body">The whole sky130 high-density buffer ladder is one recipe:
-      standard-Vt nfet and high-Vt pfet, in every cell (confirmed from the PDK
-      netlist), tuned for low leakage. That leaves rise-edge speed on the table at
-      every drive strength. A real 32 or 64-bit datapath lives inside the ladder's
-      energy-per-cycle band, it does not pay for over-driven cells outside it. So the
-      honest question is whether, inside that band and at the same finger count, a
-      fabricable combination of the PDK's own threshold-voltage masks can beat the
-      ladder. It can. Swapping the high-Vt pfet for the standard one, and optionally
-      the nfet to low-Vt (real masks, mixable finger by finger, no new implant),
-      moves the same cell left: 22% lower EDP than buf_16 at the same size and
-      slightly less dynamic energy. The cost is leakage, which is exactly what the
-      foundry bought with high-Vt, so this is a hot-path move: worth it where the
-      cell switches enough to amortize it, wrong where it idles. Choosing it per
-      context is the differentiation, and one fixed library cannot make that
-      choice</p>
-    <div class="tbl-wrap">
-      <table>
-        <thead><tr><th>[6,16] cell, same size as buf_16</th><th>tpd (ns)</th>
-          <th>dyn E (fJ)</th><th>leak (nA)</th><th>EDP</th><th>vs buf_16</th></tr></thead>
-        <tbody>
-          <tr class="part"><td>buf_16, foundry svt / hvt</td><td>0.146</td>
-            <td>1008</td><td>0.02</td><td>146.9</td><td>baseline</td></tr>
-          <tr><td>pfet swap, svt / <b>svt</b></td>
-            <td>0.122<span class="delta better">&#8595;16%</span></td>
-            <td>1002<span class="delta better">&#8595;1%</span></td>
-            <td>3.51<span class="delta worse">&#8593;161x</span></td>
-            <td>122.1<span class="delta better">&#8595;17%</span></td>
-            <td class="better">+17% EDP</td></tr>
-          <tr><td>blend 50/50, mask mix</td>
-            <td>0.128<span class="delta better">&#8595;12%</span></td>
-            <td>1002<span class="delta better">&#8595;1%</span></td>
-            <td>1.79<span class="delta worse">&#8593;82x</span></td>
-            <td>128.5<span class="delta better">&#8595;12%</span></td>
-            <td class="better">+12% EDP</td></tr>
-          <tr><td>both low-Vt, <b>lvt</b> / <b>svt</b></td>
-            <td>0.115<span class="delta better">&#8595;21%</span></td>
-            <td>996<span class="delta better">&#8595;1%</span></td>
-            <td>3.55<span class="delta worse">&#8593;163x</span></td>
-            <td>114.3<span class="delta better">&#8595;22%</span></td>
-            <td class="better">+22% EDP</td></tr>
-        </tbody>
-      </table>
+    <h2>Two objectives, one design space</h2>
+    <p class="body">Every point on both views is the same set of measured cells at
+      250 fF, read two ways. <b>Performance</b> asks who is fastest inside the
+      foundry's own energy budget; a same-area dopant swap wins by up to 22% EDP.
+      <b>Energy</b> asks who spends least over a real duty cycle; for anything that
+      idles, which is most of what 130 nm serves, the foundry's low-leakage default
+      wins by up to 160x. Neither answer is universal, so the agent optimizes for
+      whichever the workload needs, a choice one fixed library cannot make. Toggle
+      the view</p>
+    <div class="seg-toggle" role="tablist">
+      <button id="segPerf" class="seg seg-perf on" onclick="setView('perf')">Performance</button>
+      <button id="segEnergy" class="seg seg-energy" onclick="setView('energy')">Energy</button>
     </div>
-    <div class="plot" style="margin-top:20px">
-      <svg viewBox="0 0 680 460" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,system-ui" font-size="12" role="img" aria-label="At a 250 fF load: the foundry buffer ladder and the same cells with their dopant masks swapped, both inside the foundry energy envelope, plus the rejected over-driven region above it">
-      <rect width="680" height="460" fill="#0d1117"/>
-      <rect x="64" y="170.1" width="592.0" height="207.4" fill="#3fb950" fill-opacity="0.06"/>
-      <line x1="64" y1="170.1" x2="656" y2="170.1" stroke="#3fb950" stroke-opacity="0.35" stroke-dasharray="4 3"/>
-      <text x="652" y="164.1" fill="#3fb950" fill-opacity="0.8" font-size="10" text-anchor="end">foundry energy envelope (buf_1..16, 820 to 1008 fJ)</text>
-      <line x1="85.2" y1="46" x2="85.2" y2="400" stroke="#233040"/>
-      <text x="85.2" y="418" fill="#8b949e" text-anchor="middle" font-size="11">0.1</text>
-      <line x1="224.9" y1="46" x2="224.9" y2="400" stroke="#233040"/>
-      <text x="224.9" y="418" fill="#8b949e" text-anchor="middle" font-size="11">0.2</text>
-      <line x1="409.5" y1="46" x2="409.5" y2="400" stroke="#233040"/>
-      <text x="409.5" y="418" fill="#8b949e" text-anchor="middle" font-size="11">0.5</text>
-      <line x1="549.1" y1="46" x2="549.1" y2="400" stroke="#233040"/>
-      <text x="549.1" y="418" fill="#8b949e" text-anchor="middle" font-size="11">1</text>
-      <line x1="64" y1="400.0" x2="656" y2="400.0" stroke="#233040"/>
-      <text x="55" y="404.0" fill="#8b949e" text-anchor="end" font-size="11">800</text>
-      <line x1="64" y1="289.4" x2="656" y2="289.4" stroke="#233040"/>
-      <text x="55" y="293.4" fill="#8b949e" text-anchor="end" font-size="11">900</text>
-      <line x1="64" y1="178.8" x2="656" y2="178.8" stroke="#233040"/>
-      <text x="55" y="182.8" fill="#8b949e" text-anchor="end" font-size="11">1000</text>
-      <line x1="64" y1="68.1" x2="656" y2="68.1" stroke="#233040"/>
-      <text x="55" y="72.1" fill="#8b949e" text-anchor="end" font-size="11">1100</text>
-      <line x1="64" y1="400" x2="656" y2="400" stroke="#30363d"/>
-      <line x1="64" y1="46" x2="64" y2="400" stroke="#30363d"/>
-      <text x="360" y="450" fill="#8b949e" text-anchor="middle" font-size="12">delay t_pd (ns), log scale &#8594; faster is left</text>
-      <text x="18" y="223" fill="#8b949e" text-anchor="middle" font-size="12" transform="rotate(-90 18 223)">energy (fJ / cycle) &#8594;</text>
-      <text x="64" y="27" fill="#c9d1d9" font-size="14" font-weight="600">Same finger count, swapped dopant masks: faster inside the same energy band</text>
-      <polyline points="161.1,170.1 199.0,225.6 244.1,277.8 288.7,306.2 358.8,334.8 468.6,361.2 636.4,377.6" fill="none" stroke="#e6edf3" stroke-opacity="0.4" stroke-width="1.4"/>
-      <circle cx="161.1" cy="170.1" r="5" fill="#e6edf3"/>
-      <text x="161.1" y="186.1" fill="#e6edf3" font-size="10" text-anchor="middle">buf_16</text>
-      <circle cx="199.0" cy="225.6" r="5" fill="#e6edf3"/>
-      <text x="199.0" y="241.6" fill="#e6edf3" font-size="10" text-anchor="middle">buf_12</text>
-      <circle cx="244.1" cy="277.8" r="5" fill="#e6edf3"/>
-      <text x="244.1" y="293.8" fill="#e6edf3" font-size="10" text-anchor="middle">buf_8</text>
-      <circle cx="288.7" cy="306.2" r="5" fill="#e6edf3"/>
-      <text x="288.7" y="322.2" fill="#e6edf3" font-size="10" text-anchor="middle">buf_6</text>
-      <circle cx="358.8" cy="334.8" r="5" fill="#e6edf3"/>
-      <text x="358.8" y="350.8" fill="#e6edf3" font-size="10" text-anchor="middle">buf_4</text>
-      <circle cx="468.6" cy="361.2" r="5" fill="#e6edf3"/>
-      <text x="468.6" y="377.2" fill="#e6edf3" font-size="10" text-anchor="middle">buf_2</text>
-      <circle cx="636.4" cy="377.6" r="5" fill="#e6edf3"/>
-      <text x="636.4" y="393.6" fill="#e6edf3" font-size="10" text-anchor="middle">buf_1</text>
-      <polyline points="242.6,310.9 197.6,284.3 157.4,246.5 134.8,220.4 112.9,183.3" fill="none" stroke="#3fb950" stroke-width="1.6"/>
-      <circle cx="242.6" cy="310.9" r="5" fill="#3fb950"/>
-      <circle cx="197.6" cy="284.3" r="5" fill="#3fb950"/>
-      <circle cx="157.4" cy="246.5" r="5" fill="#3fb950"/>
-      <circle cx="134.8" cy="220.4" r="5" fill="#3fb950"/>
-      <circle cx="112.9" cy="183.3" r="5" fill="#3fb950"/>
-      <line x1="155.1" y1="170.1" x2="120.9" y2="183.3" stroke="#3fb950" stroke-width="1.4"/>
-      <polygon points="114.9,183.3 124.9,179.3 124.9,187.3" fill="#3fb950"/>
-      <line x1="112.9" y1="186.3" x2="366" y2="244" stroke="#3fb950" stroke-opacity="0.5"/>
-      <text x="372" y="244" fill="#3fb950" font-size="11" text-anchor="start">[6,16] masks swapped to low-Vt:</text>
-      <text x="372" y="258" fill="#3fb950" font-size="11" text-anchor="start">same area as buf_16, EDP 114 vs 147</text>
-      <circle cx="94.6" cy="135.8" r="5" fill="#6e7681"/>
-      <text x="103.6" y="139.8" fill="#6e7681" font-size="11" text-anchor="start">[7,20] over-driven: outside the band</text>
-      <rect x="372" y="58" width="284" height="82" rx="7" fill="#161b22" stroke="#30363d"/>
-      <circle cx="390" cy="76" r="5" fill="#e6edf3"/>
-      <text x="406" y="80" fill="#c9d1d9" font-size="11">foundry ladder  buf_1..16  (svt nfet + hvt pfet)</text>
-      <circle cx="390" cy="100" r="5" fill="#3fb950"/>
-      <text x="406" y="104" fill="#c9d1d9" font-size="11">same cell, masks swapped to low-Vt (fabricable)</text>
-      <circle cx="390" cy="124" r="5" fill="#6e7681"/>
-      <text x="406" y="128" fill="#c9d1d9" font-size="11">over-driven cell (more fingers): outside the band</text>
-      </svg>
-      <p class="caption">Energy is dynamic energy per cycle at 250 fF, where a
-        switching cell spends about 1000 fJ; leakage is static supply current, and
-        3.5 nA is negligible against that until the cell sits idle. Every point is
-        measured on one ngspice bench, reproducible with analysis/linearcomb.py and
-        leak_inband.py. The foundry masks are confirmed from the PDK netlist: every
-        buffer is nfet_01v8 + pfet_01v8_hvt</p>
+    <div class="plot" style="margin-top:16px">
+      <div id="viewPerf">
+        <svg viewBox="0 0 680 460" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,system-ui" font-size="12" role="img" aria-label="At a 250 fF load: the foundry buffer ladder and the same cells with their dopant masks swapped, both inside the foundry energy envelope, plus the rejected over-driven region above it">
+        <rect width="680" height="460" fill="#0d1117"/>
+        <rect x="64" y="170.1" width="592.0" height="207.4" fill="#a371f7" fill-opacity="0.06"/>
+        <line x1="64" y1="170.1" x2="656" y2="170.1" stroke="#a371f7" stroke-opacity="0.35" stroke-dasharray="4 3"/>
+        <text x="652" y="164.1" fill="#a371f7" fill-opacity="0.8" font-size="10" text-anchor="end">foundry energy envelope (buf_1..16, 820 to 1008 fJ)</text>
+        <line x1="85.2" y1="46" x2="85.2" y2="400" stroke="#233040"/>
+        <text x="85.2" y="418" fill="#8b949e" text-anchor="middle" font-size="11">0.1</text>
+        <line x1="224.9" y1="46" x2="224.9" y2="400" stroke="#233040"/>
+        <text x="224.9" y="418" fill="#8b949e" text-anchor="middle" font-size="11">0.2</text>
+        <line x1="409.5" y1="46" x2="409.5" y2="400" stroke="#233040"/>
+        <text x="409.5" y="418" fill="#8b949e" text-anchor="middle" font-size="11">0.5</text>
+        <line x1="549.1" y1="46" x2="549.1" y2="400" stroke="#233040"/>
+        <text x="549.1" y="418" fill="#8b949e" text-anchor="middle" font-size="11">1</text>
+        <line x1="64" y1="400.0" x2="656" y2="400.0" stroke="#233040"/>
+        <text x="55" y="404.0" fill="#8b949e" text-anchor="end" font-size="11">800</text>
+        <line x1="64" y1="289.4" x2="656" y2="289.4" stroke="#233040"/>
+        <text x="55" y="293.4" fill="#8b949e" text-anchor="end" font-size="11">900</text>
+        <line x1="64" y1="178.8" x2="656" y2="178.8" stroke="#233040"/>
+        <text x="55" y="182.8" fill="#8b949e" text-anchor="end" font-size="11">1000</text>
+        <line x1="64" y1="68.1" x2="656" y2="68.1" stroke="#233040"/>
+        <text x="55" y="72.1" fill="#8b949e" text-anchor="end" font-size="11">1100</text>
+        <line x1="64" y1="400" x2="656" y2="400" stroke="#30363d"/>
+        <line x1="64" y1="46" x2="64" y2="400" stroke="#30363d"/>
+        <text x="360" y="450" fill="#8b949e" text-anchor="middle" font-size="12">delay t_pd (ns), log scale &#8594; faster is left</text>
+        <text x="18" y="223" fill="#8b949e" text-anchor="middle" font-size="12" transform="rotate(-90 18 223)">energy (fJ / cycle) &#8594;</text>
+        <text x="64" y="27" fill="#c9d1d9" font-size="14" font-weight="600">Same finger count, swapped dopant masks: faster inside the same energy band</text>
+        <polyline points="161.1,170.1 199.0,225.6 244.1,277.8 288.7,306.2 358.8,334.8 468.6,361.2 636.4,377.6" fill="none" stroke="#e6edf3" stroke-opacity="0.4" stroke-width="1.4"/>
+        <circle cx="161.1" cy="170.1" r="5" fill="#e6edf3"/>
+        <text x="161.1" y="186.1" fill="#e6edf3" font-size="10" text-anchor="middle">buf_16</text>
+        <circle cx="199.0" cy="225.6" r="5" fill="#e6edf3"/>
+        <text x="199.0" y="241.6" fill="#e6edf3" font-size="10" text-anchor="middle">buf_12</text>
+        <circle cx="244.1" cy="277.8" r="5" fill="#e6edf3"/>
+        <text x="244.1" y="293.8" fill="#e6edf3" font-size="10" text-anchor="middle">buf_8</text>
+        <circle cx="288.7" cy="306.2" r="5" fill="#e6edf3"/>
+        <text x="288.7" y="322.2" fill="#e6edf3" font-size="10" text-anchor="middle">buf_6</text>
+        <circle cx="358.8" cy="334.8" r="5" fill="#e6edf3"/>
+        <text x="358.8" y="350.8" fill="#e6edf3" font-size="10" text-anchor="middle">buf_4</text>
+        <circle cx="468.6" cy="361.2" r="5" fill="#e6edf3"/>
+        <text x="468.6" y="377.2" fill="#e6edf3" font-size="10" text-anchor="middle">buf_2</text>
+        <circle cx="636.4" cy="377.6" r="5" fill="#e6edf3"/>
+        <text x="636.4" y="393.6" fill="#e6edf3" font-size="10" text-anchor="middle">buf_1</text>
+        <polyline points="242.6,310.9 197.6,284.3 157.4,246.5 134.8,220.4 112.9,183.3" fill="none" stroke="#a371f7" stroke-width="1.6"/>
+        <circle cx="242.6" cy="310.9" r="5" fill="#a371f7"/>
+        <circle cx="197.6" cy="284.3" r="5" fill="#a371f7"/>
+        <circle cx="157.4" cy="246.5" r="5" fill="#a371f7"/>
+        <circle cx="134.8" cy="220.4" r="5" fill="#a371f7"/>
+        <circle cx="112.9" cy="183.3" r="5" fill="#a371f7"/>
+        <line x1="155.1" y1="170.1" x2="120.9" y2="183.3" stroke="#a371f7" stroke-width="1.4"/>
+        <polygon points="114.9,183.3 124.9,179.3 124.9,187.3" fill="#a371f7"/>
+        <line x1="112.9" y1="186.3" x2="366" y2="244" stroke="#a371f7" stroke-opacity="0.5"/>
+        <text x="372" y="244" fill="#a371f7" font-size="11" text-anchor="start">[6,16] masks swapped to low-Vt:</text>
+        <text x="372" y="258" fill="#a371f7" font-size="11" text-anchor="start">same area as buf_16, EDP 114 vs 147</text>
+        <circle cx="94.6" cy="135.8" r="5" fill="#6e7681"/>
+        <text x="103.6" y="139.8" fill="#6e7681" font-size="11" text-anchor="start">[7,20] over-driven: outside the band</text>
+        <rect x="372" y="58" width="284" height="82" rx="7" fill="#161b22" stroke="#30363d"/>
+        <circle cx="390" cy="76" r="5" fill="#e6edf3"/>
+        <text x="406" y="80" fill="#c9d1d9" font-size="11">foundry ladder  buf_1..16  (svt nfet + hvt pfet)</text>
+        <circle cx="390" cy="100" r="5" fill="#a371f7"/>
+        <text x="406" y="104" fill="#c9d1d9" font-size="11">same cell, masks swapped to low-Vt (fabricable)</text>
+        <circle cx="390" cy="124" r="5" fill="#6e7681"/>
+        <text x="406" y="128" fill="#c9d1d9" font-size="11">over-driven cell (more fingers): outside the band</text>
+        </svg>
+      </div>
+      <div id="viewEnergy" hidden>
+        <svg viewBox="0 0 680 470" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif,system-ui" font-size="12" role="img" aria-label="Total energy per operation versus idle time between operations: the low-leakage foundry cell and the fast low-Vt swap cross over, so which device wins depends on the duty cycle">
+        <rect width="680" height="470" fill="#0d1117"/>
+        <rect x="66" y="46" width="214.8" height="362" fill="#e3b341" fill-opacity="0.05"/>
+        <rect x="280.8" y="46" width="375.2" height="362" fill="#e6edf3" fill-opacity="0.03"/>
+        <line x1="280.8" y1="46" x2="280.8" y2="408" stroke="#8b949e" stroke-dasharray="3 3"/>
+        <text x="274.8" y="60" fill="#e3b341" font-size="10" text-anchor="end">swap wins (hot)</text>
+        <text x="286.8" y="60" fill="#8b949e" font-size="10" text-anchor="start">foundry wins (idle)</text>
+        <text x="280.8" y="402" fill="#8b949e" font-size="10" text-anchor="middle">crossover ~1.9 us</text>
+        <line x1="66.0" y1="46" x2="66.0" y2="408" stroke="#233040"/>
+        <text x="66.0" y="426" fill="#8b949e" text-anchor="middle" font-size="11">1 ns</text>
+        <line x1="262.7" y1="46" x2="262.7" y2="408" stroke="#233040"/>
+        <text x="262.7" y="426" fill="#8b949e" text-anchor="middle" font-size="11">1 us</text>
+        <line x1="459.3" y1="46" x2="459.3" y2="408" stroke="#233040"/>
+        <text x="459.3" y="426" fill="#8b949e" text-anchor="middle" font-size="11">1 ms</text>
+        <line x1="656.0" y1="46" x2="656.0" y2="408" stroke="#233040"/>
+        <text x="656.0" y="426" fill="#8b949e" text-anchor="middle" font-size="11">1 s</text>
+        <line x1="66" y1="403.9" x2="656" y2="403.9" stroke="#233040"/>
+        <text x="57" y="407.9" fill="#8b949e" text-anchor="end" font-size="11">1e3</text>
+        <line x1="66" y1="314.4" x2="656" y2="314.4" stroke="#233040"/>
+        <text x="57" y="318.4" fill="#8b949e" text-anchor="end" font-size="11">1e4</text>
+        <line x1="66" y1="225.0" x2="656" y2="225.0" stroke="#233040"/>
+        <text x="57" y="229.0" fill="#8b949e" text-anchor="end" font-size="11">1e5</text>
+        <line x1="66" y1="135.5" x2="656" y2="135.5" stroke="#233040"/>
+        <text x="57" y="139.5" fill="#8b949e" text-anchor="end" font-size="11">1e6  (1 nJ)</text>
+        <line x1="66" y1="46.0" x2="656" y2="46.0" stroke="#233040"/>
+        <text x="57" y="50.0" fill="#8b949e" text-anchor="end" font-size="11">1e7</text>
+        <line x1="66" y1="408" x2="656" y2="408" stroke="#30363d"/>
+        <line x1="66" y1="46" x2="66" y2="408" stroke="#30363d"/>
+        <text x="361" y="458" fill="#8b949e" text-anchor="middle" font-size="12">idle time between switches (s), log scale &#8594; more idle</text>
+        <text x="18" y="227" fill="#8b949e" text-anchor="middle" font-size="12" transform="rotate(-90 18 227)">total energy per operation (fJ), log &#8594;</text>
+        <text x="66" y="27" fill="#c9d1d9" font-size="14" font-weight="600">Which device wins is set by the duty cycle, not by the cell</text>
+        <polyline points="66.0,403.6 73.5,403.6 80.9,403.6 88.4,403.6 95.9,403.6 103.3,403.6 110.8,403.6 118.3,403.6 125.7,403.6 133.2,403.6 140.7,403.6 148.2,403.6 155.6,403.6 163.1,403.6 170.6,403.6 178.0,403.6 185.5,403.6 193.0,403.6 200.4,403.6 207.9,403.6 215.4,403.6 222.8,403.6 230.3,403.6 237.8,403.6 245.2,403.6 252.7,403.6 260.2,403.6 267.6,403.6 275.1,403.6 282.6,403.6 290.1,403.6 297.5,403.6 305.0,403.6 312.5,403.6 319.9,403.6 327.4,403.6 334.9,403.6 342.3,403.6 349.8,403.6 357.3,403.6 364.7,403.5 372.2,403.5 379.7,403.5 387.1,403.5 394.6,403.4 402.1,403.4 409.5,403.3 417.0,403.3 424.5,403.2 431.9,403.0 439.4,402.9 446.9,402.6 454.4,402.4 461.8,402.0 469.3,401.5 476.8,400.9 484.2,400.1 491.7,399.2 499.2,397.9 506.6,396.4 514.1,394.5 521.6,392.1 529.0,389.2 536.5,385.8 544.0,381.7 551.4,377.0 558.9,371.6 566.4,365.5 573.8,358.8 581.3,351.6 588.8,343.8 596.3,335.6 603.7,327.0 611.2,318.1 618.7,308.9 626.1,299.5 633.6,289.9 641.1,280.2 648.5,270.4 656.0,260.5" fill="none" stroke="#e6edf3" stroke-width="2"/>
+        <polyline points="66.0,403.8 73.5,403.8 80.9,403.8 88.4,403.8 95.9,403.8 103.3,403.8 110.8,403.8 118.3,403.8 125.7,403.8 133.2,403.8 140.7,403.8 148.2,403.8 155.6,403.8 163.1,403.8 170.6,403.8 178.0,403.8 185.5,403.8 193.0,403.8 200.4,403.8 207.9,403.8 215.4,403.8 222.8,403.8 230.3,403.8 237.8,403.8 245.2,403.8 252.7,403.7 260.2,403.7 267.6,403.7 275.1,403.6 282.6,403.6 290.1,403.5 297.5,403.4 305.0,403.3 312.5,403.1 319.9,402.9 327.4,402.6 334.9,402.3 342.3,401.8 349.8,401.2 357.3,400.5 364.7,399.6 372.2,398.4 379.7,396.9 387.1,395.0 394.6,392.7 402.1,389.9 409.5,386.6 417.0,382.6 424.5,378.0 431.9,372.7 439.4,366.7 446.9,360.2 454.4,353.0 461.8,345.3 469.3,337.1 476.8,328.6 484.2,319.7 491.7,310.6 499.2,301.2 506.6,291.7 514.1,282.0 521.6,272.2 529.0,262.3 536.5,252.3 544.0,242.3 551.4,232.2 558.9,222.2 566.4,212.1 573.8,201.9 581.3,191.8 588.8,181.6 596.3,171.5 603.7,161.3 611.2,151.1 618.7,140.9 626.1,130.8 633.6,120.6 641.1,110.4 648.5,100.2 656.0,90.0" fill="none" stroke="#f0d68a" stroke-width="2" stroke-dasharray="5 4"/>
+        <polyline points="66.0,404.1 73.5,404.1 80.9,404.1 88.4,404.1 95.9,404.1 103.3,404.1 110.8,404.1 118.3,404.1 125.7,404.1 133.2,404.1 140.7,404.1 148.2,404.1 155.6,404.1 163.1,404.1 170.6,404.1 178.0,404.0 185.5,404.0 193.0,404.0 200.4,404.0 207.9,404.0 215.4,404.0 222.8,404.0 230.3,404.0 237.8,404.0 245.2,403.9 252.7,403.9 260.2,403.8 267.6,403.8 275.1,403.7 282.6,403.6 290.1,403.4 297.5,403.2 305.0,403.0 312.5,402.7 319.9,402.2 327.4,401.7 334.9,401.0 342.3,400.2 349.8,399.1 357.3,397.7 364.7,396.0 372.2,393.8 379.7,391.2 387.1,388.1 394.6,384.4 402.1,380.0 409.5,374.9 417.0,369.2 424.5,362.9 431.9,355.9 439.4,348.4 446.9,340.4 454.4,332.0 461.8,323.2 469.3,314.2 476.8,304.9 484.2,295.4 491.7,285.8 499.2,276.0 506.6,266.1 514.1,256.2 521.6,246.2 529.0,236.2 536.5,226.1 544.0,216.0 551.4,205.9 558.9,195.7 566.4,185.6 573.8,175.4 581.3,165.3 588.8,155.1 596.3,144.9 603.7,134.7 611.2,124.5 618.7,114.3 626.1,104.2 633.6,94.0 641.1,83.8 648.5,73.6 656.0,63.4" fill="none" stroke="#e3b341" stroke-width="2"/>
+        <line x1="131.6" y1="46" x2="131.6" y2="408" stroke="#8b949e" stroke-opacity="0.18"/>
+        <text x="131.6" y="441" fill="#c9d1d9" font-size="10" text-anchor="middle">100 MHz datapath</text>
+        <line x1="459.3" y1="46" x2="459.3" y2="408" stroke="#8b949e" stroke-opacity="0.18"/>
+        <text x="459.3" y="441" fill="#c9d1d9" font-size="10" text-anchor="middle">1 kHz control</text>
+        <line x1="656.0" y1="46" x2="656.0" y2="408" stroke="#8b949e" stroke-opacity="0.18"/>
+        <text x="656.0" y="441" fill="#c9d1d9" font-size="10" text-anchor="end">1 Hz IoT sensor</text>
+        <text x="626.1" y="96.2" fill="#e3b341" font-size="11" text-anchor="end">~160x more energy</text>
+        <rect x="82" y="82" width="356" height="80" rx="7" fill="#161b22" stroke="#30363d"/>
+        <line x1="96" y1="100" x2="116" y2="100" stroke="#e6edf3" stroke-width="2.5"/>
+        <text x="124" y="104" fill="#c9d1d9" font-size="11">foundry buf_16 (svt/hvt, low leak)</text>
+        <line x1="96" y1="122" x2="116" y2="122" stroke="#f0d68a" stroke-width="2.5" stroke-dasharray="4 3"/>
+        <text x="124" y="126" fill="#c9d1d9" font-size="11">[6,16] blend 50/50</text>
+        <line x1="96" y1="144" x2="116" y2="144" stroke="#e3b341" stroke-width="2.5"/>
+        <text x="124" y="148" fill="#c9d1d9" font-size="11">[6,16] low-Vt swap (lvt/svt, fast)</text>
+        </svg>
+      </div>
+      <p class="caption" id="viewCap">Same finger count as buf_16, dopant masks swapped: 22% lower EDP inside the foundry's own energy band, from the standard-Vt pfet the leakage-tuned library never uses. Over-driven cells (more fingers) fall outside the band and are the wrong move. Reproducible with analysis/linearcomb.py</p>
     </div>
   </div>
+  <script>
+    var CAPS = {perf: "Same finger count as buf_16, dopant masks swapped: 22% lower EDP inside the foundry's own energy band, from the standard-Vt pfet the leakage-tuned library never uses. Over-driven cells (more fingers) fall outside the band and are the wrong move. Reproducible with analysis/linearcomb.py", energy: "Total energy per operation is dynamic plus leakage times idle time. Below about 1.9 us between switches the fast low-Vt swap also wins on energy; above it, which is most of what 130 nm serves, the foundry's low-leakage default wins by up to ~160x. Static power from leak_inband.py; the <a href=\"./codesign.html\">context picker</a> chooses the operating point per workload"};
+    function setView(v){
+      document.getElementById('viewPerf').hidden = v !== 'perf';
+      document.getElementById('viewEnergy').hidden = v !== 'energy';
+      document.getElementById('segPerf').classList.toggle('on', v === 'perf');
+      document.getElementById('segEnergy').classList.toggle('on', v === 'energy');
+      document.getElementById('viewCap').innerHTML = CAPS[v];
+    }
+  </script>
 </section>
 
 <section>
@@ -313,8 +353,8 @@
       recompute the hash and check it; no one else can read the design</p>
     <div class="stylusbox">
       <pre>record(bytes32 artifact_hash, uint16 label, uint16 context)
-// best win: EDP +14.8% vs buf_16
-record(0xbbe5a7f1...f8f7c, 1482, 16)
+// best in-band win: EDP +22% vs buf_16, same area
+record(0xbbe5a7f1...f8f7c, 2200, 16)
 //         hash of the design bundle   basis points   drive strength</pre>
       <p class="caption" style="margin-top:14px">label is basis points of EDP
         improvement, context is the part's drive strength. The hash is the
