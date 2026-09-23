@@ -1,0 +1,49 @@
+{
+  "load": "250f",
+  "measured": [
+    {
+      "label": "buf_1 foundry [1,1] svt/hvt",
+      "ok": true,
+      "tpd_ns": 1.22269375,
+      "E_fj": 824.2956,
+      "edp": 1007.8610782725001
+    },
+    {
+      "label": "buf_1 low-Vt  [1,1] lvt/svt",
+      "ok": true,
+      "tpd_ns": 0.9862711500000001,
+      "E_fj": 823.4676000000001,
+      "edp": 812.1623368397401
+    },
+    {
+      "label": "buf_2 foundry [1,2] svt/hvt",
+      "ok": true,
+      "tpd_ns": 0.65078555,
+      "E_fj": 836.1396,
+      "edp": 544.14756946278
+    },
+    {
+      "label": "buf_2 low-Vt  [1,2] lvt/svt",
+      "ok": true,
+      "tpd_ns": 0.5233482500000001,
+      "E_fj": 834.6186,
+      "edp": 436.79618372745
+    }
+  ],
+  "hypothetical": [
+    {
+      "label": "buf_1/4 low-Vt (hypothetical, sub-unit)",
+      "drive": 0.25,
+      "tpd_ns": 3.9451,
+      "E_fj": 823.5,
+      "edp": 3248.6
+    },
+    {
+      "label": "buf_1/32 low-Vt (hypothetical, sub-unit)",
+      "drive": 0.0312,
+      "tpd_ns": 31.5607,
+      "E_fj": 823.5,
+      "edp": 25989.2
+    }
+  ]
+}

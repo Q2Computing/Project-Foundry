@@ -1,0 +1,26 @@
+{
+  "pdk": "GT3 open-source 3nm GAAFET (Naeemi/GaTech), BSIM-CMG level 72 / VERSION 111.2.1, GEOMOD=5 nanosheet",
+  "toolchain": "ngspice-42 + OSDI; BSIM-CMG (VA-Models latest vacode, GAA-capable) compiled with OpenVAF 22.12; GT3 cards mapped nmos/pmos->bsimcmg_va, TYPE=+1/-1 (DEVTYPE ignored), N-prefix instances",
+  "corner": "tt, 25C", "VDD": 0.7, "load_fF": 10, "inverter": "1x nmos + 2x pmos, default geometry, same for rvt and lvt",
+  "flavors": "GT3 ships rvt (regular) and lvt (low); both apply to nmos and pmos symmetrically",
+  "delay_ps_50pct": {
+    "rvt": {"tphl": 42.51, "tplh": 34.94, "avg": 38.72},
+    "lvt": {"tphl": 35.66, "tplh": 28.64, "avg": 32.15}
+  },
+  "leakage_nA_per_inverter": {
+    "rvt": {"in_lo_nmos_off": 0.304, "in_hi_pmos_off": 0.664, "avg": 0.484},
+    "lvt": {"in_lo_nmos_off": 3.133, "in_hi_pmos_off": 9.872, "avg": 6.503}
+  },
+  "dynamic_energy_fJ_per_cycle": {"rvt": 5.06, "lvt": 5.10},
+  "constants": {
+    "KV_rvt_to_lvt": 0.170,
+    "LEAK_RATIO_rvt_to_lvt": 13.4,
+    "note": "low-Vt buys ~17% speed for ~13x leakage and ZERO dynamic-energy benefit (rvt~lvt dynamic) -> pure critical-path speed tool at 3nm, even more one-sided than sky130"
+  },
+  "vs_sky130": {
+    "VDD": "1.8 -> 0.7", "KV": "0.189 -> 0.170", "leak_ratio": "71x -> 13.4x (compressed: rvt already leaks heavily)",
+    "abs_leak_per_inverter": "~2-160 pA -> ~480-6500 pA (~100-200x higher floor)",
+    "dyn_energy_per_cycle": "~1000 fJ @250fF -> ~5 fJ @10fF",
+    "takeaway": "constants do NOT carry across nodes; each node re-anchors its own. Vt speedup similar, leakage RATIO smaller but absolute leakage far higher, no low-Vt energy upside."
+  }
+}
