@@ -91,10 +91,11 @@ Floating-point arithmetic is the worked example for two reasons. It is the arith
 | --- | --- | --- |
 | Multi-project shuttle slot, sky130 | $14,950 | chipIgnite |
 | Full mask set, 130 nm | $1 to 2 million | AnySilicon |
+| Mask set at an advanced node | $10 million or more | SemiAnalysis |
 | First-silicon success, 2024 | 14 percent | Wilson Research |
 | First-silicon success, 2026 | 5 percent | Siemens Verification Horizons |
-| Replication cost of the MXFP4 proof, small team | $4,000 | parameter, see Section 6 |
-| Replication cost, incumbent | $30,000 | parameter, see Section 6 |
+| Replication cost of the MXFP4 proof, small team | $4,000 | parameter, about four engineer-days |
+| Replication cost, incumbent | $30,000 | parameter, within the $16,000 to $50,000 loaded range |
 
 **Proof engines, by level**, and what each trusts.
 
@@ -121,6 +122,19 @@ The analysis is a Lean 4 project, Q2Market.lean, with 58 theorems over a model t
 | 8. The descent | Physical cost per mask falls with volume; deterrence tightens as the floor falls | 1.2 cents per mask at 1,200 masks, 1.0 cent at a million; the safe-descent ladder |
 
 **Reading the analysis.** Sections 1 through 3 establish that the reference license cannot extract rent: collection is capped at a declared, unraisable target, and under free entry the only stable price is cost. Section 4 measures that cost for a real system and finds it under two dollars. Section 5 turns to the manufacturing license and shows that a rational buyer never pays more than it would cost to replicate the proof. Section 6 places the $100 floor far below that replication cost and computes how many masks a competitor would need to sell to recover its own replication spend. Section 7 combines them: the first mask returns $98.01 over production cost, and every later mask returns $100, while a competitor is 2,011 times more expensive per unit than the incumbent proof. Section 8 shows the floor can descend by a factor of ten at each rung while the deterrence ratio tightens, because the physical cost per mask falls with volume.
+
+**At the $100 floor**, each row a theorem.
+
+| Measure | Kernel-checked value |
+| --- | --- |
+| Share of a $14,950 shuttle slot | 66 bps (0.66 percent) |
+| Share of a $1.5 million mask set | 0 bps |
+| Margin on the first mask | $98.01 |
+| Margin on every later mask | $100 |
+| Entrant break-even, small team ($4,000) | 40 masks |
+| Entrant break-even, incumbent ($30,000) | 300 masks |
+| Library break-even, IEEE 754 (about $100,000 to produce) | 1,000 masks |
+| $120,000 per year | 1,201 masks per year |
 
 **The descent ladder**, each row a theorem.
 
@@ -172,11 +186,12 @@ The bets in Section 6 remain bets. Elasticity is tested one rung at a time and t
 
 1. [chipIgnite shuttle pricing, $14,950 per project](https://chipfoundry.io/faqs)
 2. [130 nm wafer and MPW cost, mask set $1 to 2 million](https://anysilicon.com/130nm-wafer-mpw-cost/)
-3. [First-silicon success at 14 percent, 2024 Wilson Research study](https://semiengineering.com/first-time-silicon-success-plummets/)
-4. [First-silicon success at 5 percent, 2026 study](https://blogs.sw.siemens.com/verificationhorizons/2025/09/03/why-first-silicon-success-is-getting-harder-for-system-companies/)
-5. [Vermont residential electricity, 24.44 cents per kWh, September 2026](https://www.electricchoice.com/electricity-prices-by-state/vermont/)
-6. [IEEE 754-2019, Standard for Floating-Point Arithmetic](https://ieeexplore.ieee.org/document/8766229)
-7. [OCP Microscaling Formats (MX) Specification v1.0](https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf)
-8. [Power laws in citation distributions, Scopus](https://link.springer.com/article/10.1007/s11192-014-1524-z)
+3. [Photomask cost by node, SemiAnalysis](https://newsletter.semianalysis.com/p/the-dark-side-of-the-semiconductor)
+4. [First-silicon success at 14 percent, 2024 Wilson Research study](https://semiengineering.com/first-time-silicon-success-plummets/)
+5. [First-silicon success at 5 percent, 2026 study](https://blogs.sw.siemens.com/verificationhorizons/2025/09/03/why-first-silicon-success-is-getting-harder-for-system-companies/)
+6. [Vermont residential electricity, 24.44 cents per kWh, September 2026](https://www.electricchoice.com/electricity-prices-by-state/vermont/)
+7. [IEEE 754-2019, Standard for Floating-Point Arithmetic](https://ieeexplore.ieee.org/document/8766229)
+8. [OCP Microscaling Formats (MX) Specification v1.0](https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf)
+9. [Power laws in citation distributions, Scopus](https://link.springer.com/article/10.1007/s11192-014-1524-z)
 
 The MXFP4 proving compute, the creation span, and every certificate hash come from Q2's own portal analysis records.
