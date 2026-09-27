@@ -114,7 +114,7 @@
   .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   @media (max-width:700px){.two{grid-template-columns:1fr}}
   p.body,.lede,.card p,ol.steps,.note,.kv td,.ladder td{color:var(--ink)}
-  .note{color:var(--dim);font-size:13.5px;max-width:64ch}
+  .note{background:none;border:0;border-radius:0;padding:0;color:var(--ink);font-size:16px;max-width:62ch}
   .kv th,.kv td{text-align:left;font-family:var(--sans);font-size:14px}
   .kv td:first-child{font-family:var(--mono)}
   ol.steps{color:var(--dim);font-size:15px;max-width:64ch;padding-left:20px}
@@ -206,7 +206,7 @@
     <p class="body">每份证书标明其模块所达到的证明层级。该阶梯从最强的有界证明开始，直至可无限扩展的证明。组合是顶端且是封闭的：已组合的模块是下一次组合的部件。</p>
     <table class="ladder"><tbody><tr><td>1. 穷举</td><td>模块对每个输入都计算出正确输出</td><td>枚举整个输入空间：在 SPICE 中依据 PDK 晶体管得出单元真值表；8 位加法器遍历全部 131,072 个输入</td><td>仅限小模块；成本随输入位宽按 2 的幂增长</td><td class="real">已证明</td></tr><tr><td>2. 等价</td><td>两种表示计算相同的函数</td><td>网表与 RTL 之间的 SAT 米特电路，时序逻辑采用时间归纳；符号化，无需枚举</td><td>求解器可闭合的任何模块</td><td class="real">已证明</td></tr><tr><td>3. 映射（techmap）</td><td>网表仅使用第 1 层已证明的单元，且与其 RTL 结构等价</td><td>映射到已证明的单元库，再进行结构等价检查；超过 64 个单元的叶节点将被拒绝</td><td>任何模块，受基元上限约束</td><td class="real">已证明</td></tr><tr><td>4. 组合</td><td>更大的模块之所以正确，是因为它仅由已证明的部件与已证明的胶合逻辑构成，并绑定到其声明的子模块</td><td>部件普查加上装配体与组合的等价性；上限迫使更大的模块必须分解</td><td>无限：组合体是下一层级的部件</td><td class="real">已证明</td></tr></tbody></table>
     <p class="body" style="margin-top:22px">有三种证明位于阶梯之上或其旁。</p>
-    <table class="ladder"><tbody><tr><td>精化至规范</td><td>组合系统满足其所声称的标准（IEEE 754 正确舍入、RISC-V ISA），而不仅仅是自身的 RTL。这赋予顶层接口以意义。</td><td class="road">路线图</td></tr><tr><td>组合规则的可靠性</td><td>机器检验的定理：已证明的部件加上已证明的胶合逻辑即产生已证明的整体，一次性为所有实例证成第 4 层。</td><td class="road">路线图</td></tr><tr><td>携带证明的信任与认证</td><td>由经验证的检查器重放的证明凭证，因而不必轻信任何求解器；以及从已证明设计到制造硅片的保管链。</td><td class="road">部分实现</td></tr></tbody></table>
+    <table class="ladder"><tbody><tr><td>精化至规范</td><td>组合系统满足其所声称的标准（IEEE 754 正确舍入、RISC-V ISA），而不仅仅是自身的 RTL。这赋予顶层接口以意义。</td><td class="road">路线图</td></tr><tr><td>组合规则的可靠性</td><td>机器检验的定理：已证明的部件加上已证明的胶合逻辑即产生已证明的整体，一次性为所有实例证成第 4 层。</td><td class="road">路线图</td></tr><tr><td>携带证明的信任与认证</td><td>由经验证的检查器重放的证明凭证，因而不必轻信任何求解器；以及从已证明设计到制造硅片的保管链。</td><td class="road">专利披露待定</td></tr></tbody></table>
     <p class="note" style="margin-top:14px">使用测试向量的仿真是证据，而非证明。它会被记录，但本身永远不会推进证书的层级。</p>
   </div>
 </section>

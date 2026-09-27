@@ -114,7 +114,7 @@
   .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   @media (max-width:700px){.two{grid-template-columns:1fr}}
   p.body,.lede,.card p,ol.steps,.note,.kv td,.ladder td{color:var(--ink)}
-  .note{color:var(--dim);font-size:13.5px;max-width:64ch}
+  .note{background:none;border:0;border-radius:0;padding:0;color:var(--ink);font-size:16px;max-width:62ch}
   .kv th,.kv td{text-align:left;font-family:var(--sans);font-size:14px}
   .kv td:first-child{font-family:var(--mono)}
   ol.steps{color:var(--dim);font-size:15px;max-width:64ch;padding-left:20px}
@@ -221,7 +221,7 @@
       <tbody>
         <tr><td>Refinement to specification</td><td>The composed system satisfies the standard it claims (IEEE 754 correct rounding, the RISC-V ISA), not merely its own RTL. This gives the top-level interface its meaning.</td><td class="road">Roadmap</td></tr>
         <tr><td>Soundness of composition</td><td>A machine-checked theorem that proven parts plus proven glue yield a proven whole, justifying level 4 for every instance at once.</td><td class="road">Roadmap</td></tr>
-        <tr><td>Proof-carrying trust and attestation</td><td>Proof certificates a verified checker replays, so no solver is trusted on its word; and the custody chain from proven design to fabricated silicon.</td><td class="road">Partial</td></tr>
+        <tr><td>Proof-carrying trust and attestation</td><td>Proof certificates a verified checker replays, so no solver is trusted on its word; and the custody chain from proven design to fabricated silicon.</td><td class="road">Pending patent disclosure</td></tr>
       </tbody>
     </table>
     <p class="note" style="margin-top:14px">Simulation with test vectors is evidence, not proof. It is recorded, and it never advances a certificate on its own.</p>
