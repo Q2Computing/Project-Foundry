@@ -218,6 +218,7 @@
       </tbody>
     </table>
     <p class="body" style="margin-top:22px"><strong>Beat or fork.</strong> Anyone may list a competing implementation of an existing interface, but must name the block it beats and settle whatever remains of that block's listing cost. The prior lister is made whole. The improvement must be a recorded measurement, never a declaration.</p>
+    <p class="body">The public site carries that rule run end to end on one sky130 standard cell, the foundry's buf_16 driver. An agent proposes fabricable candidate cells (gate areas and threshold-voltage mask mixes inside the foundry's energy band), an oracle in GitHub Actions re-measures the baseline and every candidate in one ngspice bench on the open PDK, and each verified, unique win is hashed for the anchor contract to record with its improvement label. The best in-band candidate lowered energy-delay by 22 percent against buf_16 at the same finger count with no extra transistors, and 22 of 30 fabricable mask combinations beat the foundry ladder inside its own energy-per-cycle band. Those measurements are evidence for the label; the cell's correctness is a separate level-1 proof.</p>
     <p class="body"><strong>Three contracts</strong> on Arbitrum Stylus carry the economy. The verifier re-runs a bounded proof on chain. The anchor records a content-addressed commitment of an off-chain proof. The composition contract certifies a system by reference to child certificates and settles both licenses. Their invariants are listed in Section 6.</p>
   </div>
 </section>
@@ -293,6 +294,17 @@
         <tr><td>First-silicon success, 2026</td><td>5 percent</td><td>Siemens Verification Horizons</td></tr>
         <tr><td>Replication cost of the MXFP4 proof, small team</td><td>$4,000</td><td>parameter, about four engineer-days</td></tr>
         <tr><td>Replication cost, incumbent</td><td>$30,000</td><td>parameter, within the $16,000 to $50,000 loaded range</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>The driver loop</strong>, the beat-or-fork example on the public site.</p>
+    <table class="kv">
+      <thead><tr><th>Measure</th><th>Value</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td>Baseline cell</td><td>sky130 buf_16, foundry library</td><td>public site, the loop</td></tr>
+        <tr><td>Best in-band candidate, energy-delay against buf_16</td><td>22 percent lower, same finger count, slightly less energy</td><td>oracle measurement, ngspice, sky130 tt corner, 1.8 V, 250 fF load</td></tr>
+        <tr><td>Extra transistors in the winning cell</td><td>0; a threshold-voltage mask change</td><td>public site, the loop</td></tr>
+        <tr><td>Fabricable mask combinations that beat the foundry ladder in band</td><td>22 of 30</td><td>oracle measurement</td></tr>
+        <tr><td>Anchor record for the best win</td><td>label 2200 basis points, context 16 (drive strength)</td><td>q2-anchor record() call, prepared, not submitted</td></tr>
       </tbody>
     </table>
     <p class="body" style="margin-top:22px"><strong>Proof engines, by level</strong>, and what each trusts.</p>
@@ -418,7 +430,8 @@
 <footer>
   <div class="wrap">
     Q2 Computing / Project Foundry &#183;
-    <a href="./codesign.html">context co-design</a> &#183;
+    <a href="./codesign.html">generate: co-design</a> &#183;
+    <a href="./waveform.html">assess: measurement</a> &#183;
     <a href="https://github.com/Q2Computing/Project-Foundry">source</a> &#183;
     <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/results/report.md">full report</a> &#183;
     <a href="https://github.com/Q2Computing/Project-Foundry/actions">CI oracle</a>

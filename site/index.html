@@ -185,13 +185,14 @@
     <button class="theme" id="theme-toggle" type="button">Light mode</button>
     <p class="langbar">Read this in: <b>English</b> · <a href="./index.ms.html">Bahasa Melayu</a> · <a href="./index.zh.html">简体中文</a> · <a href="./index.ta.html">தமிழ்</a></p>
     <h1>The Proof Economy</h1>
-    <p class="tagline">A proof of a circuit is a certificate. Certificates license into larger proofs and into manufactured silicon, at a floor no competitor can match, settled on Arbitrum Stylus.</p>
-    <p class="lede">Verification is shared, not repeated. A block is proved once, in public, and every system built on it inherits the proof. This site is the public instance of that economy: the levels of proof every certificate is graded by, the two licenses, the three contracts, and the loop that beats foundry cells and proves it. The scientific record behind every number is on the <a href="./research.html">research page</a>.</p>
+    <p class="tagline">Prove a circuit once, in public, and let every system built on it inherit the proof.</p>
+    <p class="lede">A chip is a hierarchy of blocks, and before any of it is sent to a foundry each block must be shown correct: a mask set at a modern node costs one to two million dollars, and industry surveys put first-silicon success at 14 percent in 2024 and 5 percent in 2026. Today that verification is repeated. Every company that uses an adder or a floating-point unit re-verifies its own copy in private, and the work is thrown away when the project ends. A proof of a block does not depend on who uses the block. If the proof is public and content-addressed, the next team inherits it instead of repeating it, and a larger system is proved by reference to the proofs of its parts without ever opening them. This site is the public instance of that idea: how a proof is graded, what a certificate is worth, where it settles, and one cell taken through the whole loop.</p>
     <div class="cta">
       <a class="btn primary" href="./research.html">The research</a>
-      <a class="btn" href="./codesign.html">Co-design to your context</a>
-      <a class="btn" href="./waveform.html">SPICE proof</a>
-      <a class="btn stylus" href="#stylus">Settlement on Stylus</a>
+      <a class="btn" href="#practice">The loop on one cell</a>
+      <a class="btn" href="./codesign.html">Generate: co-design</a>
+      <a class="btn" href="./waveform.html">Assess: measurement</a>
+      <a class="btn stylus" href="#stylus">Anchor: settlement</a>
       <a class="btn" href="https://github.com/Q2Computing/Project-Foundry">Repository</a>
     </div>
   </div>
@@ -199,8 +200,15 @@
 
 <section>
   <div class="wrap">
-    <h2>The levels of proof</h2>
-    <p class="body">Every certificate names the level at which its block is proved. The ladder runs from the strongest bounded proof to the one that scales without bound. Composition is the top and it is closed: a composed block is a part for the next composition.</p>
+    <h2>Two words, then the ladder</h2>
+    <p class="body">A <strong>block</strong> is any unit of the hierarchy with an interface of its own: a cell of a few transistors, a component such as an adder or a decoder, an assembly such as a multiplier, a system such as an accelerator. A <strong>certificate</strong> is the public record of a block's proof: the content hash of its design, the content hash of its interface, the level at which it was proved, and the content hash of the proof of record. A certificate for a composed block also names the certificates of its children. Anyone can check that the proof exists and matches; nobody needs the design to do so.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>How a proof is graded: the levels of proof</h2>
+    <p class="body">Every certificate names the level at which its block is proved. The ladder runs from the strongest bounded proof to the one that scales without bound. Exhaustive checking costs 2 to the power of the input width, so it stops at small blocks; composition is the top and it is closed: a composed block is a part for the next composition.</p>
     <table class="ladder">
       <thead><tr><th>Level</th><th>What it proves</th><th>How</th><th>Reach</th><th>Status</th></tr></thead>
       <tbody>
@@ -219,46 +227,73 @@
         <tr><td>Proof-carrying trust and attestation</td><td>Proof certificates a verified checker replays, so no solver is trusted on its word; and the custody chain from proven design to fabricated silicon.</td><td class="road">Pending patent disclosure</td></tr>
       </tbody>
     </table>
-    <p class="note" style="margin-top:14px">Simulation with test vectors is evidence, not proof. It is recorded, and it never advances a certificate on its own.</p>
+    <p class="note" style="margin-top:14px">Simulation with test vectors is evidence, not proof. It is recorded, and it never advances a certificate on its own. The measurement at the bottom of this page is evidence of that kind.</p>
   </div>
 </section>
 
 <section>
   <div class="wrap">
-    <h2>The economy</h2>
+    <h2>What a certificate is worth: two licenses</h2>
+    <p class="body">Every certificate carries two licenses. The protocol, meaning the contracts that settle them, takes nothing from either.</p>
     <div class="two">
       <div class="card">
         <div class="k">Reference: the commons</div>
         <h3>Cost recovery, never rent</h3>
-        <p>Foundry PDK primitives are free to reference forever. Every other certificate recovers only its listing gas, paid by the abstractions that directly use it, capped at that gas, then it is free. Whoever beats a block pays its listing cost.</p>
+        <p>The reference license is the right to name a certificate as a child of a larger proof. Foundry PDK primitives are free to reference forever. Every other certificate recovers only its listing gas, the on-chain fee its lister paid to list it, from the certificates one level up that use it directly; the recursion beneath is never charged. Collection stops at that gas, then the certificate is free. Whoever lists a better implementation of the same interface pays the remaining listing cost of the block it beats: beat or fork.</p>
       </div>
       <div class="card anchor">
         <div class="k">Manufacturing: the designer's product</div>
         <h3>$100 per mask set, SoC down</h3>
-        <p>The right to put a design into a fabricated SoC. The design goes only to a designer-named foundry, which must prove it received the committed package before it may consume a unit. The licensee never downloads the file. The floor is walked down as adoption grows, toward what a proof physically costs to produce and settle.</p>
+        <p>The manufacturing license is the right to put a design into a fabricated system on chip. It is priced per mask set, the unit at which a design becomes silicon, and one license covers every certified block in that mask, from the SoC down. The design goes only to a designer-named foundry, which must prove it received the committed package before it may consume a unit. The licensee never downloads the file. The floor is walked down as adoption grows, toward what a proof physically costs to produce and settle.</p>
       </div>
     </div>
-    <p class="note" style="margin-top:14px">The protocol takes zero in both licenses. Fifty-eight machine-checked theorems back the economics; see the <a href="./research.html">research page</a>.</p>
+    <p class="note" style="margin-top:14px">Fifty-eight machine-checked theorems bound what these licenses can charge and guarantee; they are on the <a href="./research.html">research page</a>.</p>
   </div>
 </section>
 
 <section>
   <div class="wrap">
-    <h2>The contracts</h2>
+    <h2>Where it settles: three contracts on Arbitrum Stylus</h2>
+    <p class="body">Three contracts carry the economy, one per way of settling a proof on chain. All three compile to WebAssembly with the current Stylus toolchain and pass Arbitrum's validation check on the Sepolia test network; deployment waits on human review.</p>
     <table class="kv">
       <thead><tr><th>Contract</th><th>Mode</th><th>What the chain does</th></tr></thead>
       <tbody>
-        <tr><td>q2-verifier</td><td>Re-verify</td><td>Re-runs a bounded proof on chain. Trustless.</td></tr>
-        <tr><td>q2-anchor</td><td>Anchor</td><td>Records a content-addressed commitment of an off-chain proof with an improvement label.</td></tr>
+        <tr><td>q2-verifier</td><td>Re-verify</td><td>Re-runs a bounded proof on chain, so the chain itself checks the claim.</td></tr>
+        <tr><td>q2-anchor</td><td>Anchor</td><td>Records a content-addressed commitment of an off-chain proof together with a measured improvement label. The loop below produces such labels.</td></tr>
         <tr><td>q2-composition</td><td>Compose and license</td><td>Certifies a larger system by reference to child certificates and settles both licenses.</td></tr>
       </tbody>
     </table>
   </div>
 </section>
 
-<section>
+
+<section id="practice">
   <div class="wrap">
-    <h2>The result</h2>
+    <h2>The economy in practice: beat or fork on one cell</h2>
+    <p class="body">The rule above says anyone may list a better implementation of an existing interface, provided the improvement is measured and the prior lister is made whole. Here is that rule run end to end on a single sky130 standard cell, the foundry's buf_16 driver. An agent proposes candidate cells, an independent oracle measures them against the foundry's own, and each verified win is committed for the chain to record. The three steps are the three pages of this site.</p>
+    <div class="loop">
+      <div class="card gen">
+        <div class="k">&#9889; generate</div>
+        <h3>An agent proposes</h3>
+        <p>A deterministic grid or Gemini proposes fabricable cells: gate areas and
+          threshold-voltage mask mixes, kept inside the foundry energy band. Cheap
+          to enumerate. <a href="./codesign.html">How a candidate is co-designed to its context</a></p>
+      </div>
+      <div class="card">
+        <div class="k">&#128202; assess</div>
+        <h3>The oracle judges</h3>
+        <p>GitHub Actions re-measures the baseline and every candidate in one
+          ngspice bench on the open sky130 PDK, then decides who wins. <a href="./waveform.html">The measurement behind the best win</a></p>
+      </div>
+      <div class="card anchor">
+        <div class="k">&#9875; anchor</div>
+        <h3>Stylus records it</h3>
+        <p>Each verified, unique win is hashed for an Arbitrum Stylus contract to
+          record. The hash commits the design, the netlist stays private. Contract
+          written and checked; not deployed yet. <a href="#stylus">The record it writes</a></p>
+      </div>
+    </div>
+    <p class="body" style="margin-top:26px"><strong>The result of that loop.</strong> The measurement is a transient in ngspice at the sky130 typical corner, both cells driving the same load; it is the oracle's evidence for the improvement label, and it sits beside the cell's level-1 proof rather than replacing it.</p>
     <div class="stat">
       <div><div class="big green">+22%</div>
         <div class="sub">lower energy-delay than buf_16, at the same finger count and
@@ -272,40 +307,13 @@
     </div>
   </div>
 </section>
-<section>
-  <div class="wrap">
-    <h2>The loop</h2>
-    <div class="loop">
-      <div class="card gen">
-        <div class="k">&#9889; generate</div>
-        <h3>An agent proposes</h3>
-        <p>A deterministic grid or Gemini proposes fabricable cells: gate areas and
-          threshold-voltage mask mixes, kept inside the foundry energy band. Cheap
-          to enumerate</p>
-      </div>
-      <div class="card">
-        <div class="k">&#128202; assess</div>
-        <h3>The oracle judges</h3>
-        <p>GitHub Actions re-measures the baseline and every candidate in one
-          ngspice bench on the open sky130 PDK, then decides who wins</p>
-      </div>
-      <div class="card anchor">
-        <div class="k">&#9875; anchor</div>
-        <h3>Stylus records it</h3>
-        <p>Each verified, unique win is hashed for an Arbitrum Stylus contract to
-          record. The hash commits the design, the netlist stays private. Contract
-          written and checked; not deployed yet</p>
-      </div>
-    </div>
-  </div>
-</section>
 <section id="stylus">
   <div class="wrap">
-    <h2>Settlement on Arbitrum Stylus</h2>
+    <h2>What the anchor records</h2>
     <p class="body">The point of a win is not a screenshot, it is a durable,
       verifiable record. Each verified improvement is committed as a hash for a
       Stylus contract on Arbitrum to record. Anyone holding the netlist can
-      recompute the hash and check it; no one else can read the design</p>
+      recompute the hash and check it; no one else can read the design. This is the anchor contract from the table above, applied to the best win of the loop.</p>
     <div class="stylusbox">
       <pre>record(bytes32 artifact_hash, uint16 label, uint16 context)
 // best in-band win: EDP +22% vs buf_16, same area
@@ -320,10 +328,18 @@ record(0xbbe5a7f1...f8f7c, 2200, 16)
     </div>
   </div>
 </section>
+<section>
+  <div class="wrap">
+    <h2>Where to go next</h2>
+    <p class="body">Every number on this page is reproduced by a measurement or a machine-checked theorem on the <a href="./research.html">research page</a>, written to be read from the beginning by someone new to the field. The contracts, the proofs, the demo, and the co-design and measurement code are in the <a href="https://github.com/Q2Computing/Project-Foundry">repository</a>.</p>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
     Q2 Computing / Project Foundry &#183;
-    <a href="./codesign.html">context co-design</a> &#183;
+    <a href="./codesign.html">generate: co-design</a> &#183;
+    <a href="./waveform.html">assess: measurement</a> &#183;
     <a href="https://github.com/Q2Computing/Project-Foundry">source</a> &#183;
     <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/results/report.md">full report</a> &#183;
     <a href="https://github.com/Q2Computing/Project-Foundry/actions">CI oracle</a>

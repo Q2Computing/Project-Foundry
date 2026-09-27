@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SPICE Proof</title>
+<title>SPICE Measurement</title>
 <meta name="description" content="Real ngspice transient of buf_16 vs a custom cell on the documented sky130 130nm process, with the actual transistor dimensions">
 <style>
   :root{--bg:#0d1117;--panel:#161b22;--line:#30363d;--ink:#e6edf3;--dim:#8b949e;
@@ -68,11 +68,12 @@
     <div class="eyebrow">Q2 Computing / Project Foundry</div>
     <p class="langbar">Read this in: <b>English</b> · <a href="./waveform.ms.html">Bahasa Melayu</a> · <a href="./waveform.zh.html">简体中文</a> · <a href="./waveform.ta.html">தமிழ்</a></p>
     <h1>buf_16 vs a custom driver at 250 fF</h1>
+    <p class="lede">This page is the <strong>assess</strong> step of the loop on the front page: the oracle's measurement of the best candidate against the foundry's buf_16. It is a transient simulation, so by the ladder's own rule it is evidence for the improvement label, recorded by the anchor step, and it stands beside the cell's level-1 proof rather than in place of it.</p>
     <p class="lede">One ngspice transient, sky130 tt corner, 1.8 V, both cells
       driving the same 250 fF load. The device parameters and traces below are
       from this run. Reproduce with <code>./run.sh proof</code></p>
     <div class="links">
-      <a href="./">Overview</a>
+      <a href="./index.html#practice">Back: the loop on one cell</a>
       <a href="../results/proof.txt">ngspice log</a>
       <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/tools/proof.py">proof.py</a>
     </div>
@@ -116,6 +117,7 @@
 </section>
 
 <footer><div class="wrap">
+  Next step of the loop: the win is <a href="./index.html#stylus">hashed and recorded by the anchor contract</a>.<br>
   ngspice, sky130 PDK, tt corner. Reproduce: <code>./run.sh proof</code> &#183;
   <a href="https://github.com/Q2Computing/Project-Foundry">source</a>
 </div></footer>

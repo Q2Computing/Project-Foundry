@@ -28,6 +28,8 @@ Every certificate carries two licenses. The protocol takes nothing from either.
 
 **Beat or fork.** Anyone may list a competing implementation of an existing interface, but must name the block it beats and settle whatever remains of that block's listing cost. The prior lister is made whole. The improvement must be a recorded measurement, never a declaration.
 
+The public site carries that rule run end to end on one sky130 standard cell, the foundry's buf_16 driver. An agent proposes fabricable candidate cells (gate areas and threshold-voltage mask mixes inside the foundry's energy band), an oracle in GitHub Actions re-measures the baseline and every candidate in one ngspice bench on the open PDK, and each verified, unique win is hashed for the anchor contract to record with its improvement label. The best in-band candidate lowered energy-delay by 22 percent against buf_16 at the same finger count with no extra transistors, and 22 of 30 fabricable mask combinations beat the foundry ladder inside its own energy-per-cycle band. Those measurements are evidence for the label; the cell's correctness is a separate level-1 proof.
+
 **Three contracts** on Arbitrum Stylus carry the economy. The verifier re-runs a bounded proof on chain. The anchor records a content-addressed commitment of an off-chain proof. The composition contract certifies a system by reference to child certificates and settles both licenses. Their invariants are listed in Section 6.
 
 ## 3. VLSI and digital design
@@ -96,6 +98,16 @@ Floating-point arithmetic is the worked example for two reasons. It is the arith
 | First-silicon success, 2026 | 5 percent | Siemens Verification Horizons |
 | Replication cost of the MXFP4 proof, small team | $4,000 | parameter, about four engineer-days |
 | Replication cost, incumbent | $30,000 | parameter, within the $16,000 to $50,000 loaded range |
+
+**The driver loop**, the beat-or-fork example on the public site.
+
+| Measure | Value | Source |
+| --- | --- | --- |
+| Baseline cell | sky130 buf_16, foundry library | public site, the loop |
+| Best in-band candidate, energy-delay against buf_16 | 22 percent lower, same finger count, slightly less energy | oracle measurement, ngspice, sky130 tt corner, 1.8 V, 250 fF load |
+| Extra transistors in the winning cell | 0; a threshold-voltage mask change | public site, the loop |
+| Fabricable mask combinations that beat the foundry ladder in band | 22 of 30 | oracle measurement |
+| Anchor record for the best win | label 2200 basis points, context 16 (drive strength) | q2-anchor record() call, prepared, not submitted |
 
 **Proof engines, by level**, and what each trusts.
 

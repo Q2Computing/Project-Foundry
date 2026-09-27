@@ -72,13 +72,14 @@
     <div class="eyebrow">Q2 Computing / Project Foundry</div>
     <p class="langbar">Read this in: <b>English</b> · <a href="./codesign.ms.html">Bahasa Melayu</a> · <a href="./codesign.zh.html">简体中文</a> · <a href="./codesign.ta.html">தமிழ்</a></p>
     <h1>Co-design the cell to the context</h1>
+    <p class="lede">This page is the <strong>generate</strong> step of the loop on the front page: the step that proposes a candidate cell before the oracle measures it. The knobs below are the ones a candidate is built from, sizing and dopant, and the context they are set against is the load the cell drives and how often it switches.</p>
     <p class="lede">Set the load the cell drives and how active it is. A gradient
       descends through a SPICE-calibrated differentiable model to the joint
       optimum of sizing and dopant. Both move: sizing follows the load, dopant
       follows the activity</p>
     <div class="links">
-      <a href="./">Overview</a>
-      <a href="./waveform.html">SPICE proof</a>
+      <a href="./index.html#practice">Back: the loop on one cell</a>
+      <a href="./waveform.html">Next: the measurement</a>
       <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/analysis/codesign.py">codesign.py</a>
     </div>
   </div>
@@ -134,6 +135,7 @@
 </section>
 
 <footer><div class="wrap">
+  Next step of the loop: the oracle <a href="./waveform.html">measures the candidate against buf_16</a>.<br>
   Differentiable model calibrated to ngspice on the open sky130 PDK. Reproduce:
   <code>python analysis/codesign.py</code> &#183;
   <a href="https://github.com/Q2Computing/Project-Foundry">source</a>
