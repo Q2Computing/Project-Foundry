@@ -1,0 +1,6 @@
+name = "q2market"
+defaultTargets = ["Q2Market"]
+
+# Core Lean only, no mathlib, no native_decide: the trusted base is the kernel.
+[[lean_lib]]
+name = "Q2Market"
