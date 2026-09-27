@@ -103,9 +103,8 @@
 </style>
 
 <style>
-  .logo{display:inline-block;background:#f6f8fb;border-radius:14px;padding:10px;margin:0 0 18px;line-height:0}
-  .logo img{width:180px;height:auto;display:block}
-  @media (max-width:700px){.logo img{width:130px}}
+  .logo{display:block;text-align:center;margin:0 0 26px;line-height:0}
+  .logo img{width:260px;max-width:70%;height:auto;display:inline-block;border-radius:12px}
   .langbar{font-family:var(--mono);font-size:12px;color:var(--dim);margin:0 0 18px}
   .langbar a{color:var(--blue)} .langbar b{color:var(--ink)}
   .ladder th,.ladder td{text-align:left;font-family:var(--sans);vertical-align:top;font-size:13.5px}
@@ -172,8 +171,8 @@
   if(saved==='light'||saved==='dark') r.setAttribute('data-theme',saved);
   function isLight(){var t=r.getAttribute('data-theme'); if(t) return t==='light';
     return window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches}
-  function label(b){b.textContent=isLight()?'Dark mode':'White mode';
-    b.setAttribute('aria-label',isLight()?'Switch to dark mode':'Switch to white mode')}
+  function label(b){b.textContent=isLight()?'Dark mode':'Light mode';
+    b.setAttribute('aria-label',isLight()?'Switch to dark mode':'Switch to light mode')}
   document.addEventListener('DOMContentLoaded',function(){
     var b=document.getElementById('theme-toggle'); if(!b) return; label(b);
     b.addEventListener('click',function(){var next=isLight()?'dark':'light';
@@ -185,9 +184,9 @@
 <body>
 <header>
   <div class="wrap">
-    <a class="logo" href="./index.html"><img src="./assets/project-foundry-logo.jpg" alt="Project Foundry. Generate. Assess. Anchor." width="180" height="185"></a>
+    <a class="logo" href="./index.html"><img src="./assets/project-foundry-logo.jpg" alt="Project Foundry. Generate. Assess. Anchor." width="260" height="264"></a>
     <div class="eyebrow">Q2 Computing / Project Foundry / Arbitrum Stylus</div>
-    <button class="theme" id="theme-toggle" type="button">White mode</button>
+    <button class="theme" id="theme-toggle" type="button">Light mode</button>
     <p class="langbar">Baca dalam: <a href="./index.html">English</a> · <b>Bahasa Melayu</b> · <a href="./index.zh.html">简体中文</a> · <a href="./index.ta.html">தமிழ்</a></p>
     <h1>Ekonomi Bukti</h1>
     <p class="tagline">Bukti bagi sesuatu litar ialah sijil. Sijil dilesenkan ke dalam bukti yang lebih besar dan ke dalam silikon yang dikilangkan, pada harga lantai yang tidak dapat ditandingi oleh mana-mana pesaing, dan diselesaikan di Arbitrum Stylus.</p>
