@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>研究，证明经济</title>
+<meta name="description" content="证明经济背后的科学记录，为从头阅读而写。">
+<link rel="icon" type="image/png" href="./assets/mark.png">
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --line:#30363d; --ink:#e6edf3;
+    --dim:#c3ccd6; --green:#3fb950; --red:#f85149; --blue:#58a6ff;
+    --amber:#e3b341; --violet:#a371f7; --elyellow:#f5f21f; --seablue:#23a3c2;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+    line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px}
+  header{border-bottom:1px solid var(--line);padding:60px 0 40px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--dim)}
+  h1{font-size:clamp(30px,5vw,46px);line-height:1.1;margin:14px 0 10px;
+    letter-spacing:-.02em;text-wrap:balance}
+  .lede{font-size:18px;color:var(--dim);max-width:62ch;margin:0}
+  .tagline{font-size:16px;color:var(--ink);font-weight:600;max-width:60ch;
+    margin:0 0 14px;letter-spacing:.01em}
+  .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .btn{display:inline-block;padding:9px 16px;border-radius:8px;
+    border:1px solid var(--line);font-size:14px;font-weight:600;color:var(--ink)}
+  .btn.primary{background:var(--green);color:#04260f;border-color:transparent}
+  .btn.stylus{border-color:var(--violet);color:#d2c1f5}
+  section{padding:44px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:13px;font-family:var(--mono);letter-spacing:.12em;
+    text-transform:uppercase;color:var(--dim);margin:0 0 20px;font-weight:600}
+  p.body{max-width:64ch;color:var(--dim);font-size:15px}
+  .stat{display:flex;gap:40px;flex-wrap:wrap}
+  .stat .big{font-size:clamp(34px,6vw,56px);font-weight:700;letter-spacing:-.02em;
+    line-height:1}
+  .stat .big.green{color:var(--green)}
+  .stat .sub{color:var(--dim);font-size:14px;margin-top:8px;max-width:24ch}
+  .loop{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:18px}
+  .card .k{font-family:var(--mono);font-size:12px;color:var(--green);
+    letter-spacing:.1em;text-transform:uppercase}
+  .card.gen .k{color:var(--elyellow)}
+  .card.anchor .k{color:var(--seablue)}
+  .card h3{margin:8px 0 6px;font-size:17px}
+  .card p{margin:0;color:var(--dim);font-size:14px}
+  table{width:100%;border-collapse:collapse;font-size:14px;
+    font-variant-numeric:tabular-nums}
+  th,td{text-align:right;padding:10px 12px;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left;font-family:var(--mono)}
+  thead th{color:var(--dim);font-weight:600;font-size:12px;
+    text-transform:uppercase;letter-spacing:.06em}
+  td{color:var(--ink)}
+  td.better{color:var(--green)} td.worse{color:var(--red)}
+  .delta{font-family:var(--mono);font-size:11px;margin-left:6px}
+  .delta.better{color:var(--green)} .delta.worse{color:var(--red)}
+  .caption{color:var(--dim);font-size:13px;margin-top:10px}
+  .tbl-wrap{overflow-x:auto}
+  .plot{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:12px}
+  .plot svg{width:100%;height:auto;display:block;border-radius:8px}
+  .seg-toggle{display:inline-flex;border:1px solid var(--line);border-radius:9px;
+    overflow:hidden;margin-top:4px}
+  .seg{background:var(--panel);color:var(--dim);border:0;padding:8px 20px;
+    font-size:13px;font-weight:600;font-family:var(--mono);cursor:pointer;
+    letter-spacing:.05em;text-transform:uppercase}
+  .seg+.seg{border-left:1px solid var(--line)}
+  .seg-perf.on{background:var(--violet);color:#160b2e}
+  .seg-energy.on{background:var(--amber);color:#2a1e05}
+  .legend{display:flex;gap:20px;flex-wrap:wrap;color:var(--dim);font-size:13px;
+    margin-top:12px}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:50%;
+    margin-right:7px;vertical-align:middle;border:1px solid rgba(255,255,255,.14)}
+  .points{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .note{background:#1c1408;border:1px solid #3d2c0a;border-radius:12px;
+    padding:16px 18px;color:#e3b341;font-size:14px}
+  .race{display:grid;gap:12px;max-width:640px}
+  .race .row{display:grid;grid-template-columns:180px 1fr auto;gap:12px;
+    align-items:center}
+  .race .lbl{font-family:var(--mono);font-size:13px}
+  .race .bar{height:20px;background:#0d1117;border:1px solid var(--line);
+    border-radius:6px;overflow:hidden}
+  .race .fill{height:100%;background:linear-gradient(90deg,#238636,#3fb950)}
+  .race .g{font-family:var(--mono);font-size:13px;color:var(--green);
+    text-align:right;min-width:56px}
+  .stylusbox{background:var(--panel);border:1px solid var(--violet);
+    border-radius:12px;padding:20px}
+  code{font-family:var(--mono);background:#0d1117;border:1px solid var(--line);
+    border-radius:6px;padding:1px 6px;font-size:.92em}
+  pre{background:#0d1117;border:1px solid var(--line);border-radius:10px;
+    padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:13px;
+    color:var(--ink)}
+  footer{padding:40px 0 70px;color:var(--dim);font-size:14px}
+  @media(max-width:680px){.loop,.points{grid-template-columns:1fr}
+    .race .row{grid-template-columns:120px 1fr auto}}
+</style>
+
+<style>
+  .logo{display:block;text-align:center;margin:0 0 26px;line-height:0}
+  .logo img{width:260px;max-width:70%;height:auto;display:inline-block;border-radius:12px}
+  .langbar{font-family:var(--mono);font-size:12px;color:var(--dim);margin:0 0 18px}
+  .langbar a{color:var(--blue)} .langbar b{color:var(--ink)}
+  .ladder th,.ladder td{text-align:left;font-family:var(--sans);vertical-align:top;font-size:13.5px}
+  .ladder td:first-child{font-family:var(--mono);white-space:nowrap}
+  .ladder .real{color:var(--green)} .ladder .road{color:var(--amber)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:700px){.two{grid-template-columns:1fr}}
+  p.body,.lede,.card p,ol.steps,.note,.kv td,.ladder td{color:var(--ink)}
+  .note{background:none;border:0;border-radius:0;padding:0;color:var(--ink);font-size:16px;max-width:62ch}
+  .kv th,.kv td{text-align:left;font-family:var(--sans);font-size:14px}
+  .kv td:first-child{font-family:var(--mono)}
+  ol.steps{color:var(--dim);font-size:15px;max-width:64ch;padding-left:20px}
+  ol.steps li{margin:6px 0}
+</style>
+
+<style>
+  /* type scale: larger, legible */
+  html{font-size:17px}
+  body{line-height:1.6}
+  .eyebrow{font-size:13px} .langbar{font-size:14px}
+  .lede{font-size:20px;max-width:60ch} .tagline{font-size:18px}
+  p.body{font-size:17px;max-width:62ch}
+  h2{font-size:15px} .card h3{font-size:19px} .card p{font-size:16px}
+  .btn{font-size:16px;padding:11px 18px}
+  table{font-size:16px} th,td{padding:12px 14px}
+  thead th{font-size:13px}
+  .ladder th,.ladder td,.kv th,.kv td{font-size:16px;line-height:1.5}
+  .note{font-size:16px} ol.steps{font-size:17px} ol.steps li{margin:8px 0}
+  .caption,.legend{font-size:15px} footer{font-size:16px}
+  .stat .sub{font-size:16px;max-width:26ch}
+  /* white mode: black on white */
+  .theme{float:right;margin:0 0 0 12px;background:var(--panel);color:var(--ink);border:1px solid var(--line);
+    border-radius:8px;padding:7px 12px;font:600 14px var(--mono);letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+  .theme:hover{border-color:var(--ink)}
+  :root[data-theme="light"]{
+    --bg:#ffffff; --panel:#f4f4f4; --line:#c8c8c8; --ink:#000000; --dim:#333333;
+    --blue:#0b3d91; --green:#0f5a2a; --red:#8f1020; --amber:#6b4600; --violet:#4a2390;
+    --elyellow:#5c5a00; --seablue:#0b5468;
+  }
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      --bg:#ffffff; --panel:#f4f4f4; --line:#c8c8c8; --ink:#000000; --dim:#333333;
+      --blue:#0b3d91; --green:#0f5a2a; --red:#8f1020; --amber:#6b4600; --violet:#4a2390;
+      --elyellow:#5c5a00; --seablue:#0b5468;
+    }
+    :root:not([data-theme="dark"]) .note{background:#f4f4f4;border-color:#c8c8c8;color:#000}
+    :root:not([data-theme="dark"]) code,:root:not([data-theme="dark"]) pre,:root:not([data-theme="dark"]) .race .bar{background:#f4f4f4}
+    :root:not([data-theme="dark"]) .btn.primary{background:#000;color:#fff}
+    :root:not([data-theme="dark"]) .btn.stylus{color:var(--violet)}
+    :root:not([data-theme="dark"]) .dot{border-color:rgba(0,0,0,.3)}
+  }
+  :root[data-theme="light"] .note{background:#f4f4f4;border-color:#c8c8c8;color:#000}
+  :root[data-theme="light"] code,:root[data-theme="light"] pre,:root[data-theme="light"] .race .bar{background:#f4f4f4}
+  :root[data-theme="light"] .btn.primary{background:#000;color:#fff}
+  :root[data-theme="light"] .btn.stylus{color:var(--violet)}
+  :root[data-theme="light"] .dot{border-color:rgba(0,0,0,.3)}
+</style>
+<script>
+(function(){
+  var k='pf-theme', r=document.documentElement, saved=null;
+  try{saved=localStorage.getItem(k)}catch(e){}
+  if(saved==='light'||saved==='dark') r.setAttribute('data-theme',saved);
+  function isLight(){var t=r.getAttribute('data-theme'); if(t) return t==='light';
+    return window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches}
+  function label(b){b.textContent=isLight()?'深色模式':'浅色模式';
+    b.setAttribute('aria-label',isLight()?'切换到深色模式':'切换到浅色模式')}
+  document.addEventListener('DOMContentLoaded',function(){
+    var b=document.getElementById('theme-toggle'); if(!b) return; label(b);
+    b.addEventListener('click',function(){var next=isLight()?'dark':'light';
+      r.setAttribute('data-theme',next); try{localStorage.setItem(k,next)}catch(e){} label(b)});
+  });
+})();
+</script>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="logo" href="./index.html"><img src="./assets/project-foundry-logo.jpg" alt="Project Foundry. Generate. Assess. Anchor." width="260" height="264"></a>
+    <div class="eyebrow">Q2 Computing / Project Foundry / Arbitrum Stylus</div>
+    <button class="theme" id="theme-toggle" type="button">浅色模式</button>
+    <p class="langbar"><a href="./index.zh.html">首页</a> · <b>研究</b><br>阅读语言： <a href="./research.html">English</a> · <a href="./research.ms.html">Bahasa Melayu</a> · <b>简体中文</b> · <a href="./research.ta.html">தமிழ்</a></p>
+    <h1>研究</h1>
+    <p class="tagline">证明经济背后的科学记录，为从头阅读而写。</p>
+    <p class="lede">不假定读者预先熟悉相关文献。引言阐述问题。第 2 节阐述工具。第 3 节与第 4 节提供硅片设计与浮点运算的背景。第 5 节给出数据，第 6 节给出机器检验的分析，第 7 节给出结论。首页上的每个数字在此均由一项测量或一条定理复现，并附产生它的方法及其来源。</p>
+    <div class="cta">
+      <a class="btn" href="./index.zh.html">首页</a>
+      <a class="btn" href="https://github.com/Q2Computing/Project-Foundry/blob/main/RESEARCH.md">RESEARCH.md</a>
+      <a class="btn stylus" href="https://github.com/Q2Computing/Project-Foundry/tree/main/contracts/q2-composition/proofs">Lean 证明</a>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>1. 引言</h2>
+    <p class="body">本页面面向尚未接触过相关文献的读者撰写，按顺序逐步构建论证。第 2 节阐述经济工具。第 3 节与第 4 节提供该工具所依赖的两部分背景：数字硅片如何设计与验证，以及为何以浮点运算作为工作范例。第 5 节给出数据，每个数字均附来源。第 6 节以机器检验的定理分析数据。第 7 节得出结论。此处的任何论断都附有可重新运行的方法。</p>
+    <p class="body"><strong>问题。</strong>芯片是由模块构成的层级结构。在设计送往代工厂之前，每个模块及整体装配都必须被证明正确，因为现代工艺节点的一套掩模成本为 100 万至 200 万美元，首次流片失败意味着第二套掩模。行业调查显示，首次流片成功率在 2024 年为 14%，在 2026 年为 5%。验证是流程中最大的成本，而如今它在被重复进行：每家使用加法器、浮点单元或寄存器堆的公司都在私下重新验证自己的副本，项目结束后这些工作便被丢弃。</p>
+    <p class="body"><strong>观察。</strong>一个模块的证明一旦产生，便不依赖于谁在使用该模块。若证明是公开且内容寻址（content-addressed）的，第二个团队便可继承它而无需重复，更大的系统也可通过引用其部件的证明来证明自身，而无需打开这些部件。验证由此成为共享资产，而非私有开支。</p>
+    <p class="body"><strong>主张。</strong>Q2 Computing 构建了第一个将这种继承变为市场的工具：证明即为证书，证书按成本授权用于更大的证明，并按固定底价授权用于制造的硅片，两种许可均在公链上结算。本页面的其余部分展示所构建的内容，测量其成本，证明该工具所保证的内容，并阐明任何试图与之竞争者将面对什么。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>2. 证明经济</h2>
+    <p class="body"><strong>证书</strong>是一条链上记录，通过设计的内容哈希、接口的内容哈希、所达到的证明层级，以及记录证明（proof of record）的内容哈希来标明一个模块。组合模块的证书还额外标明其子模块的证书以及覆盖其接口的绑定哈希。任何人都可以核对记录证明是否存在且匹配；无需设计文件即可完成。</p>
+    <p class="body">每份证书携带两种许可。协议在两者中均不抽取任何费用。</p>
+    <table class="kv">
+      <thead><tr><th>许可</th><th>授予的权利</th><th>定价规则</th><th>付费方</th></tr></thead>
+      <tbody>
+        <tr><td>引用</td><td>将本证书作为更大证明的子模块加以引用的权利</td><td>仅回收登记者上链登记所花费的 gas，以登记者声明的目标为上限，该目标至多为 0.005 ETH，此后永久免费。代工厂 PDK 基元从一开始就免费。</td><td>上一层级的抽象，仅为其直接子模块付费。其下的递归永不收费。</td></tr>
+        <tr><td>制造</td><td>将该设计纳入所制造的系统级芯片的权利</td><td>每套掩模 100 美元的底价，涵盖该掩模中的每个已认证模块，随采用率增长逐步下调</td><td>制造商。设计仅披露给设计者指定的代工厂，该代工厂必须先证明已收到所承诺的封装包，方可消耗任何一个单位。被许可方从不下载文件。</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>击败或分叉。</strong>任何人都可以登记某一现有接口的竞争实现，但必须指明其所击败的模块，并结清该模块登记成本的剩余部分。先前的登记者得到全额补偿。改进必须是有记录的测量，绝非声明。</p>
+    <p class="body"><strong>三份合约</strong>在 Arbitrum Stylus 上承载该经济。验证器在链上重新运行有界证明。锚定合约记录链下证明的内容寻址承诺。组合合约通过引用子证书认证系统，并结算两种许可。其不变量列于第 6 节。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>3. VLSI 与数字设计</h2>
+    <p class="body">超大规模集成电路（VLSI）是构建数十亿晶体管的电路并使其精确执行规范所定行为的学科。设计是一个层级结构，证明经济对该层级的每一层分别定价。</p>
+    <table class="kv">
+      <thead><tr><th>层级</th><th>是什么</th><th>如何证明</th></tr></thead>
+      <tbody>
+        <tr><td>器件</td><td>一个晶体管，由代工厂的工艺设计套件（PDK）以 SPICE 模型描述</td><td>通过测量表征；模型被信任</td></tr>
+        <tr><td>单元</td><td>少数几个晶体管连接成一个门：反相器、NAND、触发器</td><td>第 1 层，穷举：在 SPICE 中仿真每个输入并与真值表比对</td></tr>
+        <tr><td>组件</td><td>数十至数百个单元构成加法器、译码器、寄存器</td><td>第 2 层或第 3 层：网表与 RTL 的 SAT 等价，或映射（techmap）到已证明的单元</td></tr>
+        <tr><td>装配体</td><td>组件连接成乘法器、点积、处理单元</td><td>第 4 层，组合：每个部件均已认证，且胶合逻辑被证明等于所声明的组合</td></tr>
+        <tr><td>系统</td><td>装配体连接成加速器或处理器</td><td>再次为第 4 层；该阶梯在组合下封闭</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>验证成本为何爆炸。</strong>对一个有 n 个输入位的模块进行穷举检查需要 2 的 n 次方个用例。8 位加法器有 131,072 个用例，几秒内即可检查完毕。32 位乘法器有 2 的 64 次方个用例，在宇宙的寿命内也无法枚举完。符号等价（第 2 层）避免了枚举，但在大型算术电路上仍会失败，SAT 求解器会超时。唯一能无限扩展的方法是组合：证明部件，证明胶合逻辑，此后永不再查看部件内部。这就是证明阶梯以组合告终的原因，也是强制每个叶节点至多 64 个单元的基元上限的原因。该上限迫使任何更大的模块必须分解，因此系统中的每个证明要么小到可以穷举检查，要么由已经穷举检查过的证明构建而成。</p>
+    <p class="body"><strong>从设计到硅片的流程。</strong>设计者编写寄存器传输级（RTL）代码。综合（synthesis）将 RTL 映射到 PDK 的单元上以产生网表。布局布线（place and route）将网表转化为几何图形。物理签核（physical signoff，包括设计规则检查、版图与原理图比对、静态时序分析）确认该几何图形在目标时钟下可制造。几何图形以掩模组的形式送往代工厂，或在多项目晶圆班车（multi-project shuttle）上与其他项目共享掩模。第 2 节中的制造许可按掩模组定价，因为这是设计变为硅片的单位。</p>
+    <p class="body"><strong>同一把尺。</strong>本记录中的每项测量都以 ngspice 作为唯一操作者。自定义单元与代工厂单元在同一测试台中仿真，采用相同的负载、斜率与工艺角，使用同一开源 sky130 PDK 的器件。延迟为 50% 到 50% 的传播测量；能量为一个开关周期内电源电流的积分。使用测试向量的仿真是证据，予以记录，但永不计为证明。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>4. IEEE 754 与微缩放格式</h2>
+    <p class="body">以浮点运算作为工作范例有两个原因。它是每个处理器和每个加速器都必须实现的算术，因此已证明的浮点模块拥有最广阔的市场。它还有公开的规范 IEEE 754，因此证明最终可以对照标准而非设计者自己的描述进行检验。</p>
+    <p class="body"><strong>IEEE 754</strong> 将浮点数定义为符号、指数与尾数，并定义了正确舍入：运算结果是最接近精确数学结果的可表示数。被证明与其 RTL 等价的模块，证明的是它执行了设计者所写的内容。被证明满足 IEEE 754 的模块，证明的是它执行了所有其他符合标准的实现所执行的内容。后者更强，也是首页阶梯之上的下一级：精化至规范。</p>
+    <p class="body"><strong>微缩放（Microscaling，MX）</strong>是开放计算项目（OCP）面向机器学习的低精度格式家族。MXFP4 将元素打包为 E2M1（一个符号位、两位指数、一位尾数），并在 32 个元素的块内共享一个缩放因子。一个 MXFP4 通用矩阵乘法（GEMM）加速器解码 E2M1 元素，成对相乘，在加法器树中对 32 个乘积求和，并以 IEEE 754 单精度（FP32）累加结果。它小到足以完整证明，又大到整体的平面验证不可行，这使其成为检验该阶梯的恰当对象。</p>
+    <p class="body"><strong>规范接口。</strong>IEEE 754、OCP MX 规范以及 RISC-V 的 F 与 D 浮点扩展独立于实现者固定了模块的接口。击败或分叉规则约束任何声明某一接口哈希者，因此规范接口是无法被悄然重命名以逃避该规则的接口。这是证明经济将首先被争夺的领域，也是 Q2 所选择的阵地。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>5. 数据</h2>
+    <p class="body"><strong>MXFP4 记录。</strong>Q2 的 MXFP4 GEMM 加速器纯粹通过引用已证明的部件获得认证。每个模块的证书都携带其来自门户分析表的真实记录证明的内容哈希。</p>
+    <table class="kv">
+      <thead><tr><th>模块</th><th>层级</th><th>证明层级</th></tr></thead>
+      <tbody>
+        <tr><td>sky130 inv_1, nand2_1, dfxtp_1</td><td>PDK 单元</td><td>1，穷举 SPICE</td></tr>
+        <tr><td>E2M1 译码器，32 位寄存器</td><td>组件</td><td>3，映射（techmap）到已证明的单元</td></tr>
+        <tr><td>FP32 规格化，32 路加法器树，FP32 累加器</td><td>组件</td><td>2，等价</td></tr>
+        <tr><td>MXFP4 通道乘法器</td><td>组件</td><td>4，组合</td></tr>
+        <tr><td>MXFP4 点积</td><td>子装配体</td><td>4，组合</td></tr>
+        <tr><td>MXFP4 累加处理单元（PE）</td><td>装配体</td><td>4，组合，另加 DRC、LVS 与时序签核</td></tr>
+        <tr><td>16 乘 16 GEMM 块</td><td>装配体</td><td>4，组合</td></tr>
+        <tr><td>MXFP4 GEMM 加速器</td><td>系统</td><td>4，组合</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>生产成本。</strong></p>
+    <table class="kv">
+      <thead><tr><th>指标</th><th>数值</th><th>来源</th></tr></thead>
+      <tbody>
+        <tr><td>已完成的证明运行</td><td>23</td><td>门户分析表</td></tr>
+        <tr><td>证明计算量</td><td>3.724 小时（OpenLane 3.714，Icarus 0.007，Yosys 0.003）</td><td>完成时间减开始时间，求和</td></tr>
+        <tr><td>创建跨度，从首次请求到最后完成</td><td>101.72 小时</td><td>门户分析表</td></tr>
+        <tr><td>机器功率</td><td>80 瓦</td><td>指定值</td></tr>
+        <tr><td>电价，佛蒙特州居民用电，2026 年 9 月</td><td>每 kWh 24.44 美分</td><td>见来源</td></tr>
+        <tr><td>能源成本，按证明计算量计</td><td>72,811 微美元，约 7.3 美分</td><td>定理 energy_compute_uUSD</td></tr>
+        <tr><td>能源成本，按创建跨度计</td><td>1,988,829 微美元，约 1.99 美元</td><td>定理 energy_span_uUSD</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>它所进入的市场。</strong></p>
+    <table class="kv">
+      <thead><tr><th>指标</th><th>数值</th><th>来源</th></tr></thead>
+      <tbody>
+        <tr><td>多项目晶圆班车席位，sky130</td><td>14,950 美元</td><td>chipIgnite</td></tr>
+        <tr><td>全套掩模，130 nm</td><td>100 万至 200 万美元</td><td>AnySilicon</td></tr>
+        <tr><td>先进节点的掩模组</td><td>1,000 万美元或更多</td><td>SemiAnalysis</td></tr>
+        <tr><td>首次流片成功率，2024 年</td><td>14%</td><td>Wilson Research</td></tr>
+        <tr><td>首次流片成功率，2026 年</td><td>5%</td><td>Siemens Verification Horizons</td></tr>
+        <tr><td>MXFP4 证明的复现成本，小团队</td><td>4,000 美元</td><td>参数，约四个工程师工作日</td></tr>
+        <tr><td>复现成本，在位者</td><td>30,000 美元</td><td>参数，处于 16,000 至 50,000 美元的综合成本区间内</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>各层级的证明引擎</strong>及各自所信任的内容。</p>
+    <table class="ladder">
+      <thead><tr><th>层级</th><th>引擎</th><th>检查的内容</th><th>信任的内容</th></tr></thead>
+      <tbody>
+        <tr><td>1. 穷举</td><td>ngspice 直流与瞬态扫描</td><td>单元对每个数字输入的输出，阈值为 VDD 的一半；触发器的捕获、保持与边沿互斥</td><td>PDK 晶体管模型</td></tr>
+        <tr><td>2. 等价</td><td>Yosys SAT 米特电路，时间归纳</td><td>网表在整个输入空间上符号化地等于 RTL</td><td>求解器的判定，经反例检测解析</td></tr>
+        <tr><td>3. 映射（techmap）</td><td>Yosys techmap 加结构等价</td><td>网表仅映射到第 1 层单元且等于其 RTL；超过 64 个单元的叶节点将被拒绝</td><td>已证明单元白名单</td></tr>
+        <tr><td>4. 组合</td><td>普查加组合等价</td><td>装配体仅实例化已证明的子模块与已证明的胶合逻辑，且等于其所声明子模块的组合</td><td>每个子模块自身的证书</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>6. 分析</h2>
+    <p class="body">该分析是一个 Lean 4 项目 Q2Market.lean，包含 58 条定理，其模型精确镜像合约的算术。仅使用核心内核：无 mathlib，无 native_decide，无 sorry。公理审计显示每条定理至多依赖 propext 与 Quot.sound，而每条数值定理不依赖任何公理。所有金额均为整数 wei 或微美元，因此不存在隐藏的舍入。以下各节从该工具的保证走向其后果。</p>
+    <table class="ladder">
+      <thead><tr><th>节</th><th>证明的内容</th><th>关键结果</th></tr></thead>
+      <tbody>
+        <tr><td>1. 上限不变量</td><td>royalty_due = min(price, target 减 recovered)，回收完成后为零；由归纳法，recovered 永不超过 target</td><td>收取金额以所声明的登记 gas 为上限</td></tr>
+        <tr><td>2. 租金界</td><td>rent = collected 减 cost</td><td>rent 始终至多为 CAP 减 cost</td></tr>
+        <tr><td>3. 自由进入均衡</td><td>任何高于成本的价格都会被压价；唯一稳定的价格是成本</td><td>均衡租金为零</td></tr>
+        <tr><td>4. 生产成本</td><td>80 W，每 kWh 24.44 美分，实测小时数</td><td>7.3 美分与 1.99 美元；均远低于 0.005 ETH 的上限</td></tr>
+        <tr><td>5. 自制与外购</td><td>有能力的买方在所有掩模上支付的总额至多为复现成本</td><td>复现成本 4,000 美元时章程（Charter）价格为 800 美元；30,000 美元时为 6,000 美元</td></tr>
+        <tr><td>6. 底价</td><td>每套掩模 100 美元，SoC 以下全部涵盖</td><td>占一个班车席位的 66 个基点（bps），占一套掩模的 0 个基点；进入者需 40 套（团队）或 300 套（在位者）掩模方可收回成本</td></tr>
+        <tr><td>7. 顶石</td><td>生产成本对底价</td><td>第一套掩模 98.01 美元，其后每套 100 美元；复现成本是生产成本的 2,011 倍</td></tr>
+        <tr><td>8. 下降</td><td>每套掩模的物理成本随产量下降；底价下降时威慑收紧</td><td>1,200 套掩模时每套 1.2 美分，一百万套时 1.0 美分；安全下降阶梯</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>解读分析。</strong>第 1 至 3 节确立引用许可无法抽取租金：收取金额以所声明且不可提高的目标为上限，且在自由进入下唯一稳定的价格是成本。第 4 节测量了一个真实系统的该项成本，发现其低于两美元。第 5 节转向制造许可，表明理性买方支付的金额永不超过复现该证明的成本。第 6 节将 100 美元的底价置于远低于该复现成本之处，并计算竞争者需要售出多少套掩模才能收回自身的复现支出。第 7 节将它们合并：第一套掩模在生产成本之上回报 98.01 美元，其后每套掩模回报 100 美元，而竞争者的单位成本是在位证明的 2,011 倍。第 8 节表明底价可在每一级下降十倍，同时威慑比率收紧，因为每套掩模的物理成本随产量下降。</p>
+    <p class="body" style="margin-top:22px"><strong>在 100 美元底价下</strong>，每行一条定理。</p>
+    <table class="kv">
+      <thead><tr><th>指标</th><th>内核检验值</th></tr></thead>
+      <tbody>
+        <tr><td>占 14,950 美元班车席位的份额</td><td>66 基点（0.66%）</td></tr>
+        <tr><td>占 150 万美元掩模组的份额</td><td>0 基点</td></tr>
+        <tr><td>第一套掩模的利润</td><td>98.01 美元</td></tr>
+        <tr><td>其后每套掩模的利润</td><td>100 美元</td></tr>
+        <tr><td>进入者盈亏平衡，小团队（4,000 美元）</td><td>40 套掩模</td></tr>
+        <tr><td>进入者盈亏平衡，在位者（30,000 美元）</td><td>300 套掩模</td></tr>
+        <tr><td>库盈亏平衡，IEEE 754（生产成本约 100,000 美元）</td><td>1,000 套掩模</td></tr>
+        <tr><td>每年 120,000 美元</td><td>每年 1,201 套掩模</td></tr>
+      </tbody>
+    </table>
+    <p class="body"><strong>下降阶梯</strong>，每行一条定理。</p>
+    <table class="kv">
+      <thead><tr><th>每套掩模底价</th><th>达到每年 120,000 美元所需的掩模数</th><th>复现成本 4,000 美元时的进入者盈亏平衡</th></tr></thead>
+      <tbody>
+        <tr><td>100 美元</td><td>1,201</td><td>40</td></tr>
+        <tr><td>10 美元</td><td>12,100</td><td>400</td></tr>
+        <tr><td>1 美元</td><td>122,000</td><td>4,000</td></tr>
+        <tr><td>10 美分</td><td>1,340,000</td><td>40,000</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>合约强制执行的不变量。</strong>定理描述模型；以下是使模型忠实于已部署代码的性质。</p>
+    <table class="kv">
+      <thead><tr><th>不变量</th><th>机制</th></tr></thead>
+      <tbody>
+        <tr><td>登记目标永不可提高</td><td>recovery_target 不存在设置器</td></tr>
+        <tr><td>任何登记不得声明超过 0.005 ETH</td><td>MAX_RECOVERY_TARGET，在 register 与 certify 时检查</td></tr>
+        <tr><td>版税总和不会回绕</td><td>检查加法；溢出即回退</td></tr>
+        <tr><td>已售许可不可重新定价、重定向或搁置</td><td>单价、代工厂与封装包承诺在购买时快照到许可中</td></tr>
+        <tr><td>未收到设计不得制造任何单位</td><td>consume 要求有与设计者所承诺封装包匹配的披露记录</td></tr>
+        <tr><td>竞争实现不可悄然登记</td><td>相同接口要求指明基线并结清其剩余回收额</td></tr>
+        <tr><td>击败以测量为准，绝非声明</td><td>claim_beat 要求引用一条有记录的改进</td></tr>
+        <tr><td>价值守恒</td><td>每一 wei 都计入某所有者账户或退还；支付采用拉取模式，转账前余额清零</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>所作假设。</strong>弹性：底价下降十倍时产量约上升十倍；逐级检验，因为只有当实测产量达到下一级时底价才会下降。接口：规范标准使重命名代价高昂。证书是主张；登记按设计不作验证，信任来自证明可在链下检验、由验证器重新运行或经过认证。参数：每 kWh 24.44 美分，每 ETH 3,000 美元，复现成本 4,000 美元与 30,000 美元，每套掩模结算 gas 1 美分，章程比例 20%，年度目标 120,000 美元。改变其中任何一项，数字随之变动；定理则不变。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>7. 结论</h2>
+    <p class="body"><strong>Q2 Computing 率先进入市场。</strong>截至本记录，一个真实系统已纯粹通过已证明部件的组合获得认证，其证书携带真实记录证明的哈希，两种许可在公链上结算，58 条机器检验的定理界定了该工具可以收取的费用及其所保证的内容。没有任何其他方在该阶梯的任何层级发布过证书、组合合约或经济学证明。为首次竞争所选择的阵地，即开源 PDK 上的 IEEE 754 算术与 OCP MX 格式，是市场最广、接口最规范的阵地。</p>
+    <p class="body"><strong>竞争在结构上已被排除，分析说明了原因。</strong>考虑竞争者可能采取的每一种立场。</p>
+    <ol class="steps">
+      <li><strong>对引用收租。</strong>分析第 3 节证明，在自由进入下唯一稳定的引用价格是成本，而上限不变量阻止任何登记者收取超过其声明登记 gas 的金额。收取更高价格的竞争者会被按成本收费的竞争者压价，而第一个按成本收费的竞争者正是 Q2 自己的协议。</li>
+      <li><strong>私下重新证明相同的模块。</strong>第 7 节表明，复现成本是现有证明每套掩模成本的 2,011 倍。能以每套掩模 100 美元继承证明，或通过引用免费继承的买方，不会花费 4,000 至 30,000 美元去重复它。私下重新验证，即今天的默认做法，成为昂贵的选项。</li>
+      <li><strong>压低制造底价。</strong>第 6 节表明，进入者在 100 美元下需要 40 至 300 套掩模方可收回成本，第 8 节表明阶梯每下降一级该数字便乘以十，而在位者每套掩模的物理成本持续下降。底价由 Q2 设定，按 Q2 的时间表向物理成本下降。不存在低于物理成本却能让进入者收回复现成本的价格。</li>
+      <li><strong>击败这些模块。</strong>这是被允许且受欢迎的。击败或分叉要求挑战者全额补偿先前的登记者，并以测量证明改进。结果是同一经济内更好的模块，在同一上限下登记，在同一底价下授权。改进强化了目录；它不会创造目录的对手。</li>
+      <li><strong>建立对手经济。</strong>对手必须提供更便宜的引用（低于成本不可能）、更低的制造底价（低于物理成本不可能，而 Q2 已在向其下降）或更强的证明（该证明将在击败或分叉规则下登记进本经济）。对手证明的任何模块，按构造即为此处的候选证书。</li>
+    </ol>
+    <p class="body">该工具并非通过在价格上胜过对手而取胜。它移除了使价格竞争成为可能的立足点。引用定价由定理钉在成本上。制造定价钉在只有其作者才能降低的底价上，该底价收敛于生产并结算一份证明的物理成本。改进被吸纳而非对抗。剩下的是一个单一、不断增长、公开证明的目录，由 Q2 Computing 首先登记，其每一条目都使下一条目的证明更廉价。</p>
+    <p class="note">第 6 节中的赌注仍是赌注。弹性逐级检验，底价永不先于实测产量下降。结论在所述参数下成立；定理在任何参数下成立。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>复现</h2>
+    <ol class="steps">
+      <li><code>cd contracts/q2-composition/demo && npm install && node run.mjs</code>：在真实 MXFP4 树上运行两种经济。</li>
+      <li><code>cd contracts/q2-composition/proofs && lake build && lake env lean Audit.lean</code>：58 条定理与公理审计。</li>
+      <li><code>cd contracts/q2-composition && cargo build --release --target wasm32-unknown-unknown</code>，然后针对 Arbitrum Sepolia 运行 <code>cargo stylus check</code>：合约，在 Linux 上。</li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>来源</h2>
+    <ol class="steps">
+      <li><a href="https://chipfoundry.io/faqs">chipIgnite 班车定价，每项目 14,950 美元</a></li>
+      <li><a href="https://anysilicon.com/130nm-wafer-mpw-cost/">130 nm 晶圆与 MPW 成本，掩模组 100 万至 200 万美元</a></li>
+      <li><a href="https://newsletter.semianalysis.com/p/the-dark-side-of-the-semiconductor">各节点光掩模成本，SemiAnalysis</a></li>
+      <li><a href="https://semiengineering.com/first-time-silicon-success-plummets/">首次流片成功率 14%，2024 年 Wilson Research 研究</a></li>
+      <li><a href="https://blogs.sw.siemens.com/verificationhorizons/2025/09/03/why-first-silicon-success-is-getting-harder-for-system-companies/">首次流片成功率 5%，2026 年研究</a></li>
+      <li><a href="https://www.electricchoice.com/electricity-prices-by-state/vermont/">佛蒙特州居民电价，每 kWh 24.44 美分，2026 年 9 月</a></li>
+      <li><a href="https://ieeexplore.ieee.org/document/8766229">IEEE 754-2019，浮点运算标准</a></li>
+      <li><a href="https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf">OCP 微缩放格式（MX）规范 v1.0</a></li>
+      <li><a href="https://link.springer.com/article/10.1007/s11192-014-1524-z">引文分布中的幂律，Scopus</a></li>
+    </ol>
+    <p class="note">MXFP4 的证明计算量、创建跨度以及每个证书哈希均来自 Q2 自己的门户分析记录。</p>
+  </div>
+</section>
+
+
+<footer>
+  <div class="wrap">
+    Q2 Computing / Project Foundry &#183;
+    <a href="./codesign.html">context co-design</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry">source</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/results/report.md">full report</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry/actions">CI oracle</a>
+  </div>
+</footer>
+</body>
+</html>

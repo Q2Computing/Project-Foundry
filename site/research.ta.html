@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ஆய்வு, நிரூபணப் பொருளாதாரம்</title>
+<meta name="description" content="நிரூபணப் பொருளாதாரத்தின் பின்னணியிலுள்ள அறிவியல் பதிவு, தொடக்கத்திலிருந்து படிக்கும் வகையில் எழுதப்பட்டது.">
+<link rel="icon" type="image/png" href="./assets/mark.png">
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --line:#30363d; --ink:#e6edf3;
+    --dim:#c3ccd6; --green:#3fb950; --red:#f85149; --blue:#58a6ff;
+    --amber:#e3b341; --violet:#a371f7; --elyellow:#f5f21f; --seablue:#23a3c2;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+    line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px}
+  header{border-bottom:1px solid var(--line);padding:60px 0 40px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--dim)}
+  h1{font-size:clamp(30px,5vw,46px);line-height:1.1;margin:14px 0 10px;
+    letter-spacing:-.02em;text-wrap:balance}
+  .lede{font-size:18px;color:var(--dim);max-width:62ch;margin:0}
+  .tagline{font-size:16px;color:var(--ink);font-weight:600;max-width:60ch;
+    margin:0 0 14px;letter-spacing:.01em}
+  .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .btn{display:inline-block;padding:9px 16px;border-radius:8px;
+    border:1px solid var(--line);font-size:14px;font-weight:600;color:var(--ink)}
+  .btn.primary{background:var(--green);color:#04260f;border-color:transparent}
+  .btn.stylus{border-color:var(--violet);color:#d2c1f5}
+  section{padding:44px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:13px;font-family:var(--mono);letter-spacing:.12em;
+    text-transform:uppercase;color:var(--dim);margin:0 0 20px;font-weight:600}
+  p.body{max-width:64ch;color:var(--dim);font-size:15px}
+  .stat{display:flex;gap:40px;flex-wrap:wrap}
+  .stat .big{font-size:clamp(34px,6vw,56px);font-weight:700;letter-spacing:-.02em;
+    line-height:1}
+  .stat .big.green{color:var(--green)}
+  .stat .sub{color:var(--dim);font-size:14px;margin-top:8px;max-width:24ch}
+  .loop{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:18px}
+  .card .k{font-family:var(--mono);font-size:12px;color:var(--green);
+    letter-spacing:.1em;text-transform:uppercase}
+  .card.gen .k{color:var(--elyellow)}
+  .card.anchor .k{color:var(--seablue)}
+  .card h3{margin:8px 0 6px;font-size:17px}
+  .card p{margin:0;color:var(--dim);font-size:14px}
+  table{width:100%;border-collapse:collapse;font-size:14px;
+    font-variant-numeric:tabular-nums}
+  th,td{text-align:right;padding:10px 12px;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left;font-family:var(--mono)}
+  thead th{color:var(--dim);font-weight:600;font-size:12px;
+    text-transform:uppercase;letter-spacing:.06em}
+  td{color:var(--ink)}
+  td.better{color:var(--green)} td.worse{color:var(--red)}
+  .delta{font-family:var(--mono);font-size:11px;margin-left:6px}
+  .delta.better{color:var(--green)} .delta.worse{color:var(--red)}
+  .caption{color:var(--dim);font-size:13px;margin-top:10px}
+  .tbl-wrap{overflow-x:auto}
+  .plot{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:12px}
+  .plot svg{width:100%;height:auto;display:block;border-radius:8px}
+  .seg-toggle{display:inline-flex;border:1px solid var(--line);border-radius:9px;
+    overflow:hidden;margin-top:4px}
+  .seg{background:var(--panel);color:var(--dim);border:0;padding:8px 20px;
+    font-size:13px;font-weight:600;font-family:var(--mono);cursor:pointer;
+    letter-spacing:.05em;text-transform:uppercase}
+  .seg+.seg{border-left:1px solid var(--line)}
+  .seg-perf.on{background:var(--violet);color:#160b2e}
+  .seg-energy.on{background:var(--amber);color:#2a1e05}
+  .legend{display:flex;gap:20px;flex-wrap:wrap;color:var(--dim);font-size:13px;
+    margin-top:12px}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:50%;
+    margin-right:7px;vertical-align:middle;border:1px solid rgba(255,255,255,.14)}
+  .points{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .note{background:#1c1408;border:1px solid #3d2c0a;border-radius:12px;
+    padding:16px 18px;color:#e3b341;font-size:14px}
+  .race{display:grid;gap:12px;max-width:640px}
+  .race .row{display:grid;grid-template-columns:180px 1fr auto;gap:12px;
+    align-items:center}
+  .race .lbl{font-family:var(--mono);font-size:13px}
+  .race .bar{height:20px;background:#0d1117;border:1px solid var(--line);
+    border-radius:6px;overflow:hidden}
+  .race .fill{height:100%;background:linear-gradient(90deg,#238636,#3fb950)}
+  .race .g{font-family:var(--mono);font-size:13px;color:var(--green);
+    text-align:right;min-width:56px}
+  .stylusbox{background:var(--panel);border:1px solid var(--violet);
+    border-radius:12px;padding:20px}
+  code{font-family:var(--mono);background:#0d1117;border:1px solid var(--line);
+    border-radius:6px;padding:1px 6px;font-size:.92em}
+  pre{background:#0d1117;border:1px solid var(--line);border-radius:10px;
+    padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:13px;
+    color:var(--ink)}
+  footer{padding:40px 0 70px;color:var(--dim);font-size:14px}
+  @media(max-width:680px){.loop,.points{grid-template-columns:1fr}
+    .race .row{grid-template-columns:120px 1fr auto}}
+</style>
+
+<style>
+  .logo{display:block;text-align:center;margin:0 0 26px;line-height:0}
+  .logo img{width:260px;max-width:70%;height:auto;display:inline-block;border-radius:12px}
+  .langbar{font-family:var(--mono);font-size:12px;color:var(--dim);margin:0 0 18px}
+  .langbar a{color:var(--blue)} .langbar b{color:var(--ink)}
+  .ladder th,.ladder td{text-align:left;font-family:var(--sans);vertical-align:top;font-size:13.5px}
+  .ladder td:first-child{font-family:var(--mono);white-space:nowrap}
+  .ladder .real{color:var(--green)} .ladder .road{color:var(--amber)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:700px){.two{grid-template-columns:1fr}}
+  p.body,.lede,.card p,ol.steps,.note,.kv td,.ladder td{color:var(--ink)}
+  .note{background:none;border:0;border-radius:0;padding:0;color:var(--ink);font-size:16px;max-width:62ch}
+  .kv th,.kv td{text-align:left;font-family:var(--sans);font-size:14px}
+  .kv td:first-child{font-family:var(--mono)}
+  ol.steps{color:var(--dim);font-size:15px;max-width:64ch;padding-left:20px}
+  ol.steps li{margin:6px 0}
+</style>
+
+<style>
+  /* type scale: larger, legible */
+  html{font-size:17px}
+  body{line-height:1.6}
+  .eyebrow{font-size:13px} .langbar{font-size:14px}
+  .lede{font-size:20px;max-width:60ch} .tagline{font-size:18px}
+  p.body{font-size:17px;max-width:62ch}
+  h2{font-size:15px} .card h3{font-size:19px} .card p{font-size:16px}
+  .btn{font-size:16px;padding:11px 18px}
+  table{font-size:16px} th,td{padding:12px 14px}
+  thead th{font-size:13px}
+  .ladder th,.ladder td,.kv th,.kv td{font-size:16px;line-height:1.5}
+  .note{font-size:16px} ol.steps{font-size:17px} ol.steps li{margin:8px 0}
+  .caption,.legend{font-size:15px} footer{font-size:16px}
+  .stat .sub{font-size:16px;max-width:26ch}
+  /* white mode: black on white */
+  .theme{float:right;margin:0 0 0 12px;background:var(--panel);color:var(--ink);border:1px solid var(--line);
+    border-radius:8px;padding:7px 12px;font:600 14px var(--mono);letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+  .theme:hover{border-color:var(--ink)}
+  :root[data-theme="light"]{
+    --bg:#ffffff; --panel:#f4f4f4; --line:#c8c8c8; --ink:#000000; --dim:#333333;
+    --blue:#0b3d91; --green:#0f5a2a; --red:#8f1020; --amber:#6b4600; --violet:#4a2390;
+    --elyellow:#5c5a00; --seablue:#0b5468;
+  }
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      --bg:#ffffff; --panel:#f4f4f4; --line:#c8c8c8; --ink:#000000; --dim:#333333;
+      --blue:#0b3d91; --green:#0f5a2a; --red:#8f1020; --amber:#6b4600; --violet:#4a2390;
+      --elyellow:#5c5a00; --seablue:#0b5468;
+    }
+    :root:not([data-theme="dark"]) .note{background:#f4f4f4;border-color:#c8c8c8;color:#000}
+    :root:not([data-theme="dark"]) code,:root:not([data-theme="dark"]) pre,:root:not([data-theme="dark"]) .race .bar{background:#f4f4f4}
+    :root:not([data-theme="dark"]) .btn.primary{background:#000;color:#fff}
+    :root:not([data-theme="dark"]) .btn.stylus{color:var(--violet)}
+    :root:not([data-theme="dark"]) .dot{border-color:rgba(0,0,0,.3)}
+  }
+  :root[data-theme="light"] .note{background:#f4f4f4;border-color:#c8c8c8;color:#000}
+  :root[data-theme="light"] code,:root[data-theme="light"] pre,:root[data-theme="light"] .race .bar{background:#f4f4f4}
+  :root[data-theme="light"] .btn.primary{background:#000;color:#fff}
+  :root[data-theme="light"] .btn.stylus{color:var(--violet)}
+  :root[data-theme="light"] .dot{border-color:rgba(0,0,0,.3)}
+</style>
+<script>
+(function(){
+  var k='pf-theme', r=document.documentElement, saved=null;
+  try{saved=localStorage.getItem(k)}catch(e){}
+  if(saved==='light'||saved==='dark') r.setAttribute('data-theme',saved);
+  function isLight(){var t=r.getAttribute('data-theme'); if(t) return t==='light';
+    return window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches}
+  function label(b){b.textContent=isLight()?'இருள் பயன்முறை':'வெளிர் பயன்முறை';
+    b.setAttribute('aria-label',isLight()?'இருள் பயன்முறைக்கு மாற்று':'வெளிர் பயன்முறைக்கு மாற்று')}
+  document.addEventListener('DOMContentLoaded',function(){
+    var b=document.getElementById('theme-toggle'); if(!b) return; label(b);
+    b.addEventListener('click',function(){var next=isLight()?'dark':'light';
+      r.setAttribute('data-theme',next); try{localStorage.setItem(k,next)}catch(e){} label(b)});
+  });
+})();
+</script>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="logo" href="./index.html"><img src="./assets/project-foundry-logo.jpg" alt="Project Foundry. Generate. Assess. Anchor." width="260" height="264"></a>
+    <div class="eyebrow">Q2 Computing / Project Foundry / Arbitrum Stylus</div>
+    <button class="theme" id="theme-toggle" type="button">வெளிர் பயன்முறை</button>
+    <p class="langbar"><a href="./index.ta.html">முகப்புப் பக்கம்</a> · <b>ஆய்வு</b><br>இதை இதில் படிக்கவும்: <a href="./research.html">English</a> · <a href="./research.ms.html">Bahasa Melayu</a> · <a href="./research.zh.html">简体中文</a> · <b>தமிழ்</b></p>
+    <h1>ஆய்வு</h1>
+    <p class="tagline">நிரூபணப் பொருளாதாரத்தின் பின்னணியிலுள்ள அறிவியல் பதிவு, தொடக்கத்திலிருந்து படிக்கும் வகையில் எழுதப்பட்டது.</p>
+    <p class="lede">இலக்கியத்துடன் முன் பரிச்சயம் எதுவும் எதிர்பார்க்கப்படுவதில்லை. அறிமுகம் பிரச்சினையைக் கூறுகிறது. பிரிவு 2 கருவியைக் கூறுகிறது. பிரிவுகள் 3 மற்றும் 4 சிலிக்கான் வடிவமைப்பு மற்றும் மிதவைப் புள்ளி எண்கணிதத்தில் பின்னணியை அளிக்கின்றன. பிரிவு 5 தரவை, பிரிவு 6 இயந்திரச் சரிபார்க்கப்பட்ட ஆய்வை, பிரிவு 7 முடிவைத் தருகிறது. முகப்புப் பக்கத்தில் உள்ள ஒவ்வொரு எண்ணும் இங்கு ஒரு அளவீட்டால் அல்லது ஒரு தேற்றத்தால், அதை உருவாக்கிய முறையுடனும் அது வந்த மூலத்துடனும், மீண்டும் உருவாக்கப்படுகிறது.</p>
+    <div class="cta">
+      <a class="btn" href="./index.ta.html">முகப்புப் பக்கம்</a>
+      <a class="btn" href="https://github.com/Q2Computing/Project-Foundry/blob/main/RESEARCH.md">RESEARCH.md</a>
+      <a class="btn stylus" href="https://github.com/Q2Computing/Project-Foundry/tree/main/contracts/q2-composition/proofs">Lean நிரூபணங்கள்</a>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>1. அறிமுகம்</h2>
+    <p class="body">இந்தப் பக்கம், இலக்கியத்தைப் பார்த்திராத ஒரு வாசகருக்காக எழுதப்பட்டுள்ளது. இது வாதத்தை வரிசையாகக் கட்டமைக்கிறது. பிரிவு 2 பொருளாதாரக் கருவியைக் கூறுகிறது. பிரிவுகள் 3 மற்றும் 4 அந்தக் கருவி சார்ந்திருக்கும் இரு பின்னணிப் பகுதிகளை அளிக்கின்றன: டிஜிட்டல் சிலிக்கான் எவ்வாறு வடிவமைக்கப்பட்டுச் சரிபார்க்கப்படுகிறது, மற்றும் மிதவைப் புள்ளி (floating-point) எண்கணிதம் ஏன் செயல்முறை எடுத்துக்காட்டாக உள்ளது. பிரிவு 5 தரவை, ஒவ்வொரு எண்ணையும் அதன் மூலத்துடன், அளிக்கிறது. பிரிவு 6 இயந்திரச் சரிபார்க்கப்பட்ட தேற்றங்களால் தரவை ஆய்வு செய்கிறது. பிரிவு 7 முடிவைத் தருகிறது. இங்கு எதுவும் மீண்டும் இயக்கும் வழி இல்லாமல் உறுதிப்படுத்தப்படவில்லை.</p>
+    <p class="body"><strong>பிரச்சினை.</strong> ஒரு சிப் என்பது தொகுதிகளின் படிநிலை. ஒரு வடிவமைப்பு ஃபவுண்டரிக்கு அனுப்பப்படுவதற்கு முன், ஒவ்வொரு தொகுதியும் முழு அசெம்பிளியும் சரியானவை என்று காட்டப்பட வேண்டும், ஏனெனில் நவீன நோடில் ஒரு மாஸ்க் தொகுப்பு ஒன்று முதல் இரண்டு மில்லியன் டாலர் செலவாகும், தோல்வியடைந்த முதல் சுழற்சி (first spin) என்பது இரண்டாவது மாஸ்க் தொகுப்பு. தொழில்துறை ஆய்வுகள் முதல்-சிலிக்கான் வெற்றியை 2024 இல் 14 சதவீதமாகவும், 2026 இல் 5 சதவீதமாகவும் கணக்கிடுகின்றன. சரிபார்ப்பு இந்த ஓட்டத்தில் மிகப்பெரிய செலவு, இன்று அது மீண்டும் மீண்டும் செய்யப்படுகிறது: ஒரு கூட்டியையோ, மிதவைப் புள்ளி அலகையோ, பதிவகக் கோப்பையோ பயன்படுத்தும் ஒவ்வொரு நிறுவனமும் தனது சொந்தப் பிரதியைத் தனிப்பட்ட முறையில் மீண்டும் சரிபார்க்கிறது, திட்டம் முடிந்தவுடன் அந்த வேலை தூக்கி எறியப்படுகிறது.</p>
+    <p class="body"><strong>அவதானிப்பு.</strong> ஒரு தொகுதியின் நிரூபணம், ஒருமுறை உருவாக்கப்பட்ட பின், அந்தத் தொகுதியை யார் பயன்படுத்துகிறார்கள் என்பதைச் சார்ந்திருப்பதில்லை. நிரூபணம் பொதுவெளியிலும் உள்ளடக்க முகவரியிடப்பட்டதாகவும் (content-addressed) இருந்தால், இரண்டாவது குழு அதை மீண்டும் செய்வதற்குப் பதிலாகப் பெற்றுக்கொள்ள முடியும்; மேலும் ஒரு பெரிய அமைப்பு, அதன் பகுதிகளைத் திறக்காமலேயே, பகுதிகளின் நிரூபணங்களைக் குறிப்பிடுவதன் மூலம் நிரூபிக்கப்பட முடியும். சரிபார்ப்பு ஒரு தனிப்பட்ட செலவாக இல்லாமல் பகிரப்பட்ட சொத்தாக மாறுகிறது.</p>
+    <p class="body"><strong>கூற்று.</strong> Q2 Computing இந்தப் பெறுதலை ஒரு சந்தையாக்கும் முதல் கருவியைக் கட்டியுள்ளது: ஒரு நிரூபணம் ஒரு சான்றிதழ்; சான்றிதழ்கள் பெரிய நிரூபணங்களுக்குச் செலவு விலையிலும், தயாரிக்கப்பட்ட சிலிக்கானுக்கு நிலையான அடித்தள விலையிலும் உரிமம் அளிக்கின்றன; இரு உரிமங்களும் பொதுச் சங்கிலியில் (public chain) தீர்வு செய்யப்படுகின்றன. இந்தப் பக்கத்தின் எஞ்சிய பகுதி என்ன கட்டப்பட்டது என்பதைக் காட்டுகிறது, அதன் செலவை அளவிடுகிறது, கருவி என்ன உத்தரவாதம் அளிக்கிறது என்பதை நிரூபிக்கிறது, மேலும் அதனுடன் போட்டியிட முயலும் எவருக்கும் என்ன விளைவு என்பதைக் கூறுகிறது.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>2. நிரூபணப் பொருளாதாரம்</h2>
+    <p class="body">ஒரு <strong>சான்றிதழ்</strong> (certificate) என்பது ஒரு தொகுதியை அதன் வடிவமைப்பின் உள்ளடக்க ஹாஷ் (content hash), அதன் இடைமுகத்தின் உள்ளடக்க ஹாஷ், அது நிரூபிக்கப்பட்ட நிலை, மற்றும் பதிவு நிரூபணத்தின் (proof of record) உள்ளடக்க ஹாஷ் ஆகியவற்றால் பெயரிடும் சங்கிலியிலுள்ள (on-chain) பதிவு. கூட்டமைக்கப்பட்ட தொகுதிக்கான சான்றிதழ் கூடுதலாக அதன் துணைத் தொகுதிகளின் சான்றிதழ்களையும், அவற்றின் இடைமுகங்களின் மீதான பிணைப்பு ஹாஷையும் பெயரிடுகிறது. பதிவு நிரூபணம் இருக்கிறதா, பொருந்துகிறதா என்பதை எவரும் சரிபார்க்க முடியும்; அதற்கு வடிவமைப்பு யாருக்கும் தேவையில்லை.</p>
+    <p class="body">ஒவ்வொரு சான்றிதழும் இரு உரிமங்களைத் தாங்குகிறது. நெறிமுறை இரண்டிலிருந்தும் எதையும் எடுத்துக்கொள்வதில்லை.</p>
+    <table class="kv">
+      <thead><tr><th>உரிமம்</th><th>அது அளிப்பது</th><th>விலை விதி</th><th>செலுத்துபவர்</th></tr></thead>
+      <tbody>
+        <tr><td>குறிப்பு (Reference)</td><td>இந்தச் சான்றிதழை ஒரு பெரிய நிரூபணத்தின் துணைத் தொகுதியாகப் பெயரிடும் உரிமை</td><td>பட்டியலிடுபவர் பட்டியலிடச் செலவழித்த gas ஐ மட்டுமே மீட்கிறது; பட்டியலிடுபவர் அறிவித்த அதிகபட்சம் 0.005 ETH இலக்கில் வரம்பிடப்பட்டு, பின்னர் என்றென்றும் இலவசம். ஃபவுண்டரி PDK அடிப்படைக் கூறுகள் தொடக்கத்திலிருந்தே இலவசம்.</td><td>ஒரு நிலை மேலே உள்ள அருவம், அதன் நேரடித் துணைத் தொகுதிகளுக்கு மட்டும். அதற்குக் கீழே உள்ள மீள்சுழற்சிக்கு ஒருபோதும் கட்டணம் இல்லை.</td></tr>
+        <tr><td>தயாரிப்பு (Manufacturing)</td><td>வடிவமைப்பைத் தயாரிக்கப்பட்ட ஒரு system on chip இல் சேர்க்கும் உரிமை</td><td>ஒரு மாஸ்க் தொகுப்பிற்கு $100 அடித்தள விலை; அந்த மாஸ்கில் உள்ள ஒவ்வொரு சான்றளிக்கப்பட்ட தொகுதியையும் உள்ளடக்கியது; ஏற்பு வளர வளரக் கீழே இறக்கப்படுகிறது</td><td>தயாரிப்பாளர். வடிவமைப்பு வடிவமைப்பாளர் பெயரிட்ட ஃபவுண்டரிக்கு மட்டுமே வெளிப்படுத்தப்படுகிறது; அது எந்த அலகும் பயன்படுத்தப்படுவதற்கு முன் உறுதியளிக்கப்பட்ட தொகுப்பைப் பெற்றதை நிரூபிக்க வேண்டும். உரிமம் பெறுபவர் கோப்பை ஒருபோதும் பதிவிறக்குவதில்லை.</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>வெல்லு அல்லது பிரி (beat or fork).</strong> ஏற்கனவே உள்ள ஒரு இடைமுகத்தின் போட்டி செயலாக்கத்தை எவரும் பட்டியலிடலாம், ஆனால் அது வெல்லும் தொகுதியைப் பெயரிட்டு, அந்தத் தொகுதியின் பட்டியலிடல் செலவில் எஞ்சியிருப்பதைத் தீர்வு செய்ய வேண்டும். முந்தைய பட்டியலிடுபவர் முழுமையாக ஈடுசெய்யப்படுகிறார். மேம்பாடு பதிவு செய்யப்பட்ட அளவீடாக இருக்க வேண்டும், ஒருபோதும் ஒரு அறிவிப்பாக அல்ல.</p>
+    <p class="body">Arbitrum Stylus இல் உள்ள <strong>மூன்று ஒப்பந்தங்கள்</strong> இந்தப் பொருளாதாரத்தைச் சுமக்கின்றன. சரிபார்ப்பி (verifier) வரையறுக்கப்பட்ட நிரூபணத்தைச் சங்கிலியில் மீண்டும் இயக்குகிறது. நங்கூரம் (anchor) சங்கிலிக்கு வெளியே உள்ள நிரூபணத்தின் உள்ளடக்க முகவரியிடப்பட்ட உறுதிமொழியைப் பதிவு செய்கிறது. கூட்டமைப்பு ஒப்பந்தம் துணைச் சான்றிதழ்களைக் குறிப்பிடுவதன் மூலம் ஒரு அமைப்பைச் சான்றளித்து, இரு உரிமங்களையும் தீர்வு செய்கிறது. அவற்றின் மாறிலிகள் (invariants) பிரிவு 6 இல் பட்டியலிடப்பட்டுள்ளன.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>3. VLSI மற்றும் டிஜிட்டல் வடிவமைப்பு</h2>
+    <p class="body">மிகப் பெரிய அளவு ஒருங்கிணைப்பு (very large scale integration, VLSI) என்பது பில்லியன் கணக்கான டிரான்சிஸ்டர்களின் ஒரு மின்சுற்றை, அது குறிப்பிடப்பட்டதைச் சரியாகச் செய்யும் வகையில் கட்டும் துறை. வடிவமைப்பு ஒரு படிநிலை; நிரூபணப் பொருளாதாரம் அந்தப் படிநிலையின் ஒவ்வொரு அடுக்கையும் தனித்தனியாக விலையிடுகிறது.</p>
+    <table class="kv">
+      <thead><tr><th>அடுக்கு</th><th>அது என்ன</th><th>அது எவ்வாறு நிரூபிக்கப்படுகிறது</th></tr></thead>
+      <tbody>
+        <tr><td>சாதனம் (Device)</td><td>ஒரு டிரான்சிஸ்டர், ஃபவுண்டரியின் செயல்முறை வடிவமைப்புத் தொகுப்பால் (process design kit, PDK) SPICE மாதிரியாக விவரிக்கப்பட்டது</td><td>அளவீட்டால் பண்பறியப்படுகிறது; மாதிரி நம்பப்படுகிறது</td></tr>
+        <tr><td>செல் (Cell)</td><td>ஒரு கேட்டாக இணைக்கப்பட்ட சில டிரான்சிஸ்டர்கள்: ஒரு இன்வெர்ட்டர், ஒரு NAND, ஒரு ஃபிளிப்-ஃபிளாப்</td><td>நிலை 1, முழுமையான: ஒவ்வொரு உள்ளீட்டையும் SPICE இல் உருவகப்படுத்தி உண்மை அட்டவணையுடன் ஒப்பிடுதல்</td></tr>
+        <tr><td>கூறு (Component)</td><td>ஒரு கூட்டி, ஒரு டிகோடர், ஒரு பதிவகம் ஆகியவற்றை உருவாக்கும் பத்துகள் முதல் நூறுகள் வரையிலான செல்கள்</td><td>நிலை 2 அல்லது 3: நெட்லிஸ்ட்டிற்கும் RTL க்கும் SAT சமானம், அல்லது நிரூபிக்கப்பட்ட செல்களின் மீது Techmap</td></tr>
+        <tr><td>அசெம்பிளி (Assembly)</td><td>ஒரு பெருக்கி, ஒரு புள்ளிப் பெருக்கம் (dot product), ஒரு செயலாக்கக் கூறு (processing element) ஆக இணைக்கப்பட்ட கூறுகள்</td><td>நிலை 4, கூட்டமைப்பு: ஒவ்வொரு பகுதியும் சான்றளிக்கப்பட்டது, இணைப்பு அறிவிக்கப்பட்ட கூட்டமைப்பிற்குச் சமம் என நிரூபிக்கப்பட்டது</td></tr>
+        <tr><td>அமைப்பு (System)</td><td>ஒரு முடுக்கியாக (accelerator) அல்லது ஒரு செயலியாக இணைக்கப்பட்ட அசெம்பிளிகள்</td><td>மீண்டும் நிலை 4; ஏணி கூட்டமைப்பின் கீழ் மூடியது</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>சரிபார்ப்புச் செலவு ஏன் வெடிக்கிறது.</strong> n உள்ளீட்டு பிட்கள் கொண்ட ஒரு தொகுதியின் முழுமையான சோதனைக்கு 2 இன் n ஆம் அடுக்கு நிகழ்வுகள் தேவை. 8-பிட் கூட்டிக்கு 131,072 நிகழ்வுகள் உள்ளன, அது சில வினாடிகளில் சோதிக்கப்படுகிறது. 32-பிட் பெருக்கிக்கு 2 இன் 64 ஆம் அடுக்கு நிகழ்வுகள் உள்ளன; அவற்றைப் பிரபஞ்சத்தின் ஆயுட்காலத்திற்குள் பட்டியலிட முடியாது. குறியீட்டுச் சமானம் (நிலை 2) பட்டியலிடலைத் தவிர்க்கிறது, ஆனால் பெரிய எண்கணிதத்தில் இன்னும் தோல்வியடைகிறது; அங்கு SAT தீர்விகள் நேரம் கடந்துவிடுகின்றன. வரம்பின்றி விரிவடையும் ஒரே முறை கூட்டமைப்பு: பகுதிகளை நிரூபிக்கவும், இணைப்பை நிரூபிக்கவும், பின்னர் ஒரு பகுதியின் உள்ளே ஒருபோதும் மீண்டும் பார்க்க வேண்டாம். இதனால்தான் நிரூபண ஏணி கூட்டமைப்பில் முடிகிறது, மேலும் இதனால்தான் ஒரு இலைக்கு 64 செல்கள் என்ற அடிப்படை வரம்பு அமல்படுத்தப்படுகிறது. இந்த வரம்பு அதைவிடப் பெரிய எதையும் பிரியக் கட்டாயப்படுத்துகிறது; எனவே அமைப்பில் உள்ள ஒவ்வொரு நிரூபணமும் முழுமையாகச் சோதிக்கப் போதுமான அளவு சிறியது, அல்லது அவ்வாறு சோதிக்கப்பட்ட நிரூபணங்களால் கட்டப்பட்டது.</p>
+    <p class="body"><strong>வடிவமைப்பிலிருந்து சிலிக்கானுக்கான ஓட்டம்.</strong> ஒரு வடிவமைப்பாளர் பதிவக-மாற்ற நிலை (register-transfer level, RTL) குறியீட்டை எழுதுகிறார். தொகுப்பு (synthesis) RTL ஐ PDK இன் செல்களின் மீது மேப் செய்து நெட்லிஸ்ட்டை உருவாக்குகிறது. இடம் மற்றும் வழி (place and route) நெட்லிஸ்ட்டை வடிவவியலாக மாற்றுகிறது. இயற்பியல் இறுதி ஒப்புதல் (physical signoff: design rule check, layout versus schematic, static timing) வடிவவியல் இலக்கு கடிகாரத்தில் தயாரிக்கக்கூடியது என்பதை உறுதிப்படுத்துகிறது. வடிவவியல் ஒரு மாஸ்க் தொகுப்பாக ஃபவுண்டரிக்கு அனுப்பப்படுகிறது, அல்லது பல-திட்ட ஷட்டிலில் (multi-project shuttle) பிற திட்டங்களுடன் ஒரு மாஸ்கைப் பகிர்கிறது. பிரிவு 2 இல் உள்ள தயாரிப்பு உரிமம் ஒரு மாஸ்க் தொகுப்பிற்கு என விலையிடப்பட்டுள்ளது, ஏனெனில் அதுவே ஒரு வடிவமைப்பு சிலிக்கானாக மாறும் அலகு.</p>
+    <p class="body"><strong>ஒரே அளவுகோல்.</strong> இந்தப் பதிவில் உள்ள ஒவ்வொரு அளவீடும் ngspice ஐ ஒரே செயற்குறியாகப் பயன்படுத்துகிறது. ஒரு தனிப்பயன் செல்லும் ஃபவுண்டரி செல்லும் ஒரே சோதனைத் தளத்தில், ஒரே சுமை, சாய்வு (slew) மற்றும் மூலையில் (corner), ஒரே திறந்த sky130 PDK சாதனங்களிலிருந்து உருவகப்படுத்தப்படுகின்றன. தாமதம் என்பது 50 சதவீதத்திலிருந்து 50 சதவீதத்திற்கான பரவல் அளவீடு; ஆற்றல் என்பது ஒரு மாறுதல் சுழற்சியின் மீதான வழங்கல் மின்னோட்டத்தின் தொகையீடு. சோதனை திசையன்களுடன் கூடிய உருவகப்படுத்துதல் ஆதாரம்; அது பதிவு செய்யப்படுகிறது, ஒருபோதும் நிரூபணமாகக் கணக்கிடப்படுவதில்லை.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>4. IEEE 754 மற்றும் மைக்ரோஸ்கேலிங் வடிவங்கள்</h2>
+    <p class="body">மிதவைப் புள்ளி எண்கணிதம் இரு காரணங்களுக்காகச் செயல்முறை எடுத்துக்காட்டாக உள்ளது. ஒவ்வொரு செயலியும் ஒவ்வொரு முடுக்கியும் செயல்படுத்த வேண்டிய எண்கணிதம் இது; எனவே நிரூபிக்கப்பட்ட மிதவைப் புள்ளித் தொகுதிக்கு இயன்ற அளவு பரந்த சந்தை உள்ளது. மேலும் அதற்கு ஒரு பொது விவரக்குறிப்பு, IEEE 754, உள்ளது; எனவே ஒரு நிரூபணத்தை இறுதியில் வடிவமைப்பாளரின் சொந்த விவரிப்புக்கு எதிராக அல்லாமல் ஒரு தரநிலைக்கு எதிராகச் சரிபார்க்க முடியும்.</p>
+    <p class="body"><strong>IEEE 754</strong> ஒரு மிதவைப் புள்ளி எண்ணை ஒரு குறி (sign), ஒரு அடுக்கு (exponent), ஒரு மான்டிசா (mantissa) என வரையறுக்கிறது; மேலும் சரியான வட்டமிடலை (correct rounding) வரையறுக்கிறது: ஒரு செயல்பாட்டின் முடிவு, சரியான கணித முடிவுக்கு மிக அருகிலுள்ள பிரதிநிதித்துவப்படுத்தக்கூடிய எண். தனது RTL உடன் சமம் என நிரூபிக்கப்பட்ட தொகுதி, வடிவமைப்பாளர் எழுதியதைச் செய்கிறது என நிரூபிக்கப்பட்டுள்ளது. IEEE 754 ஐப் பூர்த்தி செய்கிறது என நிரூபிக்கப்பட்ட தொகுதி, இணங்கும் ஒவ்வொரு பிற செயலாக்கமும் செய்வதைச் செய்கிறது என நிரூபிக்கப்பட்டுள்ளது. இரண்டாவது வலுவானது; அது முகப்புப் பக்கத்தில் உள்ள ஏணிக்கு மேலே அடுத்த படி: விவரக்குறிப்பிற்குச் செம்மைப்படுத்தல்.</p>
+    <p class="body"><strong>மைக்ரோஸ்கேலிங் (Microscaling, MX)</strong> என்பது இயந்திரக் கற்றலுக்கான Open Compute Project இன் குறைந்த-துல்லிய வடிவங்களின் குடும்பம். MXFP4 உறுப்புகளை E2M1 ஆக (ஒரு குறி பிட், இரு-பிட் அடுக்கு, ஒரு-பிட் மான்டிசா) அடைக்கிறது, மேலும் 32 உறுப்புகளின் ஒரு தொகுதிக்கு ஒரே அளவுக் காரணியைப் (scale factor) பகிர்கிறது. ஒரு MXFP4 பொது அணிப் பெருக்கல் (general matrix multiply, GEMM) முடுக்கி E2M1 உறுப்புகளை டிகோட் செய்கிறது, இணைகளைப் பெருக்குகிறது, 32 பெருக்கல்களை ஒரு கூட்டி மரத்தில் (adder tree) கூட்டுகிறது, மேலும் முடிவை IEEE 754 ஒற்றைத் துல்லியத்தில் (FP32) திரட்டுகிறது. அது முழுமையாக நிரூபிக்கப் போதுமான அளவு சிறியது, அதே சமயம் முழுமையின் தட்டையான சரிபார்ப்பு (flat verification) சாத்தியமற்றதாகும் அளவு பெரியது; இதுவே அதை ஏணியின் சரியான சோதனையாக்குகிறது.</p>
+    <p class="body"><strong>நியதி இடைமுகங்கள் (canonical interfaces).</strong> IEEE 754, OCP MX விவரக்குறிப்பு, மற்றும் RISC-V F மற்றும் D மிதவைப் புள்ளி நீட்டிப்புகள், ஒரு தொகுதியின் இடைமுகத்தை அதன் செயலாக்குபவரைச் சாராமல் நிர்ணயிக்கின்றன. வெல்லு அல்லது பிரி விதி ஒரு இடைமுக ஹாஷைக் கோருபவர் எவரையும் பிணைக்கிறது; எனவே நியதி இடைமுகம் என்பது விதியிலிருந்து தப்பிக்க அமைதியாகப் பெயர் மாற்ற முடியாத ஒன்று. நிரூபணப் பொருளாதாரம் முதலில் போட்டியிடப்படும் இடம் இதுவே; Q2 தேர்ந்தெடுத்த களமும் இதுவே.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>5. தரவு</h2>
+    <p class="body"><strong>MXFP4 பதிவு.</strong> Q2 இன் MXFP4 GEMM முடுக்கி நிரூபிக்கப்பட்ட பகுதிகளைக் குறிப்பிடுவதன் மூலம் மட்டுமே சான்றளிக்கப்பட்டது. ஒவ்வொரு தொகுதியின் சான்றிதழும் போர்ட்டலின் ஆய்வு அட்டவணையிலிருந்து அதன் உண்மையான பதிவு நிரூபணத்தின் உள்ளடக்க ஹாஷைத் தாங்குகிறது.</p>
+    <table class="kv">
+      <thead><tr><th>தொகுதி</th><th>அடுக்கு</th><th>நிரூபண நிலை</th></tr></thead>
+      <tbody>
+        <tr><td>sky130 inv_1, nand2_1, dfxtp_1</td><td>PDK செல்</td><td>1, முழுமையான SPICE</td></tr>
+        <tr><td>E2M1 டிகோடர், 32-பிட் பதிவகம்</td><td>கூறு</td><td>3, நிரூபிக்கப்பட்ட செல்களின் மீது Techmap</td></tr>
+        <tr><td>FP32 normalize, 32-வழி கூட்டி மரம், FP32 திரட்டி</td><td>கூறு</td><td>2, சமானம்</td></tr>
+        <tr><td>MXFP4 லேன் பெருக்கி</td><td>கூறு</td><td>4, கூட்டமைப்பு</td></tr>
+        <tr><td>MXFP4 புள்ளிப் பெருக்கம்</td><td>துணை-அசெம்பிளி</td><td>4, கூட்டமைப்பு</td></tr>
+        <tr><td>MXFP4 திரட்டும் PE</td><td>அசெம்பிளி</td><td>4, கூட்டமைப்பு, மேலும் DRC, LVS மற்றும் timing இறுதி ஒப்புதல்</td></tr>
+        <tr><td>16 x 16 GEMM டைல்</td><td>அசெம்பிளி</td><td>4, கூட்டமைப்பு</td></tr>
+        <tr><td>MXFP4 GEMM முடுக்கி</td><td>அமைப்பு</td><td>4, கூட்டமைப்பு</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>அதை உருவாக்கச் செலவானது.</strong></p>
+    <table class="kv">
+      <thead><tr><th>அளவை</th><th>மதிப்பு</th><th>மூலம்</th></tr></thead>
+      <tbody>
+        <tr><td>நிறைவுற்ற நிரூபண இயக்கங்கள்</td><td>23</td><td>போர்ட்டல் ஆய்வு அட்டவணை</td></tr>
+        <tr><td>நிரூபணக் கணினி நேரம்</td><td>3.724 மணி நேரம் (OpenLane 3.714, Icarus 0.007, Yosys 0.003)</td><td>நிறைவு நேரத்திலிருந்து தொடக்க நேரத்தைக் கழித்து, கூட்டப்பட்டது</td></tr>
+        <tr><td>உருவாக்கக் காலம், முதல் கோரிக்கையிலிருந்து கடைசி நிறைவு வரை</td><td>101.72 மணி நேரம்</td><td>போர்ட்டல் ஆய்வு அட்டவணை</td></tr>
+        <tr><td>இயந்திர மின்திறன்</td><td>80 வாட்</td><td>குறிப்பிடப்பட்டது</td></tr>
+        <tr><td>மின்சாரம், Vermont குடியிருப்பு, செப்டம்பர் 2026</td><td>ஒரு kWh க்கு 24.44 சென்ட்</td><td>மூலங்களைப் பார்க்கவும்</td></tr>
+        <tr><td>ஆற்றல் செலவு, நிரூபணக் கணினி நேர அடிப்படை</td><td>72,811 மைக்ரோ-டாலர், சுமார் 7.3 சென்ட்</td><td>தேற்றம் energy_compute_uUSD</td></tr>
+        <tr><td>ஆற்றல் செலவு, உருவாக்கக் கால அடிப்படை</td><td>1,988,829 மைக்ரோ-டாலர், சுமார் $1.99</td><td>தேற்றம் energy_span_uUSD</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>அது நுழையும் சந்தை.</strong></p>
+    <table class="kv">
+      <thead><tr><th>அளவை</th><th>மதிப்பு</th><th>மூலம்</th></tr></thead>
+      <tbody>
+        <tr><td>பல-திட்ட ஷட்டில் இடம், sky130</td><td>$14,950</td><td>chipIgnite</td></tr>
+        <tr><td>முழு மாஸ்க் தொகுப்பு, 130 nm</td><td>$1 முதல் 2 மில்லியன்</td><td>AnySilicon</td></tr>
+        <tr><td>மேம்பட்ட நோடில் மாஸ்க் தொகுப்பு</td><td>$10 மில்லியன் அல்லது அதற்கு மேல்</td><td>SemiAnalysis</td></tr>
+        <tr><td>முதல்-சிலிக்கான் வெற்றி, 2024</td><td>14 சதவீதம்</td><td>Wilson Research</td></tr>
+        <tr><td>முதல்-சிலிக்கான் வெற்றி, 2026</td><td>5 சதவீதம்</td><td>Siemens Verification Horizons</td></tr>
+        <tr><td>MXFP4 நிரூபணத்தின் மீள்உருவாக்கச் செலவு, சிறிய குழு</td><td>$4,000</td><td>அளபுரு, சுமார் நான்கு பொறியாளர்-நாட்கள்</td></tr>
+        <tr><td>மீள்உருவாக்கச் செலவு, நிலைபெற்ற நிறுவனம்</td><td>$30,000</td><td>அளபுரு, $16,000 முதல் $50,000 வரையிலான முழுச் செலவு வரம்பிற்குள்</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>நிரூபண இயந்திரங்கள், நிலை வாரியாக</strong>, மற்றும் ஒவ்வொன்றும் நம்புவது.</p>
+    <table class="ladder">
+      <thead><tr><th>நிலை</th><th>இயந்திரம்</th><th>சோதிக்கப்படுவது</th><th>நம்பப்படுவது</th></tr></thead>
+      <tbody>
+        <tr><td>1. முழுமையான</td><td>ngspice DC மற்றும் transient sweep கள்</td><td>ஒவ்வொரு டிஜிட்டல் உள்ளீட்டிற்கும் ஒரு செல்லின் வெளியீடு, VDD இன் பாதியில் threshold; ஃபிளாப்களுக்குப் பிடிப்பு (capture), பிடித்தல் (hold) மற்றும் விளிம்புத் தனித்துவம் (edge exclusivity)</td><td>PDK டிரான்சிஸ்டர் மாதிரிகள்</td></tr>
+        <tr><td>2. சமானம்</td><td>Yosys SAT மைட்டர், காலத் தூண்டல்</td><td>நெட்லிஸ்ட் முழு உள்ளீட்டு வெளியிலும் RTL க்குச் சமம், குறியீட்டு முறையில்</td><td>தீர்வியின் தீர்ப்பு, எதிர்-எடுத்துக்காட்டு (counterexample) கண்டறிதலுடன் பகுக்கப்பட்டது</td></tr>
+        <tr><td>3. Techmap</td><td>Yosys techmap மற்றும் கட்டமைப்புச் சமானம்</td><td>நெட்லிஸ்ட் நிலை-1 செல்களின் மீது மட்டுமே மேப் ஆகி அதன் RTL க்குச் சமம்; 64 செல்களுக்கு மேல் உள்ள இலை நிராகரிக்கப்படும்</td><td>நிரூபிக்கப்பட்ட-செல் அனுமதிப் பட்டியல் (whitelist)</td></tr>
+        <tr><td>4. கூட்டமைப்பு</td><td>கணக்கெடுப்பு மற்றும் கூட்டமைப்புச் சமானம்</td><td>அசெம்பிளி நிரூபிக்கப்பட்ட துணைத் தொகுதிகளையும் நிரூபிக்கப்பட்ட இணைப்பையும் மட்டுமே உருவாக்குகிறது, மேலும் அறிவிக்கப்பட்ட துணைத் தொகுதிகளின் கூட்டமைப்பிற்குச் சமம்</td><td>ஒவ்வொரு துணைத் தொகுதியின் சொந்தச் சான்றிதழ்</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>6. ஆய்வு</h2>
+    <p class="body">இந்த ஆய்வு ஒரு Lean 4 திட்டம், Q2Market.lean; ஒப்பந்தத்தின் எண்கணிதத்தைச் சரியாகப் பிரதிபலிக்கும் ஒரு மாதிரியின் மீது 58 தேற்றங்கள். மையக் கருவகம் (core kernel) மட்டும்: mathlib இல்லை, native_decide இல்லை, sorry இல்லை. கோட்பாட்டுத் தணிக்கை (axiom audit) ஒவ்வொரு தேற்றமும் அதிகபட்சம் propext மற்றும் Quot.sound ஐ மட்டுமே சார்ந்துள்ளது என்றும், ஒவ்வொரு எண் தேற்றமும் எந்தக் கோட்பாட்டையும் சாராது என்றும் காட்டுகிறது. பணம் அனைத்தும் முழு எண் wei அல்லது மைக்ரோ-டாலர்; எனவே எந்த வட்டமிடலும் மறைக்கப்படவில்லை. கீழுள்ள பிரிவுகள் கருவியின் உத்தரவாதத்திலிருந்து அதன் விளைவு வரை நடந்து செல்கின்றன.</p>
+    <table class="ladder">
+      <thead><tr><th>பிரிவு</th><th>நிரூபிக்கப்படுவது</th><th>முக்கிய முடிவு</th></tr></thead>
+      <tbody>
+        <tr><td>1. வரம்பு மாறிலி</td><td>royalty_due = min(price, target minus recovered), மீட்கப்பட்டவுடன் பூஜ்ஜியம்; தூண்டலால், மீட்கப்பட்டது ஒருபோதும் இலக்கை மீறாது</td><td>வசூல் அறிவிக்கப்பட்ட பட்டியலிடல் gas இல் வரம்பிடப்பட்டுள்ளது</td></tr>
+        <tr><td>2. வாடகை வரம்பு</td><td>rent = collected minus cost</td><td>வாடகை எப்போதும் அதிகபட்சம் CAP minus cost</td></tr>
+        <tr><td>3. இலவச-நுழைவு சமநிலை</td><td>செலவுக்கு மேலான எந்த விலையும் குறைத்து விலையிடப்படுகிறது; ஒரே நிலையான விலை செலவு</td><td>சமநிலை வாடகை பூஜ்ஜியம்</td></tr>
+        <tr><td>4. உற்பத்திச் செலவு</td><td>80 W, ஒரு kWh க்கு 24.44 சென்ட், அளவிடப்பட்ட மணி நேரம்</td><td>7.3 சென்ட் மற்றும் $1.99; இரண்டும் 0.005 ETH வரம்பிற்கு மிகக் கீழே</td></tr>
+        <tr><td>5. உருவாக்கு அல்லது வாங்கு</td><td>திறமையான வாங்குபவர் அனைத்து மாஸ்க்குகளிலும் அதிகபட்சம் மீள்உருவாக்கச் செலவைச் செலுத்துகிறார்</td><td>$4,000 மீள்உருவாக்கத்தில் $800 Charter விலை; $30,000 இல் $6,000</td></tr>
+        <tr><td>6. அடித்தள விலை</td><td>ஒரு மாஸ்க்கிற்கு $100, SoC முதல் கீழே</td><td>ஒரு ஷட்டிலின் 66 bps, ஒரு மாஸ்க் தொகுப்பின் 0 bps; நுழைவாளர்கள் சமநிலைக்கு 40 (குழு) அல்லது 300 (நிலைபெற்ற நிறுவனம்) மாஸ்க்குகள் தேவை</td></tr>
+        <tr><td>7. உச்சக் கல்</td><td>உற்பத்தி மற்றும் அடித்தள விலை ஒப்பீடு</td><td>முதல் மாஸ்கில் $98.01, பின்வரும் ஒவ்வொன்றிலும் $100; மீள்உருவாக்கம் உற்பத்தியின் 2,011 மடங்கு</td></tr>
+        <tr><td>8. இறக்கம்</td><td>ஒரு மாஸ்க்கிற்கான இயற்பியல் செலவு அளவுடன் குறைகிறது; அடித்தள விலை குறைய குறையத் தடுப்பு இறுகுகிறது</td><td>1,200 மாஸ்க்குகளில் ஒரு மாஸ்க்கிற்கு 1.2 சென்ட், ஒரு மில்லியனில் 1.0 சென்ட்; பாதுகாப்பான இறக்க ஏணி</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>ஆய்வைப் படித்தல்.</strong> பிரிவுகள் 1 முதல் 3 வரை குறிப்பு உரிமம் வாடகையைப் பிரித்தெடுக்க முடியாது என்பதை நிறுவுகின்றன: வசூல் அறிவிக்கப்பட்ட, உயர்த்த முடியாத இலக்கில் வரம்பிடப்பட்டுள்ளது; இலவச நுழைவின் கீழ் ஒரே நிலையான விலை செலவு. பிரிவு 4 ஒரு உண்மையான அமைப்பிற்கான அந்தச் செலவை அளவிட்டு, அது இரண்டு டாலருக்குக் கீழே இருப்பதைக் காண்கிறது. பிரிவு 5 தயாரிப்பு உரிமத்திற்குத் திரும்பி, பகுத்தறிவுள்ள வாங்குபவர் நிரூபணத்தை மீள்உருவாக்குவதற்கான செலவுக்கு மேல் ஒருபோதும் செலுத்துவதில்லை என்பதைக் காட்டுகிறது. பிரிவு 6 $100 அடித்தள விலையை அந்த மீள்உருவாக்கச் செலவுக்கு மிகக் கீழே வைத்து, ஒரு போட்டியாளர் தனது சொந்த மீள்உருவாக்கச் செலவை மீட்க எத்தனை மாஸ்க்குகளை விற்க வேண்டும் என்பதைக் கணக்கிடுகிறது. பிரிவு 7 அவற்றை இணைக்கிறது: முதல் மாஸ்க் உற்பத்திச் செலவுக்கு மேல் $98.01 தருகிறது, பின்வரும் ஒவ்வொரு மாஸ்க்கும் $100 தருகிறது; அதே சமயம் ஒரு போட்டியாளர், ஏற்கனவே உள்ள நிரூபணத்தைக் காட்டிலும் ஒரு அலகிற்கு 2,011 மடங்கு அதிக செலவுடையவர். பிரிவு 8 ஒவ்வொரு படியிலும் அடித்தள விலை பத்து மடங்கு இறங்க முடியும் என்றும், அதே நேரத்தில் தடுப்பு விகிதம் இறுகுகிறது என்றும் காட்டுகிறது, ஏனெனில் ஒரு மாஸ்க்கிற்கான இயற்பியல் செலவு அளவுடன் குறைகிறது.</p>
+    <p class="body" style="margin-top:22px"><strong>$100 அடித்தள விலையில்</strong>, ஒவ்வொரு வரிசையும் ஒரு தேற்றம்.</p>
+    <table class="kv">
+      <thead><tr><th>அளவை</th><th>கருவகச் சரிபார்க்கப்பட்ட மதிப்பு</th></tr></thead>
+      <tbody>
+        <tr><td>$14,950 ஷட்டில் இடத்தின் பங்கு</td><td>66 bps (0.66 சதவீதம்)</td></tr>
+        <tr><td>$1.5 மில்லியன் மாஸ்க் தொகுப்பின் பங்கு</td><td>0 bps</td></tr>
+        <tr><td>முதல் மாஸ்கில் லாப வரம்பு</td><td>$98.01</td></tr>
+        <tr><td>பின்வரும் ஒவ்வொரு மாஸ்கிலும் லாப வரம்பு</td><td>$100</td></tr>
+        <tr><td>நுழைவாளர் சமநிலை, சிறிய குழு ($4,000)</td><td>40 மாஸ்க்குகள்</td></tr>
+        <tr><td>நுழைவாளர் சமநிலை, நிலைபெற்ற நிறுவனம் ($30,000)</td><td>300 மாஸ்க்குகள்</td></tr>
+        <tr><td>நூலகச் சமநிலை, IEEE 754 (உருவாக்கச் சுமார் $100,000)</td><td>1,000 மாஸ்க்குகள்</td></tr>
+        <tr><td>ஆண்டுக்கு $120,000</td><td>ஆண்டுக்கு 1,201 மாஸ்க்குகள்</td></tr>
+      </tbody>
+    </table>
+    <p class="body"><strong>இறக்க ஏணி</strong>, ஒவ்வொரு வரிசையும் ஒரு தேற்றம்.</p>
+    <table class="kv">
+      <thead><tr><th>ஒரு மாஸ்க்கிற்கான அடித்தள விலை</th><th>$120,000 க்கான ஆண்டு மாஸ்க்குகள்</th><th>$4,000 மீள்உருவாக்கத்தில் நுழைவாளர் சமநிலை</th></tr></thead>
+      <tbody>
+        <tr><td>$100</td><td>1,201</td><td>40</td></tr>
+        <tr><td>$10</td><td>12,100</td><td>400</td></tr>
+        <tr><td>$1</td><td>122,000</td><td>4,000</td></tr>
+        <tr><td>10 சென்ட்</td><td>1,340,000</td><td>40,000</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>ஒப்பந்தம் அமல்படுத்தும் மாறிலிகள்.</strong> தேற்றங்கள் மாதிரியை விவரிக்கின்றன; இவை மாதிரியை நம்பகமானதாக்கும், பயன்படுத்தப்பட்ட குறியீட்டின் பண்புகள்.</p>
+    <table class="kv">
+      <thead><tr><th>மாறிலி</th><th>செயல்முறை</th></tr></thead>
+      <tbody>
+        <tr><td>பட்டியலிடல் இலக்கை ஒருபோதும் உயர்த்த முடியாது</td><td>recovery_target க்கு setter எதுவும் இல்லை</td></tr>
+        <tr><td>எந்தப் பட்டியலும் 0.005 ETH க்கு மேல் அறிவிக்க முடியாது</td><td>MAX_RECOVERY_TARGET, register மற்றும் certify இல் சோதிக்கப்படுகிறது</td></tr>
+        <tr><td>ராயல்டித் தொகை சுற்றி வர (wrap) முடியாது</td><td>சோதிக்கப்பட்ட கூட்டல்; வழிதல் (overflow) மீள்கிறது (revert)</td></tr>
+        <tr><td>விற்கப்பட்ட உரிமத்தை மறுவிலையிடவோ, திசைமாற்றவோ, கைவிடவோ முடியாது</td><td>அலகு விலை, ஃபவுண்டரி மற்றும் தொகுப்பு உறுதிமொழி வாங்கும்போது உரிமத்தில் நிலைப்படம் (snapshot) எடுக்கப்படுகின்றன</td></tr>
+        <tr><td>பெறப்படாத வடிவமைப்பிலிருந்து எந்த அலகும் தயாரிக்கப்படுவதில்லை</td><td>consume க்கு வடிவமைப்பாளரின் உறுதியளிக்கப்பட்ட தொகுப்புடன் பொருந்தும் பதிவு செய்யப்பட்ட வெளிப்பாடு தேவை</td></tr>
+        <tr><td>போட்டி செயலாக்கத்தை அமைதியாகப் பட்டியலிட முடியாது</td><td>ஒரே இடைமுகத்திற்கு ஒரு அடிப்படைத் தொகுதியைப் (baseline) பெயரிட்டு, அதன் எஞ்சிய மீட்பைத் தீர்வு செய்ய வேண்டும்</td></tr>
+        <tr><td>வெற்றி அளவிடப்படுகிறது, ஒருபோதும் அறிவிக்கப்படுவதில்லை</td><td>claim_beat க்குப் பதிவு செய்யப்பட்ட மேம்பாட்டின் குறிப்பு தேவை</td></tr>
+        <tr><td>மதிப்பு பாதுகாக்கப்படுகிறது</td><td>ஒவ்வொரு wei யும் ஒரு உரிமையாளருக்கு வரவு வைக்கப்படுகிறது அல்லது திருப்பித் தரப்படுகிறது; பணம் செலுத்தல் இழுப்பு-அடிப்படையிலானது (pull-based), மாற்றத்திற்கு முன் இருப்பு பூஜ்ஜியமாக்கப்படுகிறது</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>கருதப்படுவது.</strong> நெகிழ்ச்சி (elasticity): அடித்தள விலை பத்து மடங்கு குறையும்போது அளவு சுமார் பத்து மடங்கு உயரும் என்பது; ஒவ்வொரு படியிலும் சோதிக்கப்படுகிறது, ஏனெனில் அளவிடப்பட்ட அளவு அடுத்த படியைக் கடந்த பின்னரே அடித்தள விலை குறைகிறது. இடைமுகங்கள்: நியதித் தரநிலைகள் பெயர் மாற்றத்தைச் செலவு மிக்கதாக்குகின்றன என்பது. சான்றிதழ்கள் கூற்றுகள்; பதிவு வடிவமைப்பின்படி சரிபார்க்கப்படாதது, நம்பிக்கை நிரூபணம் சங்கிலிக்கு வெளியே சரிபார்க்கக்கூடியதாக, சரிபார்ப்பியால் மீண்டும் இயக்கப்பட்டதாக, அல்லது அத்தாட்சிப்படுத்தப்பட்டதாக இருப்பதிலிருந்து வருகிறது. அளபுருக்கள்: ஒரு kWh க்கு 24.44 சென்ட், ஒரு ETH க்கு $3,000, மீள்உருவாக்கம் $4,000 மற்றும் $30,000, ஒரு மாஸ்க்கிற்குத் தீர்வு gas 1 சென்ட், 20 சதவீத Charter பங்கு, ஆண்டுக்கு $120,000 இலக்கு. இவற்றில் எதையும் மாற்றினால் எண்கள் நகரும்; தேற்றங்கள் நகராது.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>7. முடிவு</h2>
+    <p class="body"><strong>Q2 Computing சந்தைக்கு முதலில் வந்துள்ளது.</strong> இந்தப் பதிவின்படி, ஒரு உண்மையான அமைப்பு நிரூபிக்கப்பட்ட பகுதிகளின் கூட்டமைப்பால் மட்டுமே சான்றளிக்கப்பட்டுள்ளது; அதன் சான்றிதழ்கள் உண்மையான பதிவு நிரூபணங்களின் ஹாஷ்களைத் தாங்குகின்றன; இரு உரிமங்கள் அதைப் பொதுச் சங்கிலியில் தீர்வு செய்கின்றன; மேலும் 58 இயந்திரச் சரிபார்க்கப்பட்ட தேற்றங்கள் கருவி என்ன கட்டணம் விதிக்க முடியும், என்ன உத்தரவாதம் அளிக்கிறது என்பதை வரம்பிடுகின்றன. வேறு எந்தத் தரப்பும் ஏணியின் எந்த நிலையிலும் ஒரு சான்றிதழையோ, ஒரு கூட்டமைப்பு ஒப்பந்தத்தையோ, பொருளாதாரத்தின் நிரூபணத்தையோ வெளியிடவில்லை. முதல் போட்டிக்குத் தேர்ந்தெடுக்கப்பட்ட களம், திறந்த PDK களில் IEEE 754 எண்கணிதம் மற்றும் OCP MX வடிவங்கள், மிகப் பரந்த சந்தையும் மிக நியதியான இடைமுகங்களும் கொண்ட களம்.</p>
+    <p class="body"><strong>போட்டி கட்டமைப்பு ரீதியாக முடக்கப்பட்டுள்ளது; ஆய்வு ஏன் என்பதைக் காட்டுகிறது.</strong> ஒரு போட்டியாளர் எடுக்கக்கூடிய ஒவ்வொரு நிலையையும் கருதுங்கள்.</p>
+    <ol class="steps">
+      <li><strong>குறிப்புகளுக்கு வாடகை வசூலித்தல்.</strong> ஆய்வின் பிரிவு 3, இலவச நுழைவின் கீழ் ஒரே நிலையான குறிப்பு விலை செலவு என்று நிரூபிக்கிறது; வரம்பு மாறிலி எந்தப் பட்டியலிடுபவரும் அறிவித்த பட்டியலிடல் gas க்கு மேல் வசூலிப்பதைத் தடுக்கிறது. அதிகம் வசூலிக்கும் போட்டியாளர், செலவு விலையை வசூலிக்கும் போட்டியாளரால் குறைத்து விலையிடப்படுகிறார்; செலவு விலையை வசூலிக்கும் முதல் போட்டியாளர் Q2 இன் சொந்த நெறிமுறை.</li>
+      <li><strong>அதே தொகுதிகளைத் தனிப்பட்ட முறையில் மீண்டும் நிரூபித்தல்.</strong> பிரிவு 7, ஒரு மாஸ்க்கிற்கு ஏற்கனவே உள்ள நிரூபணத்தின் செலவைக் காட்டிலும் மீள்உருவாக்கம் 2,011 மடங்கு செலவாகும் என்று காட்டுகிறது. ஒரு மாஸ்க்கிற்கு $100 க்கு, அல்லது குறிப்பு மூலம் இலவசமாக, ஒரு நிரூபணத்தைப் பெற முடியும் வாங்குபவர், அதை மீண்டும் செய்ய $4,000 முதல் $30,000 வரை செலவழிக்க மாட்டார். இன்றைய இயல்புநிலையான தனிப்பட்ட மீள்சரிபார்ப்பு, விலையுயர்ந்த விருப்பமாகிறது.</li>
+      <li><strong>தயாரிப்பு அடித்தள விலையைக் குறைத்து விலையிடுதல்.</strong> பிரிவு 6, $100 இல் ஒரு நுழைவாளர் சமநிலைக்கு 40 முதல் 300 மாஸ்க்குகள் தேவை என்று காட்டுகிறது; பிரிவு 8, ஏணியில் கீழே ஒவ்வொரு படியும் அந்த எண்ணைப் பத்தால் பெருக்குகிறது என்றும், அதே நேரத்தில் நிலைபெற்ற தரப்பின் ஒரு மாஸ்க்கிற்கான இயற்பியல் செலவு தொடர்ந்து குறைகிறது என்றும் காட்டுகிறது. அடித்தள விலை Q2 ஆல் நிர்ணயிக்கப்பட்டு, Q2 இன் கால அட்டவணைப்படி, இயற்பியல் செலவை நோக்கி இறங்குகிறது. இயற்பியல் செலவுக்குக் கீழே ஒரு நுழைவாளர் மீள்உருவாக்கச் செலவை மீட்கும் விலை எதுவும் இல்லை.</li>
+      <li><strong>தொகுதிகளை வெல்லுதல்.</strong> இது அனுமதிக்கப்பட்டது, அழைக்கப்படுகிறது. வெல்லு அல்லது பிரி விதி, சவால் விடுபவர் முந்தைய பட்டியலிடுபவரை முழுமையாக ஈடுசெய்யவும், மேம்பாட்டை அளவீட்டால் நிரூபிக்கவும் கோருகிறது. முடிவு அதே பொருளாதாரத்திற்குள், அதே வரம்பின் கீழ் பட்டியலிடப்பட்டு, அதே அடித்தள விலையின் கீழ் உரிமம் பெற்ற ஒரு சிறந்த தொகுதி. மேம்பாடு பட்டியலை (catalog) வலுப்படுத்துகிறது; அதற்கு ஒரு போட்டியாளரை உருவாக்குவதில்லை.</li>
+      <li><strong>போட்டிப் பொருளாதாரத்தைக் கட்டுதல்.</strong> ஒரு போட்டியாளர் மலிவான குறிப்பை (செலவுக்குக் கீழே சாத்தியமற்றது), குறைந்த தயாரிப்பு அடித்தள விலையை (இயற்பியல் செலவுக்குக் கீழே சாத்தியமற்றது, Q2 ஏற்கனவே அதை நோக்கி இறங்குகிறது), அல்லது வலுவான நிரூபணத்தை (அது வெல்லு அல்லது பிரி விதியின் கீழ் இந்தப் பொருளாதாரத்தில் பட்டியலிடப்படுகிறது) வழங்க வேண்டும். ஒரு போட்டியாளர் நிரூபிக்கும் எந்தத் தொகுதியும், கட்டமைப்பின்படி, இங்கு ஒரு சான்றிதழ் வேட்பாளர்.</li>
+    </ol>
+    <p class="body">கருவி விலையில் போட்டியாளர்களை வெல்வதால் வெல்வதில்லை. விலைப் போட்டி சாத்தியமாகும் நிலைகளையே அது நீக்குகிறது. குறிப்பு விலையிடல் தேற்றத்தால் செலவில் பொருத்தப்பட்டுள்ளது. தயாரிப்பு விலையிடல், அதன் ஆசிரியர் மட்டுமே குறைக்க முடியும் மற்றும் ஒரு நிரூபணத்தை உற்பத்தி செய்து தீர்வு செய்யும் இயற்பியல் செலவை நோக்கிக் குவியும் ஒரு அடித்தள விலையில் பொருத்தப்பட்டுள்ளது. மேம்பாடு எதிர்க்கப்படுவதில்லை, உள்வாங்கப்படுகிறது. எஞ்சியிருப்பது ஒரே, வளர்ந்து வரும், பொதுவெளியில் நிரூபிக்கப்பட்ட பட்டியல்; முதலில் Q2 Computing ஆல் பட்டியலிடப்பட்டது; அதன் ஒவ்வொரு உள்ளீடும் அடுத்த உள்ளீட்டை நிரூபிக்க மலிவாக்குகிறது.</p>
+    <p class="note">பிரிவு 6 இல் உள்ள பந்தயங்கள் பந்தயங்களாகவே இருக்கின்றன. நெகிழ்ச்சி ஒரு நேரத்தில் ஒரு படியாகச் சோதிக்கப்படுகிறது; அடித்தள விலை அளவிடப்பட்ட அளவுக்கு முன்னால் ஒருபோதும் குறைவதில்லை. முடிவு கூறப்பட்ட அளபுருக்களின் கீழ் நிலைக்கிறது; தேற்றங்கள் எந்த அளபுருக்களின் கீழும் நிலைக்கின்றன.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>மீண்டும் உருவாக்குதல்</h2>
+    <ol class="steps">
+      <li><code>cd contracts/q2-composition/demo && npm install && node run.mjs</code>: உண்மையான MXFP4 மரத்தின் மீது இரு பொருளாதாரங்களும்.</li>
+      <li><code>cd contracts/q2-composition/proofs && lake build && lake env lean Audit.lean</code>: 58 தேற்றங்கள் மற்றும் கோட்பாட்டுத் தணிக்கை.</li>
+      <li><code>cd contracts/q2-composition && cargo build --release --target wasm32-unknown-unknown</code>, பின்னர் Arbitrum Sepolia க்கு எதிராக <code>cargo stylus check</code>: ஒப்பந்தம், Linux இல்.</li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>மூலங்கள்</h2>
+    <ol class="steps">
+      <li><a href="https://chipfoundry.io/faqs">chipIgnite ஷட்டில் விலை, ஒரு திட்டத்திற்கு $14,950</a></li>
+      <li><a href="https://anysilicon.com/130nm-wafer-mpw-cost/">130 nm வேஃபர் மற்றும் MPW செலவு, மாஸ்க் தொகுப்பு $1 முதல் 2 மில்லியன்</a></li>
+      <li><a href="https://newsletter.semianalysis.com/p/the-dark-side-of-the-semiconductor">நோடு வாரியாக போட்டோமாஸ்க் செலவு, SemiAnalysis</a></li>
+      <li><a href="https://semiengineering.com/first-time-silicon-success-plummets/">முதல்-சிலிக்கான் வெற்றி 14 சதவீதம், 2024 Wilson Research ஆய்வு</a></li>
+      <li><a href="https://blogs.sw.siemens.com/verificationhorizons/2025/09/03/why-first-silicon-success-is-getting-harder-for-system-companies/">முதல்-சிலிக்கான் வெற்றி 5 சதவீதம், 2026 ஆய்வு</a></li>
+      <li><a href="https://www.electricchoice.com/electricity-prices-by-state/vermont/">Vermont குடியிருப்பு மின்சாரம், ஒரு kWh க்கு 24.44 சென்ட், செப்டம்பர் 2026</a></li>
+      <li><a href="https://ieeexplore.ieee.org/document/8766229">IEEE 754-2019, மிதவைப் புள்ளி எண்கணிதத்திற்கான தரநிலை</a></li>
+      <li><a href="https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf">OCP Microscaling Formats (MX) விவரக்குறிப்பு v1.0</a></li>
+      <li><a href="https://link.springer.com/article/10.1007/s11192-014-1524-z">மேற்கோள் பரவல்களில் அடுக்கு விதிகள் (power laws), Scopus</a></li>
+    </ol>
+    <p class="note">MXFP4 நிரூபணக் கணினி நேரம், உருவாக்கக் காலம், மற்றும் ஒவ்வொரு சான்றிதழ் ஹாஷும் Q2 இன் சொந்தப் போர்ட்டல் ஆய்வுப் பதிவுகளிலிருந்து வருகின்றன.</p>
+  </div>
+</section>
+
+
+<footer>
+  <div class="wrap">
+    Q2 Computing / Project Foundry &#183;
+    <a href="./codesign.html">context co-design</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry">source</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/results/report.md">full report</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry/actions">CI oracle</a>
+  </div>
+</footer>
+</body>
+</html>

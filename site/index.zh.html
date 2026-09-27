@@ -169,8 +169,8 @@
   if(saved==='light'||saved==='dark') r.setAttribute('data-theme',saved);
   function isLight(){var t=r.getAttribute('data-theme'); if(t) return t==='light';
     return window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches}
-  function label(b){b.textContent=isLight()?'Dark mode':'Light mode';
-    b.setAttribute('aria-label',isLight()?'Switch to dark mode':'Switch to light mode')}
+  function label(b){b.textContent=isLight()?'深色模式':'浅色模式';
+    b.setAttribute('aria-label',isLight()?'切换到深色模式':'切换到浅色模式')}
   document.addEventListener('DOMContentLoaded',function(){
     var b=document.getElementById('theme-toggle'); if(!b) return; label(b);
     b.addEventListener('click',function(){var next=isLight()?'dark':'light';
@@ -184,15 +184,17 @@
   <div class="wrap">
     <a class="logo" href="./index.html"><img src="./assets/project-foundry-logo.jpg" alt="Project Foundry. Generate. Assess. Anchor." width="260" height="264"></a>
     <div class="eyebrow">Q2 Computing / Project Foundry / Arbitrum Stylus</div>
-    <button class="theme" id="theme-toggle" type="button">Light mode</button>
+    <button class="theme" id="theme-toggle" type="button">浅色模式</button>
     <p class="langbar">阅读语言：<a href="./index.html">English</a> · <a href="./index.ms.html">Bahasa Melayu</a> · <b>简体中文</b> · <a href="./index.ta.html">தமிழ்</a></p>
     <h1>证明经济</h1>
     <p class="tagline">电路的证明即为证书。证书可授权用于更大的证明，也可授权用于制造的硅片；其定价为任何竞争者都无法企及的底价，并在 Arbitrum Stylus 上结算。</p>
     <p class="lede">验证是共享的，而非重复的。一个模块只需公开证明一次，其后建立在其上的每个系统都继承该证明。本站是该经济的公开实例：为每份证书分级的证明层级、两种许可、三份合约，以及击败代工厂标准单元并予以证明的循环。</p>
     <div class="cta">
-      <a class="btn primary" href="./research.html">研究（英文）</a>
+      <a class="btn primary" href="./research.zh.html">研究</a>
       <a class="btn" href="./index.html">英文首页</a>
-      <a class="btn" href="https://github.com/Q2Computing/Project-Foundry">GitHub</a>
+      <a class="btn" href="./codesign.zh.html">为您的情境协同设计</a>
+      <a class="btn" href="./waveform.zh.html">SPICE 证明</a>
+      <a class="btn" href="https://github.com/Q2Computing/Project-Foundry">代码仓库</a>
     </div>
   </div>
 </header>
@@ -214,14 +216,13 @@
       <div class="card"><div class="k">引用：公共基础</div><h3>回收成本，绝不收租</h3><p>代工厂 PDK 基元永久免费引用。其他每份证书仅回收其上链登记的 gas 费用，由直接使用它的抽象来支付，以该费用为上限，此后免费。击败某模块者须支付其登记成本。</p></div>
       <div class="card anchor"><div class="k">制造：设计者的产品</div><h3>每套掩模 100 美元，SoC 以下全部涵盖</h3><p>将设计放入制造的 SoC 的权利。设计仅交付给设计者指定的代工厂，该代工厂必须先证明已收到所承诺的封装包，方可消耗任何一个单位。被许可方从不下载文件。底价随着采用率增长逐步下调，直至收敛于生产并结算一份证明的真实物理成本。</p></div>
     </div>
-    <p class="note" style="margin-top:14px">协议在两种许可中均不抽取任何费用。五十八条机器检验的定理支撑该经济；参见研究页面（英文）。</p>
+    <p class="note" style="margin-top:14px">协议在两种许可中均不抽取任何费用。五十八条机器检验的定理支撑该经济；参见<a href="./research.zh.html">研究页面</a>。</p>
   </div>
 </section>
 <section>
   <div class="wrap">
     <h2>合约</h2>
     <table class="kv"><thead><tr><th>合约</th><th>模式</th><th>链上执行的内容</th></tr></thead><tbody><tr><td>q2-verifier</td><td>重新验证</td><td>在链上重新运行有界证明。无需信任。</td></tr><tr><td>q2-anchor</td><td>锚定</td><td>记录链下证明的内容寻址承诺及其改进标签。</td></tr><tr><td>q2-composition</td><td>组合与许可</td><td>通过引用子证书认证更大的系统，并结算两种许可。</td></tr></tbody></table>
-    <p class="note" style="margin-top:14px">驱动循环的结果、循环本身以及 Stylus 结算在英文首页中说明。</p>
   </div>
 </section>
 

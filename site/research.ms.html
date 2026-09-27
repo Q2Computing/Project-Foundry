@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Penyelidikan, Ekonomi Bukti</title>
+<meta name="description" content="Rekod saintifik di sebalik ekonomi bukti, ditulis untuk dibaca dari awal.">
+<link rel="icon" type="image/png" href="./assets/mark.png">
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --line:#30363d; --ink:#e6edf3;
+    --dim:#c3ccd6; --green:#3fb950; --red:#f85149; --blue:#58a6ff;
+    --amber:#e3b341; --violet:#a371f7; --elyellow:#f5f21f; --seablue:#23a3c2;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+    line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px}
+  header{border-bottom:1px solid var(--line);padding:60px 0 40px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--dim)}
+  h1{font-size:clamp(30px,5vw,46px);line-height:1.1;margin:14px 0 10px;
+    letter-spacing:-.02em;text-wrap:balance}
+  .lede{font-size:18px;color:var(--dim);max-width:62ch;margin:0}
+  .tagline{font-size:16px;color:var(--ink);font-weight:600;max-width:60ch;
+    margin:0 0 14px;letter-spacing:.01em}
+  .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .btn{display:inline-block;padding:9px 16px;border-radius:8px;
+    border:1px solid var(--line);font-size:14px;font-weight:600;color:var(--ink)}
+  .btn.primary{background:var(--green);color:#04260f;border-color:transparent}
+  .btn.stylus{border-color:var(--violet);color:#d2c1f5}
+  section{padding:44px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:13px;font-family:var(--mono);letter-spacing:.12em;
+    text-transform:uppercase;color:var(--dim);margin:0 0 20px;font-weight:600}
+  p.body{max-width:64ch;color:var(--dim);font-size:15px}
+  .stat{display:flex;gap:40px;flex-wrap:wrap}
+  .stat .big{font-size:clamp(34px,6vw,56px);font-weight:700;letter-spacing:-.02em;
+    line-height:1}
+  .stat .big.green{color:var(--green)}
+  .stat .sub{color:var(--dim);font-size:14px;margin-top:8px;max-width:24ch}
+  .loop{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:18px}
+  .card .k{font-family:var(--mono);font-size:12px;color:var(--green);
+    letter-spacing:.1em;text-transform:uppercase}
+  .card.gen .k{color:var(--elyellow)}
+  .card.anchor .k{color:var(--seablue)}
+  .card h3{margin:8px 0 6px;font-size:17px}
+  .card p{margin:0;color:var(--dim);font-size:14px}
+  table{width:100%;border-collapse:collapse;font-size:14px;
+    font-variant-numeric:tabular-nums}
+  th,td{text-align:right;padding:10px 12px;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left;font-family:var(--mono)}
+  thead th{color:var(--dim);font-weight:600;font-size:12px;
+    text-transform:uppercase;letter-spacing:.06em}
+  td{color:var(--ink)}
+  td.better{color:var(--green)} td.worse{color:var(--red)}
+  .delta{font-family:var(--mono);font-size:11px;margin-left:6px}
+  .delta.better{color:var(--green)} .delta.worse{color:var(--red)}
+  .caption{color:var(--dim);font-size:13px;margin-top:10px}
+  .tbl-wrap{overflow-x:auto}
+  .plot{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:12px}
+  .plot svg{width:100%;height:auto;display:block;border-radius:8px}
+  .seg-toggle{display:inline-flex;border:1px solid var(--line);border-radius:9px;
+    overflow:hidden;margin-top:4px}
+  .seg{background:var(--panel);color:var(--dim);border:0;padding:8px 20px;
+    font-size:13px;font-weight:600;font-family:var(--mono);cursor:pointer;
+    letter-spacing:.05em;text-transform:uppercase}
+  .seg+.seg{border-left:1px solid var(--line)}
+  .seg-perf.on{background:var(--violet);color:#160b2e}
+  .seg-energy.on{background:var(--amber);color:#2a1e05}
+  .legend{display:flex;gap:20px;flex-wrap:wrap;color:var(--dim);font-size:13px;
+    margin-top:12px}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:50%;
+    margin-right:7px;vertical-align:middle;border:1px solid rgba(255,255,255,.14)}
+  .points{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .note{background:#1c1408;border:1px solid #3d2c0a;border-radius:12px;
+    padding:16px 18px;color:#e3b341;font-size:14px}
+  .race{display:grid;gap:12px;max-width:640px}
+  .race .row{display:grid;grid-template-columns:180px 1fr auto;gap:12px;
+    align-items:center}
+  .race .lbl{font-family:var(--mono);font-size:13px}
+  .race .bar{height:20px;background:#0d1117;border:1px solid var(--line);
+    border-radius:6px;overflow:hidden}
+  .race .fill{height:100%;background:linear-gradient(90deg,#238636,#3fb950)}
+  .race .g{font-family:var(--mono);font-size:13px;color:var(--green);
+    text-align:right;min-width:56px}
+  .stylusbox{background:var(--panel);border:1px solid var(--violet);
+    border-radius:12px;padding:20px}
+  code{font-family:var(--mono);background:#0d1117;border:1px solid var(--line);
+    border-radius:6px;padding:1px 6px;font-size:.92em}
+  pre{background:#0d1117;border:1px solid var(--line);border-radius:10px;
+    padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:13px;
+    color:var(--ink)}
+  footer{padding:40px 0 70px;color:var(--dim);font-size:14px}
+  @media(max-width:680px){.loop,.points{grid-template-columns:1fr}
+    .race .row{grid-template-columns:120px 1fr auto}}
+</style>
+
+<style>
+  .logo{display:block;text-align:center;margin:0 0 26px;line-height:0}
+  .logo img{width:260px;max-width:70%;height:auto;display:inline-block;border-radius:12px}
+  .langbar{font-family:var(--mono);font-size:12px;color:var(--dim);margin:0 0 18px}
+  .langbar a{color:var(--blue)} .langbar b{color:var(--ink)}
+  .ladder th,.ladder td{text-align:left;font-family:var(--sans);vertical-align:top;font-size:13.5px}
+  .ladder td:first-child{font-family:var(--mono);white-space:nowrap}
+  .ladder .real{color:var(--green)} .ladder .road{color:var(--amber)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:700px){.two{grid-template-columns:1fr}}
+  p.body,.lede,.card p,ol.steps,.note,.kv td,.ladder td{color:var(--ink)}
+  .note{background:none;border:0;border-radius:0;padding:0;color:var(--ink);font-size:16px;max-width:62ch}
+  .kv th,.kv td{text-align:left;font-family:var(--sans);font-size:14px}
+  .kv td:first-child{font-family:var(--mono)}
+  ol.steps{color:var(--dim);font-size:15px;max-width:64ch;padding-left:20px}
+  ol.steps li{margin:6px 0}
+</style>
+
+<style>
+  /* type scale: larger, legible */
+  html{font-size:17px}
+  body{line-height:1.6}
+  .eyebrow{font-size:13px} .langbar{font-size:14px}
+  .lede{font-size:20px;max-width:60ch} .tagline{font-size:18px}
+  p.body{font-size:17px;max-width:62ch}
+  h2{font-size:15px} .card h3{font-size:19px} .card p{font-size:16px}
+  .btn{font-size:16px;padding:11px 18px}
+  table{font-size:16px} th,td{padding:12px 14px}
+  thead th{font-size:13px}
+  .ladder th,.ladder td,.kv th,.kv td{font-size:16px;line-height:1.5}
+  .note{font-size:16px} ol.steps{font-size:17px} ol.steps li{margin:8px 0}
+  .caption,.legend{font-size:15px} footer{font-size:16px}
+  .stat .sub{font-size:16px;max-width:26ch}
+  /* white mode: black on white */
+  .theme{float:right;margin:0 0 0 12px;background:var(--panel);color:var(--ink);border:1px solid var(--line);
+    border-radius:8px;padding:7px 12px;font:600 14px var(--mono);letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+  .theme:hover{border-color:var(--ink)}
+  :root[data-theme="light"]{
+    --bg:#ffffff; --panel:#f4f4f4; --line:#c8c8c8; --ink:#000000; --dim:#333333;
+    --blue:#0b3d91; --green:#0f5a2a; --red:#8f1020; --amber:#6b4600; --violet:#4a2390;
+    --elyellow:#5c5a00; --seablue:#0b5468;
+  }
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      --bg:#ffffff; --panel:#f4f4f4; --line:#c8c8c8; --ink:#000000; --dim:#333333;
+      --blue:#0b3d91; --green:#0f5a2a; --red:#8f1020; --amber:#6b4600; --violet:#4a2390;
+      --elyellow:#5c5a00; --seablue:#0b5468;
+    }
+    :root:not([data-theme="dark"]) .note{background:#f4f4f4;border-color:#c8c8c8;color:#000}
+    :root:not([data-theme="dark"]) code,:root:not([data-theme="dark"]) pre,:root:not([data-theme="dark"]) .race .bar{background:#f4f4f4}
+    :root:not([data-theme="dark"]) .btn.primary{background:#000;color:#fff}
+    :root:not([data-theme="dark"]) .btn.stylus{color:var(--violet)}
+    :root:not([data-theme="dark"]) .dot{border-color:rgba(0,0,0,.3)}
+  }
+  :root[data-theme="light"] .note{background:#f4f4f4;border-color:#c8c8c8;color:#000}
+  :root[data-theme="light"] code,:root[data-theme="light"] pre,:root[data-theme="light"] .race .bar{background:#f4f4f4}
+  :root[data-theme="light"] .btn.primary{background:#000;color:#fff}
+  :root[data-theme="light"] .btn.stylus{color:var(--violet)}
+  :root[data-theme="light"] .dot{border-color:rgba(0,0,0,.3)}
+</style>
+<script>
+(function(){
+  var k='pf-theme', r=document.documentElement, saved=null;
+  try{saved=localStorage.getItem(k)}catch(e){}
+  if(saved==='light'||saved==='dark') r.setAttribute('data-theme',saved);
+  function isLight(){var t=r.getAttribute('data-theme'); if(t) return t==='light';
+    return window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches}
+  function label(b){b.textContent=isLight()?'Mod gelap':'Mod cerah';
+    b.setAttribute('aria-label',isLight()?'Tukar ke mod gelap':'Tukar ke mod cerah')}
+  document.addEventListener('DOMContentLoaded',function(){
+    var b=document.getElementById('theme-toggle'); if(!b) return; label(b);
+    b.addEventListener('click',function(){var next=isLight()?'dark':'light';
+      r.setAttribute('data-theme',next); try{localStorage.setItem(k,next)}catch(e){} label(b)});
+  });
+})();
+</script>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="logo" href="./index.html"><img src="./assets/project-foundry-logo.jpg" alt="Project Foundry. Generate. Assess. Anchor." width="260" height="264"></a>
+    <div class="eyebrow">Q2 Computing / Project Foundry / Arbitrum Stylus</div>
+    <button class="theme" id="theme-toggle" type="button">Mod cerah</button>
+    <p class="langbar"><a href="./index.ms.html">Laman utama</a> · <b>Penyelidikan</b><br>Baca dalam: <a href="./research.html">English</a> · <b>Bahasa Melayu</b> · <a href="./research.zh.html">简体中文</a> · <a href="./research.ta.html">தமிழ்</a></p>
+    <h1>Penyelidikan</h1>
+    <p class="tagline">Rekod saintifik di sebalik ekonomi bukti, ditulis untuk dibaca dari awal.</p>
+    <p class="lede">Tiada pengetahuan awal tentang literatur diandaikan. Pengenalan menyatakan masalah. Bahagian 2 menyatakan instrumen. Bahagian 3 dan 4 membekalkan latar belakang dalam reka bentuk silikon dan aritmetik titik terapung. Bahagian 5 memberikan data, Bahagian 6 analisis yang disemak mesin, dan Bahagian 7 kesimpulan. Setiap nombor pada laman utama dihasilkan semula di sini melalui pengukuran atau teorem, bersama kaedah yang menghasilkannya dan sumber asalnya.</p>
+    <div class="cta">
+      <a class="btn" href="./index.ms.html">Laman utama</a>
+      <a class="btn" href="https://github.com/Q2Computing/Project-Foundry/blob/main/RESEARCH.md">RESEARCH.md</a>
+      <a class="btn stylus" href="https://github.com/Q2Computing/Project-Foundry/tree/main/contracts/q2-composition/proofs">Bukti Lean</a>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>1. Pengenalan</h2>
+    <p class="body">Laman ini ditulis untuk pembaca yang belum pernah melihat literatur berkenaan. Ia membina hujah mengikut urutan. Bahagian 2 menyatakan instrumen ekonomi. Bahagian 3 dan 4 membekalkan dua latar belakang yang menjadi asas instrumen itu: bagaimana silikon digital direka dan disahkan, dan mengapa aritmetik titik terapung menjadi contoh kerja. Bahagian 5 memberikan data, setiap nombor dengan sumbernya. Bahagian 6 menganalisis data dengan teorem yang disemak mesin. Bahagian 7 membuat kesimpulan. Tiada apa-apa di sini yang ditegaskan tanpa cara untuk menjalankannya semula.</p>
+    <p class="body"><strong>Masalahnya.</strong> Sesuatu cip ialah hierarki blok. Sebelum reka bentuk dihantar ke kilang (foundry), setiap blok dan keseluruhan pemasangan mesti ditunjukkan betul, kerana satu set topeng (mask set) pada nod moden berharga satu hingga dua juta dolar dan putaran pertama yang gagal bermakna set topeng kedua. Tinjauan industri meletakkan kejayaan silikon pertama pada 14 peratus pada 2024 dan 5 peratus pada 2026. Pengesahan ialah kos terbesar dalam aliran, dan hari ini ia diulang: setiap syarikat yang menggunakan penambah, unit titik terapung, atau fail daftar mengesahkan semula salinannya sendiri, secara tertutup, dan kerja itu dibuang apabila projek tamat.</p>
+    <p class="body"><strong>Pemerhatian.</strong> Bukti bagi sesuatu blok, setelah dihasilkan, tidak bergantung pada siapa yang menggunakan blok itu. Jika bukti itu terbuka dan beralamat kandungan (content-addressed), pasukan kedua boleh mewarisinya dan bukannya mengulanginya, dan sistem yang lebih besar boleh dibuktikan melalui rujukan kepada bukti bahagian-bahagiannya tanpa perlu membuka bahagian itu. Pengesahan menjadi aset bersama dan bukan perbelanjaan persendirian.</p>
+    <p class="body"><strong>Dakwaan.</strong> Q2 Computing telah membina instrumen pertama yang menjadikan pewarisan ini suatu pasaran: bukti ialah sijil, sijil dilesenkan ke dalam bukti yang lebih besar pada kos dan ke dalam silikon yang dikilangkan pada harga lantai tetap, dan kedua-dua lesen diselesaikan di rantaian awam. Selebihnya laman ini menunjukkan apa yang dibina, mengukur kosnya, membuktikan apa yang dijamin oleh instrumen itu, dan menyatakan apa yang berlaku kepada sesiapa yang cuba bersaing dengannya.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>2. Ekonomi bukti</h2>
+    <p class="body">Sesuatu <strong>sijil</strong> ialah rekod di atas rantaian yang menamakan sesuatu blok melalui cincang kandungan (content hash) reka bentuknya, cincang kandungan antara mukanya, tahap di mana ia dibuktikan, dan cincang kandungan bukti rekodnya. Sijil bagi blok yang dikomposisikan turut menamakan sijil anak-anaknya dan cincang pengikat merentasi antara muka mereka. Sesiapa sahaja boleh menyemak bahawa bukti rekod itu wujud dan sepadan; tiada siapa memerlukan reka bentuk untuk berbuat demikian.</p>
+    <p class="body">Setiap sijil membawa dua lesen. Protokol tidak mengambil apa-apa daripada kedua-duanya.</p>
+    <table class="kv">
+      <thead><tr><th>Lesen</th><th>Apa yang diberikan</th><th>Peraturan harga</th><th>Siapa yang membayar</th></tr></thead>
+      <tbody>
+        <tr><td>Rujukan</td><td>Hak untuk menamakan sijil ini sebagai anak bagi bukti yang lebih besar</td><td>Memulihkan hanya gas yang dibelanjakan oleh penyenarai untuk menyenaraikan, dihadkan pada sasaran yang diisytiharkan penyenarai sebanyak paling banyak 0.005 ETH, kemudian bebas selama-lamanya. Primitif PDK kilang bebas dari awal.</td><td>Abstraksi satu tahap ke atas, bagi anak langsungnya sahaja. Rekursi di bawahnya tidak pernah dikenakan bayaran.</td></tr>
+        <tr><td>Pembuatan</td><td>Hak untuk memasukkan reka bentuk ke dalam sistem atas cip (SoC) yang difabrikasi</td><td>Harga lantai $100 bagi setiap set topeng, meliputi setiap blok bersijil dalam topeng itu, diturunkan seiring dengan peningkatan penerimaan</td><td>Pengilang. Reka bentuk hanya didedahkan kepada kilang yang dinamakan oleh pereka, yang mesti membuktikan penerimaan pakej yang dikomitkan sebelum sebarang unit digunakan. Pemegang lesen tidak pernah memuat turun fail itu.</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>Atasi atau cabang (beat or fork).</strong> Sesiapa sahaja boleh menyenaraikan pelaksanaan pesaing bagi antara muka sedia ada, tetapi mesti menamakan blok yang diatasinya dan menyelesaikan baki kos penyenaraian blok itu. Penyenarai terdahulu dipulihkan sepenuhnya. Penambahbaikan mesti berupa pengukuran yang direkodkan, bukan sekadar pengisytiharan.</p>
+    <p class="body"><strong>Tiga kontrak</strong> di Arbitrum Stylus menampung ekonomi ini. Pengesah (verifier) menjalankan semula bukti terhad di atas rantaian. Sauh (anchor) merekodkan komitmen beralamat kandungan bagi bukti luar rantaian. Kontrak komposisi mensijilkan sistem melalui rujukan kepada sijil anak dan menyelesaikan kedua-dua lesen. Invarian mereka disenaraikan dalam Bahagian 6.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>3. VLSI dan reka bentuk digital</h2>
+    <p class="body">Integrasi skala sangat besar (very large scale integration, VLSI) ialah disiplin membina litar berbilion transistor supaya ia melakukan tepat seperti yang dispesifikasikan. Reka bentuk itu ialah hierarki, dan ekonomi bukti menetapkan harga setiap peringkat hierarki itu secara berasingan.</p>
+    <table class="kv">
+      <thead><tr><th>Peringkat</th><th>Apakah ia</th><th>Bagaimana ia dibuktikan</th></tr></thead>
+      <tbody>
+        <tr><td>Peranti</td><td>Transistor, diterangkan oleh kit reka bentuk proses (PDK) kilang sebagai model SPICE</td><td>Dicirikan melalui pengukuran; model itu dipercayai</td></tr>
+        <tr><td>Sel</td><td>Segelintir transistor yang diwayarkan menjadi get: penyongsang, NAND, flip-flop</td><td>Tahap 1, menyeluruh: simulasikan setiap input dalam SPICE dan bandingkan dengan jadual kebenaran</td></tr>
+        <tr><td>Komponen</td><td>Puluhan hingga ratusan sel yang membentuk penambah, penyahkod, daftar</td><td>Tahap 2 atau 3: kesetaraan SAT antara netlist dan RTL, atau techmap ke atas sel terbukti</td></tr>
+        <tr><td>Pemasangan</td><td>Komponen yang diwayarkan menjadi pendarab, hasil darab titik, elemen pemprosesan</td><td>Tahap 4, komposisi: setiap bahagian bersijil, dan perekat dibuktikan setara dengan komposisi yang diisytiharkan</td></tr>
+        <tr><td>Sistem</td><td>Pemasangan yang diwayarkan menjadi pemecut atau pemproses</td><td>Tahap 4 sekali lagi; tangga ini tertutup di bawah komposisi</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>Mengapa kos pengesahan meletup.</strong> Semakan menyeluruh bagi blok dengan n bit input mengambil 2 kuasa n kes. Penambah 8-bit mempunyai 131,072 kes dan disemak dalam beberapa saat. Pendarab 32-bit mempunyai 2 kuasa 64 kes dan tidak dapat disenaraikan dalam jangka hayat alam semesta. Kesetaraan simbolik (tahap 2) mengelakkan penyenaraian tetapi masih gagal pada aritmetik besar, di mana penyelesai SAT tamat masa. Satu-satunya kaedah yang berskala tanpa had ialah komposisi: buktikan bahagian, buktikan perekat, dan jangan sekali-kali melihat ke dalam sesuatu bahagian lagi. Inilah sebabnya tangga bukti berakhir dengan komposisi, dan sebabnya had primitif 64 sel bagi setiap daun dikuatkuasakan. Had itu memaksa apa-apa yang lebih besar untuk diuraikan, supaya setiap bukti dalam sistem sama ada cukup kecil untuk disemak secara menyeluruh atau dibina daripada bukti yang telah disemak sedemikian.</p>
+    <p class="body"><strong>Aliran daripada reka bentuk ke silikon.</strong> Pereka menulis kod aras pemindahan daftar (register-transfer level, RTL). Sintesis memetakan RTL ke atas sel PDK untuk menghasilkan netlist. Letak dan laluan (place and route) menukar netlist kepada geometri. Tandatangan akhir fizikal (physical signoff), iaitu semakan peraturan reka bentuk, susun atur lawan skematik, dan pemasaan statik, mengesahkan geometri itu boleh dikilangkan pada jam sasaran. Geometri dihantar ke kilang sebagai set topeng, atau berkongsi topeng dengan projek lain dalam ulang-alik berbilang projek (multi-project shuttle). Lesen pembuatan dalam Bahagian 2 diharga bagi setiap set topeng kerana itulah unit di mana reka bentuk menjadi silikon.</p>
+    <p class="body"><strong>Satu pembaris.</strong> Setiap pengukuran dalam rekod ini menggunakan ngspice sebagai pengendali tunggal. Sel tersuai dan sel kilang disimulasikan dalam meja uji yang sama, pada beban, slew, dan sudut (corner) yang sama, daripada peranti PDK sky130 terbuka yang sama. Lengah ialah pengukuran perambatan 50 peratus ke 50 peratus; tenaga ialah kamiran arus bekalan sepanjang satu kitaran pensuisan. Simulasi dengan vektor ujian ialah keterangan, direkodkan dan tidak pernah dikira sebagai bukti.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>4. IEEE 754 dan format penskalaan mikro</h2>
+    <p class="body">Aritmetik titik terapung ialah contoh kerja atas dua sebab. Ia aritmetik yang mesti dilaksanakan oleh setiap pemproses dan setiap pemecut, jadi blok titik terapung yang terbukti mempunyai pasaran seluas mungkin. Dan ia mempunyai spesifikasi awam, IEEE 754, jadi sesuatu bukti akhirnya boleh disemak terhadap piawaian dan bukan terhadap penerangan pereka sendiri.</p>
+    <p class="body"><strong>IEEE 754</strong> mentakrifkan nombor titik terapung sebagai tanda, eksponen, dan mantisa, dan mentakrifkan pembundaran betul: hasil sesuatu operasi ialah nombor boleh diwakili yang paling hampir dengan hasil matematik tepat. Blok yang dibuktikan setara dengan RTLnya dibuktikan melakukan apa yang ditulis oleh pereka. Blok yang dibuktikan memenuhi IEEE 754 dibuktikan melakukan apa yang dilakukan oleh setiap pelaksanaan lain yang mematuhi piawaian. Yang kedua lebih kuat, dan ia anak tangga seterusnya di atas tangga pada laman utama: penghalusan kepada spesifikasi.</p>
+    <p class="body"><strong>Penskalaan mikro (Microscaling, MX)</strong> ialah keluarga format ketepatan rendah Open Compute Project untuk pembelajaran mesin. MXFP4 memadatkan elemen sebagai E2M1 (satu bit tanda, eksponen dua bit, mantisa satu bit) dan berkongsi satu faktor skala merentasi blok 32 elemen. Pemecut pendaraban matriks am (GEMM) MXFP4 menyahkod elemen E2M1, mendarab pasangan, menjumlahkan 32 hasil darab dalam pokok penambah, dan mengumpul hasilnya dalam ketepatan tunggal IEEE 754 (FP32). Ia cukup kecil untuk dibuktikan sepenuhnya dan cukup besar sehingga pengesahan rata bagi keseluruhannya tidak tertangani, yang menjadikannya ujian yang tepat bagi tangga ini.</p>
+    <p class="body"><strong>Antara muka kanonik.</strong> IEEE 754, spesifikasi OCP MX, dan sambungan titik terapung F dan D RISC-V menetapkan antara muka sesuatu blok tanpa bergantung pada pelaksananya. Peraturan atasi atau cabang mengikat sesiapa yang mendakwa sesuatu cincang antara muka, jadi antara muka kanonik ialah antara muka yang tidak boleh dinamakan semula secara senyap untuk melepaskan diri daripada peraturan itu. Di sinilah ekonomi bukti akan dipertandingkan terlebih dahulu, dan inilah medan yang dipilih oleh Q2.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>5. Data</h2>
+    <p class="body"><strong>Rekod MXFP4.</strong> Pemecut GEMM MXFP4 Q2 disijilkan semata-mata melalui rujukan kepada bahagian terbukti. Sijil setiap blok membawa cincang kandungan bukti rekod sebenarnya daripada jadual analisis portal.</p>
+    <table class="kv">
+      <thead><tr><th>Blok</th><th>Peringkat</th><th>Tahap bukti</th></tr></thead>
+      <tbody>
+        <tr><td>sky130 inv_1, nand2_1, dfxtp_1</td><td>sel PDK</td><td>1, SPICE menyeluruh</td></tr>
+        <tr><td>Penyahkod E2M1, daftar 32-bit</td><td>komponen</td><td>3, techmap ke atas sel terbukti</td></tr>
+        <tr><td>Penormal FP32, pokok penambah 32-hala, pengumpul FP32</td><td>komponen</td><td>2, kesetaraan</td></tr>
+        <tr><td>Pendarab lorong MXFP4</td><td>komponen</td><td>4, komposisi</td></tr>
+        <tr><td>Hasil darab titik MXFP4</td><td>sub-pemasangan</td><td>4, komposisi</td></tr>
+        <tr><td>PE pengumpul MXFP4</td><td>pemasangan</td><td>4, komposisi, serta tandatangan akhir DRC, LVS, dan pemasaan</td></tr>
+        <tr><td>Jubin GEMM 16 kali 16</td><td>pemasangan</td><td>4, komposisi</td></tr>
+        <tr><td>Pemecut GEMM MXFP4</td><td>sistem</td><td>4, komposisi</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>Kos untuk menghasilkannya.</strong></p>
+    <table class="kv">
+      <thead><tr><th>Ukuran</th><th>Nilai</th><th>Sumber</th></tr></thead>
+      <tbody>
+        <tr><td>Larian bukti yang selesai</td><td>23</td><td>jadual analisis portal</td></tr>
+        <tr><td>Pengkomputeran pembuktian</td><td>3.724 jam (OpenLane 3.714, Icarus 0.007, Yosys 0.003)</td><td>selesai tolak bermula, dijumlahkan</td></tr>
+        <tr><td>Jangka penciptaan, permintaan pertama hingga penyiapan terakhir</td><td>101.72 jam</td><td>jadual analisis portal</td></tr>
+        <tr><td>Kuasa mesin</td><td>80 watt</td><td>dispesifikasikan</td></tr>
+        <tr><td>Elektrik, kediaman Vermont, September 2026</td><td>24.44 sen bagi setiap kWh</td><td>lihat Sumber</td></tr>
+        <tr><td>Kos tenaga, asas pengkomputeran pembuktian</td><td>72,811 mikro-dolar, kira-kira 7.3 sen</td><td>teorem energy_compute_uUSD</td></tr>
+        <tr><td>Kos tenaga, asas jangka penciptaan</td><td>1,988,829 mikro-dolar, kira-kira $1.99</td><td>teorem energy_span_uUSD</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>Pasaran yang dimasukinya.</strong></p>
+    <table class="kv">
+      <thead><tr><th>Ukuran</th><th>Nilai</th><th>Sumber</th></tr></thead>
+      <tbody>
+        <tr><td>Slot ulang-alik berbilang projek, sky130</td><td>$14,950</td><td>chipIgnite</td></tr>
+        <tr><td>Set topeng penuh, 130 nm</td><td>$1 hingga 2 juta</td><td>AnySilicon</td></tr>
+        <tr><td>Set topeng pada nod termaju</td><td>$10 juta atau lebih</td><td>SemiAnalysis</td></tr>
+        <tr><td>Kejayaan silikon pertama, 2024</td><td>14 peratus</td><td>Wilson Research</td></tr>
+        <tr><td>Kejayaan silikon pertama, 2026</td><td>5 peratus</td><td>Siemens Verification Horizons</td></tr>
+        <tr><td>Kos replikasi bukti MXFP4, pasukan kecil</td><td>$4,000</td><td>parameter, kira-kira empat hari jurutera</td></tr>
+        <tr><td>Kos replikasi, penyandang</td><td>$30,000</td><td>parameter, dalam julat berbeban $16,000 hingga $50,000</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>Enjin bukti, mengikut tahap</strong>, dan apa yang dipercayai oleh setiap satu.</p>
+    <table class="ladder">
+      <thead><tr><th>Tahap</th><th>Enjin</th><th>Apa yang disemak</th><th>Apa yang dipercayai</th></tr></thead>
+      <tbody>
+        <tr><td>1. Menyeluruh</td><td>Sapuan DC dan fana (transient) ngspice</td><td>Keluaran sel bagi setiap input digital, ambang pada separuh VDD; tangkapan, pegangan, dan keeksklusifan pinggir bagi flop</td><td>Model transistor PDK</td></tr>
+        <tr><td>2. Kesetaraan</td><td>Miter SAT Yosys, aruhan temporal</td><td>Netlist setara dengan RTL merentasi seluruh ruang input, secara simbolik</td><td>Keputusan penyelesai, dihuraikan dengan pengesanan contoh balas</td></tr>
+        <tr><td>3. Techmap</td><td>Techmap Yosys serta kesetaraan struktur</td><td>Netlist hanya memetakan ke atas sel tahap 1 dan setara dengan RTLnya; daun melebihi 64 sel ditolak</td><td>Senarai putih sel terbukti</td></tr>
+        <tr><td>4. Komposisi</td><td>Bancian serta kesetaraan komposisi</td><td>Pemasangan hanya menginstansiasi anak terbukti dan perekat terbukti, dan setara dengan komposisi anak yang diisytiharkannya</td><td>Sijil setiap anak itu sendiri</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>6. Analisis</h2>
+    <p class="body">Analisis ini ialah projek Lean 4, Q2Market.lean, dengan 58 teorem ke atas model yang mencerminkan aritmetik kontrak dengan tepat. Kernel teras sahaja: tiada mathlib, tiada native_decide, tiada sorry. Audit aksiom menunjukkan setiap teorem bergantung paling banyak pada propext dan Quot.sound, dan setiap teorem berangka tidak bergantung pada sebarang aksiom langsung. Semua wang adalah integer dalam wei atau mikro-dolar, jadi tiada pembundaran yang tersembunyi. Bahagian di bawah bergerak daripada jaminan instrumen kepada akibatnya.</p>
+    <table class="ladder">
+      <thead><tr><th>Bahagian</th><th>Apa yang dibuktikan</th><th>Hasil utama</th></tr></thead>
+      <tbody>
+        <tr><td>1. Invarian had</td><td>royalty_due = min(harga, sasaran tolak dipulihkan), sifar setelah dipulihkan; melalui aruhan, dipulihkan tidak pernah melebihi sasaran</td><td>Kutipan dihadkan pada gas penyenaraian yang diisytiharkan</td></tr>
+        <tr><td>2. Batas sewa</td><td>sewa = dikutip tolak kos</td><td>sewa paling banyak CAP tolak kos, sentiasa</td></tr>
+        <tr><td>3. Keseimbangan kemasukan bebas</td><td>Mana-mana harga melebihi kos dipotong harga; satu-satunya harga stabil ialah kos</td><td>Sewa keseimbangan ialah sifar</td></tr>
+        <tr><td>4. Kos pengeluaran</td><td>80 W, 24.44 sen bagi setiap kWh, jam yang diukur</td><td>7.3 sen dan $1.99; kedua-duanya jauh di bawah had 0.005 ETH</td></tr>
+        <tr><td>5. Buat lawan beli</td><td>Pembeli yang cekap membayar paling banyak kos replikasi merentasi semua topeng</td><td>Harga Piagam (Charter) $800 pada replikasi $4,000; $6,000 pada $30,000</td></tr>
+        <tr><td>6. Harga lantai</td><td>$100 bagi setiap topeng, SoC ke bawah</td><td>66 bps daripada slot ulang-alik, 0 bps daripada set topeng; pendatang baru memerlukan 40 (pasukan) atau 300 (penyandang) topeng untuk pulang modal</td></tr>
+        <tr><td>7. Kemuncak</td><td>Pengeluaran lawan harga lantai</td><td>$98.01 pada topeng pertama, $100 pada setiap topeng berikutnya; replikasi ialah 2,011 kali ganda pengeluaran</td></tr>
+        <tr><td>8. Penurunan</td><td>Kos fizikal bagi setiap topeng jatuh dengan volum; pencegahan mengetat apabila harga lantai jatuh</td><td>1.2 sen bagi setiap topeng pada 1,200 topeng, 1.0 sen pada sejuta; tangga penurunan selamat</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>Membaca analisis.</strong> Bahagian 1 hingga 3 menetapkan bahawa lesen rujukan tidak boleh mengutip sewa: kutipan dihadkan pada sasaran yang diisytiharkan dan tidak boleh dinaikkan, dan di bawah kemasukan bebas satu-satunya harga stabil ialah kos. Bahagian 4 mengukur kos itu bagi sistem sebenar dan mendapati ia di bawah dua dolar. Bahagian 5 beralih kepada lesen pembuatan dan menunjukkan bahawa pembeli rasional tidak pernah membayar lebih daripada kos untuk mereplikasi bukti itu. Bahagian 6 meletakkan harga lantai $100 jauh di bawah kos replikasi itu dan mengira berapa banyak topeng yang perlu dijual oleh pesaing untuk memulihkan perbelanjaan replikasinya sendiri. Bahagian 7 menggabungkan kesemuanya: topeng pertama memulangkan $98.01 melebihi kos pengeluaran, dan setiap topeng berikutnya memulangkan $100, sementara pesaing adalah 2,011 kali ganda lebih mahal bagi setiap unit berbanding bukti penyandang. Bahagian 8 menunjukkan harga lantai boleh turun sepuluh kali ganda pada setiap anak tangga sementara nisbah pencegahan mengetat, kerana kos fizikal bagi setiap topeng jatuh dengan volum.</p>
+    <p class="body" style="margin-top:22px"><strong>Pada harga lantai $100</strong>, setiap baris ialah teorem.</p>
+    <table class="kv">
+      <thead><tr><th>Ukuran</th><th>Nilai disemak kernel</th></tr></thead>
+      <tbody>
+        <tr><td>Bahagian daripada slot ulang-alik $14,950</td><td>66 bps (0.66 peratus)</td></tr>
+        <tr><td>Bahagian daripada set topeng $1.5 juta</td><td>0 bps</td></tr>
+        <tr><td>Margin pada topeng pertama</td><td>$98.01</td></tr>
+        <tr><td>Margin pada setiap topeng berikutnya</td><td>$100</td></tr>
+        <tr><td>Pulang modal pendatang baru, pasukan kecil ($4,000)</td><td>40 topeng</td></tr>
+        <tr><td>Pulang modal pendatang baru, penyandang ($30,000)</td><td>300 topeng</td></tr>
+        <tr><td>Pulang modal pustaka, IEEE 754 (kira-kira $100,000 untuk dihasilkan)</td><td>1,000 topeng</td></tr>
+        <tr><td>$120,000 setahun</td><td>1,201 topeng setahun</td></tr>
+      </tbody>
+    </table>
+    <p class="body"><strong>Tangga penurunan</strong>, setiap baris ialah teorem.</p>
+    <table class="kv">
+      <thead><tr><th>Harga lantai bagi setiap topeng</th><th>Topeng setahun bagi $120,000</th><th>Pulang modal pendatang baru pada replikasi $4,000</th></tr></thead>
+      <tbody>
+        <tr><td>$100</td><td>1,201</td><td>40</td></tr>
+        <tr><td>$10</td><td>12,100</td><td>400</td></tr>
+        <tr><td>$1</td><td>122,000</td><td>4,000</td></tr>
+        <tr><td>10 sen</td><td>1,340,000</td><td>40,000</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>Invarian yang dikuatkuasakan oleh kontrak.</strong> Teorem menerangkan model; ini ialah sifat kod yang digunakan yang menjadikan model itu setia.</p>
+    <table class="kv">
+      <thead><tr><th>Invarian</th><th>Mekanisme</th></tr></thead>
+      <tbody>
+        <tr><td>Sasaran penyenaraian tidak boleh dinaikkan sama sekali</td><td>Tiada penetap (setter) wujud bagi recovery_target</td></tr>
+        <tr><td>Tiada penyenaraian boleh mengisytiharkan lebih daripada 0.005 ETH</td><td>MAX_RECOVERY_TARGET, disemak pada register dan certify</td></tr>
+        <tr><td>Jumlah royalti tidak boleh melimpah balik (wrap)</td><td>Penambahan tersemak; limpahan menyebabkan pembalikan (revert)</td></tr>
+        <tr><td>Lesen yang telah dijual tidak boleh diharga semula, dihalakan semula, atau ditinggalkan terkandas</td><td>Harga unit, kilang, dan komitmen pakej disalin sebagai gambaran (snapshot) ke dalam lesen pada masa pembelian</td></tr>
+        <tr><td>Tiada unit dikilangkan daripada reka bentuk yang belum diterima</td><td>consume memerlukan pendedahan yang direkodkan dan sepadan dengan pakej yang dikomitkan oleh pereka</td></tr>
+        <tr><td>Pelaksanaan pesaing tidak boleh disenaraikan secara senyap</td><td>Antara muka yang sama memerlukan penamaan garis dasar dan penyelesaian baki pemulihannya</td></tr>
+        <tr><td>Pengatasan diukur, bukan diisytiharkan</td><td>claim_beat memerlukan rujukan kepada penambahbaikan yang direkodkan</td></tr>
+        <tr><td>Nilai terpelihara</td><td>Setiap wei dikreditkan kepada pemilik atau dikembalikan; pembayaran berasaskan tarik (pull-based) dengan baki disifarkan sebelum pemindahan</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>Apa yang diandaikan.</strong> Keanjalan, bahawa volum meningkat kira-kira sepuluh kali ganda apabila harga lantai jatuh sepuluh kali ganda; diuji pada setiap anak tangga, kerana harga lantai hanya jatuh apabila volum yang diukur melepasi anak tangga seterusnya. Antara muka, bahawa piawaian kanonik menjadikan penamaan semula mahal. Sijil ialah dakwaan; pendaftaran tidak disahkan secara sengaja dalam reka bentuk, dan kepercayaan datang daripada bukti yang boleh disemak di luar rantaian, dijalankan semula oleh pengesah, atau diperakui. Parameter: 24.44 sen bagi setiap kWh, $3,000 bagi setiap ETH, replikasi $4,000 dan $30,000, gas penyelesaian 1 sen bagi setiap topeng, pecahan Piagam 20 peratus, sasaran $120,000 setahun. Ubah mana-mana satu dan nombor akan berubah; teorem tidak.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>7. Kesimpulan</h2>
+    <p class="body"><strong>Q2 Computing ialah yang pertama ke pasaran.</strong> Setakat rekod ini, sistem sebenar telah disijilkan semata-mata melalui komposisi bahagian terbukti, sijilnya membawa cincang bukti rekod sebenar, dua lesen menyelesaikannya di rantaian awam, dan 58 teorem yang disemak mesin membataskan apa yang boleh dikenakan oleh instrumen itu dan apa yang dijaminnya. Tiada pihak lain telah menerbitkan sijil pada mana-mana tahap tangga, kontrak komposisi, atau bukti ekonominya. Medan yang dipilih untuk pertandingan pertama, aritmetik IEEE 754 dan format OCP MX pada PDK terbuka, ialah medan dengan pasaran terluas dan antara muka paling kanonik.</p>
+    <p class="body"><strong>Persaingan tertutup secara struktur, dan analisis menunjukkan sebabnya.</strong> Pertimbangkan setiap kedudukan yang boleh diambil oleh pesaing.</p>
+    <ol class="steps">
+      <li><strong>Mengenakan sewa atas rujukan.</strong> Bahagian 3 analisis membuktikan bahawa di bawah kemasukan bebas satu-satunya harga rujukan yang stabil ialah kos, dan invarian had menghalang mana-mana penyenarai daripada mengutip lebih daripada gas penyenaraian yang diisytiharkannya. Pesaing yang mengenakan lebih akan dipotong harga oleh pesaing yang mengenakan kos, dan pesaing pertama yang mengenakan kos ialah protokol Q2 sendiri.</li>
+      <li><strong>Membuktikan semula blok yang sama secara tertutup.</strong> Bahagian 7 menunjukkan replikasi berkos 2,011 kali ganda kos bukti sedia ada bagi setiap topeng. Pembeli yang boleh mewarisi bukti pada $100 bagi setiap topeng, atau secara percuma melalui rujukan, tidak akan membelanjakan $4,000 hingga $30,000 untuk mengulanginya. Pengesahan semula persendirian, iaitu lalai hari ini, menjadi pilihan yang mahal.</li>
+      <li><strong>Memotong harga lantai pembuatan.</strong> Bahagian 6 menunjukkan pendatang baru memerlukan 40 hingga 300 topeng untuk pulang modal pada $100, dan Bahagian 8 menunjukkan setiap anak tangga ke bawah menggandakan nombor itu sepuluh kali sementara kos fizikal penyandang bagi setiap topeng terus jatuh. Harga lantai ditetapkan oleh Q2 dan turun mengikut jadual Q2, menuju kos fizikal. Tiada harga di bawah kos fizikal di mana pendatang baru dapat memulihkan replikasi.</li>
+      <li><strong>Mengatasi blok.</strong> Ini dibenarkan dan dialu-alukan. Atasi atau cabang menghendaki penantang memulihkan penyenarai terdahulu sepenuhnya dan membuktikan penambahbaikan melalui pengukuran. Hasilnya ialah blok yang lebih baik di dalam ekonomi yang sama, disenaraikan di bawah had yang sama, dilesenkan di bawah harga lantai yang sama. Penambahbaikan mengukuhkan katalog; ia tidak mewujudkan pesaing kepadanya.</li>
+      <li><strong>Membina ekonomi pesaing.</strong> Pesaing mesti menawarkan rujukan yang lebih murah (mustahil di bawah kos), harga lantai pembuatan yang lebih rendah (mustahil di bawah kos fizikal, yang sudah dituju oleh Q2), atau bukti yang lebih kuat (yang disenaraikan ke dalam ekonomi ini di bawah atasi atau cabang). Mana-mana blok yang dibuktikan oleh pesaing adalah, melalui pembinaannya, calon sijil di sini.</li>
+    </ol>
+    <p class="body">Instrumen ini tidak menang dengan mengatasi pesaing pada harga. Ia menyingkirkan kedudukan dari mana persaingan harga mungkin dilakukan. Harga rujukan dipakukan pada kos melalui teorem. Harga pembuatan dipakukan pada harga lantai yang hanya boleh diturunkan oleh pengarangnya dan yang menumpu pada kos fizikal untuk menghasilkan dan menyelesaikan sesuatu bukti. Penambahbaikan ditangkap dan bukannya ditentang. Yang tinggal ialah satu katalog tunggal yang berkembang dan terbukti secara terbuka, pertama kali disenaraikan oleh Q2 Computing, di mana setiap entri menjadikan entri seterusnya lebih murah untuk dibuktikan.</p>
+    <p class="note">Pertaruhan dalam Bahagian 6 kekal sebagai pertaruhan. Keanjalan diuji satu anak tangga pada satu masa dan harga lantai tidak pernah jatuh mendahului volum yang diukur. Kesimpulan ini berpegang di bawah parameter yang dinyatakan; teorem berpegang di bawah mana-mana parameter.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Hasilkan semula</h2>
+    <ol class="steps">
+      <li><code>cd contracts/q2-composition/demo && npm install && node run.mjs</code>: kedua-dua ekonomi ke atas pokok MXFP4 sebenar.</li>
+      <li><code>cd contracts/q2-composition/proofs && lake build && lake env lean Audit.lean</code>: 58 teorem dan audit aksiom.</li>
+      <li><code>cd contracts/q2-composition && cargo build --release --target wasm32-unknown-unknown</code>, kemudian <code>cargo stylus check</code> terhadap Arbitrum Sepolia: kontrak itu, di Linux.</li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Sumber</h2>
+    <ol class="steps">
+      <li><a href="https://chipfoundry.io/faqs">Harga ulang-alik chipIgnite, $14,950 bagi setiap projek</a></li>
+      <li><a href="https://anysilicon.com/130nm-wafer-mpw-cost/">Kos wafer dan MPW 130 nm, set topeng $1 hingga 2 juta</a></li>
+      <li><a href="https://newsletter.semianalysis.com/p/the-dark-side-of-the-semiconductor">Kos fototopeng mengikut nod, SemiAnalysis</a></li>
+      <li><a href="https://semiengineering.com/first-time-silicon-success-plummets/">Kejayaan silikon pertama pada 14 peratus, kajian Wilson Research 2024</a></li>
+      <li><a href="https://blogs.sw.siemens.com/verificationhorizons/2025/09/03/why-first-silicon-success-is-getting-harder-for-system-companies/">Kejayaan silikon pertama pada 5 peratus, kajian 2026</a></li>
+      <li><a href="https://www.electricchoice.com/electricity-prices-by-state/vermont/">Elektrik kediaman Vermont, 24.44 sen bagi setiap kWh, September 2026</a></li>
+      <li><a href="https://ieeexplore.ieee.org/document/8766229">IEEE 754-2019, Piawaian bagi Aritmetik Titik Terapung</a></li>
+      <li><a href="https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf">Spesifikasi Format Penskalaan Mikro (MX) OCP v1.0</a></li>
+      <li><a href="https://link.springer.com/article/10.1007/s11192-014-1524-z">Hukum kuasa dalam taburan petikan, Scopus</a></li>
+    </ol>
+    <p class="note">Pengkomputeran pembuktian MXFP4, jangka penciptaan, dan setiap cincang sijil datang daripada rekod analisis portal Q2 sendiri.</p>
+  </div>
+</section>
+
+
+<footer>
+  <div class="wrap">
+    Q2 Computing / Project Foundry &#183;
+    <a href="./codesign.html">context co-design</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry">source</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/results/report.md">full report</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry/actions">CI oracle</a>
+  </div>
+</footer>
+</body>
+</html>

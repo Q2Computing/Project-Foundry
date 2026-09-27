@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ms">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Context Co-Design</title>
-<meta name="description" content="Descend a gradient through a SPICE-calibrated differentiable model to co-design a driver cell and its dopant for a given load and activity">
+<title>Reka Bentuk Bersama Konteks</title>
+<meta name="description" content="Turuni kecerunan melalui model boleh beza yang ditentukur kepada SPICE untuk mereka bentuk bersama sel pemacu dan dopannya bagi beban dan aktiviti tertentu">
 <style>
   :root{--bg:#0d1117;--panel:#161b22;--line:#30363d;--ink:#e6edf3;--dim:#8b949e;
     --green:#3fb950;--red:#f85149;--blue:#58a6ff;--amber:#e3b341;
@@ -70,15 +70,15 @@
 <header>
   <div class="wrap">
     <div class="eyebrow">Q2 Computing / Project Foundry</div>
-    <p class="langbar">Read this in: <b>English</b> · <a href="./codesign.ms.html">Bahasa Melayu</a> · <a href="./codesign.zh.html">简体中文</a> · <a href="./codesign.ta.html">தமிழ்</a></p>
-    <h1>Co-design the cell to the context</h1>
-    <p class="lede">Set the load the cell drives and how active it is. A gradient
-      descends through a SPICE-calibrated differentiable model to the joint
-      optimum of sizing and dopant. Both move: sizing follows the load, dopant
-      follows the activity</p>
+    <p class="langbar">Baca dalam: <a href="./codesign.html">English</a> · <b>Bahasa Melayu</b> · <a href="./codesign.zh.html">简体中文</a> · <a href="./codesign.ta.html">தமிழ்</a></p>
+    <h1>Reka bentuk bersama sel mengikut konteks</h1>
+    <p class="lede">Tetapkan beban yang dipacu oleh sel dan sejauh mana ia aktif. Kecerunan
+      (gradient) menurun melalui model boleh beza (differentiable) yang ditentukur kepada
+      SPICE ke optimum bersama pensaizan dan dopan. Kedua-duanya bergerak: pensaizan
+      mengikut beban, dopan mengikut aktiviti</p>
     <div class="links">
-      <a href="./">Overview</a>
-      <a href="./waveform.html">SPICE proof</a>
+      <a href="./">Gambaran keseluruhan</a>
+      <a href="./waveform.html">Bukti SPICE</a>
       <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/analysis/codesign.py">codesign.py</a>
     </div>
   </div>
@@ -88,55 +88,55 @@
   <div class="wrap">
     <div class="grid">
       <div class="ctrl">
-        <h2>Context</h2>
+        <h2>Konteks</h2>
         <div class="row">
-          <div class="top"><label>load driven</label><span class="v" id="clv">200 fF</span></div>
+          <div class="top"><label>beban dipacu</label><span class="v" id="clv">200 fF</span></div>
           <input type="range" id="cl" min="0" max="100" value="78">
-          <div class="ends"><span>5 fF (light)</span><span>300 fF (heavy)</span></div>
+          <div class="ends"><span>5 fF (ringan)</span><span>300 fF (berat)</span></div>
         </div>
         <div class="row">
-          <div class="top"><label>activity</label><span class="v" id="tiv">hot path</span></div>
+          <div class="top"><label>aktiviti</label><span class="v" id="tiv">laluan panas</span></div>
           <input type="range" id="ti" min="0" max="100" value="0">
-          <div class="ends"><span>hot path (always switching)</span><span>idle-heavy</span></div>
+          <div class="ends"><span>laluan panas (sentiasa bersuis)</span><span>kebanyakannya melahu</span></div>
         </div>
-        <p style="color:var(--dim);font-size:13px;margin:18px 0 0">Activity sets how
-          much the cell idles between switches. Leakage only matters when it idles,
-          so it is what pulls the dopant choice.</p>
+        <p style="color:var(--dim);font-size:13px;margin:18px 0 0">Aktiviti menetapkan sejauh
+          mana sel melahu antara pensuisan. Kebocoran hanya penting apabila ia melahu,
+          jadi itulah yang menarik pilihan dopan.</p>
       </div>
 
       <div class="out">
-        <h2>Co-designed cell <span id="status"></span></h2>
+        <h2>Sel yang direka bersama <span id="status"></span></h2>
         <div class="cell" id="viz"></div>
         <div style="text-align:center;font-family:var(--mono);font-size:13px;color:var(--dim)"
              id="spec"></div>
         <table>
-          <thead><tr><th>metric</th><th>foundry buf_16</th><th>co-designed</th></tr></thead>
+          <thead><tr><th>metrik</th><th>buf_16 kilang</th><th>direka bersama</th></tr></thead>
           <tbody id="metrics"></tbody>
         </table>
         <p style="color:var(--dim);font-size:13px;margin-top:12px" id="verdict"></p>
       </div>
     </div>
-    <div class="note">The dopant knob g runs between two real sky130 endpoints, both
-      <b>fabricable</b> today: g=0 is nfet_svt + pfet_hvt (highest Vt, low leakage,
-      slower); g=1 is nfet_lvt + pfet_svt (lowest Vt available, faster, leakier).
-      sky130 ships nfet svt/lvt and pfet svt/hvt, so those two combos bound a mask
-      set. A value in between is <b>fabricable today</b> as a mask blend: k of the m
-      fingers on one Vt mask, the rest on the other, in parallel. No new implant, no
-      hypothesis; the 50/50 blend is a measured point on the
-      <a href="./index.html">in-band chart</a>. Measured on the unit inverter, the two
-      speed knobs are asymmetric: nfet svt&#8594;lvt buys &#8722;9.7% on the fall edge
-      for 3&#215; leakage (nearly free), pfet hvt&#8594;svt buys &#8722;23% on the
-      rise edge for 121&#215; leakage (the expensive knob). That asymmetry is why
-      context, not a fixed recipe, should pick the dopant. The model is calibrated to
-      SPICE and matched it within ~6% at a confirmed endpoint
-      (<a href="./waveform.html">details</a>).</p>
+    <div class="note">Tombol dopan g bergerak antara dua titik hujung sky130 sebenar, kedua-duanya
+      <b>boleh difabrikasi</b> hari ini: g=0 ialah nfet_svt + pfet_hvt (Vt tertinggi, kebocoran rendah,
+      lebih perlahan); g=1 ialah nfet_lvt + pfet_svt (Vt terendah yang tersedia, lebih laju, lebih bocor).
+      sky130 membekalkan nfet svt/lvt dan pfet svt/hvt, jadi kedua-dua kombinasi itu membataskan set
+      topeng. Nilai di antaranya <b>boleh difabrikasi hari ini</b> sebagai campuran topeng (mask blend): k daripada m
+      jari (fingers) pada satu topeng Vt, selebihnya pada topeng yang satu lagi, secara selari. Tiada implan baharu, tiada
+      hipotesis; campuran 50/50 ialah titik terukur pada
+      <a href="./index.html">carta dalam jalur (in-band)</a>. Diukur pada penyongsang unit, kedua-dua
+      tombol kelajuan adalah tidak simetri: nfet svt&#8594;lvt memperoleh &#8722;9.7% pada pinggir jatuh
+      dengan 3&#215; kebocoran (hampir percuma), pfet hvt&#8594;svt memperoleh &#8722;23% pada
+      pinggir naik dengan 121&#215; kebocoran (tombol yang mahal). Ketaksimetrian itulah sebabnya
+      konteks, bukan resipi tetap, yang sepatutnya memilih dopan. Model ini ditentukur kepada
+      SPICE dan sepadan dengannya dalam lingkungan ~6% pada titik hujung yang disahkan
+      (<a href="./waveform.html">butiran</a>).</p>
   </div>
 </section>
 
 <footer><div class="wrap">
-  Differentiable model calibrated to ngspice on the open sky130 PDK. Reproduce:
+  Model boleh beza yang ditentukur kepada ngspice pada PDK sky130 terbuka. Hasilkan semula:
   <code>python analysis/codesign.py</code> &#183;
-  <a href="https://github.com/Q2Computing/Project-Foundry">source</a>
+  <a href="https://github.com/Q2Computing/Project-Foundry">sumber</a>
 </div></footer>
 
 <script>
@@ -202,7 +202,7 @@ function update(){
   const CL=clFor(+document.getElementById('cl').value);
   const ti=tiFor(+document.getElementById('ti').value);
   document.getElementById('clv').textContent=CL.toFixed(0)+" fF";
-  document.getElementById('tiv').textContent=ti<=1?"hot path":fmtT(ti);
+  document.getElementById('tiv').textContent=ti<=1?"laluan panas":fmtT(ti);
   const x=descend(CL,ti); const [m1,m2,g]=x;
   const m=model(m1,m2,g,CL,ti);
   // foundry buf_16 = [6,16], g=0 (hvt) at same context
@@ -212,18 +212,18 @@ function update(){
   document.getElementById('viz').innerHTML =
     stack(m1,col)+'<span class="arrow">&#8594;</span>'+stack(m2,col)
     +'<span class="arrow">&#8594;</span><span class="load"></span>';
-  const flav = g<0.02?"nfet_svt + pfet_hvt (high-Vt, low leak)":g>0.98?"nfet_lvt + pfet_svt (low-Vt, fast)":"mask blend g="+g.toFixed(2)+" (fingers mixed)";
+  const flav = g<0.02?"nfet_svt + pfet_hvt (Vt tinggi, kebocoran rendah)":g>0.98?"nfet_lvt + pfet_svt (Vt rendah, laju)":"campuran topeng g="+g.toFixed(2)+" (jari bercampur)";
   document.getElementById('spec').textContent =
-    `input x${Math.round(m1)} -> output x${Math.round(m2)}  |  dopant: ${flav}`;
+    `masukan x${Math.round(m1)} -> keluaran x${Math.round(m2)}  |  dopan: ${flav}`;
   const single = g<0.02||g>0.98;
   document.getElementById('status').innerHTML =
-    single?'<span class="badge fab">fabricable, single mask</span>':'<span class="badge fab">fabricable, mask blend</span>';
+    single?'<span class="badge fab">boleh difabrikasi, topeng tunggal</span>':'<span class="badge fab">boleh difabrikasi, campuran topeng</span>';
   // metrics
   fmt=x=>x.toFixed(4);
   const rows=[
-    ['delay (ns)', f.delay, m.delay, x=>x.toFixed(4)],
-    ['dyn energy (fJ)', f.Edyn, m.Edyn, x=>x.toFixed(0)],
-    ['leak energy (fJ)', f.Eleak, m.Eleak, x=>x.toFixed(1)],
+    ['lengah (ns)', f.delay, m.delay, x=>x.toFixed(4)],
+    ['tenaga dinamik (fJ)', f.Edyn, m.Edyn, x=>x.toFixed(0)],
+    ['tenaga bocor (fJ)', f.Eleak, m.Eleak, x=>x.toFixed(1)],
     ['EDP', f.edp, m.edp, x=>x.toFixed(1)],
   ];
   let html='';
@@ -232,9 +232,9 @@ function update(){
   document.getElementById('metrics').innerHTML=html;
   const de=(f.edp-m.edp)/f.edp*100, dt=(f.delay-m.delay)/f.delay*100;
   document.getElementById('verdict').innerHTML =
-    `vs the foundry default buf_16 at this context: <b style="color:${de>=0?'var(--green)':'var(--red)'}">${de>=0?'+':''}${de.toFixed(1)}% EDP</b>, `
-    +`<b style="color:${dt>=0?'var(--green)':'var(--red)'}">${dt>=0?'+':''}${dt.toFixed(0)}% speed</b>. `
-    +`The foundry cell is white; green is better on that axis, red worse.`;
+    `berbanding buf_16 lalai kilang pada konteks ini: <b style="color:${de>=0?'var(--green)':'var(--red)'}">${de>=0?'+':''}${de.toFixed(1)}% EDP</b>, `
+    +`<b style="color:${dt>=0?'var(--green)':'var(--red)'}">${dt>=0?'+':''}${dt.toFixed(0)}% kelajuan</b>. `
+    +`Sel kilang berwarna putih; hijau lebih baik pada paksi itu, merah lebih teruk.`;
 }
 document.getElementById('cl').addEventListener('input',update);
 document.getElementById('ti').addEventListener('input',update);

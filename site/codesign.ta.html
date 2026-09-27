@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ta">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Context Co-Design</title>
-<meta name="description" content="Descend a gradient through a SPICE-calibrated differentiable model to co-design a driver cell and its dopant for a given load and activity">
+<title>சூழல் இணை-வடிவமைப்பு</title>
+<meta name="description" content="கொடுக்கப்பட்ட சுமை மற்றும் செயல்பாட்டிற்கு ஒரு இயக்கி செல்லையும் அதன் மாசுபடுத்தியையும் இணைந்து வடிவமைக்க, SPICE அளவுத்திருத்தம் செய்யப்பட்ட வகையிடக்கூடிய மாதிரி வழியாக ஒரு சாய்வில் இறங்குதல்">
 <style>
   :root{--bg:#0d1117;--panel:#161b22;--line:#30363d;--ink:#e6edf3;--dim:#8b949e;
     --green:#3fb950;--red:#f85149;--blue:#58a6ff;--amber:#e3b341;
@@ -70,15 +70,15 @@
 <header>
   <div class="wrap">
     <div class="eyebrow">Q2 Computing / Project Foundry</div>
-    <p class="langbar">Read this in: <b>English</b> · <a href="./codesign.ms.html">Bahasa Melayu</a> · <a href="./codesign.zh.html">简体中文</a> · <a href="./codesign.ta.html">தமிழ்</a></p>
-    <h1>Co-design the cell to the context</h1>
-    <p class="lede">Set the load the cell drives and how active it is. A gradient
-      descends through a SPICE-calibrated differentiable model to the joint
-      optimum of sizing and dopant. Both move: sizing follows the load, dopant
-      follows the activity</p>
+    <p class="langbar">இதை இதில் படிக்கவும்: <a href="./codesign.html">English</a> · <a href="./codesign.ms.html">Bahasa Melayu</a> · <a href="./codesign.zh.html">简体中文</a> · <b>தமிழ்</b></p>
+    <h1>செல்லைச் சூழலுக்கு இணைந்து வடிவமைக்கவும்</h1>
+    <p class="lede">செல் இயக்கும் சுமையையும் அது எவ்வளவு செயல்பாட்டில் உள்ளது என்பதையும் அமைக்கவும். ஒரு சாய்வு (gradient)
+      SPICE அளவுத்திருத்தம் செய்யப்பட்ட வகையிடக்கூடிய (differentiable) மாதிரி வழியாக, அளவிடல் (sizing) மற்றும்
+      மாசுபடுத்தி (dopant) ஆகியவற்றின் கூட்டு உகந்த நிலைக்கு இறங்குகிறது. இரண்டும் நகர்கின்றன: அளவிடல் சுமையைப்
+      பின்பற்றுகிறது, மாசுபடுத்தி செயல்பாட்டைப் பின்பற்றுகிறது</p>
     <div class="links">
-      <a href="./">Overview</a>
-      <a href="./waveform.html">SPICE proof</a>
+      <a href="./">மேலோட்டம்</a>
+      <a href="./waveform.html">SPICE நிரூபணம்</a>
       <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/analysis/codesign.py">codesign.py</a>
     </div>
   </div>
@@ -88,55 +88,55 @@
   <div class="wrap">
     <div class="grid">
       <div class="ctrl">
-        <h2>Context</h2>
+        <h2>சூழல்</h2>
         <div class="row">
-          <div class="top"><label>load driven</label><span class="v" id="clv">200 fF</span></div>
+          <div class="top"><label>இயக்கப்படும் சுமை</label><span class="v" id="clv">200 fF</span></div>
           <input type="range" id="cl" min="0" max="100" value="78">
-          <div class="ends"><span>5 fF (light)</span><span>300 fF (heavy)</span></div>
+          <div class="ends"><span>5 fF (இலகு)</span><span>300 fF (கனம்)</span></div>
         </div>
         <div class="row">
-          <div class="top"><label>activity</label><span class="v" id="tiv">hot path</span></div>
+          <div class="top"><label>செயல்பாடு</label><span class="v" id="tiv">தீவிரப் பாதை</span></div>
           <input type="range" id="ti" min="0" max="100" value="0">
-          <div class="ends"><span>hot path (always switching)</span><span>idle-heavy</span></div>
+          <div class="ends"><span>தீவிரப் பாதை (எப்போதும் மாறுதல்)</span><span>பெரும்பாலும் செயலற்றது</span></div>
         </div>
-        <p style="color:var(--dim);font-size:13px;margin:18px 0 0">Activity sets how
-          much the cell idles between switches. Leakage only matters when it idles,
-          so it is what pulls the dopant choice.</p>
+        <p style="color:var(--dim);font-size:13px;margin:18px 0 0">செயல்பாடு, மாறுதல்களுக்கு இடையே
+          செல் எவ்வளவு செயலற்று இருக்கிறது என்பதை அமைக்கிறது. கசிவு (leakage) அது செயலற்று இருக்கும்போது மட்டுமே
+          முக்கியம்; எனவே அதுவே மாசுபடுத்தித் தேர்வை இழுக்கிறது.</p>
       </div>
 
       <div class="out">
-        <h2>Co-designed cell <span id="status"></span></h2>
+        <h2>இணைந்து வடிவமைக்கப்பட்ட செல் <span id="status"></span></h2>
         <div class="cell" id="viz"></div>
         <div style="text-align:center;font-family:var(--mono);font-size:13px;color:var(--dim)"
              id="spec"></div>
         <table>
-          <thead><tr><th>metric</th><th>foundry buf_16</th><th>co-designed</th></tr></thead>
+          <thead><tr><th>அளவை</th><th>ஃபவுண்டரி buf_16</th><th>இணைந்து வடிவமைக்கப்பட்டது</th></tr></thead>
           <tbody id="metrics"></tbody>
         </table>
         <p style="color:var(--dim);font-size:13px;margin-top:12px" id="verdict"></p>
       </div>
     </div>
-    <div class="note">The dopant knob g runs between two real sky130 endpoints, both
-      <b>fabricable</b> today: g=0 is nfet_svt + pfet_hvt (highest Vt, low leakage,
-      slower); g=1 is nfet_lvt + pfet_svt (lowest Vt available, faster, leakier).
-      sky130 ships nfet svt/lvt and pfet svt/hvt, so those two combos bound a mask
-      set. A value in between is <b>fabricable today</b> as a mask blend: k of the m
-      fingers on one Vt mask, the rest on the other, in parallel. No new implant, no
-      hypothesis; the 50/50 blend is a measured point on the
-      <a href="./index.html">in-band chart</a>. Measured on the unit inverter, the two
-      speed knobs are asymmetric: nfet svt&#8594;lvt buys &#8722;9.7% on the fall edge
-      for 3&#215; leakage (nearly free), pfet hvt&#8594;svt buys &#8722;23% on the
-      rise edge for 121&#215; leakage (the expensive knob). That asymmetry is why
-      context, not a fixed recipe, should pick the dopant. The model is calibrated to
-      SPICE and matched it within ~6% at a confirmed endpoint
-      (<a href="./waveform.html">details</a>).</p>
+    <div class="note">மாசுபடுத்தி முடிச்சு g இரு உண்மையான sky130 முனைப்புள்ளிகளுக்கு இடையே இயங்குகிறது; இரண்டும்
+      இன்றே <b>தயாரிக்கக்கூடியவை</b>: g=0 என்பது nfet_svt + pfet_hvt (அதிகபட்ச Vt, குறைந்த கசிவு,
+      மெதுவானது); g=1 என்பது nfet_lvt + pfet_svt (கிடைக்கும் குறைந்தபட்ச Vt, வேகமானது, அதிகக் கசிவு).
+      sky130 nfet svt/lvt மற்றும் pfet svt/hvt ஐ வழங்குகிறது; எனவே அந்த இரு சேர்க்கைகள் ஒரு மாஸ்க்
+      தொகுப்பை வரம்பிடுகின்றன. இடைப்பட்ட மதிப்பு ஒரு மாஸ்க் கலவையாக (mask blend) <b>இன்றே தயாரிக்கக்கூடியது</b>: m
+      விரல்களில் (fingers) k ஒரு Vt மாஸ்கில், எஞ்சியவை மற்றொன்றில், இணையாக. புதிய இம்ப்லாண்ட் இல்லை,
+      கருதுகோள் இல்லை; 50/50 கலவை
+      <a href="./index.html">இன்-பேண்ட் வரைபடத்தில்</a> அளவிடப்பட்ட ஒரு புள்ளி. அலகு இன்வெர்ட்டரில் அளவிடப்பட்டபடி, இரு
+      வேக முடிச்சுகள் சமச்சீரற்றவை: nfet svt&#8594;lvt இறங்கு விளிம்பில் &#8722;9.7% ஐ
+      3&#215; கசிவுக்கு வாங்குகிறது (கிட்டத்தட்ட இலவசம்), pfet hvt&#8594;svt ஏறு விளிம்பில் &#8722;23% ஐ
+      121&#215; கசிவுக்கு வாங்குகிறது (விலையுயர்ந்த முடிச்சு). அந்தச் சமச்சீரின்மையே, ஒரு நிலையான
+      செய்முறை அல்லாமல் சூழல் மாசுபடுத்தியைத் தேர்ந்தெடுக்க வேண்டும் என்பதற்குக் காரணம். மாதிரி SPICE க்கு
+      அளவுத்திருத்தம் செய்யப்பட்டு, உறுதிப்படுத்தப்பட்ட முனைப்புள்ளியில் ~6% க்குள் அதனுடன் பொருந்தியது
+      (<a href="./waveform.html">விவரங்கள்</a>).</p>
   </div>
 </section>
 
 <footer><div class="wrap">
-  Differentiable model calibrated to ngspice on the open sky130 PDK. Reproduce:
+  திறந்த sky130 PDK இல் ngspice க்கு அளவுத்திருத்தம் செய்யப்பட்ட வகையிடக்கூடிய மாதிரி. மீண்டும் உருவாக்க:
   <code>python analysis/codesign.py</code> &#183;
-  <a href="https://github.com/Q2Computing/Project-Foundry">source</a>
+  <a href="https://github.com/Q2Computing/Project-Foundry">மூலக் குறியீடு</a>
 </div></footer>
 
 <script>
@@ -202,7 +202,7 @@ function update(){
   const CL=clFor(+document.getElementById('cl').value);
   const ti=tiFor(+document.getElementById('ti').value);
   document.getElementById('clv').textContent=CL.toFixed(0)+" fF";
-  document.getElementById('tiv').textContent=ti<=1?"hot path":fmtT(ti);
+  document.getElementById('tiv').textContent=ti<=1?"தீவிரப் பாதை":fmtT(ti);
   const x=descend(CL,ti); const [m1,m2,g]=x;
   const m=model(m1,m2,g,CL,ti);
   // foundry buf_16 = [6,16], g=0 (hvt) at same context
@@ -212,18 +212,18 @@ function update(){
   document.getElementById('viz').innerHTML =
     stack(m1,col)+'<span class="arrow">&#8594;</span>'+stack(m2,col)
     +'<span class="arrow">&#8594;</span><span class="load"></span>';
-  const flav = g<0.02?"nfet_svt + pfet_hvt (high-Vt, low leak)":g>0.98?"nfet_lvt + pfet_svt (low-Vt, fast)":"mask blend g="+g.toFixed(2)+" (fingers mixed)";
+  const flav = g<0.02?"nfet_svt + pfet_hvt (உயர் Vt, குறைந்த கசிவு)":g>0.98?"nfet_lvt + pfet_svt (குறைந்த Vt, வேகம்)":"மாஸ்க் கலவை g="+g.toFixed(2)+" (விரல்கள் கலந்தவை)";
   document.getElementById('spec').textContent =
-    `input x${Math.round(m1)} -> output x${Math.round(m2)}  |  dopant: ${flav}`;
+    `உள்ளீடு x${Math.round(m1)} -> வெளியீடு x${Math.round(m2)}  |  மாசுபடுத்தி: ${flav}`;
   const single = g<0.02||g>0.98;
   document.getElementById('status').innerHTML =
-    single?'<span class="badge fab">fabricable, single mask</span>':'<span class="badge fab">fabricable, mask blend</span>';
+    single?'<span class="badge fab">தயாரிக்கக்கூடியது, ஒற்றை மாஸ்க்</span>':'<span class="badge fab">தயாரிக்கக்கூடியது, மாஸ்க் கலவை</span>';
   // metrics
   fmt=x=>x.toFixed(4);
   const rows=[
-    ['delay (ns)', f.delay, m.delay, x=>x.toFixed(4)],
-    ['dyn energy (fJ)', f.Edyn, m.Edyn, x=>x.toFixed(0)],
-    ['leak energy (fJ)', f.Eleak, m.Eleak, x=>x.toFixed(1)],
+    ['தாமதம் (ns)', f.delay, m.delay, x=>x.toFixed(4)],
+    ['இயக்க ஆற்றல் (fJ)', f.Edyn, m.Edyn, x=>x.toFixed(0)],
+    ['கசிவு ஆற்றல் (fJ)', f.Eleak, m.Eleak, x=>x.toFixed(1)],
     ['EDP', f.edp, m.edp, x=>x.toFixed(1)],
   ];
   let html='';
@@ -232,9 +232,9 @@ function update(){
   document.getElementById('metrics').innerHTML=html;
   const de=(f.edp-m.edp)/f.edp*100, dt=(f.delay-m.delay)/f.delay*100;
   document.getElementById('verdict').innerHTML =
-    `vs the foundry default buf_16 at this context: <b style="color:${de>=0?'var(--green)':'var(--red)'}">${de>=0?'+':''}${de.toFixed(1)}% EDP</b>, `
-    +`<b style="color:${dt>=0?'var(--green)':'var(--red)'}">${dt>=0?'+':''}${dt.toFixed(0)}% speed</b>. `
-    +`The foundry cell is white; green is better on that axis, red worse.`;
+    `இந்தச் சூழலில் ஃபவுண்டரி இயல்புநிலை buf_16 உடன் ஒப்பிடுகையில்: <b style="color:${de>=0?'var(--green)':'var(--red)'}">${de>=0?'+':''}${de.toFixed(1)}% EDP</b>, `
+    +`<b style="color:${dt>=0?'var(--green)':'var(--red)'}">${dt>=0?'+':''}${dt.toFixed(0)}% வேகம்</b>. `
+    +`ஃபவுண்டரி செல் வெள்ளை நிறத்தில்; பச்சை அந்த அச்சில் சிறந்தது, சிவப்பு மோசமானது.`;
 }
 document.getElementById('cl').addEventListener('input',update);
 document.getElementById('ti').addEventListener('input',update);

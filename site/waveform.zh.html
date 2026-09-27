@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hans">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SPICE Proof</title>
-<meta name="description" content="Real ngspice transient of buf_16 vs a custom cell on the documented sky130 130nm process, with the actual transistor dimensions">
+<title>SPICE 证明</title>
+<meta name="description" content="在有文档记录的 sky130 130nm 工艺上，buf_16 与自定义单元的真实 ngspice 瞬态仿真，附实际晶体管尺寸">
 <style>
   :root{--bg:#0d1117;--panel:#161b22;--line:#30363d;--ink:#e6edf3;--dim:#8b949e;
     --green:#3fb950;--red:#f85149;--blue:#58a6ff;
@@ -66,14 +66,14 @@
 <header>
   <div class="wrap">
     <div class="eyebrow">Q2 Computing / Project Foundry</div>
-    <p class="langbar">Read this in: <b>English</b> · <a href="./waveform.ms.html">Bahasa Melayu</a> · <a href="./waveform.zh.html">简体中文</a> · <a href="./waveform.ta.html">தமிழ்</a></p>
-    <h1>buf_16 vs a custom driver at 250 fF</h1>
-    <p class="lede">One ngspice transient, sky130 tt corner, 1.8 V, both cells
-      driving the same 250 fF load. The device parameters and traces below are
-      from this run. Reproduce with <code>./run.sh proof</code></p>
+    <p class="langbar">阅读语言： <a href="./waveform.html">English</a> · <a href="./waveform.ms.html">Bahasa Melayu</a> · <b>简体中文</b> · <a href="./waveform.ta.html">தமிழ்</a></p>
+    <h1>buf_16 与自定义驱动器在 250 fF 下的对比</h1>
+    <p class="lede">一次 ngspice 瞬态仿真，sky130 tt 工艺角，1.8 V，两个单元
+      驱动相同的 250 fF 负载。下方的器件参数与波形来自
+      这次运行。用 <code>./run.sh proof</code> 复现</p>
     <div class="links">
-      <a href="./">Overview</a>
-      <a href="../results/proof.txt">ngspice log</a>
+      <a href="./">概览</a>
+      <a href="../results/proof.txt">ngspice 日志</a>
       <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/tools/proof.py">proof.py</a>
     </div>
   </div>
@@ -81,34 +81,34 @@
 
 <section>
   <div class="wrap">
-    <h2>Transistors</h2>
+    <h2>晶体管</h2>
     <div class="sheets" id="sheets"></div>
-    <div class="note">sky130 drawn dimensions: gate length L = 0.15 um, NMOS width
-      0.65 um, PMOS (high-Vt) width 1.0 um. Drive strength is unit devices in
-      parallel, as buf_16 is built. The custom cell uses the same two devices as a
-      13-unit input stage into a 32-unit output stage</div>
+    <div class="note">sky130 绘制尺寸：栅长 L = 0.15 um，NMOS 宽度
+      0.65 um，PMOS（高 Vt）宽度 1.0 um。驱动强度由并联的单位器件
+      构成，buf_16 即如此构建。自定义单元使用相同的两种器件，以
+      13 单位的输入级驱动 32 单位的输出级</div>
   </div>
 </section>
 
 <section>
   <div class="wrap">
-    <h2>Rising output edge</h2>
-    <canvas id="plot" width="900" height="380" aria-label="Output voltage versus time"></canvas>
+    <h2>上升输出边沿</h2>
+    <canvas id="plot" width="900" height="380" aria-label="输出电压随时间变化"></canvas>
     <div class="legend">
-      <span><span class="swatch" style="background:#6e7681"></span>input</span>
-      <span><span class="swatch" style="background:#e6edf3"></span>buf_16 output</span>
-      <span><span class="swatch" style="background:#3fb950"></span>custom output</span>
-      <span><span class="swatch" style="background:#30363d"></span>50% threshold</span>
+      <span><span class="swatch" style="background:#6e7681"></span>输入</span>
+      <span><span class="swatch" style="background:#e6edf3"></span>buf_16 输出</span>
+      <span><span class="swatch" style="background:#3fb950"></span>自定义输出</span>
+      <span><span class="swatch" style="background:#30363d"></span>50% 阈值</span>
     </div>
   </div>
 </section>
 
 <section>
   <div class="wrap">
-    <h2>Measured result</h2>
+    <h2>实测结果</h2>
     <table id="metrics">
-      <thead><tr><th>cell</th><th>delay (ns)</th><th>energy (fJ)</th>
-        <th>area (um)</th><th>EDP</th></tr></thead>
+      <thead><tr><th>单元</th><th>延迟 (ns)</th><th>能量 (fJ)</th>
+        <th>面积 (um)</th><th>EDP</th></tr></thead>
       <tbody></tbody>
     </table>
     <p style="color:var(--dim);font-size:14px;margin-top:14px" id="summary"></p>
@@ -116,8 +116,8 @@
 </section>
 
 <footer><div class="wrap">
-  ngspice, sky130 PDK, tt corner. Reproduce: <code>./run.sh proof</code> &#183;
-  <a href="https://github.com/Q2Computing/Project-Foundry">source</a>
+  ngspice，sky130 PDK，tt 工艺角。复现：<code>./run.sh proof</code> &#183;
+  <a href="https://github.com/Q2Computing/Project-Foundry">源代码</a>
 </div></footer>
 
 <script src="waveforms.js"></script>
@@ -132,7 +132,7 @@ function sheet(cls, cell){
     +`<span>${d.model.replace('sky130_fd_pr__','')} <span class="tag">x${d.count}</span></span>`
     +`<span class="v">W ${d.w_um.toFixed(2)}u &middot; L ${d.l_um.toFixed(3)}u</span></div>`).join('');
   return `<div class="sheet ${cls}"><h3>${cell.label}</h3>`
-    +`<div class="sub">${cell.total_devices} unit transistors</div>`
+    +`<div class="sub">${cell.total_devices} 个单位晶体管</div>`
     +`<div class="dev">${rows}</div></div>`;
 }
 document.getElementById('sheets').innerHTML =
@@ -159,12 +159,12 @@ const emore=((c.energy_fj-b.energy_fj)/b.energy_fj*100).toFixed(1);
 const amore=((c.area_um-b.area_um)/b.area_um*100).toFixed(0);
 const edpg=((b.edp-c.edp)/b.edp*100).toFixed(1);
 document.getElementById('summary').innerHTML =
-  `Custom is <b style="color:var(--green)">${faster}% faster</b> and nets `
-  +`<b style="color:var(--green)">${edpg}% lower EDP</b>, but it costs `
-  +`<b style="color:var(--red)">${emore}% more energy</b> and `
-  +`<b style="color:var(--red)">${amore}% more area</b>. Not every axis improves: `
-  +`more drive buys speed and pays for it in energy and area. Up arrow is an `
-  +`increase (red where that is worse), down arrow a decrease`;
+  `自定义单元<b style="color:var(--green)">快 ${faster}%</b>，净获`
+  +`<b style="color:var(--green)">低 ${edpg}% 的 EDP</b>，但代价是`
+  +`<b style="color:var(--red)">多 ${emore}% 的能量</b>和`
+  +`<b style="color:var(--red)">多 ${amore}% 的面积</b>。并非每个轴都有改善：`
+  +`更大的驱动买到速度，却以能量与面积付账。上箭头表示`
+  +`增加（在更差处标红），下箭头表示减少`;
 
 // ---- waveform plot (real trace) ----------------------------------------------
 const cv = document.getElementById('plot');
@@ -186,9 +186,9 @@ function draw(){
   ctx.beginPath();ctx.moveTo(ml,yh);ctx.lineTo(ml+w,yh);ctx.stroke();ctx.setLineDash([]);
   ctx.fillStyle='#8b949e';ctx.font='12px ui-sans-serif,system-ui';
   ctx.fillText('50%  (0.9 V)', ml+6, yh-6);
-  ctx.fillText('time (ns)', ml+w-58, mtp+h+24);
+  ctx.fillText('时间 (ns)', ml+w-58, mtp+h+24);
   ctx.save();ctx.translate(16,mtp+h/2);ctx.rotate(-Math.PI/2);
-  ctx.fillText('output voltage (V)',-42,0);ctx.restore();
+  ctx.fillText('输出电压 (V)',-42,0);ctx.restore();
   // x ticks
   for(let i=0;i<=5;i++){const tv=x0+(x1-x0)*i/5;ctx.fillText(tv.toFixed(2),ml+w*i/5-12,mtp+h+22);}
   function line(v,color,wd){ctx.strokeStyle=color;ctx.lineWidth=wd;ctx.beginPath();
@@ -205,7 +205,7 @@ function draw(){
   // annotate the gap
   const tb=cross(vb), tcs=cross(vc);
   if(tb&&tcs){ctx.fillStyle='#3fb950';
-    ctx.fillText('custom reaches 50% '+((tb-tcs)*1000).toFixed(0)+' ps sooner', X(tcs)+6, Y(VDD/2)+22);}
+    ctx.fillText('自定义单元提前 '+((tb-tcs)*1000).toFixed(0)+' ps 到达 50%', X(tcs)+6, Y(VDD/2)+22);}
 }
 draw(); addEventListener('resize', draw);
 </script>

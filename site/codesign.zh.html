@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hans">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Context Co-Design</title>
-<meta name="description" content="Descend a gradient through a SPICE-calibrated differentiable model to co-design a driver cell and its dopant for a given load and activity">
+<title>情境协同设计</title>
+<meta name="description" content="通过 SPICE 校准的可微模型沿梯度下降，为给定负载与活动度协同设计驱动单元及其掺杂">
 <style>
   :root{--bg:#0d1117;--panel:#161b22;--line:#30363d;--ink:#e6edf3;--dim:#8b949e;
     --green:#3fb950;--red:#f85149;--blue:#58a6ff;--amber:#e3b341;
@@ -70,15 +70,14 @@
 <header>
   <div class="wrap">
     <div class="eyebrow">Q2 Computing / Project Foundry</div>
-    <p class="langbar">Read this in: <b>English</b> · <a href="./codesign.ms.html">Bahasa Melayu</a> · <a href="./codesign.zh.html">简体中文</a> · <a href="./codesign.ta.html">தமிழ்</a></p>
-    <h1>Co-design the cell to the context</h1>
-    <p class="lede">Set the load the cell drives and how active it is. A gradient
-      descends through a SPICE-calibrated differentiable model to the joint
-      optimum of sizing and dopant. Both move: sizing follows the load, dopant
-      follows the activity</p>
+    <p class="langbar">阅读语言： <a href="./codesign.html">English</a> · <a href="./codesign.ms.html">Bahasa Melayu</a> · <b>简体中文</b> · <a href="./codesign.ta.html">தமிழ்</a></p>
+    <h1>为情境协同设计单元</h1>
+    <p class="lede">设定单元所驱动的负载及其活动度。梯度沿 SPICE 校准的可微模型下降，
+      抵达尺寸与掺杂的联合最优点。两者同时变动：尺寸跟随负载，
+      掺杂跟随活动度</p>
     <div class="links">
-      <a href="./">Overview</a>
-      <a href="./waveform.html">SPICE proof</a>
+      <a href="./">概览</a>
+      <a href="./waveform.html">SPICE 证明</a>
       <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/analysis/codesign.py">codesign.py</a>
     </div>
   </div>
@@ -88,55 +87,55 @@
   <div class="wrap">
     <div class="grid">
       <div class="ctrl">
-        <h2>Context</h2>
+        <h2>情境</h2>
         <div class="row">
-          <div class="top"><label>load driven</label><span class="v" id="clv">200 fF</span></div>
+          <div class="top"><label>驱动负载</label><span class="v" id="clv">200 fF</span></div>
           <input type="range" id="cl" min="0" max="100" value="78">
-          <div class="ends"><span>5 fF (light)</span><span>300 fF (heavy)</span></div>
+          <div class="ends"><span>5 fF（轻）</span><span>300 fF（重）</span></div>
         </div>
         <div class="row">
-          <div class="top"><label>activity</label><span class="v" id="tiv">hot path</span></div>
+          <div class="top"><label>活动度</label><span class="v" id="tiv">热路径</span></div>
           <input type="range" id="ti" min="0" max="100" value="0">
-          <div class="ends"><span>hot path (always switching)</span><span>idle-heavy</span></div>
+          <div class="ends"><span>热路径（持续开关）</span><span>以空闲为主</span></div>
         </div>
-        <p style="color:var(--dim);font-size:13px;margin:18px 0 0">Activity sets how
-          much the cell idles between switches. Leakage only matters when it idles,
-          so it is what pulls the dopant choice.</p>
+        <p style="color:var(--dim);font-size:13px;margin:18px 0 0">活动度决定单元在两次
+          开关之间空闲多久。漏电仅在空闲时才重要，
+          因此它是牵动掺杂选择的因素。</p>
       </div>
 
       <div class="out">
-        <h2>Co-designed cell <span id="status"></span></h2>
+        <h2>协同设计的单元 <span id="status"></span></h2>
         <div class="cell" id="viz"></div>
         <div style="text-align:center;font-family:var(--mono);font-size:13px;color:var(--dim)"
              id="spec"></div>
         <table>
-          <thead><tr><th>metric</th><th>foundry buf_16</th><th>co-designed</th></tr></thead>
+          <thead><tr><th>指标</th><th>代工厂 buf_16</th><th>协同设计</th></tr></thead>
           <tbody id="metrics"></tbody>
         </table>
         <p style="color:var(--dim);font-size:13px;margin-top:12px" id="verdict"></p>
       </div>
     </div>
-    <div class="note">The dopant knob g runs between two real sky130 endpoints, both
-      <b>fabricable</b> today: g=0 is nfet_svt + pfet_hvt (highest Vt, low leakage,
-      slower); g=1 is nfet_lvt + pfet_svt (lowest Vt available, faster, leakier).
-      sky130 ships nfet svt/lvt and pfet svt/hvt, so those two combos bound a mask
-      set. A value in between is <b>fabricable today</b> as a mask blend: k of the m
-      fingers on one Vt mask, the rest on the other, in parallel. No new implant, no
-      hypothesis; the 50/50 blend is a measured point on the
-      <a href="./index.html">in-band chart</a>. Measured on the unit inverter, the two
-      speed knobs are asymmetric: nfet svt&#8594;lvt buys &#8722;9.7% on the fall edge
-      for 3&#215; leakage (nearly free), pfet hvt&#8594;svt buys &#8722;23% on the
-      rise edge for 121&#215; leakage (the expensive knob). That asymmetry is why
-      context, not a fixed recipe, should pick the dopant. The model is calibrated to
-      SPICE and matched it within ~6% at a confirmed endpoint
-      (<a href="./waveform.html">details</a>).</p>
+    <div class="note">掺杂旋钮 g 在两个真实的 sky130 端点之间取值，两者今天都
+      <b>可制造</b>：g=0 为 nfet_svt + pfet_hvt（最高 Vt，低漏电，
+      较慢）；g=1 为 nfet_lvt + pfet_svt（可用的最低 Vt，更快，漏电更大）。
+      sky130 提供 nfet svt/lvt 与 pfet svt/hvt，因此这两种组合界定了一套
+      掩模。介于其间的值今天即可作为掩模混合（mask blend）<b>制造</b>：m 个指状（finger）
+      中的 k 个落在一种 Vt 掩模上，其余落在另一种上，并联连接。无新注入，
+      无假设；50/50 混合是
+      <a href="./index.html">带内图表</a>上的一个实测点。在单位反相器上测得，两个
+      速度旋钮是不对称的：nfet svt&#8594;lvt 以 3&#215; 漏电换取下降沿 &#8722;9.7%
+      （几乎免费），pfet hvt&#8594;svt 以 121&#215; 漏电换取上升沿
+      &#8722;23%（昂贵的旋钮）。这种不对称正是应由
+      情境而非固定配方来选择掺杂的原因。该模型已校准至
+      SPICE，并在一个已确认的端点上与其匹配在约 6% 以内
+      （<a href="./waveform.html">详情</a>）。</p>
   </div>
 </section>
 
 <footer><div class="wrap">
-  Differentiable model calibrated to ngspice on the open sky130 PDK. Reproduce:
+  可微模型已校准至开源 sky130 PDK 上的 ngspice。复现：
   <code>python analysis/codesign.py</code> &#183;
-  <a href="https://github.com/Q2Computing/Project-Foundry">source</a>
+  <a href="https://github.com/Q2Computing/Project-Foundry">源代码</a>
 </div></footer>
 
 <script>
@@ -202,7 +201,7 @@ function update(){
   const CL=clFor(+document.getElementById('cl').value);
   const ti=tiFor(+document.getElementById('ti').value);
   document.getElementById('clv').textContent=CL.toFixed(0)+" fF";
-  document.getElementById('tiv').textContent=ti<=1?"hot path":fmtT(ti);
+  document.getElementById('tiv').textContent=ti<=1?"热路径":fmtT(ti);
   const x=descend(CL,ti); const [m1,m2,g]=x;
   const m=model(m1,m2,g,CL,ti);
   // foundry buf_16 = [6,16], g=0 (hvt) at same context
@@ -212,18 +211,18 @@ function update(){
   document.getElementById('viz').innerHTML =
     stack(m1,col)+'<span class="arrow">&#8594;</span>'+stack(m2,col)
     +'<span class="arrow">&#8594;</span><span class="load"></span>';
-  const flav = g<0.02?"nfet_svt + pfet_hvt (high-Vt, low leak)":g>0.98?"nfet_lvt + pfet_svt (low-Vt, fast)":"mask blend g="+g.toFixed(2)+" (fingers mixed)";
+  const flav = g<0.02?"nfet_svt + pfet_hvt（高 Vt，低漏电）":g>0.98?"nfet_lvt + pfet_svt（低 Vt，快速）":"掩模混合 g="+g.toFixed(2)+"（指状混合）";
   document.getElementById('spec').textContent =
-    `input x${Math.round(m1)} -> output x${Math.round(m2)}  |  dopant: ${flav}`;
+    `输入 x${Math.round(m1)} -> 输出 x${Math.round(m2)}  |  掺杂：${flav}`;
   const single = g<0.02||g>0.98;
   document.getElementById('status').innerHTML =
-    single?'<span class="badge fab">fabricable, single mask</span>':'<span class="badge fab">fabricable, mask blend</span>';
+    single?'<span class="badge fab">可制造，单一掩模</span>':'<span class="badge fab">可制造，掩模混合</span>';
   // metrics
   fmt=x=>x.toFixed(4);
   const rows=[
-    ['delay (ns)', f.delay, m.delay, x=>x.toFixed(4)],
-    ['dyn energy (fJ)', f.Edyn, m.Edyn, x=>x.toFixed(0)],
-    ['leak energy (fJ)', f.Eleak, m.Eleak, x=>x.toFixed(1)],
+    ['延迟 (ns)', f.delay, m.delay, x=>x.toFixed(4)],
+    ['动态能量 (fJ)', f.Edyn, m.Edyn, x=>x.toFixed(0)],
+    ['漏电能量 (fJ)', f.Eleak, m.Eleak, x=>x.toFixed(1)],
     ['EDP', f.edp, m.edp, x=>x.toFixed(1)],
   ];
   let html='';
@@ -232,9 +231,9 @@ function update(){
   document.getElementById('metrics').innerHTML=html;
   const de=(f.edp-m.edp)/f.edp*100, dt=(f.delay-m.delay)/f.delay*100;
   document.getElementById('verdict').innerHTML =
-    `vs the foundry default buf_16 at this context: <b style="color:${de>=0?'var(--green)':'var(--red)'}">${de>=0?'+':''}${de.toFixed(1)}% EDP</b>, `
-    +`<b style="color:${dt>=0?'var(--green)':'var(--red)'}">${dt>=0?'+':''}${dt.toFixed(0)}% speed</b>. `
-    +`The foundry cell is white; green is better on that axis, red worse.`;
+    `在此情境下相对代工厂默认 buf_16：<b style="color:${de>=0?'var(--green)':'var(--red)'}">${de>=0?'+':''}${de.toFixed(1)}% EDP</b>，`
+    +`<b style="color:${dt>=0?'var(--green)':'var(--red)'}">${dt>=0?'+':''}${dt.toFixed(0)}% 速度</b>。`
+    +`代工厂单元为白色；绿色表示该轴上更优，红色表示更差。`;
 }
 document.getElementById('cl').addEventListener('input',update);
 document.getElementById('ti').addEventListener('input',update);

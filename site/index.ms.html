@@ -169,8 +169,8 @@
   if(saved==='light'||saved==='dark') r.setAttribute('data-theme',saved);
   function isLight(){var t=r.getAttribute('data-theme'); if(t) return t==='light';
     return window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches}
-  function label(b){b.textContent=isLight()?'Dark mode':'Light mode';
-    b.setAttribute('aria-label',isLight()?'Switch to dark mode':'Switch to light mode')}
+  function label(b){b.textContent=isLight()?'Mod gelap':'Mod cerah';
+    b.setAttribute('aria-label',isLight()?'Tukar ke mod gelap':'Tukar ke mod cerah')}
   document.addEventListener('DOMContentLoaded',function(){
     var b=document.getElementById('theme-toggle'); if(!b) return; label(b);
     b.addEventListener('click',function(){var next=isLight()?'dark':'light';
@@ -184,15 +184,17 @@
   <div class="wrap">
     <a class="logo" href="./index.html"><img src="./assets/project-foundry-logo.jpg" alt="Project Foundry. Generate. Assess. Anchor." width="260" height="264"></a>
     <div class="eyebrow">Q2 Computing / Project Foundry / Arbitrum Stylus</div>
-    <button class="theme" id="theme-toggle" type="button">Light mode</button>
+    <button class="theme" id="theme-toggle" type="button">Mod cerah</button>
     <p class="langbar">Baca dalam: <a href="./index.html">English</a> · <b>Bahasa Melayu</b> · <a href="./index.zh.html">简体中文</a> · <a href="./index.ta.html">தமிழ்</a></p>
     <h1>Ekonomi Bukti</h1>
     <p class="tagline">Bukti bagi sesuatu litar ialah sijil. Sijil dilesenkan ke dalam bukti yang lebih besar dan ke dalam silikon yang dikilangkan, pada harga lantai yang tidak dapat ditandingi oleh mana-mana pesaing, dan diselesaikan di Arbitrum Stylus.</p>
     <p class="lede">Pengesahan dikongsi, bukan diulang. Sesuatu blok dibuktikan sekali, secara terbuka, dan setiap sistem yang dibina di atasnya mewarisi bukti itu. Laman ini ialah contoh awam ekonomi tersebut: tahap bukti yang menggredkan setiap sijil, dua lesen, tiga kontrak, dan gelung yang mengatasi sel kilang dan membuktikannya.</p>
     <div class="cta">
-      <a class="btn primary" href="./research.html">Penyelidikan (Inggeris)</a>
-      <a class="btn" href="./index.html">Laman utama (Inggeris)</a>
-      <a class="btn" href="https://github.com/Q2Computing/Project-Foundry">GitHub</a>
+      <a class="btn primary" href="./research.ms.html">Penyelidikan</a>
+      <a class="btn" href="./index.html">Laman utama</a>
+      <a class="btn" href="./codesign.ms.html">Reka bentuk bersama mengikut konteks anda</a>
+      <a class="btn" href="./waveform.ms.html">Bukti SPICE</a>
+      <a class="btn" href="https://github.com/Q2Computing/Project-Foundry">Repositori</a>
     </div>
   </div>
 </header>
@@ -214,14 +216,13 @@
       <div class="card"><div class="k">Rujukan: milik bersama</div><h3>Pemulihan kos, bukan sewa</h3><p>Primitif PDK kilang bebas untuk dirujuk selama-lamanya. Setiap sijil lain hanya memulihkan gas penyenaraiannya, dibayar oleh abstraksi yang menggunakannya secara langsung, dihadkan pada gas itu, kemudian ia bebas. Sesiapa yang mengatasi sesuatu blok membayar kos penyenaraiannya.</p></div>
       <div class="card anchor"><div class="k">Pembuatan: produk pereka</div><h3>$100 bagi setiap set topeng, SoC ke bawah</h3><p>Hak untuk meletakkan reka bentuk ke dalam SoC yang difabrikasi. Reka bentuk hanya diserahkan kepada kilang yang dinamakan oleh pereka, yang mesti membuktikan ia telah menerima pakej yang dikomitkan sebelum ia boleh menggunakan satu unit pun. Pemegang lesen tidak pernah memuat turun fail itu. Harga lantai diturunkan seiring dengan peningkatan penerimaan, menuju kos fizikal sebenar untuk menghasilkan dan menyelesaikan sesuatu bukti.</p></div>
     </div>
-    <p class="note" style="margin-top:14px">Protokol mengambil sifar dalam kedua-dua lesen. Lima puluh lapan teorem yang disemak mesin menyokong ekonomi ini; lihat laman penyelidikan (dalam bahasa Inggeris).</p>
+    <p class="note" style="margin-top:14px">Protokol mengambil sifar dalam kedua-dua lesen. Lima puluh lapan teorem yang disemak mesin menyokong ekonomi ini; lihat <a href="./research.ms.html">laman penyelidikan</a>.</p>
   </div>
 </section>
 <section>
   <div class="wrap">
     <h2>Kontrak</h2>
     <table class="kv"><thead><tr><th>Kontrak</th><th>Mod</th><th>Apa yang dilakukan oleh rantaian</th></tr></thead><tbody><tr><td>q2-verifier</td><td>Sahkan semula</td><td>Menjalankan semula bukti terhad di atas rantaian. Tanpa perlu kepercayaan.</td></tr><tr><td>q2-anchor</td><td>Sauh</td><td>Merekodkan komitmen beralamat kandungan bagi bukti luar rantaian dengan label penambahbaikan.</td></tr><tr><td>q2-composition</td><td>Komposisi dan lesen</td><td>Mensijilkan sistem yang lebih besar melalui rujukan kepada sijil anak dan menyelesaikan kedua-dua lesen.</td></tr></tbody></table>
-    <p class="note" style="margin-top:14px">Keputusan pemacu, gelung, dan penyelesaian Stylus diterangkan di laman utama bahasa Inggeris.</p>
   </div>
 </section>
 
