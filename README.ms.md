@@ -12,10 +12,10 @@ Setiap sijil menamakan tahap di mana bloknya dibuktikan. Tangga ini bermula dari
 
 | Tahap | Apa yang dibuktikan | Cara | Jangkauan | Status di sini |
 | --- | --- | --- | --- | --- |
-| 1. Menyeluruh (exhaustive) | Blok mengira keluaran yang betul bagi setiap input | Senaraikan seluruh ruang input (jadual kebenaran sel dalam SPICE daripada transistor PDK; penambah 8-bit merentasi kesemua 131,072 input) | Blok kecil sahaja; kos meningkat sebanyak 2 kuasa lebar input | Sebenar: bukti sel SPICE, adder8 |
-| 2. Kesetaraan (equivalence) | Dua perwakilan mengira fungsi yang sama | Miter SAT antara netlist dan RTL, aruhan temporal bagi logik berjujukan; simbolik, jadi tiada penyenaraian | Mana-mana blok yang dapat diselesaikan oleh penyelesai | Sebenar: Yosys SAT |
-| 3. Pemetaan teknologi (techmap) ke sel terbukti | Netlist hanya menggunakan sel yang dibuktikan pada tahap 1 dan setara secara struktur dengan RTLnya | Petakan ke pustaka terbukti, kemudian semakan kesetaraan struktur | Mana-mana blok, dihadkan oleh had primitif 64 sel bagi setiap daun | Sebenar |
-| 4. Komposisi | Blok yang lebih besar adalah betul kerana ia dibina hanya daripada bahagian terbukti dan perekat terbukti, terikat kepada anak yang diisytiharkan | Bancian bahagian serta kesetaraan pemasangan dengan komposisi; had itu memaksa apa-apa yang lebih besar untuk diuraikan | Tanpa had: komposit ialah bahagian bagi tahap seterusnya | Sebenar: anak tangga yang berskala |
+| 1. Menyeluruh (exhaustive) | Blok mengira keluaran yang betul bagi setiap input | Senaraikan seluruh ruang input (jadual kebenaran sel dalam SPICE daripada transistor PDK; penambah 8-bit merentasi kesemua 131,072 input) | Blok kecil sahaja; kos meningkat sebanyak 2 kuasa lebar input | Terbukti: bukti sel SPICE, adder8 |
+| 2. Kesetaraan (equivalence) | Dua perwakilan mengira fungsi yang sama | Miter SAT antara netlist dan RTL, aruhan temporal bagi logik berjujukan; simbolik, jadi tiada penyenaraian | Mana-mana blok yang dapat diselesaikan oleh penyelesai | Terbukti: Yosys SAT |
+| 3. Pemetaan teknologi (techmap) ke sel terbukti | Netlist hanya menggunakan sel yang dibuktikan pada tahap 1 dan setara secara struktur dengan RTLnya | Petakan ke pustaka terbukti, kemudian semakan kesetaraan struktur | Mana-mana blok, dihadkan oleh had primitif 64 sel bagi setiap daun | Terbukti |
+| 4. Komposisi | Blok yang lebih besar adalah betul kerana ia dibina hanya daripada bahagian terbukti dan perekat terbukti, terikat kepada anak yang diisytiharkan | Bancian bahagian serta kesetaraan pemasangan dengan komposisi; had itu memaksa apa-apa yang lebih besar untuk diuraikan | Tanpa had: komposit ialah bahagian bagi tahap seterusnya | Terbukti: anak tangga yang berskala |
 
 Komposisi ialah puncak tangga ketepatan dan ia tertutup: blok yang dikomposisikan ialah bahagian bagi komposisi seterusnya, jadi tangga ini berskala tanpa had. Tiga bukti terletak di atas atau di sebelahnya.
 
@@ -61,4 +61,4 @@ Dua sifat menjadikannya boleh dipercayai. Penilai bebas daripada penjana: penjan
 
 ## Apa yang sebenar dan apa yang pelan hala tuju
 
-Sebenar: tahap 1 hingga 4 tangga, tiga kontrak, demo yang menjalankan pemecut GEMM MXFP4 sebenar melalui kedua-dua lesen, dan pakej bukti Lean bagi ekonomi tersebut. Pelan hala tuju: penghalusan kepada spesifikasi, teorem kesahihan bagi komposisi, main semula sijil, dan pengesahan silikon. Garis antara kedua-duanya dikekalkan jujur dalam [RESEARCH.md](RESEARCH.md).
+Terbukti: tahap 1 hingga 4 tangga, tiga kontrak, demo yang menjalankan pemecut GEMM MXFP4 sebenar melalui kedua-dua lesen, dan pakej bukti Lean bagi ekonomi tersebut. Pelan hala tuju: penghalusan kepada spesifikasi, teorem kesahihan bagi komposisi, main semula sijil, dan pengesahan silikon. Garis antara kedua-duanya dikekalkan jujur dalam [RESEARCH.md](RESEARCH.md).

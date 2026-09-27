@@ -9,7 +9,7 @@
 <style>
   :root{
     --bg:#0d1117; --panel:#161b22; --line:#30363d; --ink:#e6edf3;
-    --dim:#8b949e; --green:#3fb950; --red:#f85149; --blue:#58a6ff;
+    --dim:#c3ccd6; --green:#3fb950; --red:#f85149; --blue:#58a6ff;
     --amber:#e3b341; --violet:#a371f7; --elyellow:#f5f21f; --seablue:#23a3c2;
     --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
     --sans:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
@@ -113,6 +113,7 @@
   .ladder .real{color:var(--green)} .ladder .road{color:var(--amber)}
   .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   @media (max-width:700px){.two{grid-template-columns:1fr}}
+  p.body,.lede,.card p,ol.steps,.note,.kv td,.ladder td{color:var(--ink)}
   .note{color:var(--dim);font-size:13.5px;max-width:64ch}
   .kv th,.kv td{text-align:left;font-family:var(--sans);font-size:14px}
   .kv td:first-child{font-family:var(--mono)}
@@ -146,10 +147,10 @@
     <table class="ladder">
       <thead><tr><th>Level</th><th>What it proves</th><th>How</th><th>Reach</th><th>Status</th></tr></thead>
       <tbody>
-        <tr><td>1. Exhaustive</td><td>The block computes the right output for every input</td><td>Enumerate the whole input space: a cell's truth table in SPICE from the PDK transistors; an 8-bit adder over all 131,072 inputs</td><td>Small blocks only; cost grows as 2 to the power of the input width</td><td class="real">Real</td></tr>
-        <tr><td>2. Equivalence</td><td>Two representations compute the same function</td><td>A SAT miter between netlist and RTL, temporal induction for sequential logic; symbolic, no enumeration</td><td>Any block a solver can close</td><td class="real">Real</td></tr>
-        <tr><td>3. Techmap</td><td>The netlist uses only level-1 cells and is structurally equal to its RTL</td><td>Map onto the proven library, then a structural equivalence check; a leaf over 64 cells is refused</td><td>Any block, under the primitive cap</td><td class="real">Real</td></tr>
-        <tr><td>4. Composition</td><td>A larger block is correct because it is built only from proven parts and proven glue, bound to its declared children</td><td>A census of the parts plus an equivalence of the assembly to the composition; the cap forces anything larger to decompose</td><td>Unbounded: a composite is a part for the next level</td><td class="real">Real</td></tr>
+        <tr><td>1. Exhaustive</td><td>The block computes the right output for every input</td><td>Enumerate the whole input space: a cell's truth table in SPICE from the PDK transistors; an 8-bit adder over all 131,072 inputs</td><td>Small blocks only; cost grows as 2 to the power of the input width</td><td class="real">Proven</td></tr>
+        <tr><td>2. Equivalence</td><td>Two representations compute the same function</td><td>A SAT miter between netlist and RTL, temporal induction for sequential logic; symbolic, no enumeration</td><td>Any block a solver can close</td><td class="real">Proven</td></tr>
+        <tr><td>3. Techmap</td><td>The netlist uses only level-1 cells and is structurally equal to its RTL</td><td>Map onto the proven library, then a structural equivalence check; a leaf over 64 cells is refused</td><td>Any block, under the primitive cap</td><td class="real">Proven</td></tr>
+        <tr><td>4. Composition</td><td>A larger block is correct because it is built only from proven parts and proven glue, bound to its declared children</td><td>A census of the parts plus an equivalence of the assembly to the composition; the cap forces anything larger to decompose</td><td>Unbounded: a composite is a part for the next level</td><td class="real">Proven</td></tr>
       </tbody>
     </table>
     <p class="body" style="margin-top:22px">Three proofs sit above or beside the ladder.</p>

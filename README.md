@@ -22,10 +22,10 @@ the ladder sit the proofs that give it meaning and trust.
 
 | Level | What it proves | How | Reach | Status here |
 | --- | --- | --- | --- | --- |
-| 1. Exhaustive | The block computes the right output for every input | Enumerate the whole input space (a cell's truth table in SPICE from the PDK transistors; an 8-bit adder over all 131,072 inputs) | Small blocks only; cost grows as 2 to the power of the input width | Real: SPICE cell proofs, adder8 |
-| 2. Equivalence | Two representations compute the same function | A SAT miter between netlist and RTL, temporal induction for sequential logic; symbolic, so no enumeration | Any block a solver can close | Real: Yosys SAT |
-| 3. Techmap onto proven cells | The netlist uses only cells proved at level 1 and is structurally equal to its RTL | Map to the proven library, then a structural equivalence check | Any block, bounded by a primitive cap of 64 cells per leaf | Real |
-| 4. Composition | A larger block is correct because it is built only from proven parts and proven glue, bound to its declared children | A census of the parts plus an equivalence of the assembly to the composition; the cap forces anything larger to decompose | Unbounded: a composite is a part for the next level | Real: the scalable rung |
+| 1. Exhaustive | The block computes the right output for every input | Enumerate the whole input space (a cell's truth table in SPICE from the PDK transistors; an 8-bit adder over all 131,072 inputs) | Small blocks only; cost grows as 2 to the power of the input width | Proven: SPICE cell proofs, adder8 |
+| 2. Equivalence | Two representations compute the same function | A SAT miter between netlist and RTL, temporal induction for sequential logic; symbolic, so no enumeration | Any block a solver can close | Proven: Yosys SAT |
+| 3. Techmap onto proven cells | The netlist uses only cells proved at level 1 and is structurally equal to its RTL | Map to the proven library, then a structural equivalence check | Any block, bounded by a primitive cap of 64 cells per leaf | Proven |
+| 4. Composition | A larger block is correct because it is built only from proven parts and proven glue, bound to its declared children | A census of the parts plus an equivalence of the assembly to the composition; the cap forces anything larger to decompose | Unbounded: a composite is a part for the next level | Proven: the scalable rung |
 
 Composition is the top of the correctness ladder and it is closed: a composed
 block is a part for the next composition, so the ladder scales indefinitely.
@@ -87,9 +87,9 @@ CI, so the verdict is a public artifact anyone can re-run. And everyone is
 measured on the same ruler: one ngspice testbench, the same load, slew, and
 corner, the same PDK devices, for the custom cell and the foundry cell alike.
 
-## What is real and what is roadmap
+## What is proven and what is roadmap
 
-Real: levels 1 to 4 of the ladder, the three contracts, a demo that runs a
+Proven: levels 1 to 4 of the ladder, the three contracts, a demo that runs a
 real MXFP4 GEMM accelerator through both licenses, and a Lean proof package of
 the economics. Roadmap: refinement to specification, the soundness theorem for
 composition, certificate replay, and silicon attestation. The line between the
