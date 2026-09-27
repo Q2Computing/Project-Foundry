@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ekonomi Bukti, Project Foundry</title>
-<meta name="description" content="Bukti bagi sesuatu litar ialah sijil yang dilesenkan ke dalam bukti yang lebih besar dan ke dalam silikon, diselesaikan di Arbitrum Stylus.">
+<meta name="description" content="Buktikan sesuatu litar sekali, secara terbuka, dan biarkan setiap sistem yang dibina di atasnya mewarisi bukti itu.">
 <link rel="icon" type="image/png" href="./assets/mark.png">
 <style>
   :root{
@@ -180,18 +180,19 @@
 <body>
 <header>
   <div class="wrap">
-    <a class="logo" href="./index.html"><img src="./assets/project-foundry-logo.jpg" alt="Project Foundry. Generate. Assess. Anchor." width="260" height="264"></a>
+    <a class="logo" href="./index.ms.html"><img src="./assets/project-foundry-logo.jpg" alt="Project Foundry. Generate. Assess. Anchor." width="260" height="264"></a>
     <div class="eyebrow">Q2 Computing / Project Foundry / Arbitrum Stylus</div>
     <button class="theme" id="theme-toggle" type="button">Mod cerah</button>
     <p class="langbar">Baca dalam: <a href="./index.html">English</a> · <b>Bahasa Melayu</b> · <a href="./index.zh.html">简体中文</a> · <a href="./index.ta.html">தமிழ்</a></p>
     <h1>Ekonomi Bukti</h1>
-    <p class="tagline">Bukti bagi sesuatu litar ialah sijil. Sijil dilesenkan ke dalam bukti yang lebih besar dan ke dalam silikon yang dikilangkan, pada harga lantai yang tidak dapat ditandingi oleh mana-mana pesaing, dan diselesaikan di Arbitrum Stylus.</p>
-    <p class="lede">Pengesahan dikongsi, bukan diulang. Sesuatu blok dibuktikan sekali, secara terbuka, dan setiap sistem yang dibina di atasnya mewarisi bukti itu. Laman ini ialah contoh awam ekonomi tersebut: tahap bukti yang menggredkan setiap sijil, dua lesen, tiga kontrak, dan gelung yang mengatasi sel kilang dan membuktikannya.</p>
+    <p class="tagline">Buktikan sesuatu litar sekali, secara terbuka, dan biarkan setiap sistem yang dibina di atasnya mewarisi bukti itu.</p>
+    <p class="lede">Sesuatu cip ialah hierarki blok, dan sebelum mana-mana bahagiannya dihantar ke kilang (foundry), setiap blok mesti ditunjukkan betul: satu set topeng (mask set) pada nod moden berharga satu hingga dua juta dolar, dan tinjauan industri meletakkan kejayaan silikon pertama pada 14 peratus pada 2024 dan 5 peratus pada 2026. Hari ini pengesahan itu diulang. Setiap syarikat yang menggunakan penambah atau unit titik terapung mengesahkan semula salinannya sendiri secara tertutup, dan kerja itu dibuang apabila projek tamat. Bukti bagi sesuatu blok tidak bergantung pada siapa yang menggunakan blok itu. Jika bukti itu terbuka dan beralamat kandungan (content-addressed), pasukan seterusnya mewarisinya dan bukannya mengulanginya, dan sistem yang lebih besar dibuktikan melalui rujukan kepada bukti bahagian-bahagiannya tanpa perlu membukanya. Laman ini ialah contoh awam idea tersebut: bagaimana bukti digredkan, apa nilai sesuatu sijil, di mana ia diselesaikan, dan satu sel yang dibawa melalui keseluruhan gelung.</p>
     <div class="cta">
       <a class="btn primary" href="./research.ms.html">Penyelidikan</a>
-      <a class="btn" href="./index.html">Laman utama</a>
-      <a class="btn" href="./codesign.ms.html">Reka bentuk bersama mengikut konteks anda</a>
-      <a class="btn" href="./waveform.ms.html">Bukti SPICE</a>
+      <a class="btn" href="#practice">Gelung pada satu sel</a>
+      <a class="btn" href="./codesign.ms.html">Jana: reka bentuk bersama</a>
+      <a class="btn" href="./waveform.ms.html">Nilai: pengukuran</a>
+      <a class="btn stylus" href="#stylus">Sauh: penyelesaian</a>
       <a class="btn" href="https://github.com/Q2Computing/Project-Foundry">Repositori</a>
     </div>
   </div>
@@ -199,28 +200,137 @@
 
 <section>
   <div class="wrap">
-    <h2>Tahap bukti</h2>
-    <p class="body">Setiap sijil menamakan tahap di mana bloknya dibuktikan. Tangga ini bermula daripada bukti terhad yang terkuat hingga bukti yang berskala tanpa had. Komposisi ialah puncaknya dan ia tertutup: blok yang dikomposisikan ialah bahagian bagi komposisi seterusnya.</p>
-    <table class="ladder"><tbody><tr><td>1. Menyeluruh</td><td>Blok mengira keluaran yang betul bagi setiap input</td><td>Senaraikan seluruh ruang input: jadual kebenaran sel dalam SPICE daripada transistor PDK; penambah 8-bit merentasi kesemua 131,072 input</td><td>Blok kecil sahaja; kos meningkat sebanyak 2 kuasa lebar input</td><td class="real">Terbukti</td></tr><tr><td>2. Kesetaraan</td><td>Dua perwakilan mengira fungsi yang sama</td><td>Miter SAT antara netlist dan RTL, aruhan temporal bagi logik berjujukan; simbolik, tiada penyenaraian</td><td>Mana-mana blok yang dapat diselesaikan oleh penyelesai</td><td class="real">Terbukti</td></tr><tr><td>3. Techmap</td><td>Netlist hanya menggunakan sel tahap 1 dan setara secara struktur dengan RTLnya</td><td>Petakan ke pustaka terbukti, kemudian semakan kesetaraan struktur; daun melebihi 64 sel ditolak</td><td>Mana-mana blok, di bawah had primitif</td><td class="real">Terbukti</td></tr><tr><td>4. Komposisi</td><td>Blok yang lebih besar adalah betul kerana ia dibina hanya daripada bahagian terbukti dan perekat terbukti, terikat kepada anak yang diisytiharkan</td><td>Bancian bahagian serta kesetaraan pemasangan dengan komposisi; had itu memaksa apa-apa yang lebih besar untuk diuraikan</td><td>Tanpa had: komposit ialah bahagian bagi tahap seterusnya</td><td class="real">Terbukti</td></tr></tbody></table>
+    <h2>Dua istilah, kemudian tangga</h2>
+    <p class="body">Sesuatu <strong>blok</strong> ialah mana-mana unit hierarki yang mempunyai antara muka tersendiri: sel yang terdiri daripada beberapa transistor, komponen seperti penambah atau penyahkod, pemasangan seperti pendarab, sistem seperti pemecut. Sesuatu <strong>sijil</strong> ialah rekod awam bagi bukti sesuatu blok: cincang kandungan (content hash) reka bentuknya, cincang kandungan antara mukanya, tahap di mana ia dibuktikan, dan cincang kandungan bukti rekodnya. Sijil bagi blok yang dikomposisikan turut menamakan sijil anak-anaknya. Sesiapa sahaja boleh menyemak bahawa bukti itu wujud dan sepadan; tiada siapa memerlukan reka bentuk untuk berbuat demikian.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Bagaimana bukti digredkan: tahap bukti</h2>
+    <p class="body">Setiap sijil menamakan tahap di mana bloknya dibuktikan. Tangga ini bermula daripada bukti terhad yang terkuat hingga bukti yang berskala tanpa had. Semakan menyeluruh berkos 2 kuasa lebar input, jadi ia berhenti pada blok kecil; komposisi ialah puncaknya dan ia tertutup: blok yang dikomposisikan ialah bahagian bagi komposisi seterusnya.</p>
+    <table class="ladder">
+      <thead><tr><th>Tahap</th><th>Apa yang dibuktikan</th><th>Bagaimana</th><th>Capaian</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>1. Menyeluruh</td><td>Blok mengira keluaran yang betul bagi setiap input</td><td>Senaraikan seluruh ruang input: jadual kebenaran sel dalam SPICE daripada transistor PDK; penambah 8-bit merentasi kesemua 131,072 input</td><td>Blok kecil sahaja; kos meningkat sebanyak 2 kuasa lebar input</td><td class="real">Terbukti</td></tr>
+        <tr><td>2. Kesetaraan</td><td>Dua perwakilan mengira fungsi yang sama</td><td>Miter SAT antara netlist dan RTL, aruhan temporal bagi logik berjujukan; simbolik, tiada penyenaraian</td><td>Mana-mana blok yang dapat diselesaikan oleh penyelesai</td><td class="real">Terbukti</td></tr>
+        <tr><td>3. Techmap</td><td>Netlist hanya menggunakan sel tahap 1 dan setara secara struktur dengan RTLnya</td><td>Petakan ke pustaka terbukti, kemudian semakan kesetaraan struktur; daun melebihi 64 sel ditolak</td><td>Mana-mana blok, di bawah had primitif</td><td class="real">Terbukti</td></tr>
+        <tr><td>4. Komposisi</td><td>Blok yang lebih besar adalah betul kerana ia dibina hanya daripada bahagian terbukti dan perekat terbukti, terikat kepada anak yang diisytiharkan</td><td>Bancian bahagian serta kesetaraan pemasangan dengan komposisi; had itu memaksa apa-apa yang lebih besar untuk diuraikan</td><td>Tanpa had: komposit ialah bahagian bagi tahap seterusnya</td><td class="real">Terbukti</td></tr>
+      </tbody>
+    </table>
     <p class="body" style="margin-top:22px">Tiga bukti terletak di atas atau di sebelah tangga.</p>
-    <table class="ladder"><tbody><tr><td>Penghalusan kepada spesifikasi</td><td>Sistem yang dikomposisikan memenuhi piawaian yang didakwanya (pembundaran betul IEEE 754, ISA RISC-V), bukan sekadar RTLnya sendiri. Ini memberi makna kepada antara muka peringkat atas.</td><td class="road">Pelan hala tuju</td></tr><tr><td>Kesahihan komposisi</td><td>Teorem yang disemak mesin bahawa bahagian terbukti serta perekat terbukti menghasilkan keseluruhan yang terbukti, mewajarkan tahap 4 bagi setiap contoh sekaligus.</td><td class="road">Pelan hala tuju</td></tr><tr><td>Kepercayaan pembawa bukti dan pengesahan</td><td>Sijil bukti yang dimainkan semula oleh penyemak yang disahkan, supaya tiada penyelesai dipercayai atas kata-katanya; dan rantaian jagaan daripada reka bentuk terbukti ke silikon yang dikilangkan.</td><td class="road">Menunggu pendedahan paten</td></tr></tbody></table>
-    <p class="note" style="margin-top:14px">Simulasi dengan vektor ujian ialah keterangan, bukan bukti. Ia direkodkan, dan ia tidak pernah memajukan sijil dengan sendirinya.</p>
+    <table class="ladder">
+      <thead><tr><th>Di atas tangga</th><th>Apa yang ditambah</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Penghalusan kepada spesifikasi</td><td>Sistem yang dikomposisikan memenuhi piawaian yang didakwanya (pembundaran betul IEEE 754, ISA RISC-V), bukan sekadar RTLnya sendiri. Ini memberi makna kepada antara muka peringkat atas.</td><td class="road">Pelan hala tuju</td></tr>
+        <tr><td>Kesahihan komposisi</td><td>Teorem yang disemak mesin bahawa bahagian terbukti serta perekat terbukti menghasilkan keseluruhan yang terbukti, mewajarkan tahap 4 bagi setiap contoh sekaligus.</td><td class="road">Pelan hala tuju</td></tr>
+        <tr><td>Kepercayaan pembawa bukti dan pengesahan</td><td>Sijil bukti yang dimainkan semula oleh penyemak yang disahkan, supaya tiada penyelesai dipercayai atas kata-katanya; dan rantaian jagaan daripada reka bentuk terbukti ke silikon yang dikilangkan.</td><td class="road">Menunggu pendedahan paten</td></tr>
+      </tbody>
+    </table>
+    <p class="note" style="margin-top:14px">Simulasi dengan vektor ujian ialah keterangan, bukan bukti. Ia direkodkan, dan ia tidak pernah memajukan sijil dengan sendirinya. Pengukuran di bahagian bawah laman ini ialah keterangan jenis itu.</p>
   </div>
 </section>
+
 <section>
   <div class="wrap">
-    <h2>Ekonomi</h2>
+    <h2>Nilai sesuatu sijil: dua lesen</h2>
+    <p class="body">Setiap sijil membawa dua lesen. Protokol, iaitu kontrak yang menyelesaikannya, tidak mengambil apa-apa daripada kedua-duanya.</p>
     <div class="two">
-      <div class="card"><div class="k">Rujukan: milik bersama</div><h3>Pemulihan kos, bukan sewa</h3><p>Primitif PDK kilang bebas untuk dirujuk selama-lamanya. Setiap sijil lain hanya memulihkan gas penyenaraiannya, dibayar oleh abstraksi yang menggunakannya secara langsung, dihadkan pada gas itu, kemudian ia bebas. Sesiapa yang mengatasi sesuatu blok membayar kos penyenaraiannya.</p></div>
-      <div class="card anchor"><div class="k">Pembuatan: produk pereka</div><h3>$100 bagi setiap set topeng, SoC ke bawah</h3><p>Hak untuk meletakkan reka bentuk ke dalam SoC yang difabrikasi. Reka bentuk hanya diserahkan kepada kilang yang dinamakan oleh pereka, yang mesti membuktikan ia telah menerima pakej yang dikomitkan sebelum ia boleh menggunakan satu unit pun. Pemegang lesen tidak pernah memuat turun fail itu. Harga lantai diturunkan seiring dengan peningkatan penerimaan, menuju kos fizikal sebenar untuk menghasilkan dan menyelesaikan sesuatu bukti.</p></div>
+      <div class="card">
+        <div class="k">Rujukan: milik bersama</div>
+        <h3>Pemulihan kos, bukan sewa</h3>
+        <p>Lesen rujukan ialah hak untuk menamakan sesuatu sijil sebagai anak bagi bukti yang lebih besar. Primitif PDK kilang bebas untuk dirujuk selama-lamanya. Setiap sijil lain hanya memulihkan gas penyenaraiannya, iaitu yuran di atas rantaian yang dibayar oleh penyenarainya untuk menyenaraikannya, daripada sijil satu tahap ke atas yang menggunakannya secara langsung; rekursi di bawahnya tidak pernah dikenakan bayaran. Kutipan berhenti pada gas itu, kemudian sijil itu bebas. Sesiapa yang menyenaraikan pelaksanaan yang lebih baik bagi antara muka yang sama membayar baki kos penyenaraian blok yang diatasinya: atasi atau cabang (beat or fork).</p>
+      </div>
+      <div class="card anchor">
+        <div class="k">Pembuatan: produk pereka</div>
+        <h3>$100 bagi setiap set topeng, SoC ke bawah</h3>
+        <p>Lesen pembuatan ialah hak untuk meletakkan reka bentuk ke dalam sistem atas cip (SoC) yang difabrikasi. Ia diharga bagi setiap set topeng, iaitu unit di mana reka bentuk menjadi silikon, dan satu lesen meliputi setiap blok bersijil dalam topeng itu, daripada SoC ke bawah. Reka bentuk hanya diserahkan kepada kilang yang dinamakan oleh pereka, yang mesti membuktikan ia telah menerima pakej yang dikomitkan sebelum ia boleh menggunakan satu unit pun. Pemegang lesen tidak pernah memuat turun fail itu. Harga lantai diturunkan seiring dengan peningkatan penerimaan, menuju kos fizikal sebenar untuk menghasilkan dan menyelesaikan sesuatu bukti.</p>
+      </div>
     </div>
-    <p class="note" style="margin-top:14px">Protokol mengambil sifar dalam kedua-dua lesen. Lima puluh lapan teorem yang disemak mesin menyokong ekonomi ini; lihat <a href="./research.ms.html">laman penyelidikan</a>.</p>
+    <p class="note" style="margin-top:14px">Lima puluh lapan teorem yang disemak mesin membataskan apa yang boleh dikenakan dan dijamin oleh lesen ini; teorem itu terdapat di <a href="./research.ms.html">laman penyelidikan</a>.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Di mana ia diselesaikan: tiga kontrak di Arbitrum Stylus</h2>
+    <p class="body">Tiga kontrak menampung ekonomi ini, satu bagi setiap cara menyelesaikan bukti di atas rantaian. Ketiga-tiganya dikompil kepada WebAssembly dengan rantaian alat Stylus semasa dan lulus semakan pengesahan Arbitrum pada rangkaian ujian Sepolia; pengaturgunaan menunggu semakan manusia.</p>
+    <table class="kv">
+      <thead><tr><th>Kontrak</th><th>Mod</th><th>Apa yang dilakukan oleh rantaian</th></tr></thead>
+      <tbody>
+        <tr><td>q2-verifier</td><td>Sahkan semula</td><td>Menjalankan semula bukti terhad di atas rantaian, supaya rantaian itu sendiri menyemak dakwaan tersebut.</td></tr>
+        <tr><td>q2-anchor</td><td>Sauh</td><td>Merekodkan komitmen beralamat kandungan bagi bukti luar rantaian bersama label penambahbaikan yang diukur. Gelung di bawah menghasilkan label sedemikian.</td></tr>
+        <tr><td>q2-composition</td><td>Komposisi dan lesen</td><td>Mensijilkan sistem yang lebih besar melalui rujukan kepada sijil anak dan menyelesaikan kedua-dua lesen.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="practice">
+  <div class="wrap">
+    <h2>Ekonomi dalam amalan: atasi atau cabang pada satu sel</h2>
+    <p class="body">Peraturan di atas menyatakan sesiapa sahaja boleh menyenaraikan pelaksanaan yang lebih baik bagi antara muka sedia ada, dengan syarat penambahbaikan itu diukur dan penyenarai terdahulu dipulihkan sepenuhnya. Berikut ialah peraturan itu dijalankan dari hujung ke hujung pada satu sel piawai sky130, iaitu pemacu buf_16 kilang. Agen mencadangkan sel calon, oracle bebas mengukurnya berbanding sel kilang sendiri, dan setiap kemenangan yang disahkan dikomitkan untuk direkodkan oleh rantaian. Tiga langkah itu ialah tiga halaman laman ini.</p>
+    <div class="loop">
+      <div class="card gen">
+        <div class="k">&#9889; jana</div>
+        <h3>Agen mencadangkan</h3>
+        <p>Grid berketentuan atau Gemini mencadangkan sel yang boleh difabrikasi: luas get dan
+          campuran topeng voltan ambang, dikekalkan dalam jalur tenaga kilang. Murah
+          untuk disenaraikan. <a href="./codesign.ms.html">Bagaimana sesuatu calon direka bersama mengikut konteksnya</a></p>
+      </div>
+      <div class="card">
+        <div class="k">&#128202; nilai</div>
+        <h3>Oracle menghakimi</h3>
+        <p>GitHub Actions mengukur semula garis dasar dan setiap calon dalam satu
+          meja uji ngspice pada PDK sky130 terbuka, kemudian memutuskan siapa yang menang. <a href="./waveform.ms.html">Pengukuran di sebalik kemenangan terbaik</a></p>
+      </div>
+      <div class="card anchor">
+        <div class="k">&#9875; sauh</div>
+        <h3>Stylus merekodkannya</h3>
+        <p>Setiap kemenangan yang disahkan dan unik dicincang untuk direkodkan oleh
+          kontrak Arbitrum Stylus. Cincang itu mengomitkan reka bentuk, netlist kekal tertutup. Kontrak
+          telah ditulis dan disemak; belum diatur guna. <a href="#stylus">Rekod yang ditulisnya</a></p>
+      </div>
+    </div>
+    <p class="body" style="margin-top:26px"><strong>Hasil gelung itu.</strong> Pengukurannya ialah simulasi fana (transient) dalam ngspice pada sudut tipikal sky130, kedua-dua sel memacu beban yang sama; ia keterangan oracle bagi label penambahbaikan, dan ia terletak di sebelah bukti tahap 1 sel itu dan bukannya menggantikannya.</p>
+    <div class="stat">
+      <div><div class="big green">+22%</div>
+        <div class="sub">hasil tenaga-lengah (EDP) lebih rendah daripada buf_16, pada bilangan jari yang sama dan
+          tenaga yang sedikit lebih rendah: penukaran voltan ambang, bukan sel yang lebih besar</div></div>
+      <div><div class="big">0</div>
+        <div class="sub">transistor tambahan ditambah. Kemenangan ini ialah perubahan topeng dopan yang
+          tidak ditawarkan oleh pustaka tunggal kilang</div></div>
+      <div><div class="big">22 / 30</div>
+        <div class="sub">kombinasi topeng boleh difabrikasi mengatasi tangga kilang dalam
+          jalur tenaga setiap kitarannya sendiri</div></div>
+    </div>
+  </div>
+</section>
+<section id="stylus">
+  <div class="wrap">
+    <h2>Apa yang direkodkan oleh sauh</h2>
+    <p class="body">Tujuan sesuatu kemenangan bukanlah tangkapan skrin, tetapi rekod yang
+      tahan lama dan boleh disahkan. Setiap penambahbaikan yang disahkan dikomitkan sebagai cincang untuk
+      direkodkan oleh kontrak Stylus di Arbitrum. Sesiapa yang memegang netlist boleh
+      mengira semula cincang itu dan menyemaknya; tiada orang lain boleh membaca reka bentuk itu. Inilah kontrak sauh daripada jadual di atas, digunakan pada kemenangan terbaik gelung ini.</p>
+    <div class="stylusbox">
+      <pre>record(bytes32 artifact_hash, uint16 label, uint16 context)
+// best in-band win: EDP +22% vs buf_16, same area
+record(0xbbe5a7f1...f8f7c, 2200, 16)
+//         hash of the design bundle   basis points   drive strength</pre>
+      <p class="caption" style="margin-top:14px">label ialah mata asas (basis points) penambahbaikan
+        EDP, context ialah kekuatan pacuan bahagian itu. Cincang ialah
+        artifak; netlist tidak perlu diterbitkan sama sekali. Kontrak ini ditulis
+        dalam Rust untuk Arbitrum Stylus dan lulus cargo stylus check. Status: belum
+        diatur guna. anchor.py menyediakan panggilan record() ini, ia tidak menghantarnya
+        (itu memerlukan kunci yang mempunyai dana)</p>
+    </div>
   </div>
 </section>
 <section>
   <div class="wrap">
-    <h2>Kontrak</h2>
-    <table class="kv"><thead><tr><th>Kontrak</th><th>Mod</th><th>Apa yang dilakukan oleh rantaian</th></tr></thead><tbody><tr><td>q2-verifier</td><td>Sahkan semula</td><td>Menjalankan semula bukti terhad di atas rantaian. Tanpa perlu kepercayaan.</td></tr><tr><td>q2-anchor</td><td>Sauh</td><td>Merekodkan komitmen beralamat kandungan bagi bukti luar rantaian dengan label penambahbaikan.</td></tr><tr><td>q2-composition</td><td>Komposisi dan lesen</td><td>Mensijilkan sistem yang lebih besar melalui rujukan kepada sijil anak dan menyelesaikan kedua-dua lesen.</td></tr></tbody></table>
+    <h2>Ke mana seterusnya</h2>
+    <p class="body">Setiap nombor pada laman ini dihasilkan semula melalui pengukuran atau teorem yang disemak mesin di <a href="./research.ms.html">laman penyelidikan</a>, yang ditulis untuk dibaca dari awal oleh seseorang yang baru dalam bidang ini. Kontrak, bukti, demo, serta kod reka bentuk bersama dan pengukuran terdapat dalam <a href="https://github.com/Q2Computing/Project-Foundry">repositori</a>.</p>
   </div>
 </section>
 
@@ -228,11 +338,10 @@
 <footer>
   <div class="wrap">
     Q2 Computing / Project Foundry &#183;
-    <a href="./codesign.html">generate: co-design</a> &#183;
-    <a href="./waveform.html">assess: measurement</a> &#183;
-    <a href="https://github.com/Q2Computing/Project-Foundry">source</a> &#183;
-    <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/results/report.md">full report</a> &#183;
-    <a href="https://github.com/Q2Computing/Project-Foundry/actions">CI oracle</a>
+    <a href="./codesign.ms.html">reka bentuk bersama konteks</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry">sumber</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/results/report.md">laporan penuh</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry/actions">oracle CI</a>
   </div>
 </footer>
 </body>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>证明经济，Project Foundry</title>
-<meta name="description" content="电路的证明即为证书，可授权用于更大的证明与制造的硅片，并在 Arbitrum Stylus 上结算。">
+<meta name="description" content="电路只需公开证明一次，其后建立在其上的每个系统都继承该证明。">
 <link rel="icon" type="image/png" href="./assets/mark.png">
 <style>
   :root{
@@ -180,18 +180,19 @@
 <body>
 <header>
   <div class="wrap">
-    <a class="logo" href="./index.html"><img src="./assets/project-foundry-logo.jpg" alt="Project Foundry. Generate. Assess. Anchor." width="260" height="264"></a>
+    <a class="logo" href="./index.zh.html"><img src="./assets/project-foundry-logo.jpg" alt="Project Foundry. Generate. Assess. Anchor." width="260" height="264"></a>
     <div class="eyebrow">Q2 Computing / Project Foundry / Arbitrum Stylus</div>
     <button class="theme" id="theme-toggle" type="button">浅色模式</button>
     <p class="langbar">阅读语言：<a href="./index.html">English</a> · <a href="./index.ms.html">Bahasa Melayu</a> · <b>简体中文</b> · <a href="./index.ta.html">தமிழ்</a></p>
     <h1>证明经济</h1>
-    <p class="tagline">电路的证明即为证书。证书可授权用于更大的证明，也可授权用于制造的硅片；其定价为任何竞争者都无法企及的底价，并在 Arbitrum Stylus 上结算。</p>
-    <p class="lede">验证是共享的，而非重复的。一个模块只需公开证明一次，其后建立在其上的每个系统都继承该证明。本站是该经济的公开实例：为每份证书分级的证明层级、两种许可、三份合约，以及击败代工厂标准单元并予以证明的循环。</p>
+    <p class="tagline">一个电路只需公开证明一次，其后建立在其上的每个系统都继承该证明。</p>
+    <p class="lede">芯片是由模块构成的层级结构，在其任何部分送往代工厂之前，每个模块都必须被证明正确：现代工艺节点的一套掩模成本为 100 万至 200 万美元，行业调查显示首次流片成功率在 2024 年为 14%，在 2026 年为 5%。如今这种验证在被重复进行。每家使用加法器或浮点单元的公司都在私下重新验证自己的副本，项目结束后这些工作便被丢弃。一个模块的证明不依赖于谁在使用该模块。若证明是公开且内容寻址的，下一个团队便可继承它而无需重复，更大的系统也可通过引用其部件的证明来证明自身，而无需打开这些部件。本站是该理念的公开实例：证明如何分级，证书价值何在，在何处结算，以及一个单元走完整个循环的过程。</p>
     <div class="cta">
       <a class="btn primary" href="./research.zh.html">研究</a>
-      <a class="btn" href="./index.html">英文首页</a>
-      <a class="btn" href="./codesign.zh.html">为您的情境协同设计</a>
-      <a class="btn" href="./waveform.zh.html">SPICE 证明</a>
+      <a class="btn" href="#practice">一个单元上的循环</a>
+      <a class="btn" href="./codesign.zh.html">生成：协同设计</a>
+      <a class="btn" href="./waveform.zh.html">评估：测量</a>
+      <a class="btn stylus" href="#stylus">锚定：结算</a>
       <a class="btn" href="https://github.com/Q2Computing/Project-Foundry">代码仓库</a>
     </div>
   </div>
@@ -199,28 +200,121 @@
 
 <section>
   <div class="wrap">
-    <h2>证明的层级</h2>
-    <p class="body">每份证书标明其模块所达到的证明层级。该阶梯从最强的有界证明开始，直至可无限扩展的证明。组合是顶端且是封闭的：已组合的模块是下一次组合的部件。</p>
-    <table class="ladder"><tbody><tr><td>1. 穷举</td><td>模块对每个输入都计算出正确输出</td><td>枚举整个输入空间：在 SPICE 中依据 PDK 晶体管得出单元真值表；8 位加法器遍历全部 131,072 个输入</td><td>仅限小模块；成本随输入位宽按 2 的幂增长</td><td class="real">已证明</td></tr><tr><td>2. 等价</td><td>两种表示计算相同的函数</td><td>网表与 RTL 之间的 SAT 米特电路，时序逻辑采用时间归纳；符号化，无需枚举</td><td>求解器可闭合的任何模块</td><td class="real">已证明</td></tr><tr><td>3. 映射（techmap）</td><td>网表仅使用第 1 层已证明的单元，且与其 RTL 结构等价</td><td>映射到已证明的单元库，再进行结构等价检查；超过 64 个单元的叶节点将被拒绝</td><td>任何模块，受基元上限约束</td><td class="real">已证明</td></tr><tr><td>4. 组合</td><td>更大的模块之所以正确，是因为它仅由已证明的部件与已证明的胶合逻辑构成，并绑定到其声明的子模块</td><td>部件普查加上装配体与组合的等价性；上限迫使更大的模块必须分解</td><td>无限：组合体是下一层级的部件</td><td class="real">已证明</td></tr></tbody></table>
+    <h2>两个词，然后是阶梯</h2>
+    <p class="body"><strong>模块</strong>是层级结构中任何拥有自身接口的单位：由几个晶体管构成的单元，加法器或译码器之类的组件，乘法器之类的装配体，加速器之类的系统。<strong>证书</strong>是模块证明的公开记录：其设计的内容哈希、其接口的内容哈希、其被证明所达到的层级，以及记录证明（proof of record）的内容哈希。组合模块的证书还标明其子模块的证书。任何人都可以核对证明是否存在且匹配；无需设计文件即可完成。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>证明如何分级：证明的层级</h2>
+    <p class="body">每份证书标明其模块所达到的证明层级。该阶梯从最强的有界证明开始，直至可无限扩展的证明。穷举检查的成本为 2 的输入位宽次幂，因此止步于小模块；组合是顶端且是封闭的：已组合的模块是下一次组合的部件。</p>
+    <table class="ladder">
+      <thead><tr><th>层级</th><th>证明的内容</th><th>方法</th><th>适用范围</th><th>状态</th></tr></thead>
+      <tbody>
+        <tr><td>1. 穷举</td><td>模块对每个输入都计算出正确输出</td><td>枚举整个输入空间：在 SPICE 中依据 PDK 晶体管得出单元真值表；8 位加法器遍历全部 131,072 个输入</td><td>仅限小模块；成本随输入位宽按 2 的幂增长</td><td class="real">已证明</td></tr>
+        <tr><td>2. 等价</td><td>两种表示计算相同的函数</td><td>网表与 RTL 之间的 SAT 米特电路，时序逻辑采用时间归纳；符号化，无需枚举</td><td>求解器可闭合的任何模块</td><td class="real">已证明</td></tr>
+        <tr><td>3. 映射（techmap）</td><td>网表仅使用第 1 层已证明的单元，且与其 RTL 结构等价</td><td>映射到已证明的单元库，再进行结构等价检查；超过 64 个单元的叶节点将被拒绝</td><td>任何模块，受基元上限约束</td><td class="real">已证明</td></tr>
+        <tr><td>4. 组合</td><td>更大的模块之所以正确，是因为它仅由已证明的部件与已证明的胶合逻辑构成，并绑定到其声明的子模块</td><td>部件普查加上装配体与组合的等价性；上限迫使更大的模块必须分解</td><td>无限：组合体是下一层级的部件</td><td class="real">已证明</td></tr>
+      </tbody>
+    </table>
     <p class="body" style="margin-top:22px">有三种证明位于阶梯之上或其旁。</p>
-    <table class="ladder"><tbody><tr><td>精化至规范</td><td>组合系统满足其所声称的标准（IEEE 754 正确舍入、RISC-V ISA），而不仅仅是自身的 RTL。这赋予顶层接口以意义。</td><td class="road">路线图</td></tr><tr><td>组合规则的可靠性</td><td>机器检验的定理：已证明的部件加上已证明的胶合逻辑即产生已证明的整体，一次性为所有实例证成第 4 层。</td><td class="road">路线图</td></tr><tr><td>携带证明的信任与认证</td><td>由经验证的检查器重放的证明凭证，因而不必轻信任何求解器；以及从已证明设计到制造硅片的保管链。</td><td class="road">专利披露待定</td></tr></tbody></table>
-    <p class="note" style="margin-top:14px">使用测试向量的仿真是证据，而非证明。它会被记录，但本身永远不会推进证书的层级。</p>
+    <table class="ladder">
+      <thead><tr><th>阶梯之上</th><th>增加的内容</th><th>状态</th></tr></thead>
+      <tbody>
+        <tr><td>精化至规范</td><td>组合系统满足其所声称的标准（IEEE 754 正确舍入、RISC-V ISA），而不仅仅是自身的 RTL。这赋予顶层接口以意义。</td><td class="road">路线图</td></tr>
+        <tr><td>组合规则的可靠性</td><td>机器检验的定理：已证明的部件加上已证明的胶合逻辑即产生已证明的整体，一次性为所有实例证成第 4 层。</td><td class="road">路线图</td></tr>
+        <tr><td>携带证明的信任与认证</td><td>由经验证的检查器重放的证明凭证，因而不必轻信任何求解器；以及从已证明设计到制造硅片的保管链。</td><td class="road">专利披露待定</td></tr>
+      </tbody>
+    </table>
+    <p class="note" style="margin-top:14px">使用测试向量的仿真是证据，而非证明。它会被记录，但本身永远不会推进证书的层级。本页底部的测量即属此类证据。</p>
   </div>
 </section>
+
 <section>
   <div class="wrap">
-    <h2>经济</h2>
+    <h2>证书价值何在：两种许可</h2>
+    <p class="body">每份证书携带两种许可。协议，即结算这两种许可的合约，在两者中均不抽取任何费用。</p>
     <div class="two">
-      <div class="card"><div class="k">引用：公共基础</div><h3>回收成本，绝不收租</h3><p>代工厂 PDK 基元永久免费引用。其他每份证书仅回收其上链登记的 gas 费用，由直接使用它的抽象来支付，以该费用为上限，此后免费。击败某模块者须支付其登记成本。</p></div>
-      <div class="card anchor"><div class="k">制造：设计者的产品</div><h3>每套掩模 100 美元，SoC 以下全部涵盖</h3><p>将设计放入制造的 SoC 的权利。设计仅交付给设计者指定的代工厂，该代工厂必须先证明已收到所承诺的封装包，方可消耗任何一个单位。被许可方从不下载文件。底价随着采用率增长逐步下调，直至收敛于生产并结算一份证明的真实物理成本。</p></div>
+      <div class="card">
+        <div class="k">引用：公共基础</div>
+        <h3>回收成本，绝不收租</h3>
+        <p>引用许可是将某份证书作为更大证明的子模块加以引用的权利。代工厂 PDK 基元永久免费引用。其他每份证书仅回收其登记 gas，即登记者为上链登记所支付的费用，由直接使用它的上一层级证书支付；其下的递归永不收费。收取金额达到该 gas 后即停止，此后该证书免费。任何人登记同一接口的更优实现，须支付其所击败模块剩余的登记成本：击败或分叉。</p>
+      </div>
+      <div class="card anchor">
+        <div class="k">制造：设计者的产品</div>
+        <h3>每套掩模 100 美元，SoC 以下全部涵盖</h3>
+        <p>制造许可是将设计放入所制造的系统级芯片的权利。它按掩模组定价，即设计变为硅片的单位，一份许可涵盖该掩模中从 SoC 向下的每个已认证模块。设计仅交付给设计者指定的代工厂，该代工厂必须先证明已收到所承诺的封装包，方可消耗任何一个单位。被许可方从不下载文件。底价随着采用率增长逐步下调，直至收敛于生产并结算一份证明的物理成本。</p>
+      </div>
     </div>
-    <p class="note" style="margin-top:14px">协议在两种许可中均不抽取任何费用。五十八条机器检验的定理支撑该经济；参见<a href="./research.zh.html">研究页面</a>。</p>
+    <p class="note" style="margin-top:14px">五十八条机器检验的定理界定了这两种许可可以收取的费用及其所保证的内容；它们列于<a href="./research.zh.html">研究页面</a>。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>在何处结算：Arbitrum Stylus 上的三份合约</h2>
+    <p class="body">三份合约承载该经济，每份对应一种在链上结算证明的方式。三者均以当前 Stylus 工具链编译为 WebAssembly，并在 Sepolia 测试网络上通过 Arbitrum 的验证检查；部署有待人工审查。</p>
+    <table class="kv">
+      <thead><tr><th>合约</th><th>模式</th><th>链上执行的内容</th></tr></thead>
+      <tbody>
+        <tr><td>q2-verifier</td><td>重新验证</td><td>在链上重新运行有界证明，由链本身核对该主张。</td></tr>
+        <tr><td>q2-anchor</td><td>锚定</td><td>记录链下证明的内容寻址承诺及其实测改进标签。下方的循环即产生此类标签。</td></tr>
+        <tr><td>q2-composition</td><td>组合与许可</td><td>通过引用子证书认证更大的系统，并结算两种许可。</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="practice">
+  <div class="wrap">
+    <h2>经济的实践：在一个单元上击败或分叉</h2>
+    <p class="body">上述规则规定，任何人都可以登记某一现有接口的更优实现，前提是改进经过测量，且先前的登记者得到全额补偿。以下是该规则在单个 sky130 标准单元，即代工厂的 buf_16 驱动器上，从头到尾运行一遍的过程。一个智能体提出候选单元，一个独立的预言机将其与代工厂自身的单元对照测量，每项经验证的胜出都被提交供链记录。这三个步骤即本站的三个页面。</p>
+    <div class="loop">
+      <div class="card gen">
+        <div class="k">&#9889; 生成</div>
+        <h3>智能体提出方案</h3>
+        <p>一个确定性网格或 Gemini 提出可制造的单元：栅极面积与阈值电压掩模混合，保持在代工厂能量带之内。枚举成本低廉。<a href="./codesign.zh.html">候选单元如何针对其情境协同设计</a></p>
+      </div>
+      <div class="card">
+        <div class="k">&#128202; 评估</div>
+        <h3>预言机作出裁定</h3>
+        <p>GitHub Actions 在开源 sky130 PDK 上以同一 ngspice 测试台重新测量基线与每个候选单元，然后判定胜者。<a href="./waveform.zh.html">最佳胜出背后的测量</a></p>
+      </div>
+      <div class="card anchor">
+        <div class="k">&#9875; 锚定</div>
+        <h3>Stylus 记录在案</h3>
+        <p>每项经验证且唯一的胜出都被哈希，供 Arbitrum Stylus 合约记录。哈希承诺了设计，网表保持私密。合约已编写并通过检查；尚未部署。<a href="#stylus">它写入的记录</a></p>
+      </div>
+    </div>
+    <p class="body" style="margin-top:26px"><strong>该循环的结果。</strong>测量是 ngspice 在 sky130 典型工艺角下的一次瞬态仿真，两个单元驱动相同负载；它是预言机为改进标签提供的证据，位于该单元第 1 层证明之旁，而非取而代之。</p>
+    <div class="stat">
+      <div><div class="big green">+22%</div>
+        <div class="sub">相对 buf_16 更低的能量延迟积（EDP），指状（finger）数量相同，能量略低：一次阈值电压替换，而非更大的单元</div></div>
+      <div><div class="big">0</div>
+        <div class="sub">新增晶体管数。胜出来自代工厂单一单元库并不提供的掺杂掩模变更</div></div>
+      <div><div class="big">22 / 30</div>
+        <div class="sub">种可制造的掩模组合在代工厂自身的每周期能量带内击败其阶梯</div></div>
+    </div>
+  </div>
+</section>
+<section id="stylus">
+  <div class="wrap">
+    <h2>锚定记录的内容</h2>
+    <p class="body">胜出的意义不在于一张截图，而在于一条持久、可验证的记录。每项经验证的改进都以哈希形式提交，供 Arbitrum 上的 Stylus 合约记录。持有网表的任何人都可以重新计算该哈希并加以核对；其他人无法读取设计。这就是上表中的锚定合约，应用于该循环的最佳胜出。</p>
+    <div class="stylusbox">
+      <pre>record(bytes32 artifact_hash, uint16 label, uint16 context)
+// best in-band win: EDP +22% vs buf_16, same area
+record(0xbbe5a7f1...f8f7c, 2200, 16)
+//         hash of the design bundle   basis points   drive strength</pre>
+      <p class="caption" style="margin-top:14px">label 为 EDP 改进的基点数，context 为部件的驱动强度。哈希即为工件；网表永远无需公布。合约以 Rust 为 Arbitrum Stylus 编写，并通过 cargo stylus check。状态：未部署。anchor.py 准备此 record() 调用，但不提交（提交需要已注资的密钥）</p>
+    </div>
   </div>
 </section>
 <section>
   <div class="wrap">
-    <h2>合约</h2>
-    <table class="kv"><thead><tr><th>合约</th><th>模式</th><th>链上执行的内容</th></tr></thead><tbody><tr><td>q2-verifier</td><td>重新验证</td><td>在链上重新运行有界证明。无需信任。</td></tr><tr><td>q2-anchor</td><td>锚定</td><td>记录链下证明的内容寻址承诺及其改进标签。</td></tr><tr><td>q2-composition</td><td>组合与许可</td><td>通过引用子证书认证更大的系统，并结算两种许可。</td></tr></tbody></table>
+    <h2>下一步</h2>
+    <p class="body">本页上的每个数字均由<a href="./research.zh.html">研究页面</a>上的一项测量或一条机器检验的定理复现，该页面为初入此领域的读者从头写就。合约、证明、演示以及协同设计与测量代码均在<a href="https://github.com/Q2Computing/Project-Foundry">代码仓库</a>中。</p>
   </div>
 </section>
 
@@ -228,11 +322,10 @@
 <footer>
   <div class="wrap">
     Q2 Computing / Project Foundry &#183;
-    <a href="./codesign.html">generate: co-design</a> &#183;
-    <a href="./waveform.html">assess: measurement</a> &#183;
-    <a href="https://github.com/Q2Computing/Project-Foundry">source</a> &#183;
-    <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/results/report.md">full report</a> &#183;
-    <a href="https://github.com/Q2Computing/Project-Foundry/actions">CI oracle</a>
+    <a href="./codesign.zh.html">情境协同设计</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry">源代码</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/results/report.md">完整报告</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry/actions">CI 预言机</a>
   </div>
 </footer>
 </body>

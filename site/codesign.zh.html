@@ -72,12 +72,13 @@
     <div class="eyebrow">Q2 Computing / Project Foundry</div>
     <p class="langbar">阅读语言： <a href="./codesign.html">English</a> · <a href="./codesign.ms.html">Bahasa Melayu</a> · <b>简体中文</b> · <a href="./codesign.ta.html">தமிழ்</a></p>
     <h1>为情境协同设计单元</h1>
+    <p class="lede">本页是首页循环中的<strong>生成</strong>步骤：在预言机测量之前提出候选单元的步骤。下方的旋钮即构成候选单元的要素，尺寸与掺杂；而设定它们所依据的情境，是单元所驱动的负载及其开关频率。</p>
     <p class="lede">设定单元所驱动的负载及其活动度。梯度沿 SPICE 校准的可微模型下降，
       抵达尺寸与掺杂的联合最优点。两者同时变动：尺寸跟随负载，
       掺杂跟随活动度</p>
     <div class="links">
-      <a href="./">概览</a>
-      <a href="./waveform.html">SPICE 证明</a>
+      <a href="./index.zh.html#practice">返回：一个单元上的循环</a>
+      <a href="./waveform.zh.html">下一步：测量</a>
       <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/analysis/codesign.py">codesign.py</a>
     </div>
   </div>
@@ -122,17 +123,18 @@
       掩模。介于其间的值今天即可作为掩模混合（mask blend）<b>制造</b>：m 个指状（finger）
       中的 k 个落在一种 Vt 掩模上，其余落在另一种上，并联连接。无新注入，
       无假设；50/50 混合是
-      <a href="./index.html">带内图表</a>上的一个实测点。在单位反相器上测得，两个
+      <a href="./index.zh.html">带内图表</a>上的一个实测点。在单位反相器上测得，两个
       速度旋钮是不对称的：nfet svt&#8594;lvt 以 3&#215; 漏电换取下降沿 &#8722;9.7%
       （几乎免费），pfet hvt&#8594;svt 以 121&#215; 漏电换取上升沿
       &#8722;23%（昂贵的旋钮）。这种不对称正是应由
       情境而非固定配方来选择掺杂的原因。该模型已校准至
       SPICE，并在一个已确认的端点上与其匹配在约 6% 以内
-      （<a href="./waveform.html">详情</a>）。</p>
+      （<a href="./waveform.zh.html">详情</a>）。</p>
   </div>
 </section>
 
 <footer><div class="wrap">
+  循环的下一步：预言机<a href="./waveform.zh.html">将候选单元与 buf_16 对照测量</a>。<br>
   可微模型已校准至开源 sky130 PDK 上的 ngspice。复现：
   <code>python analysis/codesign.py</code> &#183;
   <a href="https://github.com/Q2Computing/Project-Foundry">源代码</a>

@@ -180,7 +180,7 @@
 <body>
 <header>
   <div class="wrap">
-    <a class="logo" href="./index.html"><img src="./assets/project-foundry-logo.jpg" alt="Project Foundry. Generate. Assess. Anchor." width="260" height="264"></a>
+    <a class="logo" href="./index.ms.html"><img src="./assets/project-foundry-logo.jpg" alt="Project Foundry. Generate. Assess. Anchor." width="260" height="264"></a>
     <div class="eyebrow">Q2 Computing / Project Foundry / Arbitrum Stylus</div>
     <button class="theme" id="theme-toggle" type="button">Mod cerah</button>
     <p class="langbar"><a href="./index.ms.html">Laman utama</a> · <b>Penyelidikan</b><br>Baca dalam: <a href="./research.html">English</a> · <b>Bahasa Melayu</b> · <a href="./research.zh.html">简体中文</a> · <a href="./research.ta.html">தமிழ்</a></p>
@@ -218,6 +218,7 @@
       </tbody>
     </table>
     <p class="body" style="margin-top:22px"><strong>Atasi atau cabang (beat or fork).</strong> Sesiapa sahaja boleh menyenaraikan pelaksanaan pesaing bagi antara muka sedia ada, tetapi mesti menamakan blok yang diatasinya dan menyelesaikan baki kos penyenaraian blok itu. Penyenarai terdahulu dipulihkan sepenuhnya. Penambahbaikan mesti berupa pengukuran yang direkodkan, bukan sekadar pengisytiharan.</p>
+<p class="body">Laman awam membawa peraturan itu dijalankan dari hujung ke hujung pada satu sel piawai sky130, iaitu pemacu buf_16 kilang. Agen mencadangkan sel calon yang boleh difabrikasi (luas get dan campuran topeng voltan ambang dalam jalur tenaga kilang), oracle dalam GitHub Actions mengukur semula garis dasar dan setiap calon dalam satu meja uji ngspice pada PDK terbuka, dan setiap kemenangan yang disahkan dan unik dicincang untuk direkodkan oleh kontrak sauh bersama label penambahbaikannya. Calon dalam jalur (in-band) terbaik menurunkan hasil tenaga-lengah sebanyak 22 peratus berbanding buf_16 pada bilangan jari yang sama tanpa transistor tambahan, dan 22 daripada 30 kombinasi topeng boleh difabrikasi mengatasi tangga kilang dalam jalur tenaga setiap kitarannya sendiri. Pengukuran itu ialah keterangan bagi label; ketepatan sel itu ialah bukti tahap 1 yang berasingan.</p>
     <p class="body"><strong>Tiga kontrak</strong> di Arbitrum Stylus menampung ekonomi ini. Pengesah (verifier) menjalankan semula bukti terhad di atas rantaian. Sauh (anchor) merekodkan komitmen beralamat kandungan bagi bukti luar rantaian. Kontrak komposisi mensijilkan sistem melalui rujukan kepada sijil anak dan menyelesaikan kedua-dua lesen. Invarian mereka disenaraikan dalam Bahagian 6.</p>
   </div>
 </section>
@@ -295,7 +296,18 @@
         <tr><td>Kos replikasi, penyandang</td><td>$30,000</td><td>parameter, dalam julat berbeban $16,000 hingga $50,000</td></tr>
       </tbody>
     </table>
-    <p class="body" style="margin-top:22px"><strong>Enjin bukti, mengikut tahap</strong>, dan apa yang dipercayai oleh setiap satu.</p>
+    <p class="body" style="margin-top:22px"><strong>Gelung pemacu</strong>, contoh atasi atau cabang di laman awam.</p>
+    <table class="kv">
+      <thead><tr><th>Ukuran</th><th>Nilai</th><th>Sumber</th></tr></thead>
+      <tbody>
+        <tr><td>Sel garis dasar</td><td>sky130 buf_16, pustaka kilang</td><td>laman awam, gelung</td></tr>
+        <tr><td>Calon dalam jalur terbaik, tenaga-lengah berbanding buf_16</td><td>22 peratus lebih rendah, bilangan jari yang sama, tenaga sedikit lebih rendah</td><td>pengukuran oracle, ngspice, sudut tt sky130, 1.8 V, beban 250 fF</td></tr>
+        <tr><td>Transistor tambahan dalam sel yang menang</td><td>0; perubahan topeng voltan ambang</td><td>laman awam, gelung</td></tr>
+        <tr><td>Kombinasi topeng boleh difabrikasi yang mengatasi tangga kilang dalam jalur</td><td>22 daripada 30</td><td>pengukuran oracle</td></tr>
+        <tr><td>Rekod sauh bagi kemenangan terbaik</td><td>label 2200 mata asas, context 16 (kekuatan pacuan)</td><td>panggilan record() q2-anchor, disediakan, tidak dihantar</td></tr>
+      </tbody>
+    </table>
+<p class="body" style="margin-top:22px"><strong>Enjin bukti, mengikut tahap</strong>, dan apa yang dipercayai oleh setiap satu.</p>
     <table class="ladder">
       <thead><tr><th>Tahap</th><th>Enjin</th><th>Apa yang disemak</th><th>Apa yang dipercayai</th></tr></thead>
       <tbody>
@@ -418,11 +430,10 @@
 <footer>
   <div class="wrap">
     Q2 Computing / Project Foundry &#183;
-    <a href="./codesign.html">generate: co-design</a> &#183;
-    <a href="./waveform.html">assess: measurement</a> &#183;
-    <a href="https://github.com/Q2Computing/Project-Foundry">source</a> &#183;
-    <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/results/report.md">full report</a> &#183;
-    <a href="https://github.com/Q2Computing/Project-Foundry/actions">CI oracle</a>
+    <a href="./codesign.ms.html">reka bentuk bersama konteks</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry">sumber</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/results/report.md">laporan penuh</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry/actions">oracle CI</a>
   </div>
 </footer>
 </body>

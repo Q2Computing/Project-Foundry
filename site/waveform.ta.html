@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SPICE நிரூபணம்</title>
+<title>SPICE அளவீடு</title>
 <meta name="description" content="ஆவணப்படுத்தப்பட்ட sky130 130nm செயல்முறையில், உண்மையான டிரான்சிஸ்டர் பரிமாணங்களுடன், buf_16 மற்றும் ஒரு தனிப்பயன் செல்லின் உண்மையான ngspice transient ஒப்பீடு">
 <style>
   :root{--bg:#0d1117;--panel:#161b22;--line:#30363d;--ink:#e6edf3;--dim:#8b949e;
@@ -68,11 +68,12 @@
     <div class="eyebrow">Q2 Computing / Project Foundry</div>
     <p class="langbar">இதை இதில் படிக்கவும்: <a href="./waveform.html">English</a> · <a href="./waveform.ms.html">Bahasa Melayu</a> · <a href="./waveform.zh.html">简体中文</a> · <b>தமிழ்</b></p>
     <h1>250 fF இல் buf_16 மற்றும் ஒரு தனிப்பயன் இயக்கி ஒப்பீடு</h1>
+    <p class="lede">இந்தப் பக்கம் முகப்புப் பக்கத்தில் உள்ள சுழற்சியின் <strong>மதிப்பிடு</strong> படி: சிறந்த வேட்பாளரை ஃபவுண்டரியின் buf_16 க்கு எதிராக ஆரக்கிள் அளவிடுதல். இது ஒரு transient உருவகப்படுத்துதல்; எனவே ஏணியின் சொந்த விதிப்படி இது மேம்பாட்டுக் குறிக்கான ஆதாரம், நங்கூரப் படியால் பதிவு செய்யப்படுகிறது; அது செல்லின் நிலை-1 நிரூபணத்தின் இடத்தில் அல்லாமல் அதன் அருகில் நிற்கிறது.</p>
     <p class="lede">ஒரே ngspice transient, sky130 tt மூலை (corner), 1.8 V, இரு செல்களும்
       ஒரே 250 fF சுமையை இயக்குகின்றன. கீழுள்ள சாதன அளபுருக்களும் தடங்களும் (traces)
       இந்த இயக்கத்திலிருந்து வந்தவை. <code>./run.sh proof</code> மூலம் மீண்டும் உருவாக்கவும்</p>
     <div class="links">
-      <a href="./">மேலோட்டம்</a>
+      <a href="./index.ta.html#practice">பின்: ஒரு செல்லில் சுழற்சி</a>
       <a href="../results/proof.txt">ngspice பதிவு</a>
       <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/tools/proof.py">proof.py</a>
     </div>
@@ -116,6 +117,7 @@
 </section>
 
 <footer><div class="wrap">
+  சுழற்சியின் அடுத்த படி: வெற்றி <a href="./index.ta.html#stylus">ஹாஷ் செய்யப்பட்டு நங்கூர ஒப்பந்தத்தால் பதிவு செய்யப்படுகிறது</a>.<br>
   ngspice, sky130 PDK, tt மூலை. மீண்டும் உருவாக்க: <code>./run.sh proof</code> &#183;
   <a href="https://github.com/Q2Computing/Project-Foundry">மூலக் குறியீடு</a>
 </div></footer>

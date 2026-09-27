@@ -180,7 +180,7 @@
 <body>
 <header>
   <div class="wrap">
-    <a class="logo" href="./index.html"><img src="./assets/project-foundry-logo.jpg" alt="Project Foundry. Generate. Assess. Anchor." width="260" height="264"></a>
+    <a class="logo" href="./index.zh.html"><img src="./assets/project-foundry-logo.jpg" alt="Project Foundry. Generate. Assess. Anchor." width="260" height="264"></a>
     <div class="eyebrow">Q2 Computing / Project Foundry / Arbitrum Stylus</div>
     <button class="theme" id="theme-toggle" type="button">浅色模式</button>
     <p class="langbar"><a href="./index.zh.html">首页</a> · <b>研究</b><br>阅读语言： <a href="./research.html">English</a> · <a href="./research.ms.html">Bahasa Melayu</a> · <b>简体中文</b> · <a href="./research.ta.html">தமிழ்</a></p>
@@ -218,6 +218,7 @@
       </tbody>
     </table>
     <p class="body" style="margin-top:22px"><strong>击败或分叉。</strong>任何人都可以登记某一现有接口的竞争实现，但必须指明其所击败的模块，并结清该模块登记成本的剩余部分。先前的登记者得到全额补偿。改进必须是有记录的测量，绝非声明。</p>
+<p class="body">公开站点承载了该规则在一个 sky130 标准单元，即代工厂的 buf_16 驱动器上从头到尾运行一遍的过程。一个智能体提出可制造的候选单元（代工厂能量带内的栅极面积与阈值电压掩模混合），GitHub Actions 中的预言机在开源 PDK 上以同一 ngspice 测试台重新测量基线与每个候选单元，每项经验证且唯一的胜出都被哈希，供锚定合约连同其改进标签一并记录。最佳带内候选单元在相同指状（finger）数量且无新增晶体管的情况下，相对 buf_16 将能量延迟积降低了 22%，且 30 种可制造掩模组合中有 22 种在代工厂自身的每周期能量带内击败其阶梯。这些测量是标签的证据；该单元的正确性是另一项独立的第 1 层证明。</p>
     <p class="body"><strong>三份合约</strong>在 Arbitrum Stylus 上承载该经济。验证器在链上重新运行有界证明。锚定合约记录链下证明的内容寻址承诺。组合合约通过引用子证书认证系统，并结算两种许可。其不变量列于第 6 节。</p>
   </div>
 </section>
@@ -295,7 +296,18 @@
         <tr><td>复现成本，在位者</td><td>30,000 美元</td><td>参数，处于 16,000 至 50,000 美元的综合成本区间内</td></tr>
       </tbody>
     </table>
-    <p class="body" style="margin-top:22px"><strong>各层级的证明引擎</strong>及各自所信任的内容。</p>
+    <p class="body" style="margin-top:22px"><strong>驱动器循环</strong>，即公开站点上的击败或分叉范例。</p>
+    <table class="kv">
+      <thead><tr><th>指标</th><th>数值</th><th>来源</th></tr></thead>
+      <tbody>
+        <tr><td>基线单元</td><td>sky130 buf_16，代工厂单元库</td><td>公开站点，循环</td></tr>
+        <tr><td>最佳带内候选单元，相对 buf_16 的能量延迟积</td><td>低 22%，指状数相同，能量略低</td><td>预言机测量，ngspice，sky130 tt 工艺角，1.8 V，250 fF 负载</td></tr>
+        <tr><td>胜出单元的新增晶体管</td><td>0；一次阈值电压掩模变更</td><td>公开站点，循环</td></tr>
+        <tr><td>在带内击败代工厂阶梯的可制造掩模组合</td><td>30 种中的 22 种</td><td>预言机测量</td></tr>
+        <tr><td>最佳胜出的锚定记录</td><td>label 2200 基点，context 16（驱动强度）</td><td>q2-anchor record() 调用，已准备，未提交</td></tr>
+      </tbody>
+    </table>
+<p class="body" style="margin-top:22px"><strong>各层级的证明引擎</strong>及各自所信任的内容。</p>
     <table class="ladder">
       <thead><tr><th>层级</th><th>引擎</th><th>检查的内容</th><th>信任的内容</th></tr></thead>
       <tbody>
@@ -418,11 +430,10 @@
 <footer>
   <div class="wrap">
     Q2 Computing / Project Foundry &#183;
-    <a href="./codesign.html">generate: co-design</a> &#183;
-    <a href="./waveform.html">assess: measurement</a> &#183;
-    <a href="https://github.com/Q2Computing/Project-Foundry">source</a> &#183;
-    <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/results/report.md">full report</a> &#183;
-    <a href="https://github.com/Q2Computing/Project-Foundry/actions">CI oracle</a>
+    <a href="./codesign.zh.html">情境协同设计</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry">源代码</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/results/report.md">完整报告</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry/actions">CI 预言机</a>
   </div>
 </footer>
 </body>

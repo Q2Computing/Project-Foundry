@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bukti SPICE</title>
+<title>Pengukuran SPICE</title>
 <meta name="description" content="Simulasi fana ngspice sebenar bagi buf_16 lawan sel tersuai pada proses sky130 130nm yang didokumenkan, dengan dimensi transistor sebenar">
 <style>
   :root{--bg:#0d1117;--panel:#161b22;--line:#30363d;--ink:#e6edf3;--dim:#8b949e;
@@ -68,11 +68,12 @@
     <div class="eyebrow">Q2 Computing / Project Foundry</div>
     <p class="langbar">Baca dalam: <a href="./waveform.html">English</a> · <b>Bahasa Melayu</b> · <a href="./waveform.zh.html">简体中文</a> · <a href="./waveform.ta.html">தமிழ்</a></p>
     <h1>buf_16 lawan pemacu tersuai pada 250 fF</h1>
+    <p class="lede">Laman ini ialah langkah <strong>nilai</strong> (assess) dalam gelung di laman utama: pengukuran oracle terhadap calon terbaik berbanding buf_16 kilang. Ia simulasi fana (transient), jadi mengikut peraturan tangga itu sendiri ia keterangan bagi label penambahbaikan, direkodkan oleh langkah sauh, dan ia berdiri di sebelah bukti tahap 1 sel itu dan bukannya menggantikannya.</p>
     <p class="lede">Satu simulasi fana (transient) ngspice, sudut tt sky130, 1.8 V, kedua-dua sel
       memacu beban 250 fF yang sama. Parameter peranti dan surih (trace) di bawah
       datang daripada larian ini. Hasilkan semula dengan <code>./run.sh proof</code></p>
     <div class="links">
-      <a href="./">Gambaran keseluruhan</a>
+      <a href="./index.ms.html#practice">Kembali: gelung pada satu sel</a>
       <a href="../results/proof.txt">log ngspice</a>
       <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/tools/proof.py">proof.py</a>
     </div>
@@ -116,6 +117,7 @@
 </section>
 
 <footer><div class="wrap">
+  Langkah seterusnya dalam gelung: kemenangan itu <a href="./index.ms.html#stylus">dicincang dan direkodkan oleh kontrak sauh</a>.<br>
   ngspice, PDK sky130, sudut tt. Hasilkan semula: <code>./run.sh proof</code> &#183;
   <a href="https://github.com/Q2Computing/Project-Foundry">sumber</a>
 </div></footer>
