@@ -1,5 +1,7 @@
 # Project Foundry: the proof economy
 
+Read this in: English · [Bahasa Melayu](README.ms.md) · [简体中文](README.zh.md) · [தமிழ்](README.ta.md)
+
 A proof of a circuit is a certificate. Certificates license into larger proofs
 and into manufactured silicon, priced at a floor no competitor can match, and
 settled on Arbitrum Stylus. Verification is shared, not repeated: a block is
