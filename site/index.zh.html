@@ -120,12 +120,74 @@
   ol.steps{color:var(--dim);font-size:15px;max-width:64ch;padding-left:20px}
   ol.steps li{margin:6px 0}
 </style>
+
+<style>
+  /* type scale: larger, legible */
+  html{font-size:17px}
+  body{line-height:1.6}
+  .eyebrow{font-size:13px} .langbar{font-size:14px}
+  .lede{font-size:20px;max-width:60ch} .tagline{font-size:18px}
+  p.body{font-size:17px;max-width:62ch}
+  h2{font-size:15px} .card h3{font-size:19px} .card p{font-size:16px}
+  .btn{font-size:16px;padding:11px 18px}
+  table{font-size:16px} th,td{padding:12px 14px}
+  thead th{font-size:13px}
+  .ladder th,.ladder td,.kv th,.kv td{font-size:16px;line-height:1.5}
+  .note{font-size:16px} ol.steps{font-size:17px} ol.steps li{margin:8px 0}
+  .caption,.legend{font-size:15px} footer{font-size:16px}
+  .stat .sub{font-size:16px;max-width:26ch}
+  /* white mode: black on white */
+  .theme{float:right;margin:0 0 0 12px;background:var(--panel);color:var(--ink);border:1px solid var(--line);
+    border-radius:8px;padding:7px 12px;font:600 14px var(--mono);letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+  .theme:hover{border-color:var(--ink)}
+  :root[data-theme="light"]{
+    --bg:#ffffff; --panel:#f4f4f4; --line:#c8c8c8; --ink:#000000; --dim:#333333;
+    --blue:#0b3d91; --green:#0f5a2a; --red:#8f1020; --amber:#6b4600; --violet:#4a2390;
+    --elyellow:#5c5a00; --seablue:#0b5468;
+  }
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      --bg:#ffffff; --panel:#f4f4f4; --line:#c8c8c8; --ink:#000000; --dim:#333333;
+      --blue:#0b3d91; --green:#0f5a2a; --red:#8f1020; --amber:#6b4600; --violet:#4a2390;
+      --elyellow:#5c5a00; --seablue:#0b5468;
+    }
+    :root:not([data-theme="dark"]) .note{background:#f4f4f4;border-color:#c8c8c8;color:#000}
+    :root:not([data-theme="dark"]) code,:root:not([data-theme="dark"]) pre,:root:not([data-theme="dark"]) .race .bar{background:#f4f4f4}
+    :root:not([data-theme="dark"]) .btn.primary{background:#000;color:#fff}
+    :root:not([data-theme="dark"]) .btn.stylus{color:var(--violet)}
+    :root:not([data-theme="dark"]) .logo{background:#fff;border:1px solid var(--line)}
+    :root:not([data-theme="dark"]) .dot{border-color:rgba(0,0,0,.3)}
+  }
+  :root[data-theme="light"] .note{background:#f4f4f4;border-color:#c8c8c8;color:#000}
+  :root[data-theme="light"] code,:root[data-theme="light"] pre,:root[data-theme="light"] .race .bar{background:#f4f4f4}
+  :root[data-theme="light"] .btn.primary{background:#000;color:#fff}
+  :root[data-theme="light"] .btn.stylus{color:var(--violet)}
+  :root[data-theme="light"] .logo{background:#fff;border:1px solid var(--line)}
+  :root[data-theme="light"] .dot{border-color:rgba(0,0,0,.3)}
+</style>
+<script>
+(function(){
+  var k='pf-theme', r=document.documentElement, saved=null;
+  try{saved=localStorage.getItem(k)}catch(e){}
+  if(saved==='light'||saved==='dark') r.setAttribute('data-theme',saved);
+  function isLight(){var t=r.getAttribute('data-theme'); if(t) return t==='light';
+    return window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches}
+  function label(b){b.textContent=isLight()?'Dark mode':'White mode';
+    b.setAttribute('aria-label',isLight()?'Switch to dark mode':'Switch to white mode')}
+  document.addEventListener('DOMContentLoaded',function(){
+    var b=document.getElementById('theme-toggle'); if(!b) return; label(b);
+    b.addEventListener('click',function(){var next=isLight()?'dark':'light';
+      r.setAttribute('data-theme',next); try{localStorage.setItem(k,next)}catch(e){} label(b)});
+  });
+})();
+</script>
 </head>
 <body>
 <header>
   <div class="wrap">
     <a class="logo" href="./index.html"><img src="./assets/project-foundry-logo.jpg" alt="Project Foundry. Generate. Assess. Anchor." width="180" height="185"></a>
     <div class="eyebrow">Q2 Computing / Project Foundry / Arbitrum Stylus</div>
+    <button class="theme" id="theme-toggle" type="button">White mode</button>
     <p class="langbar">阅读语言：<a href="./index.html">English</a> · <a href="./index.ms.html">Bahasa Melayu</a> · <b>简体中文</b> · <a href="./index.ta.html">தமிழ்</a></p>
     <h1>证明经济</h1>
     <p class="tagline">电路的证明即为证书。证书可授权用于更大的证明，也可授权用于制造的硅片；其定价为任何竞争者都无法企及的底价，并在 Arbitrum Stylus 上结算。</p>
