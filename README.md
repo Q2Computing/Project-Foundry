@@ -1,5 +1,7 @@
 # Project Foundry: the proof economy
 
+<p align="center"><img src="site/assets/project-foundry-logo.jpg" alt="Project Foundry. Generate. Assess. Anchor." width="260"></p>
+
 Read this in: English · [Bahasa Melayu](README.ms.md) · [简体中文](README.zh.md) · [தமிழ்](README.ta.md)
 
 A proof of a circuit is a certificate. Certificates license into larger proofs
