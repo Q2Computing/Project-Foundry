@@ -1,0 +1,183 @@
+{
+  "_comment": "Real Q2 MXFP4 proof-by-construction tree, exported from the portal. Every artifact_sha256 is the content address of an ACTUAL proof of record. proof_kind: 1=cell-proof (SPICE, from transistors), 2=equivalence (netlist==RTL), 3=techmap-equivalence (maps only onto proven PDK cells), 4=composition-proof (built from proven children). The bottom three are sky130 PDK cells: `commons`, free to reference forever. A techmap-proven block lists as children the PDK cells its proof certifies it maps onto. ref_price_wei paces recovery of recovery_target_wei, the lister-declared listing gas; once recovered the certificate is free. Amounts are illustrative listing-gas estimates a lister declares. Blocks are leaf-first, so every child is registered before it is referenced.",
+  "spec": "MXFP4 (OCP Microscaling FP4, E2M1) GEMM accelerator on sky130",
+  "blocks": [
+    {
+      "key": "pdk_inv_1",
+      "name": "sky130_fd_sc_hd__inv_1 (PDK cell)",
+      "tier": "standard-cell",
+      "proof_kind": 1,
+      "artifact_sha256": "33914ecbeaa3df73f32b3e0c4a94d76176b96e3c9065090c8e345b1d793c7af3",
+      "interface": "sky130_fd_sc_hd__inv_1 v1: Y = !A; SPICE-proven exhaustive truth table from the PDK transistor models",
+      "commons": true,
+      "children": []
+    },
+    {
+      "key": "pdk_nand2_1",
+      "name": "sky130_fd_sc_hd__nand2_1 (PDK cell)",
+      "tier": "standard-cell",
+      "proof_kind": 1,
+      "artifact_sha256": "8dbfac55cbf0582f1fa802b92f557da84679b2d269e68da6f219c35c268c6619",
+      "interface": "sky130_fd_sc_hd__nand2_1 v1: Y = !(A & B); SPICE-proven exhaustive truth table from the PDK transistor models",
+      "commons": true,
+      "children": []
+    },
+    {
+      "key": "pdk_dfxtp_1",
+      "name": "sky130_fd_sc_hd__dfxtp_1 (PDK cell)",
+      "tier": "standard-cell",
+      "proof_kind": 1,
+      "artifact_sha256": "7f29733480d62dbc82d2ee445640d1cf647b0eba644e56d552dd2c949bd2ea5e",
+      "interface": "sky130_fd_sc_hd__dfxtp_1 v1: Q <= D on posedge CLK; SPICE-proven capture, hold, and edge-exclusivity",
+      "commons": true,
+      "children": []
+    },
+    {
+      "key": "e2m1_decoder",
+      "name": "E2M1 decoder",
+      "tier": "component",
+      "proof_kind": 3,
+      "artifact_sha256": "5bd04aed94512c31367a5d36e07d4ddea09049b399a9502c1ea982fa2f6b62f2",
+      "interface": "E2M1 decoder v1: in bits[3:0] MX FP4 (1 sign, 2 exp, 1 mant); out {sign, exp[1:0], mant, is_zero}; combinational",
+      "commons": false,
+      "ref_price_wei": "50000000000000",
+      "recovery_target_wei": "200000000000000",
+      "children": [
+        "pdk_nand2_1",
+        "pdk_inv_1"
+      ]
+    },
+    {
+      "key": "fp32_normalize",
+      "name": "FP32 normalize/pack unit",
+      "tier": "component",
+      "proof_kind": 2,
+      "artifact_sha256": "5d018a2690c49662eae20f0b6116fb74bdcd7e9723953d2caa4c50951bd24fed",
+      "interface": "FP32 normalize/pack v1: in {sign, exp[9:0], mant[24:0]} unnormalized; out IEEE754 binary32; round-to-nearest-even; combinational",
+      "commons": false,
+      "ref_price_wei": "70000000000000",
+      "recovery_target_wei": "280000000000000",
+      "children": []
+    },
+    {
+      "key": "adder_tree32",
+      "name": "32-way adder-reduction tree",
+      "tier": "component",
+      "proof_kind": 2,
+      "artifact_sha256": "56c8750d348aebc3d6bdb0e11d02122d6889cb8b4a15f9f0d27b76689956e69d",
+      "interface": "32-way reduction tree v1: in 32 x product terms; out sum; associative add reduction; pipelined depth log2(32)=5",
+      "commons": false,
+      "ref_price_wei": "90000000000000",
+      "recovery_target_wei": "360000000000000",
+      "children": []
+    },
+    {
+      "key": "fp32_accum",
+      "name": "FP32 accumulator adder",
+      "tier": "component",
+      "proof_kind": 2,
+      "artifact_sha256": "f7ed513d44f0f79a61af769125c92c6454f8c2c479cadb5d4e5aca4c177bdbdc",
+      "interface": "FP32 accumulator adder v1: acc' = acc + x; IEEE754 binary32; single-cycle add with normalize",
+      "commons": false,
+      "ref_price_wei": "70000000000000",
+      "recovery_target_wei": "280000000000000",
+      "children": []
+    },
+    {
+      "key": "reg32",
+      "name": "32-bit register",
+      "tier": "component",
+      "proof_kind": 3,
+      "artifact_sha256": "915fcb0a600c37b4dd06b59dc888b99844a7c45b1d873f32f6fe0b1dbcde62cc",
+      "interface": "32-bit register v1: q <= d on posedge clk; proven to map only onto dfxtp_1 cells",
+      "commons": false,
+      "ref_price_wei": "30000000000000",
+      "recovery_target_wei": "120000000000000",
+      "children": [
+        "pdk_dfxtp_1"
+      ]
+    },
+    {
+      "key": "lane_mult",
+      "name": "MXFP4 lane multiplier",
+      "tier": "component",
+      "proof_kind": 4,
+      "artifact_sha256": "a3800f2766f1ce02f618919a97af4d9e4dd216417cf1a8e06889a4dad071f205",
+      "interface": "MXFP4 lane multiplier v1: in two E2M1 operands + shared block scale; out FP product term; combinational",
+      "commons": false,
+      "ref_price_wei": "150000000000000",
+      "recovery_target_wei": "600000000000000",
+      "children": [
+        "e2m1_decoder"
+      ]
+    },
+    {
+      "key": "dot_product",
+      "name": "MXFP4 dot-product",
+      "tier": "sub-assembly",
+      "proof_kind": 4,
+      "artifact_sha256": "80a4c0c0cfe51a56d86c92ed7a4c1a5d48bf6964ab630d8eb438cc478a674cc6",
+      "interface": "MXFP4 dot-product v1: in two length-32 MXFP4 vectors + scales; out FP32 dot; = 32 lane_mult -> adder_tree32 -> fp32_normalize",
+      "commons": false,
+      "ref_price_wei": "400000000000000",
+      "recovery_target_wei": "1600000000000000",
+      "children": [
+        "fp32_normalize",
+        "lane_mult",
+        "adder_tree32"
+      ]
+    },
+    {
+      "key": "accum_pe",
+      "name": "MXFP4 accumulating PE",
+      "tier": "assembly",
+      "proof_kind": 4,
+      "artifact_sha256": "97dff7ab10249f78a6ce9e290686f0bae213299b20a4f615e8aa0361f6cfd6c5",
+      "interface": "MXFP4 accumulating PE v1: acc' = acc + dot(a,b); one dot_product feeding one fp32_accum; DRC-clean, LVS-match, timing-met signoff on sky130",
+      "commons": false,
+      "ref_price_wei": "800000000000000",
+      "recovery_target_wei": "3200000000000000",
+      "children": [
+        "fp32_accum",
+        "dot_product"
+      ]
+    },
+    {
+      "key": "gemm_tile_16",
+      "name": "16x16 MXFP4 output-stationary GEMM tile",
+      "tier": "assembly",
+      "proof_kind": 4,
+      "artifact_sha256": "a47a6095158bced8a36dc5a371d05f0b847f18bc69c99c6c919f33999cacabc5",
+      "interface": "16x16 output-stationary GEMM tile v1: 256 accumulating PEs; in A row-stream + B col-stream; out 16x16 FP32 C",
+      "commons": false,
+      "ref_price_wei": "1000000000000000",
+      "recovery_target_wei": "4000000000000000",
+      "children": [
+        "accum_pe"
+      ]
+    },
+    {
+      "key": "accelerator",
+      "name": "MXFP4 GEMM accelerator",
+      "tier": "system",
+      "proof_kind": 4,
+      "artifact_sha256": "3fa6357a125d596e99f42a793fccf100ab81aa358811004eddc040311197340d",
+      "interface": "MXFP4 GEMM accelerator v1: tiled GEMM over 16x16 tiles with register-staged operands; top-level system",
+      "commons": false,
+      "ref_price_wei": "0",
+      "recovery_target_wei": "0",
+      "children": [
+        "gemm_tile_16",
+        "reg32"
+      ],
+      "manufacturing": {
+        "_comment": "THE FLOOR: $100 per mask set, licensed at the top (SoC-level) certificate so every certified block in the mask is covered, SoC down. terms 4 = per use, unit = one mask set. Price is $100 at $3,000/ETH = 0.0333 ETH. AI produced this whole tree for $1.99 (proved in proofs/Q2Market.lean), so the first mask returns $98.01 and every later mask the full $100.",
+        "terms": 4,
+        "price_wei": "33333333333333333",
+        "quantity": 0,
+        "consume_units": 3,
+        "package": "MXFP4 GEMM accelerator v1 tapeout package, sky130 hd, signoff-clean, full certified lineage"
+      }
+    }
+  ]
+}
