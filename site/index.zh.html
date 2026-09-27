@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>证明经济，Project Foundry</title>
+<meta name="description" content="电路的证明即为证书，可授权用于更大的证明与制造的硅片，并在 Arbitrum Stylus 上结算。">
+<link rel="icon" type="image/png" href="./assets/mark.png">
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --line:#30363d; --ink:#e6edf3;
+    --dim:#8b949e; --green:#3fb950; --red:#f85149; --blue:#58a6ff;
+    --amber:#e3b341; --violet:#a371f7; --elyellow:#f5f21f; --seablue:#23a3c2;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+    line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px}
+  header{border-bottom:1px solid var(--line);padding:60px 0 40px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--dim)}
+  h1{font-size:clamp(30px,5vw,46px);line-height:1.1;margin:14px 0 10px;
+    letter-spacing:-.02em;text-wrap:balance}
+  .lede{font-size:18px;color:var(--dim);max-width:62ch;margin:0}
+  .tagline{font-size:16px;color:var(--ink);font-weight:600;max-width:60ch;
+    margin:0 0 14px;letter-spacing:.01em}
+  .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .btn{display:inline-block;padding:9px 16px;border-radius:8px;
+    border:1px solid var(--line);font-size:14px;font-weight:600;color:var(--ink)}
+  .btn.primary{background:var(--green);color:#04260f;border-color:transparent}
+  .btn.stylus{border-color:var(--violet);color:#d2c1f5}
+  section{padding:44px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:13px;font-family:var(--mono);letter-spacing:.12em;
+    text-transform:uppercase;color:var(--dim);margin:0 0 20px;font-weight:600}
+  p.body{max-width:64ch;color:var(--dim);font-size:15px}
+  .stat{display:flex;gap:40px;flex-wrap:wrap}
+  .stat .big{font-size:clamp(34px,6vw,56px);font-weight:700;letter-spacing:-.02em;
+    line-height:1}
+  .stat .big.green{color:var(--green)}
+  .stat .sub{color:var(--dim);font-size:14px;margin-top:8px;max-width:24ch}
+  .loop{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:18px}
+  .card .k{font-family:var(--mono);font-size:12px;color:var(--green);
+    letter-spacing:.1em;text-transform:uppercase}
+  .card.gen .k{color:var(--elyellow)}
+  .card.anchor .k{color:var(--seablue)}
+  .card h3{margin:8px 0 6px;font-size:17px}
+  .card p{margin:0;color:var(--dim);font-size:14px}
+  table{width:100%;border-collapse:collapse;font-size:14px;
+    font-variant-numeric:tabular-nums}
+  th,td{text-align:right;padding:10px 12px;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left;font-family:var(--mono)}
+  thead th{color:var(--dim);font-weight:600;font-size:12px;
+    text-transform:uppercase;letter-spacing:.06em}
+  td{color:var(--ink)}
+  td.better{color:var(--green)} td.worse{color:var(--red)}
+  .delta{font-family:var(--mono);font-size:11px;margin-left:6px}
+  .delta.better{color:var(--green)} .delta.worse{color:var(--red)}
+  .caption{color:var(--dim);font-size:13px;margin-top:10px}
+  .tbl-wrap{overflow-x:auto}
+  .plot{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:12px}
+  .plot svg{width:100%;height:auto;display:block;border-radius:8px}
+  .seg-toggle{display:inline-flex;border:1px solid var(--line);border-radius:9px;
+    overflow:hidden;margin-top:4px}
+  .seg{background:var(--panel);color:var(--dim);border:0;padding:8px 20px;
+    font-size:13px;font-weight:600;font-family:var(--mono);cursor:pointer;
+    letter-spacing:.05em;text-transform:uppercase}
+  .seg+.seg{border-left:1px solid var(--line)}
+  .seg-perf.on{background:var(--violet);color:#160b2e}
+  .seg-energy.on{background:var(--amber);color:#2a1e05}
+  .legend{display:flex;gap:20px;flex-wrap:wrap;color:var(--dim);font-size:13px;
+    margin-top:12px}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:50%;
+    margin-right:7px;vertical-align:middle;border:1px solid rgba(255,255,255,.14)}
+  .points{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .note{background:#1c1408;border:1px solid #3d2c0a;border-radius:12px;
+    padding:16px 18px;color:#e3b341;font-size:14px}
+  .race{display:grid;gap:12px;max-width:640px}
+  .race .row{display:grid;grid-template-columns:180px 1fr auto;gap:12px;
+    align-items:center}
+  .race .lbl{font-family:var(--mono);font-size:13px}
+  .race .bar{height:20px;background:#0d1117;border:1px solid var(--line);
+    border-radius:6px;overflow:hidden}
+  .race .fill{height:100%;background:linear-gradient(90deg,#238636,#3fb950)}
+  .race .g{font-family:var(--mono);font-size:13px;color:var(--green);
+    text-align:right;min-width:56px}
+  .stylusbox{background:var(--panel);border:1px solid var(--violet);
+    border-radius:12px;padding:20px}
+  code{font-family:var(--mono);background:#0d1117;border:1px solid var(--line);
+    border-radius:6px;padding:1px 6px;font-size:.92em}
+  pre{background:#0d1117;border:1px solid var(--line);border-radius:10px;
+    padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:13px;
+    color:var(--ink)}
+  footer{padding:40px 0 70px;color:var(--dim);font-size:14px}
+  @media(max-width:680px){.loop,.points{grid-template-columns:1fr}
+    .race .row{grid-template-columns:120px 1fr auto}}
+</style>
+
+<style>
+  .logo{display:inline-block;background:#f6f8fb;border-radius:14px;padding:10px;margin:0 0 18px;line-height:0}
+  .logo img{width:180px;height:auto;display:block}
+  @media (max-width:700px){.logo img{width:130px}}
+  .langbar{font-family:var(--mono);font-size:12px;color:var(--dim);margin:0 0 18px}
+  .langbar a{color:var(--blue)} .langbar b{color:var(--ink)}
+  .ladder th,.ladder td{text-align:left;font-family:var(--sans);vertical-align:top;font-size:13.5px}
+  .ladder td:first-child{font-family:var(--mono);white-space:nowrap}
+  .ladder .real{color:var(--green)} .ladder .road{color:var(--amber)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:700px){.two{grid-template-columns:1fr}}
+  .note{color:var(--dim);font-size:13.5px;max-width:64ch}
+  .kv th,.kv td{text-align:left;font-family:var(--sans);font-size:14px}
+  .kv td:first-child{font-family:var(--mono)}
+  ol.steps{color:var(--dim);font-size:15px;max-width:64ch;padding-left:20px}
+  ol.steps li{margin:6px 0}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="logo" href="./index.html"><img src="./assets/project-foundry-logo.jpg" alt="Project Foundry. Generate. Assess. Anchor." width="180" height="185"></a>
+    <div class="eyebrow">Q2 Computing / Project Foundry / Arbitrum Stylus</div>
+    <p class="langbar">阅读语言：<a href="./index.html">English</a> · <a href="./index.ms.html">Bahasa Melayu</a> · <b>简体中文</b> · <a href="./index.ta.html">தமிழ்</a></p>
+    <h1>证明经济</h1>
+    <p class="tagline">电路的证明即为证书。证书可授权用于更大的证明，也可授权用于制造的硅片；其定价为任何竞争者都无法企及的底价，并在 Arbitrum Stylus 上结算。</p>
+    <p class="lede">验证是共享的，而非重复的。一个模块只需公开证明一次，其后建立在其上的每个系统都继承该证明。本站是该经济的公开实例：为每份证书分级的证明层级、两种许可、三份合约，以及击败代工厂标准单元并予以证明的循环。</p>
+    <div class="cta">
+      <a class="btn primary" href="./research.html">研究（英文）</a>
+      <a class="btn" href="./index.html">英文首页</a>
+      <a class="btn" href="https://github.com/Q2Computing/Project-Foundry">GitHub</a>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>证明的层级</h2>
+    <p class="body">每份证书标明其模块所达到的证明层级。该阶梯从最强的有界证明开始，直至可无限扩展的证明。组合是顶端且是封闭的：已组合的模块是下一次组合的部件。</p>
+    <table class="ladder"><tbody><tr><td>1. 穷举</td><td>模块对每个输入都计算出正确输出</td><td>枚举整个输入空间：在 SPICE 中依据 PDK 晶体管得出单元真值表；8 位加法器遍历全部 131,072 个输入</td><td>仅限小模块；成本随输入位宽按 2 的幂增长</td><td class="real">已实现</td></tr><tr><td>2. 等价</td><td>两种表示计算相同的函数</td><td>网表与 RTL 之间的 SAT 米特电路，时序逻辑采用时间归纳；符号化，无需枚举</td><td>求解器可闭合的任何模块</td><td class="real">已实现</td></tr><tr><td>3. 映射（techmap）</td><td>网表仅使用第 1 层已证明的单元，且与其 RTL 结构等价</td><td>映射到已证明的单元库，再进行结构等价检查；超过 64 个单元的叶节点将被拒绝</td><td>任何模块，受基元上限约束</td><td class="real">已实现</td></tr><tr><td>4. 组合</td><td>更大的模块之所以正确，是因为它仅由已证明的部件与已证明的胶合逻辑构成，并绑定到其声明的子模块</td><td>部件普查加上装配体与组合的等价性；上限迫使更大的模块必须分解</td><td>无限：组合体是下一层级的部件</td><td class="real">已实现</td></tr></tbody></table>
+    <p class="body" style="margin-top:22px">有三种证明位于阶梯之上或其旁。</p>
+    <table class="ladder"><tbody><tr><td>精化至规范</td><td>组合系统满足其所声称的标准（IEEE 754 正确舍入、RISC-V ISA），而不仅仅是自身的 RTL。这赋予顶层接口以意义。</td><td class="road">路线图</td></tr><tr><td>组合规则的可靠性</td><td>机器检验的定理：已证明的部件加上已证明的胶合逻辑即产生已证明的整体，一次性为所有实例证成第 4 层。</td><td class="road">路线图</td></tr><tr><td>携带证明的信任与认证</td><td>由经验证的检查器重放的证明凭证，因而不必轻信任何求解器；以及从已证明设计到制造硅片的保管链。</td><td class="road">部分实现</td></tr></tbody></table>
+    <p class="note" style="margin-top:14px">使用测试向量的仿真是证据，而非证明。它会被记录，但本身永远不会推进证书的层级。</p>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <h2>经济</h2>
+    <div class="two">
+      <div class="card"><div class="k">引用：公共基础</div><h3>回收成本，绝不收租</h3><p>代工厂 PDK 基元永久免费引用。其他每份证书仅回收其上链登记的 gas 费用，由直接使用它的抽象来支付，以该费用为上限，此后免费。击败某模块者须支付其登记成本。</p></div>
+      <div class="card anchor"><div class="k">制造：设计者的产品</div><h3>每套掩模 100 美元，SoC 以下全部涵盖</h3><p>将设计放入制造的 SoC 的权利。设计仅交付给设计者指定的代工厂，该代工厂必须先证明已收到所承诺的封装包，方可消耗任何一个单位。被许可方从不下载文件。底价随着采用率增长逐步下调，直至收敛于生产并结算一份证明的真实物理成本。</p></div>
+    </div>
+    <p class="note" style="margin-top:14px">协议在两种许可中均不抽取任何费用。五十八条机器检验的定理支撑该经济；参见研究页面（英文）。</p>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <h2>合约</h2>
+    <table class="kv"><thead><tr><th>合约</th><th>模式</th><th>链上执行的内容</th></tr></thead><tbody><tr><td>q2-verifier</td><td>重新验证</td><td>在链上重新运行有界证明。无需信任。</td></tr><tr><td>q2-anchor</td><td>锚定</td><td>记录链下证明的内容寻址承诺及其改进标签。</td></tr><tr><td>q2-composition</td><td>组合与许可</td><td>通过引用子证书认证更大的系统，并结算两种许可。</td></tr></tbody></table>
+    <p class="note" style="margin-top:14px">驱动循环的结果、循环本身以及 Stylus 结算在英文首页中说明。</p>
+  </div>
+</section>
+
+
+<footer>
+  <div class="wrap">
+    Q2 Computing / Project Foundry &#183;
+    <a href="./codesign.html">context co-design</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry">source</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/results/report.md">full report</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry/actions">CI oracle</a>
+  </div>
+</footer>
+</body>
+</html>

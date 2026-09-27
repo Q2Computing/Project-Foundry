@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research, The Proof Economy</title>
+<meta name="description" content="The scientific record behind the proof economy: methods, the MXFP4 record, the 58-theorem Lean package, the contract invariants, the bets, and sources.">
+<link rel="icon" type="image/png" href="./assets/mark.png">
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --line:#30363d; --ink:#e6edf3;
+    --dim:#8b949e; --green:#3fb950; --red:#f85149; --blue:#58a6ff;
+    --amber:#e3b341; --violet:#a371f7; --elyellow:#f5f21f; --seablue:#23a3c2;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+    line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px}
+  header{border-bottom:1px solid var(--line);padding:60px 0 40px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--dim)}
+  h1{font-size:clamp(30px,5vw,46px);line-height:1.1;margin:14px 0 10px;
+    letter-spacing:-.02em;text-wrap:balance}
+  .lede{font-size:18px;color:var(--dim);max-width:62ch;margin:0}
+  .tagline{font-size:16px;color:var(--ink);font-weight:600;max-width:60ch;
+    margin:0 0 14px;letter-spacing:.01em}
+  .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .btn{display:inline-block;padding:9px 16px;border-radius:8px;
+    border:1px solid var(--line);font-size:14px;font-weight:600;color:var(--ink)}
+  .btn.primary{background:var(--green);color:#04260f;border-color:transparent}
+  .btn.stylus{border-color:var(--violet);color:#d2c1f5}
+  section{padding:44px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:13px;font-family:var(--mono);letter-spacing:.12em;
+    text-transform:uppercase;color:var(--dim);margin:0 0 20px;font-weight:600}
+  p.body{max-width:64ch;color:var(--dim);font-size:15px}
+  .stat{display:flex;gap:40px;flex-wrap:wrap}
+  .stat .big{font-size:clamp(34px,6vw,56px);font-weight:700;letter-spacing:-.02em;
+    line-height:1}
+  .stat .big.green{color:var(--green)}
+  .stat .sub{color:var(--dim);font-size:14px;margin-top:8px;max-width:24ch}
+  .loop{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:18px}
+  .card .k{font-family:var(--mono);font-size:12px;color:var(--green);
+    letter-spacing:.1em;text-transform:uppercase}
+  .card.gen .k{color:var(--elyellow)}
+  .card.anchor .k{color:var(--seablue)}
+  .card h3{margin:8px 0 6px;font-size:17px}
+  .card p{margin:0;color:var(--dim);font-size:14px}
+  table{width:100%;border-collapse:collapse;font-size:14px;
+    font-variant-numeric:tabular-nums}
+  th,td{text-align:right;padding:10px 12px;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left;font-family:var(--mono)}
+  thead th{color:var(--dim);font-weight:600;font-size:12px;
+    text-transform:uppercase;letter-spacing:.06em}
+  td{color:var(--ink)}
+  td.better{color:var(--green)} td.worse{color:var(--red)}
+  .delta{font-family:var(--mono);font-size:11px;margin-left:6px}
+  .delta.better{color:var(--green)} .delta.worse{color:var(--red)}
+  .caption{color:var(--dim);font-size:13px;margin-top:10px}
+  .tbl-wrap{overflow-x:auto}
+  .plot{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:12px}
+  .plot svg{width:100%;height:auto;display:block;border-radius:8px}
+  .seg-toggle{display:inline-flex;border:1px solid var(--line);border-radius:9px;
+    overflow:hidden;margin-top:4px}
+  .seg{background:var(--panel);color:var(--dim);border:0;padding:8px 20px;
+    font-size:13px;font-weight:600;font-family:var(--mono);cursor:pointer;
+    letter-spacing:.05em;text-transform:uppercase}
+  .seg+.seg{border-left:1px solid var(--line)}
+  .seg-perf.on{background:var(--violet);color:#160b2e}
+  .seg-energy.on{background:var(--amber);color:#2a1e05}
+  .legend{display:flex;gap:20px;flex-wrap:wrap;color:var(--dim);font-size:13px;
+    margin-top:12px}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:50%;
+    margin-right:7px;vertical-align:middle;border:1px solid rgba(255,255,255,.14)}
+  .points{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .note{background:#1c1408;border:1px solid #3d2c0a;border-radius:12px;
+    padding:16px 18px;color:#e3b341;font-size:14px}
+  .race{display:grid;gap:12px;max-width:640px}
+  .race .row{display:grid;grid-template-columns:180px 1fr auto;gap:12px;
+    align-items:center}
+  .race .lbl{font-family:var(--mono);font-size:13px}
+  .race .bar{height:20px;background:#0d1117;border:1px solid var(--line);
+    border-radius:6px;overflow:hidden}
+  .race .fill{height:100%;background:linear-gradient(90deg,#238636,#3fb950)}
+  .race .g{font-family:var(--mono);font-size:13px;color:var(--green);
+    text-align:right;min-width:56px}
+  .stylusbox{background:var(--panel);border:1px solid var(--violet);
+    border-radius:12px;padding:20px}
+  code{font-family:var(--mono);background:#0d1117;border:1px solid var(--line);
+    border-radius:6px;padding:1px 6px;font-size:.92em}
+  pre{background:#0d1117;border:1px solid var(--line);border-radius:10px;
+    padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:13px;
+    color:var(--ink)}
+  footer{padding:40px 0 70px;color:var(--dim);font-size:14px}
+  @media(max-width:680px){.loop,.points{grid-template-columns:1fr}
+    .race .row{grid-template-columns:120px 1fr auto}}
+</style>
+
+<style>
+  .logo{display:inline-block;background:#f6f8fb;border-radius:14px;padding:10px;margin:0 0 18px;line-height:0}
+  .logo img{width:180px;height:auto;display:block}
+  @media (max-width:700px){.logo img{width:130px}}
+  .langbar{font-family:var(--mono);font-size:12px;color:var(--dim);margin:0 0 18px}
+  .langbar a{color:var(--blue)} .langbar b{color:var(--ink)}
+  .ladder th,.ladder td{text-align:left;font-family:var(--sans);vertical-align:top;font-size:13.5px}
+  .ladder td:first-child{font-family:var(--mono);white-space:nowrap}
+  .ladder .real{color:var(--green)} .ladder .road{color:var(--amber)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:700px){.two{grid-template-columns:1fr}}
+  .note{color:var(--dim);font-size:13.5px;max-width:64ch}
+  .kv th,.kv td{text-align:left;font-family:var(--sans);font-size:14px}
+  .kv td:first-child{font-family:var(--mono)}
+  ol.steps{color:var(--dim);font-size:15px;max-width:64ch;padding-left:20px}
+  ol.steps li{margin:6px 0}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="logo" href="./index.html"><img src="./assets/project-foundry-logo.jpg" alt="Project Foundry. Generate. Assess. Anchor." width="180" height="185"></a>
+    <div class="eyebrow">Q2 Computing / Project Foundry / Arbitrum Stylus</div>
+    <p class="langbar"><a href="./index.html">Front page</a> · <b>Research</b></p>
+    <h1>Research</h1>
+    <p class="tagline">The scientific record behind the proof economy, written to be read from the beginning.</p>
+    <p class="lede">No prior familiarity with the literature is assumed. The introduction states the problem. Section 2 states the instrument. Sections 3 and 4 supply the background in silicon design and floating-point arithmetic. Section 5 gives the data, Section 6 the machine-checked analysis, and Section 7 the conclusion. Every number on the <a href="./index.html">front page</a> is reproduced here by a measurement or a theorem, with the method that produced it and the source it came from.</p>
+    <div class="cta">
+      <a class="btn" href="./index.html">Front page</a>
+      <a class="btn" href="https://github.com/Q2Computing/Project-Foundry/blob/main/RESEARCH.md">RESEARCH.md</a>
+      <a class="btn stylus" href="https://github.com/Q2Computing/Project-Foundry/tree/main/contracts/q2-composition/proofs">The Lean proofs</a>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>1. Introduction</h2>
+    <p class="body">This page is written for a reader who has not seen the literature. It builds the argument in order. Section 2 states the economic instrument. Sections 3 and 4 supply the two pieces of background the instrument rests on: how digital silicon is designed and verified, and why floating-point arithmetic is the worked example. Section 5 gives the data, every number with its source. Section 6 analyzes the data with machine-checked theorems. Section 7 draws the conclusion. Nothing here is asserted without a way to re-run it.</p>
+    <p class="body"><strong>The problem.</strong> A chip is a hierarchy of blocks. Before a design is sent to a foundry, each block and the whole assembly must be shown correct, because a mask set at a modern node costs one to two million dollars and a failed first spin is a second mask set. Industry surveys put first-silicon success at 14 percent in 2024 and 5 percent in 2026. Verification is the largest cost in the flow, and today it is repeated: every company that uses an adder, a floating-point unit, or a register file re-verifies its own copy, in private, and the work is thrown away when the project ends.</p>
+    <p class="body"><strong>The observation.</strong> A proof of a block, once produced, does not depend on who uses the block. If the proof is public and content-addressed, a second team can inherit it instead of repeating it, and a larger system can be proved by reference to the proofs of its parts without ever opening the parts. Verification becomes a shared asset rather than a private expense.</p>
+    <p class="body"><strong>The claim.</strong> Q2 Computing has built the first instrument that makes this inheritance a market: a proof is a certificate, certificates license into larger proofs at cost and into manufactured silicon at a fixed floor, and both licenses settle on a public chain. The rest of this page shows what was built, measures what it cost, proves what the instrument guarantees, and states what follows for anyone who tries to compete with it.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>2. The proof economy</h2>
+    <p class="body">A <strong>certificate</strong> is an on-chain record naming a block by the content hash of its design, the content hash of its interface, the level at which it was proved, and the content hash of the proof of record. A certificate for a composed block additionally names the certificates of its children and a binding hash over their interfaces. Anyone can check that the proof of record exists and matches; nobody needs the design to do so.</p>
+    <p class="body">Every certificate carries two licenses. The protocol takes nothing from either.</p>
+    <table class="kv">
+      <thead><tr><th>License</th><th>What it grants</th><th>Price rule</th><th>Who pays</th></tr></thead>
+      <tbody>
+        <tr><td>Reference</td><td>The right to name this certificate as a child of a larger proof</td><td>Recovers only the gas the lister spent to list, capped at a lister-declared target of at most 0.005 ETH, then free forever. Foundry PDK primitives are free from the start.</td><td>The abstraction one level up, for its direct children only. The recursion beneath is never charged.</td></tr>
+        <tr><td>Manufacturing</td><td>The right to include the design in a fabricated system on chip</td><td>A floor of $100 per mask set, covering every certified block in that mask, walked down as adoption grows</td><td>The manufacturer. The design is disclosed only to a designer-named foundry, which must prove receipt of the committed package before any unit is consumed. The licensee never downloads the file.</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>Beat or fork.</strong> Anyone may list a competing implementation of an existing interface, but must name the block it beats and settle whatever remains of that block's listing cost. The prior lister is made whole. The improvement must be a recorded measurement, never a declaration.</p>
+    <p class="body"><strong>Three contracts</strong> on Arbitrum Stylus carry the economy. The verifier re-runs a bounded proof on chain. The anchor records a content-addressed commitment of an off-chain proof. The composition contract certifies a system by reference to child certificates and settles both licenses. Their invariants are listed in Section 6.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>3. VLSI and digital design</h2>
+    <p class="body">Very large scale integration is the discipline of building a circuit of billions of transistors so that it does exactly what it is specified to do. The design is a hierarchy, and the proof economy prices each tier of that hierarchy separately.</p>
+    <table class="kv">
+      <thead><tr><th>Tier</th><th>What it is</th><th>How it is proved</th></tr></thead>
+      <tbody>
+        <tr><td>Device</td><td>A transistor, described by the foundry's process design kit (PDK) as a SPICE model</td><td>Characterized by measurement; the model is trusted</td></tr>
+        <tr><td>Cell</td><td>A handful of transistors wired into a gate: an inverter, a NAND, a flip-flop</td><td>Level 1, exhaustive: simulate every input in SPICE and compare against the truth table</td></tr>
+        <tr><td>Component</td><td>Tens to hundreds of cells forming an adder, a decoder, a register</td><td>Level 2 or 3: SAT equivalence of netlist to RTL, or techmap onto proven cells</td></tr>
+        <tr><td>Assembly</td><td>Components wired into a multiplier, a dot product, a processing element</td><td>Level 4, composition: every part is certified, and the glue is proved equal to the declared composition</td></tr>
+        <tr><td>System</td><td>Assemblies wired into an accelerator or a processor</td><td>Level 4 again; the ladder is closed under composition</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>Why verification cost explodes.</strong> An exhaustive check of a block with n input bits takes 2 to the power n cases. An 8-bit adder has 131,072 cases and is checked in seconds. A 32-bit multiplier has 2 to the power 64 cases and cannot be enumerated in the lifetime of the universe. Symbolic equivalence (level 2) avoids enumeration but still fails on large arithmetic, where SAT solvers time out. The only method that scales without bound is composition: prove the parts, prove the glue, and never look inside a part again. This is why the proof ladder ends in composition, and why a primitive cap of 64 cells per leaf is enforced. The cap forces anything larger to decompose, so every proof in the system is either small enough to check exhaustively or built from proofs that were.</p>
+    <p class="body"><strong>The flow from design to silicon.</strong> A designer writes register-transfer level (RTL) code. Synthesis maps the RTL onto the PDK's cells to produce a netlist. Place and route turns the netlist into geometry. Physical signoff (design rule check, layout versus schematic, static timing) confirms the geometry is manufacturable at the target clock. The geometry is sent to the foundry as a mask set, or shares a mask with other projects on a multi-project shuttle. The manufacturing license in Section 2 is priced per mask set because that is the unit at which a design becomes silicon.</p>
+    <p class="body"><strong>One ruler.</strong> Every measurement in this record uses ngspice as the single operator. A custom cell and the foundry cell are simulated in the same testbench, at the same load, slew, and corner, from the same open sky130 PDK devices. Delay is a 50 percent to 50 percent propagation measurement; energy is the integral of supply current over a switching cycle. Simulation with test vectors is evidence, recorded and never counted as proof.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>4. IEEE 754 and the microscaling formats</h2>
+    <p class="body">Floating-point arithmetic is the worked example for two reasons. It is the arithmetic every processor and every accelerator must implement, so a proven floating-point block has the widest possible market. And it has a public specification, IEEE 754, so a proof can eventually be checked against a standard rather than against the designer's own description.</p>
+    <p class="body"><strong>IEEE 754</strong> defines a floating-point number as a sign, an exponent, and a mantissa, and defines correct rounding: the result of an operation is the representable number nearest the exact mathematical result. A block that is proved equal to its RTL is proved to do what the designer wrote. A block that is proved to satisfy IEEE 754 is proved to do what every other conforming implementation does. The second is stronger, and it is the next rung above the ladder on the front page: refinement to specification.</p>
+    <p class="body"><strong>Microscaling (MX)</strong> is the Open Compute Project's family of low-precision formats for machine learning. MXFP4 packs elements as E2M1 (a sign bit, a two-bit exponent, a one-bit mantissa) and shares one scale factor across a block of 32 elements. An MXFP4 general matrix multiply (GEMM) accelerator decodes E2M1 elements, multiplies pairs, sums 32 products in an adder tree, and accumulates the result in IEEE 754 single precision (FP32). It is small enough to prove completely and large enough that flat verification of the whole is intractable, which makes it the right test of the ladder.</p>
+    <p class="body"><strong>Canonical interfaces.</strong> IEEE 754, the OCP MX specification, and the RISC-V F and D floating-point extensions fix the interface of a block independently of its implementer. The beat-or-fork rule binds whoever claims an interface hash, so a canonical interface is one that cannot be quietly renamed to escape the rule. This is where the proof economy will be contested first, and it is the ground Q2 has chosen.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>5. Data</h2>
+    <p class="body"><strong>The MXFP4 record.</strong> Q2's MXFP4 GEMM accelerator was certified purely by reference to proven parts. Every block's certificate carries the content hash of its real proof of record from the portal's analysis table.</p>
+    <table class="kv">
+      <thead><tr><th>Block</th><th>Tier</th><th>Proof level</th></tr></thead>
+      <tbody>
+        <tr><td>sky130 inv_1, nand2_1, dfxtp_1</td><td>PDK cell</td><td>1, exhaustive SPICE</td></tr>
+        <tr><td>E2M1 decoder, 32-bit register</td><td>component</td><td>3, techmap onto proven cells</td></tr>
+        <tr><td>FP32 normalize, 32-way adder tree, FP32 accumulator</td><td>component</td><td>2, equivalence</td></tr>
+        <tr><td>MXFP4 lane multiplier</td><td>component</td><td>4, composition</td></tr>
+        <tr><td>MXFP4 dot product</td><td>sub-assembly</td><td>4, composition</td></tr>
+        <tr><td>MXFP4 accumulating PE</td><td>assembly</td><td>4, composition, plus DRC, LVS, and timing signoff</td></tr>
+        <tr><td>16 by 16 GEMM tile</td><td>assembly</td><td>4, composition</td></tr>
+        <tr><td>MXFP4 GEMM accelerator</td><td>system</td><td>4, composition</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>What it cost to produce.</strong></p>
+    <table class="kv">
+      <thead><tr><th>Measure</th><th>Value</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td>Completed proof runs</td><td>23</td><td>portal analysis table</td></tr>
+        <tr><td>Proving compute</td><td>3.724 hours (OpenLane 3.714, Icarus 0.007, Yosys 0.003)</td><td>completed minus started, summed</td></tr>
+        <tr><td>Creation span, first request to last completion</td><td>101.72 hours</td><td>portal analysis table</td></tr>
+        <tr><td>Machine power</td><td>80 watts</td><td>specified</td></tr>
+        <tr><td>Electricity, Vermont residential, September 2026</td><td>24.44 cents per kWh</td><td>see Sources</td></tr>
+        <tr><td>Energy cost, proving-compute basis</td><td>72,811 micro-dollars, about 7.3 cents</td><td>theorem energy_compute_uUSD</td></tr>
+        <tr><td>Energy cost, creation-span basis</td><td>1,988,829 micro-dollars, about $1.99</td><td>theorem energy_span_uUSD</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>The market it enters.</strong></p>
+    <table class="kv">
+      <thead><tr><th>Measure</th><th>Value</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td>Multi-project shuttle slot, sky130</td><td>$14,950</td><td>chipIgnite</td></tr>
+        <tr><td>Full mask set, 130 nm</td><td>$1 to 2 million</td><td>AnySilicon</td></tr>
+        <tr><td>First-silicon success, 2024</td><td>14 percent</td><td>Wilson Research</td></tr>
+        <tr><td>First-silicon success, 2026</td><td>5 percent</td><td>Siemens Verification Horizons</td></tr>
+        <tr><td>Replication cost of the MXFP4 proof, small team</td><td>$4,000</td><td>parameter, see Section 6</td></tr>
+        <tr><td>Replication cost, incumbent</td><td>$30,000</td><td>parameter, see Section 6</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>Proof engines, by level</strong>, and what each trusts.</p>
+    <table class="ladder">
+      <thead><tr><th>Level</th><th>Engine</th><th>What is checked</th><th>What is trusted</th></tr></thead>
+      <tbody>
+        <tr><td>1. Exhaustive</td><td>ngspice DC and transient sweeps</td><td>A cell's output for every digital input, threshold at half VDD; capture, hold, and edge exclusivity for flops</td><td>The PDK transistor models</td></tr>
+        <tr><td>2. Equivalence</td><td>Yosys SAT miter, temporal induction</td><td>Netlist equals RTL over the whole input space, symbolically</td><td>The solver's verdict, parsed with counterexample detection</td></tr>
+        <tr><td>3. Techmap</td><td>Yosys techmap plus structural equivalence</td><td>The netlist maps only onto level-1 cells and equals its RTL; a leaf over 64 cells is refused</td><td>The proven-cell whitelist</td></tr>
+        <tr><td>4. Composition</td><td>Census plus composition equivalence</td><td>The assembly instantiates only proven children and proven glue, and equals the composition of its declared children</td><td>Each child's own certificate</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>6. Analysis</h2>
+    <p class="body">The analysis is a Lean 4 project, Q2Market.lean, with 58 theorems over a model that mirrors the contract's arithmetic exactly. Core kernel only: no mathlib, no native_decide, no sorry. The axiom audit shows every theorem depends on at most propext and Quot.sound, and every numeric theorem on no axioms at all. All money is integer wei or micro-dollars, so no rounding is hidden. The sections below walk from the instrument's guarantee to its consequence.</p>
+    <table class="ladder">
+      <thead><tr><th>Section</th><th>What is proved</th><th>Key result</th></tr></thead>
+      <tbody>
+        <tr><td>1. Cap invariant</td><td>royalty_due = min(price, target minus recovered), zero once recovered; by induction, recovered never exceeds target</td><td>Collection is capped at the declared listing gas</td></tr>
+        <tr><td>2. Rent bound</td><td>rent = collected minus cost</td><td>rent is at most CAP minus cost, always</td></tr>
+        <tr><td>3. Free-entry equilibrium</td><td>Any price above cost is undercut; the only stable price is cost</td><td>Equilibrium rent is zero</td></tr>
+        <tr><td>4. Production cost</td><td>80 W, 24.44 cents per kWh, measured hours</td><td>7.3 cents and $1.99; both far below the 0.005 ETH cap</td></tr>
+        <tr><td>5. Make versus buy</td><td>A competent buyer pays at most replication cost across all masks</td><td>$800 Charter price at $4,000 replication; $6,000 at $30,000</td></tr>
+        <tr><td>6. The floor</td><td>$100 per mask, SoC down</td><td>66 bps of a shuttle, 0 bps of a mask set; entrants need 40 (team) or 300 (incumbent) masks to break even</td></tr>
+        <tr><td>7. Capstone</td><td>Production versus floor</td><td>$98.01 on the first mask, $100 on every later one; replication is 2,011 times production</td></tr>
+        <tr><td>8. The descent</td><td>Physical cost per mask falls with volume; deterrence tightens as the floor falls</td><td>1.2 cents per mask at 1,200 masks, 1.0 cent at a million; the safe-descent ladder</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>Reading the analysis.</strong> Sections 1 through 3 establish that the reference license cannot extract rent: collection is capped at a declared, unraisable target, and under free entry the only stable price is cost. Section 4 measures that cost for a real system and finds it under two dollars. Section 5 turns to the manufacturing license and shows that a rational buyer never pays more than it would cost to replicate the proof. Section 6 places the $100 floor far below that replication cost and computes how many masks a competitor would need to sell to recover its own replication spend. Section 7 combines them: the first mask returns $98.01 over production cost, and every later mask returns $100, while a competitor is 2,011 times more expensive per unit than the incumbent proof. Section 8 shows the floor can descend by a factor of ten at each rung while the deterrence ratio tightens, because the physical cost per mask falls with volume.</p>
+    <p class="body"><strong>The descent ladder</strong>, each row a theorem.</p>
+    <table class="kv">
+      <thead><tr><th>Floor per mask</th><th>Masks per year for $120,000</th><th>Entrant break-even at $4,000 replication</th></tr></thead>
+      <tbody>
+        <tr><td>$100</td><td>1,201</td><td>40</td></tr>
+        <tr><td>$10</td><td>12,100</td><td>400</td></tr>
+        <tr><td>$1</td><td>122,000</td><td>4,000</td></tr>
+        <tr><td>10 cents</td><td>1,340,000</td><td>40,000</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>Invariants the contract enforces.</strong> The theorems describe the model; these are the properties of the deployed code that make the model faithful.</p>
+    <table class="kv">
+      <thead><tr><th>Invariant</th><th>Mechanism</th></tr></thead>
+      <tbody>
+        <tr><td>A listing target can never be raised</td><td>No setter exists for recovery_target</td></tr>
+        <tr><td>No listing may declare more than 0.005 ETH</td><td>MAX_RECOVERY_TARGET, checked on register and certify</td></tr>
+        <tr><td>The royalty sum cannot wrap</td><td>Checked addition; overflow reverts</td></tr>
+        <tr><td>A sold license cannot be repriced, redirected, or stranded</td><td>Unit price, foundry, and package commitment are snapshotted into the license at purchase</td></tr>
+        <tr><td>No unit is manufactured from an unreceived design</td><td>consume requires a recorded disclosure matching the designer's committed package</td></tr>
+        <tr><td>A competing implementation cannot be listed silently</td><td>Same interface requires naming a baseline and settling its remaining recovery</td></tr>
+        <tr><td>A beat is measured, never declared</td><td>claim_beat requires a reference to a recorded improvement</td></tr>
+        <tr><td>Value is conserved</td><td>Every wei is credited to an owner or refunded; payout is pull-based with the balance zeroed before transfer</td></tr>
+      </tbody>
+    </table>
+    <p class="body" style="margin-top:22px"><strong>What is assumed.</strong> Elasticity, that volume rises about tenfold as the floor falls tenfold; tested per rung, since the floor drops only when measured volume clears the next rung. Interfaces, that canonical standards make renaming costly. Certificates are claims; registration is unverified by design, and trust comes from the proof being checkable off chain, re-run by the verifier, or attested. Parameters: 24.44 cents per kWh, $3,000 per ETH, replication $4,000 and $30,000, settlement gas 1 cent per mask, a 20 percent Charter fraction, a $120,000 per year target. Change any and the numbers move; the theorems do not.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>7. Conclusion</h2>
+    <p class="body"><strong>Q2 Computing is first to market.</strong> As of this record, a real system has been certified purely by composition of proven parts, its certificates carry the hashes of real proofs of record, two licenses settle it on a public chain, and 58 machine-checked theorems bound what the instrument can charge and what it guarantees. No other party has published a certificate at any level of the ladder, a composition contract, or a proof of the economics. The ground chosen for the first contest, IEEE 754 arithmetic and the OCP MX formats on open PDKs, is the ground with the widest market and the most canonical interfaces.</p>
+    <p class="body"><strong>Competition is structurally foreclosed, and the analysis shows why.</strong> Consider each position a competitor could take.</p>
+    <ol class="steps">
+      <li><strong>Charge rent on references.</strong> Section 3 of the analysis proves that under free entry the only stable reference price is cost, and the cap invariant prevents any lister from collecting more than its declared listing gas. A competitor who charges more is undercut by a competitor who charges cost, and the first competitor to charge cost is Q2's own protocol.</li>
+      <li><strong>Re-prove the same blocks privately.</strong> Section 7 shows replication costs 2,011 times what the existing proof costs per mask. A buyer who can inherit a proof for $100 per mask, or for free by reference, will not spend $4,000 to $30,000 to repeat it. Private re-verification, today's default, becomes the expensive option.</li>
+      <li><strong>Undercut the manufacturing floor.</strong> Section 6 shows an entrant needs 40 to 300 masks to break even at $100, and Section 8 shows that every rung down the ladder multiplies that number by ten while the incumbent's physical cost per mask keeps falling. The floor is set by Q2 and descends on Q2's schedule, toward physical cost. There is no price below physical cost at which an entrant recovers replication.</li>
+      <li><strong>Beat the blocks.</strong> This is permitted and invited. Beat-or-fork requires the challenger to make the prior lister whole and to prove the improvement by measurement. The result is a better block inside the same economy, listed under the same cap, licensed under the same floor. Improvement strengthens the catalog; it does not create a rival to it.</li>
+      <li><strong>Build a rival economy.</strong> A rival must offer a cheaper reference (impossible below cost), a lower manufacturing floor (impossible below physical cost, which Q2 is already descending toward), or a stronger proof (which lists into this economy under beat-or-fork). Any block a rival proves is, by construction, a candidate certificate here.</li>
+    </ol>
+    <p class="body">The instrument does not win by out-competing rivals on price. It removes the positions from which price competition is possible. Reference pricing is pinned to cost by theorem. Manufacturing pricing is pinned to a floor that only its author can lower and that converges on the physical cost of producing and settling a proof. Improvement is captured rather than opposed. What remains is a single, growing, publicly proven catalog, first listed by Q2 Computing, whose every entry makes the next entry cheaper to prove.</p>
+    <p class="note">The bets in Section 6 remain bets. Elasticity is tested one rung at a time and the floor never drops ahead of measured volume. The conclusion holds under the stated parameters; the theorems hold under any.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Reproduce</h2>
+    <ol class="steps">
+      <li><code>cd contracts/q2-composition/demo && npm install && node run.mjs</code>: both economies over the real MXFP4 tree.</li>
+      <li><code>cd contracts/q2-composition/proofs && lake build && lake env lean Audit.lean</code>: 58 theorems and the axiom audit.</li>
+      <li><code>cd contracts/q2-composition && cargo build --release --target wasm32-unknown-unknown</code>, then <code>cargo stylus check</code> against Arbitrum Sepolia: the contract, on Linux.</li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Sources</h2>
+    <ol class="steps">
+      <li><a href="https://chipfoundry.io/faqs">chipIgnite shuttle pricing, $14,950 per project</a></li>
+      <li><a href="https://anysilicon.com/130nm-wafer-mpw-cost/">130 nm wafer and MPW cost, mask set $1 to 2 million</a></li>
+      <li><a href="https://semiengineering.com/first-time-silicon-success-plummets/">First-silicon success at 14 percent, 2024 Wilson Research study</a></li>
+      <li><a href="https://blogs.sw.siemens.com/verificationhorizons/2025/09/03/why-first-silicon-success-is-getting-harder-for-system-companies/">First-silicon success at 5 percent, 2026 study</a></li>
+      <li><a href="https://www.electricchoice.com/electricity-prices-by-state/vermont/">Vermont residential electricity, 24.44 cents per kWh, September 2026</a></li>
+      <li><a href="https://ieeexplore.ieee.org/document/8766229">IEEE 754-2019, Standard for Floating-Point Arithmetic</a></li>
+      <li><a href="https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf">OCP Microscaling Formats (MX) Specification v1.0</a></li>
+      <li><a href="https://link.springer.com/article/10.1007/s11192-014-1524-z">Power laws in citation distributions, Scopus</a></li>
+    </ol>
+    <p class="note">The MXFP4 proving compute, the creation span, and every certificate hash come from Q2's own portal analysis records.</p>
+  </div>
+</section>
+
+
+<footer>
+  <div class="wrap">
+    Q2 Computing / Project Foundry &#183;
+    <a href="./codesign.html">context co-design</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry">source</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/results/report.md">full report</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry/actions">CI oracle</a>
+  </div>
+</footer>
+</body>
+</html>

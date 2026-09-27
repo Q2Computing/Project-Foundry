@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>நிரூபணப் பொருளாதாரம், Project Foundry</title>
+<meta name="description" content="ஒரு மின்சுற்றின் நிரூபணம் ஒரு சான்றிதழ்; அது பெரிய நிரூபணங்களுக்கும் சிலிக்கானுக்கும் உரிமம் அளித்து Arbitrum Stylus இல் தீர்வு செய்யப்படுகிறது.">
+<link rel="icon" type="image/png" href="./assets/mark.png">
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --line:#30363d; --ink:#e6edf3;
+    --dim:#8b949e; --green:#3fb950; --red:#f85149; --blue:#58a6ff;
+    --amber:#e3b341; --violet:#a371f7; --elyellow:#f5f21f; --seablue:#23a3c2;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+    line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px}
+  header{border-bottom:1px solid var(--line);padding:60px 0 40px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--dim)}
+  h1{font-size:clamp(30px,5vw,46px);line-height:1.1;margin:14px 0 10px;
+    letter-spacing:-.02em;text-wrap:balance}
+  .lede{font-size:18px;color:var(--dim);max-width:62ch;margin:0}
+  .tagline{font-size:16px;color:var(--ink);font-weight:600;max-width:60ch;
+    margin:0 0 14px;letter-spacing:.01em}
+  .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .btn{display:inline-block;padding:9px 16px;border-radius:8px;
+    border:1px solid var(--line);font-size:14px;font-weight:600;color:var(--ink)}
+  .btn.primary{background:var(--green);color:#04260f;border-color:transparent}
+  .btn.stylus{border-color:var(--violet);color:#d2c1f5}
+  section{padding:44px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:13px;font-family:var(--mono);letter-spacing:.12em;
+    text-transform:uppercase;color:var(--dim);margin:0 0 20px;font-weight:600}
+  p.body{max-width:64ch;color:var(--dim);font-size:15px}
+  .stat{display:flex;gap:40px;flex-wrap:wrap}
+  .stat .big{font-size:clamp(34px,6vw,56px);font-weight:700;letter-spacing:-.02em;
+    line-height:1}
+  .stat .big.green{color:var(--green)}
+  .stat .sub{color:var(--dim);font-size:14px;margin-top:8px;max-width:24ch}
+  .loop{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:18px}
+  .card .k{font-family:var(--mono);font-size:12px;color:var(--green);
+    letter-spacing:.1em;text-transform:uppercase}
+  .card.gen .k{color:var(--elyellow)}
+  .card.anchor .k{color:var(--seablue)}
+  .card h3{margin:8px 0 6px;font-size:17px}
+  .card p{margin:0;color:var(--dim);font-size:14px}
+  table{width:100%;border-collapse:collapse;font-size:14px;
+    font-variant-numeric:tabular-nums}
+  th,td{text-align:right;padding:10px 12px;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left;font-family:var(--mono)}
+  thead th{color:var(--dim);font-weight:600;font-size:12px;
+    text-transform:uppercase;letter-spacing:.06em}
+  td{color:var(--ink)}
+  td.better{color:var(--green)} td.worse{color:var(--red)}
+  .delta{font-family:var(--mono);font-size:11px;margin-left:6px}
+  .delta.better{color:var(--green)} .delta.worse{color:var(--red)}
+  .caption{color:var(--dim);font-size:13px;margin-top:10px}
+  .tbl-wrap{overflow-x:auto}
+  .plot{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:12px}
+  .plot svg{width:100%;height:auto;display:block;border-radius:8px}
+  .seg-toggle{display:inline-flex;border:1px solid var(--line);border-radius:9px;
+    overflow:hidden;margin-top:4px}
+  .seg{background:var(--panel);color:var(--dim);border:0;padding:8px 20px;
+    font-size:13px;font-weight:600;font-family:var(--mono);cursor:pointer;
+    letter-spacing:.05em;text-transform:uppercase}
+  .seg+.seg{border-left:1px solid var(--line)}
+  .seg-perf.on{background:var(--violet);color:#160b2e}
+  .seg-energy.on{background:var(--amber);color:#2a1e05}
+  .legend{display:flex;gap:20px;flex-wrap:wrap;color:var(--dim);font-size:13px;
+    margin-top:12px}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:50%;
+    margin-right:7px;vertical-align:middle;border:1px solid rgba(255,255,255,.14)}
+  .points{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .note{background:#1c1408;border:1px solid #3d2c0a;border-radius:12px;
+    padding:16px 18px;color:#e3b341;font-size:14px}
+  .race{display:grid;gap:12px;max-width:640px}
+  .race .row{display:grid;grid-template-columns:180px 1fr auto;gap:12px;
+    align-items:center}
+  .race .lbl{font-family:var(--mono);font-size:13px}
+  .race .bar{height:20px;background:#0d1117;border:1px solid var(--line);
+    border-radius:6px;overflow:hidden}
+  .race .fill{height:100%;background:linear-gradient(90deg,#238636,#3fb950)}
+  .race .g{font-family:var(--mono);font-size:13px;color:var(--green);
+    text-align:right;min-width:56px}
+  .stylusbox{background:var(--panel);border:1px solid var(--violet);
+    border-radius:12px;padding:20px}
+  code{font-family:var(--mono);background:#0d1117;border:1px solid var(--line);
+    border-radius:6px;padding:1px 6px;font-size:.92em}
+  pre{background:#0d1117;border:1px solid var(--line);border-radius:10px;
+    padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:13px;
+    color:var(--ink)}
+  footer{padding:40px 0 70px;color:var(--dim);font-size:14px}
+  @media(max-width:680px){.loop,.points{grid-template-columns:1fr}
+    .race .row{grid-template-columns:120px 1fr auto}}
+</style>
+
+<style>
+  .logo{display:inline-block;background:#f6f8fb;border-radius:14px;padding:10px;margin:0 0 18px;line-height:0}
+  .logo img{width:180px;height:auto;display:block}
+  @media (max-width:700px){.logo img{width:130px}}
+  .langbar{font-family:var(--mono);font-size:12px;color:var(--dim);margin:0 0 18px}
+  .langbar a{color:var(--blue)} .langbar b{color:var(--ink)}
+  .ladder th,.ladder td{text-align:left;font-family:var(--sans);vertical-align:top;font-size:13.5px}
+  .ladder td:first-child{font-family:var(--mono);white-space:nowrap}
+  .ladder .real{color:var(--green)} .ladder .road{color:var(--amber)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:700px){.two{grid-template-columns:1fr}}
+  .note{color:var(--dim);font-size:13.5px;max-width:64ch}
+  .kv th,.kv td{text-align:left;font-family:var(--sans);font-size:14px}
+  .kv td:first-child{font-family:var(--mono)}
+  ol.steps{color:var(--dim);font-size:15px;max-width:64ch;padding-left:20px}
+  ol.steps li{margin:6px 0}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="logo" href="./index.html"><img src="./assets/project-foundry-logo.jpg" alt="Project Foundry. Generate. Assess. Anchor." width="180" height="185"></a>
+    <div class="eyebrow">Q2 Computing / Project Foundry / Arbitrum Stylus</div>
+    <p class="langbar">இதை இதில் படிக்கவும்: <a href="./index.html">English</a> · <a href="./index.ms.html">Bahasa Melayu</a> · <a href="./index.zh.html">简体中文</a> · <b>தமிழ்</b></p>
+    <h1>நிரூபணப் பொருளாதாரம்</h1>
+    <p class="tagline">ஒரு மின்சுற்றின் நிரூபணம் ஒரு சான்றிதழ் ஆகும். சான்றிதழ்கள் பெரிய நிரூபணங்களுக்கும், தயாரிக்கப்பட்ட சிலிக்கானுக்கும் உரிமம் அளிக்கின்றன; எந்தப் போட்டியாளரும் ஈடுசெய்ய முடியாத அடித்தள விலையில், Arbitrum Stylus இல் தீர்வு செய்யப்படுகின்றன.</p>
+    <p class="lede">சரிபார்ப்பு பகிரப்படுகிறது, மீண்டும் செய்யப்படுவதில்லை. ஒரு தொகுதி ஒருமுறை, பொதுவெளியில் நிரூபிக்கப்படுகிறது; அதன் மீது கட்டப்படும் ஒவ்வொரு அமைப்பும் அந்த நிரூபணத்தைப் பெறுகிறது. இந்தத் தளம் அந்தப் பொருளாதாரத்தின் பொதுவெளி நிகழ்வு: ஒவ்வொரு சான்றிதழையும் தரம் பிரிக்கும் நிரூபண நிலைகள், இரு உரிமங்கள், மூன்று ஒப்பந்தங்கள், மற்றும் ஃபவுண்டரி செல்களை வென்று நிரூபிக்கும் சுழற்சி.</p>
+    <div class="cta">
+      <a class="btn primary" href="./research.html">ஆய்வு (ஆங்கிலம்)</a>
+      <a class="btn" href="./index.html">ஆங்கில முகப்பு</a>
+      <a class="btn" href="https://github.com/Q2Computing/Project-Foundry">GitHub</a>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>நிரூபணத்தின் நிலைகள்</h2>
+    <p class="body">ஒவ்வொரு சான்றிதழும் அதன் தொகுதி எந்த நிலையில் நிரூபிக்கப்பட்டது என்பதைக் குறிப்பிடுகிறது. இந்த ஏணி, வரையறுக்கப்பட்ட நிரூபணங்களில் மிக வலுவானதிலிருந்து தொடங்கி, வரம்பின்றி விரிவடையும் நிரூபணம் வரை செல்கிறது. கூட்டமைப்பு உச்சி மற்றும் அது மூடியது: கூட்டமைக்கப்பட்ட தொகுதி அடுத்த கூட்டமைப்பிற்கு ஒரு பகுதி.</p>
+    <table class="ladder"><tbody><tr><td>1. முழுமையான</td><td>ஒவ்வொரு உள்ளீட்டிற்கும் தொகுதி சரியான வெளியீட்டைக் கணக்கிடுகிறது</td><td>முழு உள்ளீட்டு வெளியையும் பட்டியலிடுதல்: PDK டிரான்சிஸ்டர்களிலிருந்து SPICE இல் ஒரு செல்லின் உண்மை அட்டவணை; 8-பிட் கூட்டி அனைத்து 131,072 உள்ளீடுகளிலும்</td><td>சிறிய தொகுதிகள் மட்டும்; உள்ளீட்டு அகலத்தின் 2 அடுக்காகச் செலவு உயரும்</td><td class="real">உண்மையானது</td></tr><tr><td>2. சமானம்</td><td>இரு பிரதிநிதித்துவங்களும் ஒரே சார்பைக் கணக்கிடுகின்றன</td><td>நெட்லிஸ்ட்டுக்கும் RTL க்கும் இடையே SAT மைட்டர், வரிசை தர்க்கத்திற்குக் காலத் தூண்டல்; குறியீட்டு முறை, பட்டியலிடல் இல்லை</td><td>தீர்வியால் முடிக்கக்கூடிய எந்தத் தொகுதியும்</td><td class="real">உண்மையானது</td></tr><tr><td>3. Techmap</td><td>நெட்லிஸ்ட் நிலை 1 செல்களை மட்டுமே பயன்படுத்துகிறது, மேலும் அதன் RTL உடன் கட்டமைப்பில் சமமானது</td><td>நிரூபிக்கப்பட்ட நூலகத்திற்கு மேப் செய்து, பின்னர் கட்டமைப்புச் சமான சோதனை; 64 செல்களுக்கு மேல் உள்ள இலை நிராகரிக்கப்படும்</td><td>எந்தத் தொகுதியும், அடிப்படை வரம்பிற்கு உட்பட்டு</td><td class="real">உண்மையானது</td></tr><tr><td>4. கூட்டமைப்பு</td><td>பெரிய தொகுதி சரியானது, ஏனெனில் அது நிரூபிக்கப்பட்ட பகுதிகள் மற்றும் நிரூபிக்கப்பட்ட இணைப்புகளால் மட்டுமே கட்டப்பட்டு, அறிவிக்கப்பட்ட துணைத் தொகுதிகளுடன் பிணைக்கப்பட்டுள்ளது</td><td>பகுதிகளின் கணக்கெடுப்பு மற்றும் அசெம்பிளிக்கும் கூட்டமைப்பிற்கும் இடையிலான சமானம்; வரம்பு பெரியவற்றைப் பிரிக்கக் கட்டாயப்படுத்துகிறது</td><td>வரம்பற்றது: ஒரு கூட்டமைப்பு அடுத்த நிலைக்கு ஒரு பகுதி</td><td class="real">உண்மையானது</td></tr></tbody></table>
+    <p class="body" style="margin-top:22px">மூன்று நிரூபணங்கள் ஏணிக்கு மேலே அல்லது அருகில் உள்ளன.</p>
+    <table class="ladder"><tbody><tr><td>விவரக்குறிப்பிற்குச் செம்மைப்படுத்தல்</td><td>கூட்டமைக்கப்பட்ட அமைப்பு தான் கூறும் தரநிலையைப் பூர்த்தி செய்கிறது (IEEE 754 சரியான வட்டமிடல், RISC-V ISA), தனது சொந்த RTL மட்டுமல்ல. இது உயர்நிலை இடைமுகத்திற்குப் பொருள் அளிக்கிறது.</td><td class="road">திட்ட வரைபடம்</td></tr><tr><td>கூட்டமைப்பின் நம்பகத்தன்மை</td><td>நிரூபிக்கப்பட்ட பகுதிகள் மற்றும் நிரூபிக்கப்பட்ட இணைப்புகள் நிரூபிக்கப்பட்ட முழுமையைத் தருகின்றன என்ற இயந்திரச் சரிபார்க்கப்பட்ட தேற்றம், எல்லா நிகழ்வுகளுக்கும் ஒரே நேரத்தில் நிலை 4 ஐ நியாயப்படுத்துகிறது.</td><td class="road">திட்ட வரைபடம்</td></tr><tr><td>நிரூபணம் தாங்கும் நம்பிக்கை மற்றும் அத்தாட்சி</td><td>சரிபார்க்கப்பட்ட சோதனையாளர் மீண்டும் இயக்கும் நிரூபணச் சான்றுகள், எனவே எந்தத் தீர்வியும் அதன் வார்த்தையின் மீது நம்பப்படுவதில்லை; மேலும் நிரூபிக்கப்பட்ட வடிவமைப்பிலிருந்து தயாரிக்கப்பட்ட சிலிக்கான் வரையிலான பாதுகாப்புச் சங்கிலி.</td><td class="road">பகுதியளவு</td></tr></tbody></table>
+    <p class="note" style="margin-top:14px">சோதனை திசையன்களுடன் கூடிய உருவகப்படுத்துதல் ஆதாரம், நிரூபணம் அல்ல. அது பதிவு செய்யப்படுகிறது; அது தானாகவே ஒரு சான்றிதழை ஒருபோதும் முன்னேற்றுவதில்லை.</p>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <h2>பொருளாதாரம்</h2>
+    <div class="two">
+      <div class="card"><div class="k">குறிப்பு: பொதுவுடைமை</div><h3>செலவு மீட்பு, ஒருபோதும் வாடகை அல்ல</h3><p>ஃபவுண்டரி PDK அடிப்படைக் கூறுகள் என்றென்றும் இலவசமாகக் குறிப்பிடப்படலாம். மற்ற ஒவ்வொரு சான்றிதழும் அதன் பட்டியலிடல் gas ஐ மட்டுமே மீட்கிறது; அதை நேரடியாகப் பயன்படுத்தும் அருவங்களால் செலுத்தப்பட்டு, அந்த gas இல் வரம்பிடப்பட்டு, பின்னர் இலவசமாகிறது. ஒரு தொகுதியை வெல்பவர் அதன் பட்டியலிடல் செலவைச் செலுத்துகிறார்.</p></div>
+      <div class="card anchor"><div class="k">தயாரிப்பு: வடிவமைப்பாளரின் தயாரிப்பு</div><h3>ஒரு மாஸ்க் தொகுப்பிற்கு $100, SoC முதல் கீழே</h3><p>ஒரு வடிவமைப்பைத் தயாரிக்கப்பட்ட SoC இல் வைக்கும் உரிமை. வடிவமைப்பு வடிவமைப்பாளர் பெயரிட்ட ஃபவுண்டரிக்கு மட்டுமே செல்கிறது; அது உறுதியளிக்கப்பட்ட தொகுப்பைப் பெற்றதை நிரூபித்த பின்னரே ஒரு அலகையேனும் பயன்படுத்த முடியும். உரிமம் பெறுபவர் கோப்பை ஒருபோதும் பதிவிறக்குவதில்லை. ஏற்பு வளர வளர அடித்தள விலை குறைக்கப்பட்டு, ஒரு நிரூபணத்தை உற்பத்தி செய்து தீர்வு செய்யும் உண்மையான இயற்பியல் செலவை நோக்கிச் செல்கிறது.</p></div>
+    </div>
+    <p class="note" style="margin-top:14px">இரு உரிமங்களிலும் நெறிமுறை எதையும் எடுத்துக்கொள்வதில்லை. ஐம்பத்தெட்டு இயந்திரச் சரிபார்க்கப்பட்ட தேற்றங்கள் இந்தப் பொருளாதாரத்தை ஆதரிக்கின்றன; ஆய்வுப் பக்கத்தைப் பார்க்கவும் (ஆங்கிலத்தில்).</p>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <h2>ஒப்பந்தங்கள்</h2>
+    <table class="kv"><thead><tr><th>ஒப்பந்தம்</th><th>முறை</th><th>சங்கிலி செய்வது</th></tr></thead><tbody><tr><td>q2-verifier</td><td>மீள் சரிபார்ப்பு</td><td>வரையறுக்கப்பட்ட நிரூபணத்தைச் சங்கிலியில் மீண்டும் இயக்குகிறது. நம்பிக்கை தேவையில்லை.</td></tr><tr><td>q2-anchor</td><td>நங்கூரம்</td><td>சங்கிலிக்கு வெளியே உள்ள நிரூபணத்தின் உள்ளடக்க முகவரியிடப்பட்ட உறுதிமொழியை மேம்பாட்டுக் குறியுடன் பதிவு செய்கிறது.</td></tr><tr><td>q2-composition</td><td>கூட்டமைப்பு மற்றும் உரிமம்</td><td>துணைச் சான்றிதழ்களைக் குறிப்பிடுவதன் மூலம் பெரிய அமைப்பைச் சான்றளித்து, இரு உரிமங்களையும் தீர்வு செய்கிறது.</td></tr></tbody></table>
+    <p class="note" style="margin-top:14px">இயக்கி முடிவு, சுழற்சி மற்றும் Stylus தீர்வு ஆகியவை ஆங்கில முகப்புப் பக்கத்தில் விவரிக்கப்பட்டுள்ளன.</p>
+  </div>
+</section>
+
+
+<footer>
+  <div class="wrap">
+    Q2 Computing / Project Foundry &#183;
+    <a href="./codesign.html">context co-design</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry">source</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/results/report.md">full report</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry/actions">CI oracle</a>
+  </div>
+</footer>
+</body>
+</html>
