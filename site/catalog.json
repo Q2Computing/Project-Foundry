@@ -1,12 +1,12 @@
 {
- "generated_at": "2026-09-28T18:05:39+00:00",
+ "generated_at": "2026-09-28T18:51:45+00:00",
  "levels": {
   "1": "exhaustive",
   "2": "equivalence",
   "3": "techmap onto proven cells",
   "4": "composition"
  },
- "count": 63,
+ "count": 83,
  "blocks": [
   {
    "title": "16x16 MXFP4 output-stationary GEMM tile",
@@ -1583,6 +1583,167 @@
    "human_signoff": null
   },
   {
+   "title": "A21O \u00c2\u00b7 sky130_fd_sc_hd__a21o_1",
+   "tier": "standard-cell",
+   "project": "Understory",
+   "level": 1,
+   "proof_of_record": {
+    "level": 1,
+    "kind": "cell-proof",
+    "sha256": "ca863c0ba8dfcdc3964fbac7c154301592ccdd90f0c640f96928396424f8b87b",
+    "tool": "NGSPICE",
+    "completed": "2026-09-28"
+   },
+   "proofs": [
+    {
+     "level": 1,
+     "kind": "cell-proof",
+     "sha256": "ca863c0ba8dfcdc3964fbac7c154301592ccdd90f0c640f96928396424f8b87b",
+     "tool": "NGSPICE",
+     "completed": "2026-09-28"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "A21OI \u00c2\u00b7 sky130_fd_sc_hd__a21oi_1",
+   "tier": "standard-cell",
+   "project": "Understory",
+   "level": 1,
+   "proof_of_record": {
+    "level": 1,
+    "kind": "cell-proof",
+    "sha256": "121e43d2e586ca707b9f9376795e76d78f570faf5c4377eef962236cfb78572e",
+    "tool": "NGSPICE",
+    "completed": "2026-09-28"
+   },
+   "proofs": [
+    {
+     "level": 1,
+     "kind": "cell-proof",
+     "sha256": "121e43d2e586ca707b9f9376795e76d78f570faf5c4377eef962236cfb78572e",
+     "tool": "NGSPICE",
+     "completed": "2026-09-28"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "A22O \u00c2\u00b7 sky130_fd_sc_hd__a22o_1",
+   "tier": "standard-cell",
+   "project": "Understory",
+   "level": 1,
+   "proof_of_record": {
+    "level": 1,
+    "kind": "cell-proof",
+    "sha256": "0381678060d8cdc294c41bee41921cd3810dc1f040deca7249da197ebed416eb",
+    "tool": "NGSPICE",
+    "completed": "2026-09-28"
+   },
+   "proofs": [
+    {
+     "level": 1,
+     "kind": "cell-proof",
+     "sha256": "0381678060d8cdc294c41bee41921cd3810dc1f040deca7249da197ebed416eb",
+     "tool": "NGSPICE",
+     "completed": "2026-09-28"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "A22OI \u00c2\u00b7 sky130_fd_sc_hd__a22oi_1",
+   "tier": "standard-cell",
+   "project": "Understory",
+   "level": 1,
+   "proof_of_record": {
+    "level": 1,
+    "kind": "cell-proof",
+    "sha256": "7a2a3b452a69724ea7e3fc142884b7decb4badc8ed53274e291bee6e98a5bcd0",
+    "tool": "NGSPICE",
+    "completed": "2026-09-28"
+   },
+   "proofs": [
+    {
+     "level": 1,
+     "kind": "cell-proof",
+     "sha256": "7a2a3b452a69724ea7e3fc142884b7decb4badc8ed53274e291bee6e98a5bcd0",
+     "tool": "NGSPICE",
+     "completed": "2026-09-28"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "AND2 \u00c2\u00b7 sky130_fd_sc_hd__and2_1",
+   "tier": "standard-cell",
+   "project": "Understory",
+   "level": 1,
+   "proof_of_record": {
+    "level": 1,
+    "kind": "cell-proof",
+    "sha256": "37f3c6c03d688942179dbd9e7991e71dbc49752a7f36b6f57d22cf8ddc9d0262",
+    "tool": "NGSPICE",
+    "completed": "2026-09-28"
+   },
+   "proofs": [
+    {
+     "level": 1,
+     "kind": "cell-proof",
+     "sha256": "37f3c6c03d688942179dbd9e7991e71dbc49752a7f36b6f57d22cf8ddc9d0262",
+     "tool": "NGSPICE",
+     "completed": "2026-09-28"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "AND3 \u00c2\u00b7 sky130_fd_sc_hd__and3_1",
+   "tier": "standard-cell",
+   "project": "Understory",
+   "level": 1,
+   "proof_of_record": {
+    "level": 1,
+    "kind": "cell-proof",
+    "sha256": "c0980e6ba036a520c978f0ad71b56c05d500830a60099e68490a1365b55ce4d6",
+    "tool": "NGSPICE",
+    "completed": "2026-09-28"
+   },
+   "proofs": [
+    {
+     "level": 1,
+     "kind": "cell-proof",
+     "sha256": "c0980e6ba036a520c978f0ad71b56c05d500830a60099e68490a1365b55ce4d6",
+     "tool": "NGSPICE",
+     "completed": "2026-09-28"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "BUF \u00c2\u00b7 sky130_fd_sc_hd__buf_1",
+   "tier": "standard-cell",
+   "project": "Understory",
+   "level": 1,
+   "proof_of_record": {
+    "level": 1,
+    "kind": "cell-proof",
+    "sha256": "9831a3b2d935b14751c2798dabdd9a21edbf42e578a4cb382176825d96e43fcc",
+    "tool": "NGSPICE",
+    "completed": "2026-09-28"
+   },
+   "proofs": [
+    {
+     "level": 1,
+     "kind": "cell-proof",
+     "sha256": "9831a3b2d935b14751c2798dabdd9a21edbf42e578a4cb382176825d96e43fcc",
+     "tool": "NGSPICE",
+     "completed": "2026-09-28"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
    "title": "D flip-flop \u00c2\u00b7 sky130_fd_sc_hd__dfxtp_1",
    "tier": "standard-cell",
    "project": "Understory",
@@ -1673,6 +1834,52 @@
    "human_signoff": "2026-09-17"
   },
   {
+   "title": "MAJ3 \u00c2\u00b7 sky130_fd_sc_hd__maj3_1",
+   "tier": "standard-cell",
+   "project": "Understory",
+   "level": 1,
+   "proof_of_record": {
+    "level": 1,
+    "kind": "cell-proof",
+    "sha256": "bf700ae9b27dab8a9c7c2870d3c0fbf67672b713a651d7cb06f6452f059e3cc6",
+    "tool": "NGSPICE",
+    "completed": "2026-09-28"
+   },
+   "proofs": [
+    {
+     "level": 1,
+     "kind": "cell-proof",
+     "sha256": "bf700ae9b27dab8a9c7c2870d3c0fbf67672b713a651d7cb06f6452f059e3cc6",
+     "tool": "NGSPICE",
+     "completed": "2026-09-28"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "MUX2 \u00c2\u00b7 sky130_fd_sc_hd__mux2_1",
+   "tier": "standard-cell",
+   "project": "Understory",
+   "level": 1,
+   "proof_of_record": {
+    "level": 1,
+    "kind": "cell-proof",
+    "sha256": "69c3983c05a1a8256accf199d67c6461ddbad197f8b4549843e9afdabb32f4db",
+    "tool": "NGSPICE",
+    "completed": "2026-09-28"
+   },
+   "proofs": [
+    {
+     "level": 1,
+     "kind": "cell-proof",
+     "sha256": "69c3983c05a1a8256accf199d67c6461ddbad197f8b4549843e9afdabb32f4db",
+     "tool": "NGSPICE",
+     "completed": "2026-09-28"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
    "title": "NAND2 \u00c2\u00b7 sky130_fd_sc_hd__nand2_1",
    "tier": "standard-cell",
    "project": "Understory",
@@ -1694,6 +1901,259 @@
     }
    ],
    "human_signoff": "2026-09-17"
+  },
+  {
+   "title": "NAND3 \u00c2\u00b7 sky130_fd_sc_hd__nand3_1",
+   "tier": "standard-cell",
+   "project": "Understory",
+   "level": 1,
+   "proof_of_record": {
+    "level": 1,
+    "kind": "cell-proof",
+    "sha256": "4d5251944e74564cac1066598af78fc0b706d889ff516ce84d9a22c182b99615",
+    "tool": "NGSPICE",
+    "completed": "2026-09-28"
+   },
+   "proofs": [
+    {
+     "level": 1,
+     "kind": "cell-proof",
+     "sha256": "4d5251944e74564cac1066598af78fc0b706d889ff516ce84d9a22c182b99615",
+     "tool": "NGSPICE",
+     "completed": "2026-09-28"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "NOR3 \u00c2\u00b7 sky130_fd_sc_hd__nor3_1",
+   "tier": "standard-cell",
+   "project": "Understory",
+   "level": 1,
+   "proof_of_record": {
+    "level": 1,
+    "kind": "cell-proof",
+    "sha256": "6b3ef74c295ef1874ebc6f87edf9b9d83406b788cbc27119b63b540e779fa0b2",
+    "tool": "NGSPICE",
+    "completed": "2026-09-28"
+   },
+   "proofs": [
+    {
+     "level": 1,
+     "kind": "cell-proof",
+     "sha256": "6b3ef74c295ef1874ebc6f87edf9b9d83406b788cbc27119b63b540e779fa0b2",
+     "tool": "NGSPICE",
+     "completed": "2026-09-28"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "O21A \u00c2\u00b7 sky130_fd_sc_hd__o21a_1",
+   "tier": "standard-cell",
+   "project": "Understory",
+   "level": 1,
+   "proof_of_record": {
+    "level": 1,
+    "kind": "cell-proof",
+    "sha256": "73a12f962be223a552afed4804b8695491f4f427f10e13cdcb0bd55453fe8113",
+    "tool": "NGSPICE",
+    "completed": "2026-09-28"
+   },
+   "proofs": [
+    {
+     "level": 1,
+     "kind": "cell-proof",
+     "sha256": "73a12f962be223a552afed4804b8695491f4f427f10e13cdcb0bd55453fe8113",
+     "tool": "NGSPICE",
+     "completed": "2026-09-28"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "O21AI \u00c2\u00b7 sky130_fd_sc_hd__o21ai_1",
+   "tier": "standard-cell",
+   "project": "Understory",
+   "level": 1,
+   "proof_of_record": {
+    "level": 1,
+    "kind": "cell-proof",
+    "sha256": "fce7026ccc65d47274d4b2ce71d3812473e14072c9a1bfb5385d4434897c7a35",
+    "tool": "NGSPICE",
+    "completed": "2026-09-28"
+   },
+   "proofs": [
+    {
+     "level": 1,
+     "kind": "cell-proof",
+     "sha256": "fce7026ccc65d47274d4b2ce71d3812473e14072c9a1bfb5385d4434897c7a35",
+     "tool": "NGSPICE",
+     "completed": "2026-09-28"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "O22A \u00c2\u00b7 sky130_fd_sc_hd__o22a_1",
+   "tier": "standard-cell",
+   "project": "Understory",
+   "level": 1,
+   "proof_of_record": {
+    "level": 1,
+    "kind": "cell-proof",
+    "sha256": "06a1811b4ebeb6d06ef4111a2bbfa44b08ee6261678bc5d76af6034612dc64c3",
+    "tool": "NGSPICE",
+    "completed": "2026-09-28"
+   },
+   "proofs": [
+    {
+     "level": 1,
+     "kind": "cell-proof",
+     "sha256": "06a1811b4ebeb6d06ef4111a2bbfa44b08ee6261678bc5d76af6034612dc64c3",
+     "tool": "NGSPICE",
+     "completed": "2026-09-28"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "O22AI \u00c2\u00b7 sky130_fd_sc_hd__o22ai_1",
+   "tier": "standard-cell",
+   "project": "Understory",
+   "level": 1,
+   "proof_of_record": {
+    "level": 1,
+    "kind": "cell-proof",
+    "sha256": "ee6e0f8c1658ca2eca05af4850feb97be41cb4a3b09514c40bcc8ce414f366af",
+    "tool": "NGSPICE",
+    "completed": "2026-09-28"
+   },
+   "proofs": [
+    {
+     "level": 1,
+     "kind": "cell-proof",
+     "sha256": "ee6e0f8c1658ca2eca05af4850feb97be41cb4a3b09514c40bcc8ce414f366af",
+     "tool": "NGSPICE",
+     "completed": "2026-09-28"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "OR2 \u00c2\u00b7 sky130_fd_sc_hd__or2_1",
+   "tier": "standard-cell",
+   "project": "Understory",
+   "level": 1,
+   "proof_of_record": {
+    "level": 1,
+    "kind": "cell-proof",
+    "sha256": "991790b1a59fa131e9c1008eb18022676c06f2d269991a9dfe4afae89c16d04e",
+    "tool": "NGSPICE",
+    "completed": "2026-09-28"
+   },
+   "proofs": [
+    {
+     "level": 1,
+     "kind": "cell-proof",
+     "sha256": "991790b1a59fa131e9c1008eb18022676c06f2d269991a9dfe4afae89c16d04e",
+     "tool": "NGSPICE",
+     "completed": "2026-09-28"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "OR3 \u00c2\u00b7 sky130_fd_sc_hd__or3_1",
+   "tier": "standard-cell",
+   "project": "Understory",
+   "level": 1,
+   "proof_of_record": {
+    "level": 1,
+    "kind": "cell-proof",
+    "sha256": "faf4f55373508ba53b24b16fd889a775af7001ed4f3ecb339df01ad63b69572a",
+    "tool": "NGSPICE",
+    "completed": "2026-09-28"
+   },
+   "proofs": [
+    {
+     "level": 1,
+     "kind": "cell-proof",
+     "sha256": "faf4f55373508ba53b24b16fd889a775af7001ed4f3ecb339df01ad63b69572a",
+     "tool": "NGSPICE",
+     "completed": "2026-09-28"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "XNOR2 \u00c2\u00b7 sky130_fd_sc_hd__xnor2_1",
+   "tier": "standard-cell",
+   "project": "Understory",
+   "level": 1,
+   "proof_of_record": {
+    "level": 1,
+    "kind": "cell-proof",
+    "sha256": "745958a158841a534f720937505a013408b8d04c777e1a5608ecb7553a6726de",
+    "tool": "NGSPICE",
+    "completed": "2026-09-28"
+   },
+   "proofs": [
+    {
+     "level": 1,
+     "kind": "cell-proof",
+     "sha256": "745958a158841a534f720937505a013408b8d04c777e1a5608ecb7553a6726de",
+     "tool": "NGSPICE",
+     "completed": "2026-09-28"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "XOR2 \u00c2\u00b7 sky130_fd_sc_hd__xor2_1",
+   "tier": "standard-cell",
+   "project": "Understory",
+   "level": 1,
+   "proof_of_record": {
+    "level": 1,
+    "kind": "cell-proof",
+    "sha256": "d676db581d41bc98887f1a7c412c451dfd66e63f101b7850463f7c0046c94519",
+    "tool": "NGSPICE",
+    "completed": "2026-09-28"
+   },
+   "proofs": [
+    {
+     "level": 1,
+     "kind": "cell-proof",
+     "sha256": "d676db581d41bc98887f1a7c412c451dfd66e63f101b7850463f7c0046c94519",
+     "tool": "NGSPICE",
+     "completed": "2026-09-28"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "XOR3 \u00c2\u00b7 sky130_fd_sc_hd__xor3_1",
+   "tier": "standard-cell",
+   "project": "Understory",
+   "level": 1,
+   "proof_of_record": {
+    "level": 1,
+    "kind": "cell-proof",
+    "sha256": "bd925a2b381870f6801b81dda3095a6bd37408cc160d8ba69b5e249000cd3407",
+    "tool": "NGSPICE",
+    "completed": "2026-09-28"
+   },
+   "proofs": [
+    {
+     "level": 1,
+     "kind": "cell-proof",
+     "sha256": "bd925a2b381870f6801b81dda3095a6bd37408cc160d8ba69b5e249000cd3407",
+     "tool": "NGSPICE",
+     "completed": "2026-09-28"
+    }
+   ],
+   "human_signoff": null
   }
  ]
 }

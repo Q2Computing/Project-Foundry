@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Catalog, The Proof Economy</title>
-<meta name="description" content="Every block with a passing proof of record in the portal, 63 at export: title, tier, proof level, artifact hash, tool, date, human sign-off.">
+<meta name="description" content="Every block with a passing proof of record in the portal, 83 at export: title, tier, proof level, artifact hash, tool, date, human sign-off.">
 <link rel="icon" type="image/png" href="./assets/mark.png">
 <style>
   :root{
@@ -200,11 +200,11 @@
   <div class="wrap">
     <h2>Count</h2>
     <div class="stat">
-      <div><div class="big green">63</div><div class="sub">blocks with a passing proof of record</div></div>
+      <div><div class="big green">83</div><div class="sub">blocks with a passing proof of record</div></div>
       <div><div class="big">47</div><div class="sub">proved by composition, the level that scales without bound</div></div>
       <div><div class="big">5</div><div class="sub">also carry a human sign-off in the portal</div></div>
     </div>
-    <p class="note" style="margin-top:18px">By level: 4 at level 1, 8 at level 2, 4 at level 3, 47 at level 4. By tier: 5 standard-cell, 33 component, 13 sub-assembly, 10 assembly, 1 soc, 1 system.</p>
+    <p class="note" style="margin-top:18px">By level: 24 at level 1, 8 at level 2, 4 at level 3, 47 at level 4. By tier: 25 standard-cell, 33 component, 13 sub-assembly, 10 assembly, 1 soc, 1 system.</p>
   </div>
 </section>
 <section>
@@ -273,10 +273,30 @@
 <tr><td>rr_arbiter8 (round-robin ready-select arbiter)</td><td>component</td><td class="">2 equivalence</td><td><code title="96d4b5e74f6a4b9e2e523d040675f645098bc317ef25fa6081a707c1841d8733">96d4b5e74f6a4b9e</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
 <tr><td>Test-pattern generator (color bars)</td><td>component</td><td class="">2 equivalence</td><td><code title="da6cff321d0a53b738347b19501e4d62eb2001853b7b93ffd9fcb6e1eaa4dd2d">da6cff321d0a53b7</code></td><td>YOSYS</td><td>2026-09-18</td><td></td></tr>
 <tr><td>Load/store unit</td><td>sub-assembly</td><td class="">2 equivalence</td><td><code title="b04bae794bd91720550034e356c4ff8c9a3dab5917e01a0b8fcade9441d0f623">b04bae794bd91720</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>A21O Â· sky130_fd_sc_hd__a21o_1</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="ca863c0ba8dfcdc3964fbac7c154301592ccdd90f0c640f96928396424f8b87b">ca863c0ba8dfcdc3</code></td><td>NGSPICE</td><td>2026-09-28</td><td></td></tr>
+<tr><td>A21OI Â· sky130_fd_sc_hd__a21oi_1</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="121e43d2e586ca707b9f9376795e76d78f570faf5c4377eef962236cfb78572e">121e43d2e586ca70</code></td><td>NGSPICE</td><td>2026-09-28</td><td></td></tr>
+<tr><td>A22O Â· sky130_fd_sc_hd__a22o_1</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="0381678060d8cdc294c41bee41921cd3810dc1f040deca7249da197ebed416eb">0381678060d8cdc2</code></td><td>NGSPICE</td><td>2026-09-28</td><td></td></tr>
+<tr><td>A22OI Â· sky130_fd_sc_hd__a22oi_1</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="7a2a3b452a69724ea7e3fc142884b7decb4badc8ed53274e291bee6e98a5bcd0">7a2a3b452a69724e</code></td><td>NGSPICE</td><td>2026-09-28</td><td></td></tr>
+<tr><td>AND2 Â· sky130_fd_sc_hd__and2_1</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="37f3c6c03d688942179dbd9e7991e71dbc49752a7f36b6f57d22cf8ddc9d0262">37f3c6c03d688942</code></td><td>NGSPICE</td><td>2026-09-28</td><td></td></tr>
+<tr><td>AND3 Â· sky130_fd_sc_hd__and3_1</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="c0980e6ba036a520c978f0ad71b56c05d500830a60099e68490a1365b55ce4d6">c0980e6ba036a520</code></td><td>NGSPICE</td><td>2026-09-28</td><td></td></tr>
+<tr><td>BUF Â· sky130_fd_sc_hd__buf_1</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="9831a3b2d935b14751c2798dabdd9a21edbf42e578a4cb382176825d96e43fcc">9831a3b2d935b147</code></td><td>NGSPICE</td><td>2026-09-28</td><td></td></tr>
 <tr><td>D flip-flop Â· sky130_fd_sc_hd__dfxtp_1</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="7f29733480d62dbc82d2ee445640d1cf647b0eba644e56d552dd2c949bd2ea5e">7f29733480d62dbc</code></td><td>NGSPICE</td><td>2026-09-15</td><td>2026-09-17</td></tr>
 <tr><td>GPU-C01 INV standard cell (X1): sizing, VTC, delay/power; depends on GPU-D01</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="33914ecbeaa3df73f32b3e0c4a94d76176b96e3c9065090c8e345b1d793c7af3">33914ecbeaa3df73</code></td><td>NGSPICE</td><td>2026-09-26</td><td></td></tr>
 <tr><td>Inverter Â· sky130_fd_sc_hd__inv_1</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="db93e66a9aaa778ca420e61e85d086d2aa1d19eb20b00e51a1b58b88dfbf732a">db93e66a9aaa778c</code></td><td>NGSPICE</td><td>2026-09-15</td><td>2026-09-17</td></tr>
+<tr><td>MAJ3 Â· sky130_fd_sc_hd__maj3_1</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="bf700ae9b27dab8a9c7c2870d3c0fbf67672b713a651d7cb06f6452f059e3cc6">bf700ae9b27dab8a</code></td><td>NGSPICE</td><td>2026-09-28</td><td></td></tr>
+<tr><td>MUX2 Â· sky130_fd_sc_hd__mux2_1</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="69c3983c05a1a8256accf199d67c6461ddbad197f8b4549843e9afdabb32f4db">69c3983c05a1a825</code></td><td>NGSPICE</td><td>2026-09-28</td><td></td></tr>
 <tr><td>NAND2 Â· sky130_fd_sc_hd__nand2_1</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="8dbfac55cbf0582f1fa802b92f557da84679b2d269e68da6f219c35c268c6619">8dbfac55cbf0582f</code></td><td>NGSPICE</td><td>2026-09-14</td><td>2026-09-17</td></tr>
+<tr><td>NAND3 Â· sky130_fd_sc_hd__nand3_1</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="4d5251944e74564cac1066598af78fc0b706d889ff516ce84d9a22c182b99615">4d5251944e74564c</code></td><td>NGSPICE</td><td>2026-09-28</td><td></td></tr>
+<tr><td>NOR3 Â· sky130_fd_sc_hd__nor3_1</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="6b3ef74c295ef1874ebc6f87edf9b9d83406b788cbc27119b63b540e779fa0b2">6b3ef74c295ef187</code></td><td>NGSPICE</td><td>2026-09-28</td><td></td></tr>
+<tr><td>O21A Â· sky130_fd_sc_hd__o21a_1</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="73a12f962be223a552afed4804b8695491f4f427f10e13cdcb0bd55453fe8113">73a12f962be223a5</code></td><td>NGSPICE</td><td>2026-09-28</td><td></td></tr>
+<tr><td>O21AI Â· sky130_fd_sc_hd__o21ai_1</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="fce7026ccc65d47274d4b2ce71d3812473e14072c9a1bfb5385d4434897c7a35">fce7026ccc65d472</code></td><td>NGSPICE</td><td>2026-09-28</td><td></td></tr>
+<tr><td>O22A Â· sky130_fd_sc_hd__o22a_1</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="06a1811b4ebeb6d06ef4111a2bbfa44b08ee6261678bc5d76af6034612dc64c3">06a1811b4ebeb6d0</code></td><td>NGSPICE</td><td>2026-09-28</td><td></td></tr>
+<tr><td>O22AI Â· sky130_fd_sc_hd__o22ai_1</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="ee6e0f8c1658ca2eca05af4850feb97be41cb4a3b09514c40bcc8ce414f366af">ee6e0f8c1658ca2e</code></td><td>NGSPICE</td><td>2026-09-28</td><td></td></tr>
+<tr><td>OR2 Â· sky130_fd_sc_hd__or2_1</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="991790b1a59fa131e9c1008eb18022676c06f2d269991a9dfe4afae89c16d04e">991790b1a59fa131</code></td><td>NGSPICE</td><td>2026-09-28</td><td></td></tr>
+<tr><td>OR3 Â· sky130_fd_sc_hd__or3_1</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="faf4f55373508ba53b24b16fd889a775af7001ed4f3ecb339df01ad63b69572a">faf4f55373508ba5</code></td><td>NGSPICE</td><td>2026-09-28</td><td></td></tr>
+<tr><td>XNOR2 Â· sky130_fd_sc_hd__xnor2_1</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="745958a158841a534f720937505a013408b8d04c777e1a5608ecb7553a6726de">745958a158841a53</code></td><td>NGSPICE</td><td>2026-09-28</td><td></td></tr>
+<tr><td>XOR2 Â· sky130_fd_sc_hd__xor2_1</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="d676db581d41bc98887f1a7c412c451dfd66e63f101b7850463f7c0046c94519">d676db581d41bc98</code></td><td>NGSPICE</td><td>2026-09-28</td><td></td></tr>
+<tr><td>XOR3 Â· sky130_fd_sc_hd__xor3_1</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="bd925a2b381870f6801b81dda3095a6bd37408cc160d8ba69b5e249000cd3407">bd925a2b381870f6</code></td><td>NGSPICE</td><td>2026-09-28</td><td></td></tr>
       </tbody>
     </table>
     </div>
