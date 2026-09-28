@@ -1,0 +1,68 @@
+name: deterministic-check
+
+# Runs the foundry's published antenna/latchup rules against the submitted
+# object, in near real time, as a public and re-checkable oracle. Push an object
+# (or dispatch one) and the run tells you PASS or which rule tripped. The red X
+# IS the error-reporting protocol: back the structure off until the run is green,
+# and that green edge is the near-ideal structure for this process.
+on:
+  push:
+    paths:
+      - "objects/**"
+      - "checks/**"
+      - ".github/workflows/drc-check.yml"
+  workflow_dispatch:
+    inputs:
+      object:
+        description: "Path to the object spec to check"
+        default: "objects/current.json"
+        required: false
+      fail_on_violation:
+        description: "Fail the run on any violation (the error-reporting protocol)"
+        default: "true"
+        required: false
+  repository_dispatch:
+    types: [check-object]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      OBJECT: ${{ github.event.inputs.object || github.event.client_payload.object || 'objects/current.json' }}
+      FAIL_ON_VIOLATION: ${{ github.event.inputs.fail_on_violation || github.event.client_payload.fail_on_violation || 'true' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run deterministic antenna/latchup check
+        id: check
+        run: python checks/drc.py "$OBJECT" --out results.json
+
+      - name: Upload machine-readable result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: drc-result
+          path: results.json
+
+      # The result is a measurement abstraction + a content hash. Anchoring it on
+      # the public Arbitrum Stylus contract is a separate, optional step, enabled
+      # only when a funded key + address are configured as repo secrets. Left off
+      # by default so nothing spends without explicit setup.
+      - name: Anchor measurement on-chain (optional)
+        if: ${{ steps.check.outputs.signoff != '' && secrets.ANCHOR_PRIVATE_KEY != '' && secrets.Q2ANCHOR_ADDRESS != '' }}
+        run: |
+          echo "Would call record(${{ steps.check.outputs.content_hash }}, ${{ steps.check.outputs.label }}, ${{ steps.check.outputs.context }})"
+          echo "Wire cast/viem here with ANCHOR_PRIVATE_KEY + Q2ANCHOR_ADDRESS to write to Arbitrum Sepolia."
+
+      - name: Error-reporting protocol (red on violation)
+        if: ${{ steps.check.outputs.signoff == 'fail' && env.FAIL_ON_VIOLATION == 'true' }}
+        run: |
+          echo "Signoff FAILED — a deterministic rule tripped. Back the structure off and re-submit."
+          exit 1

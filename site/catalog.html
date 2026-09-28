@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catalog, The Proof Economy</title>
+<meta name="description" content="Every block with a passing proof of record in the portal, 63 at export: title, tier, proof level, artifact hash, tool, date, human sign-off.">
+<link rel="icon" type="image/png" href="./assets/mark.png">
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --line:#30363d; --ink:#e6edf3;
+    --dim:#c3ccd6; --green:#3fb950; --red:#f85149; --blue:#58a6ff;
+    --amber:#e3b341; --violet:#a371f7; --elyellow:#f5f21f; --seablue:#23a3c2;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+    line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px}
+  header{border-bottom:1px solid var(--line);padding:60px 0 40px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--dim)}
+  h1{font-size:clamp(30px,5vw,46px);line-height:1.1;margin:14px 0 10px;
+    letter-spacing:-.02em;text-wrap:balance}
+  .lede{font-size:18px;color:var(--dim);max-width:62ch;margin:0}
+  .tagline{font-size:16px;color:var(--ink);font-weight:600;max-width:60ch;
+    margin:0 0 14px;letter-spacing:.01em}
+  .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .btn{display:inline-block;padding:9px 16px;border-radius:8px;
+    border:1px solid var(--line);font-size:14px;font-weight:600;color:var(--ink)}
+  .btn.primary{background:var(--green);color:#04260f;border-color:transparent}
+  .btn.stylus{border-color:var(--violet);color:#d2c1f5}
+  section{padding:44px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:13px;font-family:var(--mono);letter-spacing:.12em;
+    text-transform:uppercase;color:var(--dim);margin:0 0 20px;font-weight:600}
+  p.body{max-width:64ch;color:var(--dim);font-size:15px}
+  .stat{display:flex;gap:40px;flex-wrap:wrap}
+  .stat .big{font-size:clamp(34px,6vw,56px);font-weight:700;letter-spacing:-.02em;
+    line-height:1}
+  .stat .big.green{color:var(--green)}
+  .stat .sub{color:var(--dim);font-size:14px;margin-top:8px;max-width:24ch}
+  .loop{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:18px}
+  .card .k{font-family:var(--mono);font-size:12px;color:var(--green);
+    letter-spacing:.1em;text-transform:uppercase}
+  .card.gen .k{color:var(--elyellow)}
+  .card.anchor .k{color:var(--seablue)}
+  .card h3{margin:8px 0 6px;font-size:17px}
+  .card p{margin:0;color:var(--dim);font-size:14px}
+  table{width:100%;border-collapse:collapse;font-size:14px;
+    font-variant-numeric:tabular-nums}
+  th,td{text-align:right;padding:10px 12px;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left;font-family:var(--mono)}
+  thead th{color:var(--dim);font-weight:600;font-size:12px;
+    text-transform:uppercase;letter-spacing:.06em}
+  td{color:var(--ink)}
+  td.better{color:var(--green)} td.worse{color:var(--red)}
+  .delta{font-family:var(--mono);font-size:11px;margin-left:6px}
+  .delta.better{color:var(--green)} .delta.worse{color:var(--red)}
+  .caption{color:var(--dim);font-size:13px;margin-top:10px}
+  .tbl-wrap{overflow-x:auto}
+  .plot{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:12px}
+  .plot svg{width:100%;height:auto;display:block;border-radius:8px}
+  .seg-toggle{display:inline-flex;border:1px solid var(--line);border-radius:9px;
+    overflow:hidden;margin-top:4px}
+  .seg{background:var(--panel);color:var(--dim);border:0;padding:8px 20px;
+    font-size:13px;font-weight:600;font-family:var(--mono);cursor:pointer;
+    letter-spacing:.05em;text-transform:uppercase}
+  .seg+.seg{border-left:1px solid var(--line)}
+  .seg-perf.on{background:var(--violet);color:#160b2e}
+  .seg-energy.on{background:var(--amber);color:#2a1e05}
+  .legend{display:flex;gap:20px;flex-wrap:wrap;color:var(--dim);font-size:13px;
+    margin-top:12px}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:50%;
+    margin-right:7px;vertical-align:middle;border:1px solid rgba(255,255,255,.14)}
+  .points{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .note{background:#1c1408;border:1px solid #3d2c0a;border-radius:12px;
+    padding:16px 18px;color:#e3b341;font-size:14px}
+  .race{display:grid;gap:12px;max-width:640px}
+  .race .row{display:grid;grid-template-columns:180px 1fr auto;gap:12px;
+    align-items:center}
+  .race .lbl{font-family:var(--mono);font-size:13px}
+  .race .bar{height:20px;background:#0d1117;border:1px solid var(--line);
+    border-radius:6px;overflow:hidden}
+  .race .fill{height:100%;background:linear-gradient(90deg,#238636,#3fb950)}
+  .race .g{font-family:var(--mono);font-size:13px;color:var(--green);
+    text-align:right;min-width:56px}
+  .stylusbox{background:var(--panel);border:1px solid var(--violet);
+    border-radius:12px;padding:20px}
+  code{font-family:var(--mono);background:#0d1117;border:1px solid var(--line);
+    border-radius:6px;padding:1px 6px;font-size:.92em}
+  pre{background:#0d1117;border:1px solid var(--line);border-radius:10px;
+    padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:13px;
+    color:var(--ink)}
+  footer{padding:40px 0 70px;color:var(--dim);font-size:14px}
+  @media(max-width:680px){.loop,.points{grid-template-columns:1fr}
+    .race .row{grid-template-columns:120px 1fr auto}}
+</style>
+
+<style>
+  .logo{display:block;text-align:center;margin:0 0 26px;line-height:0}
+  .logo img{width:260px;max-width:70%;height:auto;display:inline-block;border-radius:12px}
+  .langbar{font-family:var(--mono);font-size:12px;color:var(--dim);margin:0 0 18px}
+  .langbar a{color:var(--blue)} .langbar b{color:var(--ink)}
+  .ladder th,.ladder td{text-align:left;font-family:var(--sans);vertical-align:top;font-size:13.5px}
+  .ladder td:first-child{font-family:var(--mono);white-space:nowrap}
+  .ladder .real{color:var(--green)} .ladder .road{color:var(--amber)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:700px){.two{grid-template-columns:1fr}}
+  p.body,.lede,.card p,ol.steps,.note,.kv td,.ladder td{color:var(--ink)}
+  .note{background:none;border:0;border-radius:0;padding:0;color:var(--ink);font-size:16px;max-width:62ch}
+  .kv th,.kv td{text-align:left;font-family:var(--sans);font-size:14px}
+  .kv td:first-child{font-family:var(--mono)}
+  ol.steps{color:var(--dim);font-size:15px;max-width:64ch;padding-left:20px}
+  ol.steps li{margin:6px 0}
+</style>
+
+<style>
+  /* type scale: larger, legible */
+  html{font-size:17px}
+  body{line-height:1.6}
+  .eyebrow{font-size:13px} .langbar{font-size:14px}
+  .lede{font-size:20px;max-width:60ch} .tagline{font-size:18px}
+  p.body{font-size:17px;max-width:62ch}
+  h2{font-size:15px} .card h3{font-size:19px} .card p{font-size:16px}
+  .btn{font-size:16px;padding:11px 18px}
+  table{font-size:16px} th,td{padding:12px 14px}
+  thead th{font-size:13px}
+  .ladder th,.ladder td,.kv th,.kv td{font-size:16px;line-height:1.5}
+  .note{font-size:16px} ol.steps{font-size:17px} ol.steps li{margin:8px 0}
+  .caption,.legend{font-size:15px} footer{font-size:16px}
+  .stat .sub{font-size:16px;max-width:26ch}
+  /* white mode: black on white */
+  .theme{float:right;margin:0 0 0 12px;background:var(--panel);color:var(--ink);border:1px solid var(--line);
+    border-radius:8px;padding:7px 12px;font:600 14px var(--mono);letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+  .theme:hover{border-color:var(--ink)}
+  :root[data-theme="light"]{
+    --bg:#ffffff; --panel:#f4f4f4; --line:#c8c8c8; --ink:#000000; --dim:#333333;
+    --blue:#0b3d91; --green:#0f5a2a; --red:#8f1020; --amber:#6b4600; --violet:#4a2390;
+    --elyellow:#5c5a00; --seablue:#0b5468;
+  }
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      --bg:#ffffff; --panel:#f4f4f4; --line:#c8c8c8; --ink:#000000; --dim:#333333;
+      --blue:#0b3d91; --green:#0f5a2a; --red:#8f1020; --amber:#6b4600; --violet:#4a2390;
+      --elyellow:#5c5a00; --seablue:#0b5468;
+    }
+    :root:not([data-theme="dark"]) code,:root:not([data-theme="dark"]) pre,:root:not([data-theme="dark"]) .race .bar{background:#f4f4f4}
+    :root:not([data-theme="dark"]) .btn.primary{background:#000;color:#fff}
+    :root:not([data-theme="dark"]) .btn.stylus{color:var(--violet)}
+    :root:not([data-theme="dark"]) .dot{border-color:rgba(0,0,0,.3)}
+  }
+  :root[data-theme="light"] code,:root[data-theme="light"] pre,:root[data-theme="light"] .race .bar{background:#f4f4f4}
+  :root[data-theme="light"] .btn.primary{background:#000;color:#fff}
+  :root[data-theme="light"] .btn.stylus{color:var(--violet)}
+  :root[data-theme="light"] .dot{border-color:rgba(0,0,0,.3)}
+</style>
+<script>
+(function(){
+  var k='pf-theme', r=document.documentElement, saved=null;
+  try{saved=localStorage.getItem(k)}catch(e){}
+  if(saved==='light'||saved==='dark') r.setAttribute('data-theme',saved);
+  function isLight(){var t=r.getAttribute('data-theme'); if(t) return t==='light';
+    return window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches}
+  function label(b){b.textContent=isLight()?'Dark mode':'Light mode';
+    b.setAttribute('aria-label',isLight()?'Switch to dark mode':'Switch to light mode')}
+  document.addEventListener('DOMContentLoaded',function(){
+    var b=document.getElementById('theme-toggle'); if(!b) return; label(b);
+    b.addEventListener('click',function(){var next=isLight()?'dark':'light';
+      r.setAttribute('data-theme',next); try{localStorage.setItem(k,next)}catch(e){} label(b)});
+  });
+})();
+</script>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="logo" href="./index.html"><img src="./assets/project-foundry-logo.jpg" alt="Project Foundry. Generate. Assess. Anchor." width="260" height="264"></a>
+    <div class="eyebrow">Q2 Computing / Project Foundry / Arbitrum Stylus</div>
+    <button class="theme" id="theme-toggle" type="button">Light mode</button>
+    <p class="langbar"><a href="./index.html">Front page</a> · <b>Catalog</b><br>Read this in: <b>English</b></p>
+    <h1>Catalog</h1>
+    <p class="tagline">Every block with a passing proof of record, exported from the portal's analysis table on 2026-09-28.</p>
+    <p class="lede">A row is a block whose proof artifact passed at the level shown. The hash is the content address of that artifact, the proof of record a certificate would carry. Blocks are listed by the highest level they reach; a composed block's certificate rests on its children's, which are also here. Human sign-off is recorded where a person has verified the block in the portal; the proof stands on its own without it, and the sign-off is the second and third of the three checks that precede any chain transaction.</p>
+    <div class="cta">
+      <a class="btn" href="./index.html">Front page</a>
+      <a class="btn" href="./research.html">The research</a>
+      <a class="btn" href="./roadmap.html">Roadmap</a>
+      <a class="btn" href="./catalog.json">catalog.json</a>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>Count</h2>
+    <div class="stat">
+      <div><div class="big green">63</div><div class="sub">blocks with a passing proof of record</div></div>
+      <div><div class="big">47</div><div class="sub">proved by composition, the level that scales without bound</div></div>
+      <div><div class="big">5</div><div class="sub">also carry a human sign-off in the portal</div></div>
+    </div>
+    <p class="note" style="margin-top:18px">By level: 4 at level 1, 8 at level 2, 4 at level 3, 47 at level 4. By tier: 5 standard-cell, 33 component, 13 sub-assembly, 10 assembly, 1 soc, 1 system.</p>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <h2>The blocks</h2>
+    <div class="tbl-wrap">
+    <table class="kv">
+      <thead><tr><th>Block</th><th>Tier</th><th>Level</th><th>Proof of record</th><th>Tool</th><th>Completed</th><th>Human sign-off</th></tr></thead>
+      <tbody>
+<tr><td>q2_buf2 Â· proven non-inverting buffer</td><td>standard-cell</td><td class="real">4 composition</td><td><code title="29a36f44ef9781e82075ddcc9c3c63a389b508cdd05e0abf5349c7d7e5499e3e">29a36f44ef9781e8</code></td><td>YOSYS</td><td>2026-09-19</td><td></td></tr>
+<tr><td>32-bit integer subtractor</td><td>component</td><td class="real">4 composition</td><td><code title="dec6829e41dbe820b9bb93ff0906a68301b24c08a01eaa3959ca8946f6156608">dec6829e41dbe820</code></td><td>YOSYS</td><td>2026-09-16</td><td>2026-09-17</td></tr>
+<tr><td>32-bit register</td><td>component</td><td class="real">4 composition</td><td><code title="bde8e15183c6b021035589c39cb5d6f963a38067fa232e765770102c5072230a">bde8e15183c6b021</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>32-way adder-reduction tree</td><td>component</td><td class="real">4 composition</td><td><code title="727d06fc57e660a20b74c397016ba9e2046d576955e7ba21f81bed026b32acb7">727d06fc57e660a2</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>48-bit ripple-carry adder</td><td>component</td><td class="real">4 composition</td><td><code title="24ada49eea78e3345b9387c595c31f61c47109b4b2aa51032231e61ecd486660">24ada49eea78e334</code></td><td>YOSYS</td><td>2026-09-16</td><td>2026-09-17</td></tr>
+<tr><td>barrel_shift_l32 (left barrel shifter)</td><td>component</td><td class="real">4 composition</td><td><code title="c54bacabf8b11213745e0fca9273714cd6fd78da96ce8d5067e2e3d3b4015f96">c54bacabf8b11213</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>barrel_shift_l64 (left barrel shifter)</td><td>component</td><td class="real">4 composition</td><td><code title="7a3a849d220c13314bab5520a3a1f1c1f709d80779daa11ff2eb7d9dd2a1be48">7a3a849d220c1331</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>barrel_shift_r64 (right barrel shifter)</td><td>component</td><td class="real">4 composition</td><td><code title="37adcd202d55c55b2e3d42c6c28e56cc35f5003d460cff58203ab0c55f22bc3a">37adcd202d55c55b</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>FP32 accumulator adder</td><td>component</td><td class="real">4 composition</td><td><code title="403fd111c7b25f628db0bbeb9612e79b25d265dec7a2c76ef6fc9c068f393567">403fd111c7b25f62</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>FP32 max/min</td><td>component</td><td class="real">4 composition</td><td><code title="d603c6ad7a6293292b8ad36762283eb61f7e10d2615ed59ca97c929218a9dcba">d603c6ad7a629329</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>FP32 multiplier</td><td>component</td><td class="real">4 composition</td><td><code title="f7c92ade4ec33b6df5a6311356c5fc41bc165d4d3dbff25d71f5ff14b43cbfd6">f7c92ade4ec33b6d</code></td><td>YOSYS</td><td>2026-09-16</td><td></td></tr>
+<tr><td>FP32 normalize/pack unit</td><td>component</td><td class="real">4 composition</td><td><code title="7c7a66fb6f3873c83dac7bd668250fa76e1f8e79066fad8ad6ffe4bda276a077">7c7a66fb6f3873c8</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>FP32 subtract (a - b)</td><td>component</td><td class="real">4 composition</td><td><code title="e430614bad207f79e8a9602339ea0b883d186a3e2fe0fa5f8789f559129f9404">e430614bad207f79</code></td><td>YOSYS</td><td>2026-09-16</td><td></td></tr>
+<tr><td>FP32 to Int32 converter (F2I)</td><td>component</td><td class="real">4 composition</td><td><code title="af569010c6d76fa97e07810b8e1f55ee8b7941a01cdb827da8ff8f25cbc0770f">af569010c6d76fa9</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>inc32 (32-bit incrementer)</td><td>component</td><td class="real">4 composition</td><td><code title="e849aa18f017257888000f2f4d2a7eb91678e467946a4f536ee42b738e53bd20">e849aa18f0172578</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>Int32 to FP32 converter (I2F)</td><td>component</td><td class="real">4 composition</td><td><code title="2ebfdc388451457fc586a59560c97f4f99983301f883be1e2d9404d5603a507c">2ebfdc388451457f</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>MXFP4 lane multiplier</td><td>component</td><td class="real">4 composition</td><td><code title="a3800f2766f1ce02f618919a97af4d9e4dd216417cf1a8e06889a4dad071f205">a3800f2766f1ce02</code></td><td>YOSYS</td><td>2026-09-16</td><td></td></tr>
+<tr><td>priority_encoder32 (32-bit leading-one)</td><td>component</td><td class="real">4 composition</td><td><code title="ab9f1cfad1cf854cb009313c5e290139f4acfeea78cb2964f9f7b79d2b2aa319">ab9f1cfad1cf854c</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>priority_encoder64 (64-bit leading-one)</td><td>component</td><td class="real">4 composition</td><td><code title="f454d5dd37041ff14f1e754fe181e4124aaa0ecb1a637099131c2cc38117c951">f454d5dd37041ff1</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>rca16 (16-bit ripple adder)</td><td>component</td><td class="real">4 composition</td><td><code title="60c981bba8121e027fb7647ca1e81d7d8ec882a44a032fb17c54e277d214ee9e">60c981bba8121e02</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>rca52 (52-bit ripple adder)</td><td>component</td><td class="real">4 composition</td><td><code title="bc44cf681fe8017b7af74209efa4b317d93786f9ffab08e371aff210c6e3e5c0">bc44cf681fe8017b</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>rne_round (round to nearest even)</td><td>component</td><td class="real">4 composition</td><td><code title="3f7d5d4f8073cc7be5d6659a9d336d79f3d93742225ffeb46109297c00cf588c">3f7d5d4f8073cc7b</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>Warp scheduler</td><td>component</td><td class="real">4 composition</td><td><code title="a9c07125db2505d89660712589f0cb6ee9be29266b6a39379d64b87f59560111">a9c07125db2505d8</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>24x24 array multiplier</td><td>sub-assembly</td><td class="real">4 composition</td><td><code title="8235ed0766da8a7c4f015ccf25b9ff141259140cf9866d21908b87a224d87101">8235ed0766da8a7c</code></td><td>YOSYS</td><td>2026-09-16</td><td></td></tr>
+<tr><td>32x32 register file</td><td>sub-assembly</td><td class="real">4 composition</td><td><code title="163a4ef8400df5dd1ecb3d025f98255f37186e7768ac69a5defd1a0100592f8f">163a4ef8400df5dd</code></td><td>YOSYS</td><td>2026-09-16</td><td></td></tr>
+<tr><td>Bias + ReLU activation unit</td><td>sub-assembly</td><td class="real">4 composition</td><td><code title="a318bbcf17a0d55d5a6c73047b3ade721a40bb7da1b106d64c7d430b20a08db8">a318bbcf17a0d55d</code></td><td>YOSYS</td><td>2026-09-16</td><td></td></tr>
+<tr><td>FP32 base-2 exponential (exp2, SFU)</td><td>sub-assembly</td><td class="real">4 composition</td><td><code title="d869ef1d141274d535f1454ca9c033a9eed80d4d96f22e9f26c515f3d2d893db">d869ef1d141274d5</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>FP32 reciprocal (SFU, Newton-Raphson)</td><td>sub-assembly</td><td class="real">4 composition</td><td><code title="d127b83983c5f08630bd35331c13f39c4b56d606dec25e82fbf64a78eda61995">d127b83983c5f086</code></td><td>YOSYS</td><td>2026-09-16</td><td></td></tr>
+<tr><td>FP32 reciprocal square root (SFU, Newton-Raphson)</td><td>sub-assembly</td><td class="real">4 composition</td><td><code title="5f19a57b4bed8145a2e3415bdd3e10e92cb6d693385f8bc287eb7d868ffcc20c">5f19a57b4bed8145</code></td><td>YOSYS</td><td>2026-09-16</td><td></td></tr>
+<tr><td>FP32 special-function unit (recip/rsqrt/sqrt)</td><td>sub-assembly</td><td class="real">4 composition</td><td><code title="7f85f825a952e2fb21f033e194f04afed447b75da610a9d7479c9f4e9e082bbb">7f85f825a952e2fb</code></td><td>YOSYS</td><td>2026-09-16</td><td></td></tr>
+<tr><td>FP32 square root (SFU)</td><td>sub-assembly</td><td class="real">4 composition</td><td><code title="631e958e8bb1b1e4aad1ed6ec3b96d1702b0cd5cc17cfc50fe2d1483da0d7341">631e958e8bb1b1e4</code></td><td>YOSYS</td><td>2026-09-16</td><td></td></tr>
+<tr><td>FP32 vector ALU</td><td>sub-assembly</td><td class="real">4 composition</td><td><code title="48b011598dc39972866574dfa3aca94da948f0131196af1565109a7f4f82aab8">48b011598dc39972</code></td><td>YOSYS</td><td>2026-09-16</td><td></td></tr>
+<tr><td>Multi-ported warp register file</td><td>sub-assembly</td><td class="real">4 composition</td><td><code title="4c63a5b7751f9116c2ebb8ea9f41ced24b13b95a028c06c9296af9e4d22736ad">4c63a5b7751f9116</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>MXFP4 dot-product (composed, proven from parts)</td><td>sub-assembly</td><td class="real">4 composition</td><td><code title="80a4c0c0cfe51a56d86c92ed7a4c1a5d48bf6964ab630d8eb438cc478a674cc6">80a4c0c0cfe51a56</code></td><td>YOSYS</td><td>2026-09-15</td><td></td></tr>
+<tr><td>Shared memory (scratchpad)</td><td>sub-assembly</td><td class="real">4 composition</td><td><code title="c2bfded9e50ccab65d4897e7ac5a026e0e63a118beeda68c7bd0e5ee0e6ebb48">c2bfded9e50ccab6</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>16x16 MXFP4 output-stationary GEMM tile</td><td>assembly</td><td class="real">4 composition</td><td><code title="d14922f4fd9ff1ef1c6e311d95141c8dc2076f2e5e53685a922fdf5dc065e894">d14922f4fd9ff1ef</code></td><td>YOSYS</td><td>2026-09-18</td><td></td></tr>
+<tr><td>Display controller (video-out path)</td><td>assembly</td><td class="real">4 composition</td><td><code title="590df8c20a0525cd0de4d4f910c1311abd49e11300b28ed6a23f6ea10de73e4c">590df8c20a0525cd</code></td><td>YOSYS</td><td>2026-09-18</td><td></td></tr>
+<tr><td>FP32 compute lane (regfile + vector ALU)</td><td>assembly</td><td class="real">4 composition</td><td><code title="b88111a9302b44bf958c62f86c7c378437ec33e6dc6fadade79c919c10875e4c">b88111a9302b44bf</code></td><td>YOSYS</td><td>2026-09-16</td><td></td></tr>
+<tr><td>FP32 compute lane + SFU (elementwise + transcendental)</td><td>assembly</td><td class="real">4 composition</td><td><code title="d17267f3b73907364754e1e7d8a574c2278a3046ac8359b45a5866811befd496">d17267f3b7390736</code></td><td>YOSYS</td><td>2026-09-16</td><td></td></tr>
+<tr><td>Multi-warp SM (4-warp interleave)</td><td>assembly</td><td class="real">4 composition</td><td><code title="7dba51e61b202b69ca8fa77b32b2829510ec4c7036d91f57cdc8004a95c5a75d">7dba51e61b202b69</code></td><td>YOSYS</td><td>2026-09-18</td><td></td></tr>
+<tr><td>MXFP4 accumulating PE (composed from the proven dot-product)</td><td>assembly</td><td class="real">4 composition</td><td><code title="97dff7ab10249f78a6ce9e290686f0bae213299b20a4f615e8aa0361f6cfd6c5">97dff7ab10249f78</code></td><td>YOSYS</td><td>2026-09-15</td><td></td></tr>
+<tr><td>Rasterizer (minimal, single-triangle)</td><td>assembly</td><td class="real">4 composition</td><td><code title="91e7a9cd8c81efc5e183b9d6a21d4ea090ea9cf109c0b61808850ad5f0d5b25b">91e7a9cd8c81efc5</code></td><td>YOSYS</td><td>2026-09-18</td><td></td></tr>
+<tr><td>SIMD execution group (4 x FP32 lane)</td><td>assembly</td><td class="real">4 composition</td><td><code title="1473c8d20bdf12f702f43a9af4044d3d95523077284613dbd969b3885bc88cac">1473c8d20bdf12f7</code></td><td>YOSYS</td><td>2026-09-16</td><td></td></tr>
+<tr><td>SIMD execution group + SFU (4x compute_lane_sfu)</td><td>assembly</td><td class="real">4 composition</td><td><code title="70dda16230b7f1fc5bd09a1a07d36c0a9d30caf6c95233cbe514d1977c922827">70dda16230b7f1fc</code></td><td>YOSYS</td><td>2026-09-16</td><td></td></tr>
+<tr><td>Streaming multiprocessor (SM)</td><td>assembly</td><td class="real">4 composition</td><td><code title="3a8f7d2ec7315ec71fb801fbf73a8e11af3a5c410cd9ce80e4c6aed61821b58d">3a8f7d2ec7315ec7</code></td><td>YOSYS</td><td>2026-09-18</td><td></td></tr>
+<tr><td>MXFP4 GEMM tile (4x4, composed from proven PEs)</td><td>soc</td><td class="real">4 composition</td><td><code title="9d608d607377aea53348d7426d7843ae997639d60454481eedb5f4a3a5199017">9d608d607377aea5</code></td><td>YOSYS</td><td>2026-09-15</td><td></td></tr>
+<tr><td>MXFP4 GEMM accelerator</td><td>system</td><td class="real">4 composition</td><td><code title="3fa6357a125d596e99f42a793fccf100ab81aa358811004eddc040311197340d">3fa6357a125d596e</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>E2M1 decoder</td><td>component</td><td class="">3 techmap</td><td><code title="5bd04aed94512c31367a5d36e07d4ddea09049b399a9502c1ea982fa2f6b62f2">5bd04aed94512c31</code></td><td>YOSYS</td><td>2026-09-15</td><td></td></tr>
+<tr><td>Full adder</td><td>component</td><td class="">3 techmap</td><td><code title="6ff2260bb5acfac8d66a74f73eae4eb86d213634b371c3f194bcbc10a3d66c25">6ff2260bb5acfac8</code></td><td>YOSYS</td><td>2026-09-16</td><td></td></tr>
+<tr><td>mux2 (2:1 mux)</td><td>component</td><td class="">3 techmap</td><td><code title="d0f3caa0113fd58c3b61e88d50003cc7c44a48102284b4867c0a1e83f5f140a6">d0f3caa0113fd58c</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>priority_encoder8 (8-bit leading-one)</td><td>component</td><td class="">3 techmap</td><td><code title="8d647cfdf22bf1de1bf4ce7eb197f20a5c6f34a7d8fa278791f23641c85c13ea">8d647cfdf22bf1de</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>add32 (32-bit address adder)</td><td>component</td><td class="">2 equivalence</td><td><code title="00df08b623554a83950c4283f986289286e55f7104c4dcbeab0dade72f168b7c">00df08b623554a83</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>bank_conflict4 (4-lane bank-conflict analyzer)</td><td>component</td><td class="">2 equivalence</td><td><code title="8140baf8566cc429f1d339b5ac15bf9b2b81dec0d14b91825b030bcfc75121d5">8140baf8566cc429</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>decoder5to32 (5-&gt;32 one-hot write decoder)</td><td>component</td><td class="">2 equivalence</td><td><code title="d60f308bc6b167322027a609cac1f6b5d2821892935688bd5c6db3c446cf11ea">d60f308bc6b16732</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>FP32 ReLU</td><td>component</td><td class="">2 equivalence</td><td><code title="23b9a358887699190663bd81c526124afe01cea16d118bc40d636ab3cc1f4ee2">23b9a35888769919</code></td><td>YOSYS</td><td>2026-09-16</td><td></td></tr>
+<tr><td>Instruction decode + issue</td><td>component</td><td class="">2 equivalence</td><td><code title="79d9e1b37eddbdc5a7c0f2b9201391ccdbfc2c2f502559d14e45b712f490cc7e">79d9e1b37eddbdc5</code></td><td>YOSYS</td><td>2026-09-18</td><td></td></tr>
+<tr><td>rr_arbiter8 (round-robin ready-select arbiter)</td><td>component</td><td class="">2 equivalence</td><td><code title="96d4b5e74f6a4b9e2e523d040675f645098bc317ef25fa6081a707c1841d8733">96d4b5e74f6a4b9e</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>Test-pattern generator (color bars)</td><td>component</td><td class="">2 equivalence</td><td><code title="da6cff321d0a53b738347b19501e4d62eb2001853b7b93ffd9fcb6e1eaa4dd2d">da6cff321d0a53b7</code></td><td>YOSYS</td><td>2026-09-18</td><td></td></tr>
+<tr><td>Load/store unit</td><td>sub-assembly</td><td class="">2 equivalence</td><td><code title="b04bae794bd91720550034e356c4ff8c9a3dab5917e01a0b8fcade9441d0f623">b04bae794bd91720</code></td><td>YOSYS</td><td>2026-09-17</td><td></td></tr>
+<tr><td>D flip-flop Â· sky130_fd_sc_hd__dfxtp_1</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="7f29733480d62dbc82d2ee445640d1cf647b0eba644e56d552dd2c949bd2ea5e">7f29733480d62dbc</code></td><td>NGSPICE</td><td>2026-09-15</td><td>2026-09-17</td></tr>
+<tr><td>GPU-C01 INV standard cell (X1): sizing, VTC, delay/power; depends on GPU-D01</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="33914ecbeaa3df73f32b3e0c4a94d76176b96e3c9065090c8e345b1d793c7af3">33914ecbeaa3df73</code></td><td>NGSPICE</td><td>2026-09-26</td><td></td></tr>
+<tr><td>Inverter Â· sky130_fd_sc_hd__inv_1</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="db93e66a9aaa778ca420e61e85d086d2aa1d19eb20b00e51a1b58b88dfbf732a">db93e66a9aaa778c</code></td><td>NGSPICE</td><td>2026-09-15</td><td>2026-09-17</td></tr>
+<tr><td>NAND2 Â· sky130_fd_sc_hd__nand2_1</td><td>standard-cell</td><td class="">1 exhaustive</td><td><code title="8dbfac55cbf0582f1fa802b92f557da84679b2d269e68da6f219c35c268c6619">8dbfac55cbf0582f</code></td><td>NGSPICE</td><td>2026-09-14</td><td>2026-09-17</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note" style="margin-top:14px">Level 1 is an exhaustive SPICE truth table from the PDK transistors. Level 2 is a SAT equivalence of netlist to RTL. Level 3 is a techmap onto proven cells under the 64-cell leaf cap with a structural equivalence. Level 4 is a census of proven children plus an equivalence of the assembly to the declared composition. Simulation with test vectors is recorded in the portal as evidence and does not appear here.</p>
+  </div>
+</section>
+
+
+<footer>
+  <div class="wrap">
+    Q2 Computing / Project Foundry &#183;
+    <a href="./codesign.html">generate: co-design</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry">source</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/results/report.md">full report</a> &#183;
+    <a href="https://github.com/Q2Computing/Project-Foundry/actions">CI oracle</a>
+  </div>
+</footer>
+</body>
+</html>

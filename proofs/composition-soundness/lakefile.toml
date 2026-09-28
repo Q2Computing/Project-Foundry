@@ -1,0 +1,6 @@
+name = "compositionsoundness"
+defaultTargets = ["CompositionSoundness"]
+
+# Core Lean only, no mathlib, no native_decide: the trusted base is the kernel.
+[[lean_lib]]
+name = "CompositionSoundness"

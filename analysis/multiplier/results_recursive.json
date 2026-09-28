@@ -1,0 +1,30 @@
+{
+  "study": "Fully-recursive Karatsuba vs schoolbook multiplier, measured in hardware. Does the algorithm's asymptotic multiply-operation advantage translate into a hardware win?",
+  "answer": "No, at synthesizable widths. Recursive Karatsuba is worse on area, transistors, AND logic depth (speed) at every width 8-64b. The recombination-adder overhead of full recursion exceeds the multiply savings in silicon.",
+  "tool": "Yosys 0.23 + ABC (technology mapping to sky130 HD). Mapping: 'abc -liberty <lib> -fast' (identical for both designs). NOTE: the DEFAULT abc script hangs on the recursive netlist (berkeley-abc spins > 4 h); -fast maps it in ~7 s. This is itself a finding: the recursive structure is pathological for the default mapper.",
+  "liberty": "sky130_fd_sc_hd__tt_025C_1v80.lib",
+  "transistor_source": "per-cell MOSFET count parsed from the sky130 cell SPICE (sky130_fd_sc_hd.spice); cross-checked (fa_1 = 28T, matches the mirror-adder full adder).",
+  "depth_source": "combinational longest input-to-output path in gate levels, computed from the mapped JSON netlist (parse_depth.py). A synthesis-level delay proxy: no wire load, no placement, no signoff STA. ltp and ABC report no usable delay for a purely combinational module in this toolchain.",
+  "recursive_generator": "karat_recursive.py, base case schoolbook at w<=4. Proven km8 == a*b for all inputs by Yosys SAT (no model found).",
+  "points": [
+    {"width": 8,  "school_transistors": 3101,   "rec_transistors": 5174,   "transistor_ratio": 1.668,
+     "school_area": 2765.2,   "rec_area": 4669.5,   "area_ratio": 1.689,
+     "school_depth": 21, "rec_depth": 42,  "depth_ratio": 2.00},
+    {"width": 16, "school_transistors": 13479,  "rec_transistors": 20246,  "transistor_ratio": 1.502,
+     "school_area": 11907.7,  "rec_area": 18413.9,  "area_ratio": 1.546,
+     "school_depth": 31, "rec_depth": 63,  "depth_ratio": 2.03},
+    {"width": 32, "school_transistors": 53780,  "rec_transistors": 69448,  "transistor_ratio": 1.291,
+     "school_area": 47450.5,  "rec_area": 63337.0,  "area_ratio": 1.335,
+     "school_depth": 39, "rec_depth": 87,  "depth_ratio": 2.23},
+    {"width": 64, "school_transistors": 214016, "rec_transistors": 222495, "transistor_ratio": 1.040,
+     "school_area": 187970.3, "rec_area": 203139.8, "area_ratio": 1.081,
+     "school_depth": 47, "rec_depth": 119, "depth_ratio": 2.53}
+  ],
+  "findings": [
+    "AREA/TRANSISTORS: recursive is larger at every width, converging toward parity as width grows (transistor ratio 1.67 -> 1.04); the area crossover sits just past 64 bits.",
+    "DEPTH/SPEED: recursive is ~2x deeper at 8b and the gap WIDENS to 2.53x at 64b. Schoolbook depth grows near-logarithmically (ABC balances it into a tree); recursive depth grows fast because the recombination-adder chain deepens at every recursion level.",
+    "The asymptotic advantage of Karatsuba is in multiply-OPERATION count (O(n^1.585) vs O(n^2)) -- a sequential/software property. It does NOT become fewer transistors or lower delay in combinational hardware at these widths.",
+    "Deeper recursion is worse, not better: one-level Karatsuba reached ~parity/modest area win by ~15b, while FULL recursion is worse on every axis through 64b. The optimal recursion depth for hardware is shallow.",
+    "The hardware speed play for multipliers is tree reduction (Wallace 1964, Dadda 1965), not Karatsuba. Karatsuba is an operation-count optimization for very large (software) multiplies."
+  ]
+}

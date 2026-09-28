@@ -1,0 +1,1699 @@
+{
+ "generated_at": "2026-09-28T18:05:39+00:00",
+ "levels": {
+  "1": "exhaustive",
+  "2": "equivalence",
+  "3": "techmap onto proven cells",
+  "4": "composition"
+ },
+ "count": 63,
+ "blocks": [
+  {
+   "title": "16x16 MXFP4 output-stationary GEMM tile",
+   "tier": "assembly",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "d14922f4fd9ff1ef1c6e311d95141c8dc2076f2e5e53685a922fdf5dc065e894",
+    "tool": "YOSYS",
+    "completed": "2026-09-18"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "a47a6095158bced8a36dc5a371d05f0b847f18bc69c99c6c919f33999cacabc5",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    },
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "d14922f4fd9ff1ef1c6e311d95141c8dc2076f2e5e53685a922fdf5dc065e894",
+     "tool": "YOSYS",
+     "completed": "2026-09-18"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "Display controller (video-out path)",
+   "tier": "assembly",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "590df8c20a0525cd0de4d4f910c1311abd49e11300b28ed6a23f6ea10de73e4c",
+    "tool": "YOSYS",
+    "completed": "2026-09-18"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "590df8c20a0525cd0de4d4f910c1311abd49e11300b28ed6a23f6ea10de73e4c",
+     "tool": "YOSYS",
+     "completed": "2026-09-18"
+    },
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "90b4fbc7409335f95eca8fc7ad9969fe3b8880dea7005b54b73b02281ac0829f",
+     "tool": "YOSYS",
+     "completed": "2026-09-18"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "FP32 compute lane (regfile + vector ALU)",
+   "tier": "assembly",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "b88111a9302b44bf958c62f86c7c378437ec33e6dc6fadade79c919c10875e4c",
+    "tool": "YOSYS",
+    "completed": "2026-09-16"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "b88111a9302b44bf958c62f86c7c378437ec33e6dc6fadade79c919c10875e4c",
+     "tool": "YOSYS",
+     "completed": "2026-09-16"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "FP32 compute lane + SFU (elementwise + transcendental)",
+   "tier": "assembly",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "d17267f3b73907364754e1e7d8a574c2278a3046ac8359b45a5866811befd496",
+    "tool": "YOSYS",
+    "completed": "2026-09-16"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "d17267f3b73907364754e1e7d8a574c2278a3046ac8359b45a5866811befd496",
+     "tool": "YOSYS",
+     "completed": "2026-09-16"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "MXFP4 accumulating PE (composed from the proven dot-product)",
+   "tier": "assembly",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "97dff7ab10249f78a6ce9e290686f0bae213299b20a4f615e8aa0361f6cfd6c5",
+    "tool": "YOSYS",
+    "completed": "2026-09-15"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "97dff7ab10249f78a6ce9e290686f0bae213299b20a4f615e8aa0361f6cfd6c5",
+     "tool": "YOSYS",
+     "completed": "2026-09-15"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "Multi-warp SM (4-warp interleave)",
+   "tier": "assembly",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "7dba51e61b202b69ca8fa77b32b2829510ec4c7036d91f57cdc8004a95c5a75d",
+    "tool": "YOSYS",
+    "completed": "2026-09-18"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "7dba51e61b202b69ca8fa77b32b2829510ec4c7036d91f57cdc8004a95c5a75d",
+     "tool": "YOSYS",
+     "completed": "2026-09-18"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "Rasterizer (minimal, single-triangle)",
+   "tier": "assembly",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "91e7a9cd8c81efc5e183b9d6a21d4ea090ea9cf109c0b61808850ad5f0d5b25b",
+    "tool": "YOSYS",
+    "completed": "2026-09-18"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "91e7a9cd8c81efc5e183b9d6a21d4ea090ea9cf109c0b61808850ad5f0d5b25b",
+     "tool": "YOSYS",
+     "completed": "2026-09-18"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "SIMD execution group (4 x FP32 lane)",
+   "tier": "assembly",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "1473c8d20bdf12f702f43a9af4044d3d95523077284613dbd969b3885bc88cac",
+    "tool": "YOSYS",
+    "completed": "2026-09-16"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "1473c8d20bdf12f702f43a9af4044d3d95523077284613dbd969b3885bc88cac",
+     "tool": "YOSYS",
+     "completed": "2026-09-16"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "SIMD execution group + SFU (4x compute_lane_sfu)",
+   "tier": "assembly",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "70dda16230b7f1fc5bd09a1a07d36c0a9d30caf6c95233cbe514d1977c922827",
+    "tool": "YOSYS",
+    "completed": "2026-09-16"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "70dda16230b7f1fc5bd09a1a07d36c0a9d30caf6c95233cbe514d1977c922827",
+     "tool": "YOSYS",
+     "completed": "2026-09-16"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "Streaming multiprocessor (SM)",
+   "tier": "assembly",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "3a8f7d2ec7315ec71fb801fbf73a8e11af3a5c410cd9ce80e4c6aed61821b58d",
+    "tool": "YOSYS",
+    "completed": "2026-09-18"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "3a8f7d2ec7315ec71fb801fbf73a8e11af3a5c410cd9ce80e4c6aed61821b58d",
+     "tool": "YOSYS",
+     "completed": "2026-09-18"
+    },
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "f21c77c1a936eecc176b790bff21478716fc736554edc1313f9436d01c0e88f6",
+     "tool": "YOSYS",
+     "completed": "2026-09-18"
+    },
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "e5178668999f5d3a4b64def52e418250a2a4c53f24b89d0248b9657273179e1e",
+     "tool": "YOSYS",
+     "completed": "2026-09-18"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "32-bit integer subtractor",
+   "tier": "component",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "dec6829e41dbe820b9bb93ff0906a68301b24c08a01eaa3959ca8946f6156608",
+    "tool": "YOSYS",
+    "completed": "2026-09-16"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "dec6829e41dbe820b9bb93ff0906a68301b24c08a01eaa3959ca8946f6156608",
+     "tool": "YOSYS",
+     "completed": "2026-09-16"
+    },
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "20710fcca92367b39e2dc04352b648e3b60e2b3f3a93f003c9c2164e9cb5f4be",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": "2026-09-17"
+  },
+  {
+   "title": "32-bit register",
+   "tier": "component",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "bde8e15183c6b021035589c39cb5d6f963a38067fa232e765770102c5072230a",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 3,
+     "kind": "techmap-equivalence",
+     "sha256": "fd8f506ea62a9c4b5d3832f4bea1b00dcd45cc70e64483295f05b5fe01f1b6b0",
+     "tool": "YOSYS",
+     "completed": "2026-09-16"
+    },
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "bde8e15183c6b021035589c39cb5d6f963a38067fa232e765770102c5072230a",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "32-way adder-reduction tree",
+   "tier": "component",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "727d06fc57e660a20b74c397016ba9e2046d576955e7ba21f81bed026b32acb7",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "56c8750d348aebc3d6bdb0e11d02122d6889cb8b4a15f9f0d27b76689956e69d",
+     "tool": "YOSYS",
+     "completed": "2026-09-13"
+    },
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "727d06fc57e660a20b74c397016ba9e2046d576955e7ba21f81bed026b32acb7",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "48-bit ripple-carry adder",
+   "tier": "component",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "24ada49eea78e3345b9387c595c31f61c47109b4b2aa51032231e61ecd486660",
+    "tool": "YOSYS",
+    "completed": "2026-09-16"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "24ada49eea78e3345b9387c595c31f61c47109b4b2aa51032231e61ecd486660",
+     "tool": "YOSYS",
+     "completed": "2026-09-16"
+    },
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "0aa3071f69c32aa0c25472a4d24f929f70d22b2653d088a2981270ec159fd9ac",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": "2026-09-17"
+  },
+  {
+   "title": "FP32 accumulator adder",
+   "tier": "component",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "403fd111c7b25f628db0bbeb9612e79b25d265dec7a2c76ef6fc9c068f393567",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "f7ed513d44f0f79a61af769125c92c6454f8c2c479cadb5d4e5aca4c177bdbdc",
+     "tool": "YOSYS",
+     "completed": "2026-09-15"
+    },
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "403fd111c7b25f628db0bbeb9612e79b25d265dec7a2c76ef6fc9c068f393567",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "FP32 max/min",
+   "tier": "component",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "d603c6ad7a6293292b8ad36762283eb61f7e10d2615ed59ca97c929218a9dcba",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 3,
+     "kind": "techmap-equivalence",
+     "sha256": "9421e16fa9b95b02a26212d82a7c411724c8cf68c7833c842a6856294fb23a55",
+     "tool": "YOSYS",
+     "completed": "2026-09-16"
+    },
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "d603c6ad7a6293292b8ad36762283eb61f7e10d2615ed59ca97c929218a9dcba",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "FP32 multiplier",
+   "tier": "component",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "f7c92ade4ec33b6df5a6311356c5fc41bc165d4d3dbff25d71f5ff14b43cbfd6",
+    "tool": "YOSYS",
+    "completed": "2026-09-16"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "f7c92ade4ec33b6df5a6311356c5fc41bc165d4d3dbff25d71f5ff14b43cbfd6",
+     "tool": "YOSYS",
+     "completed": "2026-09-16"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "FP32 normalize/pack unit",
+   "tier": "component",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "7c7a66fb6f3873c83dac7bd668250fa76e1f8e79066fad8ad6ffe4bda276a077",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "935dfa3d83d4671fcdd336fea3bfa4d6c6fc885c160dab369aab6b35e8c0fdd9",
+     "tool": "YOSYS",
+     "completed": "2026-09-13"
+    },
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "5d018a2690c49662eae20f0b6116fb74bdcd7e9723953d2caa4c50951bd24fed",
+     "tool": "YOSYS",
+     "completed": "2026-09-15"
+    },
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "7c7a66fb6f3873c83dac7bd668250fa76e1f8e79066fad8ad6ffe4bda276a077",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "FP32 subtract (a - b)",
+   "tier": "component",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "e430614bad207f79e8a9602339ea0b883d186a3e2fe0fa5f8789f559129f9404",
+    "tool": "YOSYS",
+    "completed": "2026-09-16"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "e430614bad207f79e8a9602339ea0b883d186a3e2fe0fa5f8789f559129f9404",
+     "tool": "YOSYS",
+     "completed": "2026-09-16"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "FP32 to Int32 converter (F2I)",
+   "tier": "component",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "af569010c6d76fa97e07810b8e1f55ee8b7941a01cdb827da8ff8f25cbc0770f",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 3,
+     "kind": "techmap-equivalence",
+     "sha256": "972fb32c93ad922de57ddbf9b22e32558978e48624c3a78f94477147bae82efd",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    },
+    {
+     "level": 3,
+     "kind": "techmap-equivalence",
+     "sha256": "37e7ada57330cbf70e67949b334b5dcf169ca357d9593695c7e284f7f0530bc7",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    },
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "af569010c6d76fa97e07810b8e1f55ee8b7941a01cdb827da8ff8f25cbc0770f",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "Int32 to FP32 converter (I2F)",
+   "tier": "component",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "2ebfdc388451457fc586a59560c97f4f99983301f883be1e2d9404d5603a507c",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 3,
+     "kind": "techmap-equivalence",
+     "sha256": "d636299328a775b1e0cb59a04abd3e7fc2a7b141c57aacb1af222ede3a5ae978",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    },
+    {
+     "level": 3,
+     "kind": "techmap-equivalence",
+     "sha256": "17c5e8f6ce4d8ee0299f6194d831fdba25822a331850f380a13b816e3a87b76c",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    },
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "2ebfdc388451457fc586a59560c97f4f99983301f883be1e2d9404d5603a507c",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "MXFP4 lane multiplier",
+   "tier": "component",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "a3800f2766f1ce02f618919a97af4d9e4dd216417cf1a8e06889a4dad071f205",
+    "tool": "YOSYS",
+    "completed": "2026-09-16"
+   },
+   "proofs": [
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "3097b6feb1d546b5240f1dd190370624bad80e9241219802f8998984ea2a083b",
+     "tool": "YOSYS",
+     "completed": "2026-09-13"
+    },
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "0b641915ce3d6e80ead6db2d39a78ba4e7b37cbe2667b07fbf9f77cf06e5d805",
+     "tool": "YOSYS",
+     "completed": "2026-09-15"
+    },
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "a3800f2766f1ce02f618919a97af4d9e4dd216417cf1a8e06889a4dad071f205",
+     "tool": "YOSYS",
+     "completed": "2026-09-16"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "Warp scheduler",
+   "tier": "component",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "a9c07125db2505d89660712589f0cb6ee9be29266b6a39379d64b87f59560111",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "a9c07125db2505d89660712589f0cb6ee9be29266b6a39379d64b87f59560111",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "barrel_shift_l32 (left barrel shifter)",
+   "tier": "component",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "c54bacabf8b11213745e0fca9273714cd6fd78da96ce8d5067e2e3d3b4015f96",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "c54bacabf8b11213745e0fca9273714cd6fd78da96ce8d5067e2e3d3b4015f96",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    },
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "b222de415608b6d906c685d8709f589b30fe699f6b133cf1a6d188d25857dbfe",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "barrel_shift_l64 (left barrel shifter)",
+   "tier": "component",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "7a3a849d220c13314bab5520a3a1f1c1f709d80779daa11ff2eb7d9dd2a1be48",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "7a3a849d220c13314bab5520a3a1f1c1f709d80779daa11ff2eb7d9dd2a1be48",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    },
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "12e35ed7741c0ee36921520eb50cf9aeb52a1f41ae54e33d7f12f3fbbd104d11",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "barrel_shift_r64 (right barrel shifter)",
+   "tier": "component",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "37adcd202d55c55b2e3d42c6c28e56cc35f5003d460cff58203ab0c55f22bc3a",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "37adcd202d55c55b2e3d42c6c28e56cc35f5003d460cff58203ab0c55f22bc3a",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    },
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "4fb340efc437debb114fb563bbf65be3f41865cc0cd285774dc9e17c4e61cba3",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "inc32 (32-bit incrementer)",
+   "tier": "component",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "e849aa18f017257888000f2f4d2a7eb91678e467946a4f536ee42b738e53bd20",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "e849aa18f017257888000f2f4d2a7eb91678e467946a4f536ee42b738e53bd20",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    },
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "cb6fbc4bf3150254b65b8ee4903f62e1557761df80dfeaf54b2fd47f54a68a51",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "priority_encoder32 (32-bit leading-one)",
+   "tier": "component",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "ab9f1cfad1cf854cb009313c5e290139f4acfeea78cb2964f9f7b79d2b2aa319",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "ab9f1cfad1cf854cb009313c5e290139f4acfeea78cb2964f9f7b79d2b2aa319",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    },
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "6a4003665241c3625112bbc5735a27d9c33c95c39482235e68150a45973909b3",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "priority_encoder64 (64-bit leading-one)",
+   "tier": "component",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "f454d5dd37041ff14f1e754fe181e4124aaa0ecb1a637099131c2cc38117c951",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "f454d5dd37041ff14f1e754fe181e4124aaa0ecb1a637099131c2cc38117c951",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    },
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "ae50b95e59ab5decfd930decd18aebe8908df55c28a8a0407a9604b4b212ddba",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "rca16 (16-bit ripple adder)",
+   "tier": "component",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "60c981bba8121e027fb7647ca1e81d7d8ec882a44a032fb17c54e277d214ee9e",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "60c981bba8121e027fb7647ca1e81d7d8ec882a44a032fb17c54e277d214ee9e",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    },
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "453fa31166da21bbb1fa0583e63cddf21ca7fbc2029b8db5cb621542fd239c35",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "rca52 (52-bit ripple adder)",
+   "tier": "component",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "bc44cf681fe8017b7af74209efa4b317d93786f9ffab08e371aff210c6e3e5c0",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "bc44cf681fe8017b7af74209efa4b317d93786f9ffab08e371aff210c6e3e5c0",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    },
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "7e685c653208e3592a35eb6b812a59ed383a02f0097165856d9bb74cf33ea181",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "rne_round (round to nearest even)",
+   "tier": "component",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "3f7d5d4f8073cc7be5d6659a9d336d79f3d93742225ffeb46109297c00cf588c",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "3f7d5d4f8073cc7be5d6659a9d336d79f3d93742225ffeb46109297c00cf588c",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    },
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "d3d5e7fe21eea0156dcd117885c697da8708b151730ecbcee9ecc3ce24b2e064",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "MXFP4 GEMM tile (4x4, composed from proven PEs)",
+   "tier": "soc",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "9d608d607377aea53348d7426d7843ae997639d60454481eedb5f4a3a5199017",
+    "tool": "YOSYS",
+    "completed": "2026-09-15"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "9d608d607377aea53348d7426d7843ae997639d60454481eedb5f4a3a5199017",
+     "tool": "YOSYS",
+     "completed": "2026-09-15"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "q2_buf2 \u00c2\u00b7 proven non-inverting buffer",
+   "tier": "standard-cell",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "29a36f44ef9781e82075ddcc9c3c63a389b508cdd05e0abf5349c7d7e5499e3e",
+    "tool": "YOSYS",
+    "completed": "2026-09-19"
+   },
+   "proofs": [
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "eb08044e0a7f66980b522a38ae92549eca6642cc24b0fb1172d0bbc1276922c7",
+     "tool": "YOSYS",
+     "completed": "2026-09-19"
+    },
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "29a36f44ef9781e82075ddcc9c3c63a389b508cdd05e0abf5349c7d7e5499e3e",
+     "tool": "YOSYS",
+     "completed": "2026-09-19"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "24x24 array multiplier",
+   "tier": "sub-assembly",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "8235ed0766da8a7c4f015ccf25b9ff141259140cf9866d21908b87a224d87101",
+    "tool": "YOSYS",
+    "completed": "2026-09-16"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "8235ed0766da8a7c4f015ccf25b9ff141259140cf9866d21908b87a224d87101",
+     "tool": "YOSYS",
+     "completed": "2026-09-16"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "32x32 register file",
+   "tier": "sub-assembly",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "163a4ef8400df5dd1ecb3d025f98255f37186e7768ac69a5defd1a0100592f8f",
+    "tool": "YOSYS",
+    "completed": "2026-09-16"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "163a4ef8400df5dd1ecb3d025f98255f37186e7768ac69a5defd1a0100592f8f",
+     "tool": "YOSYS",
+     "completed": "2026-09-16"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "Bias + ReLU activation unit",
+   "tier": "sub-assembly",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "a318bbcf17a0d55d5a6c73047b3ade721a40bb7da1b106d64c7d430b20a08db8",
+    "tool": "YOSYS",
+    "completed": "2026-09-16"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "a318bbcf17a0d55d5a6c73047b3ade721a40bb7da1b106d64c7d430b20a08db8",
+     "tool": "YOSYS",
+     "completed": "2026-09-16"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "FP32 base-2 exponential (exp2, SFU)",
+   "tier": "sub-assembly",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "d869ef1d141274d535f1454ca9c033a9eed80d4d96f22e9f26c515f3d2d893db",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "d869ef1d141274d535f1454ca9c033a9eed80d4d96f22e9f26c515f3d2d893db",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "FP32 reciprocal (SFU, Newton-Raphson)",
+   "tier": "sub-assembly",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "d127b83983c5f08630bd35331c13f39c4b56d606dec25e82fbf64a78eda61995",
+    "tool": "YOSYS",
+    "completed": "2026-09-16"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "d127b83983c5f08630bd35331c13f39c4b56d606dec25e82fbf64a78eda61995",
+     "tool": "YOSYS",
+     "completed": "2026-09-16"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "FP32 reciprocal square root (SFU, Newton-Raphson)",
+   "tier": "sub-assembly",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "5f19a57b4bed8145a2e3415bdd3e10e92cb6d693385f8bc287eb7d868ffcc20c",
+    "tool": "YOSYS",
+    "completed": "2026-09-16"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "5f19a57b4bed8145a2e3415bdd3e10e92cb6d693385f8bc287eb7d868ffcc20c",
+     "tool": "YOSYS",
+     "completed": "2026-09-16"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "FP32 special-function unit (recip/rsqrt/sqrt)",
+   "tier": "sub-assembly",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "7f85f825a952e2fb21f033e194f04afed447b75da610a9d7479c9f4e9e082bbb",
+    "tool": "YOSYS",
+    "completed": "2026-09-16"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "7f85f825a952e2fb21f033e194f04afed447b75da610a9d7479c9f4e9e082bbb",
+     "tool": "YOSYS",
+     "completed": "2026-09-16"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "FP32 square root (SFU)",
+   "tier": "sub-assembly",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "631e958e8bb1b1e4aad1ed6ec3b96d1702b0cd5cc17cfc50fe2d1483da0d7341",
+    "tool": "YOSYS",
+    "completed": "2026-09-16"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "631e958e8bb1b1e4aad1ed6ec3b96d1702b0cd5cc17cfc50fe2d1483da0d7341",
+     "tool": "YOSYS",
+     "completed": "2026-09-16"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "FP32 vector ALU",
+   "tier": "sub-assembly",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "48b011598dc39972866574dfa3aca94da948f0131196af1565109a7f4f82aab8",
+    "tool": "YOSYS",
+    "completed": "2026-09-16"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "48b011598dc39972866574dfa3aca94da948f0131196af1565109a7f4f82aab8",
+     "tool": "YOSYS",
+     "completed": "2026-09-16"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "MXFP4 dot-product (composed, proven from parts)",
+   "tier": "sub-assembly",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "80a4c0c0cfe51a56d86c92ed7a4c1a5d48bf6964ab630d8eb438cc478a674cc6",
+    "tool": "YOSYS",
+    "completed": "2026-09-15"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "80a4c0c0cfe51a56d86c92ed7a4c1a5d48bf6964ab630d8eb438cc478a674cc6",
+     "tool": "YOSYS",
+     "completed": "2026-09-15"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "Multi-ported warp register file",
+   "tier": "sub-assembly",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "4c63a5b7751f9116c2ebb8ea9f41ced24b13b95a028c06c9296af9e4d22736ad",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "4c63a5b7751f9116c2ebb8ea9f41ced24b13b95a028c06c9296af9e4d22736ad",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "Shared memory (scratchpad)",
+   "tier": "sub-assembly",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "c2bfded9e50ccab65d4897e7ac5a026e0e63a118beeda68c7bd0e5ee0e6ebb48",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "c2bfded9e50ccab65d4897e7ac5a026e0e63a118beeda68c7bd0e5ee0e6ebb48",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "MXFP4 GEMM accelerator",
+   "tier": "system",
+   "project": "Understory",
+   "level": 4,
+   "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "sha256": "3fa6357a125d596e99f42a793fccf100ab81aa358811004eddc040311197340d",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 4,
+     "kind": "composition-proof",
+     "sha256": "3fa6357a125d596e99f42a793fccf100ab81aa358811004eddc040311197340d",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "E2M1 decoder",
+   "tier": "component",
+   "project": "Understory",
+   "level": 3,
+   "proof_of_record": {
+    "level": 3,
+    "kind": "techmap-equivalence",
+    "sha256": "5bd04aed94512c31367a5d36e07d4ddea09049b399a9502c1ea982fa2f6b62f2",
+    "tool": "YOSYS",
+    "completed": "2026-09-15"
+   },
+   "proofs": [
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "a2457e707be56b6622575b9a9104c51649a52e741f4b46f51f2900e02f15cc64",
+     "tool": "YOSYS",
+     "completed": "2026-09-13"
+    },
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "46d51fa09249bc0a11e172c892eb67744ec198bc8a9eaf1f311f607cd3da69d2",
+     "tool": "YOSYS",
+     "completed": "2026-09-15"
+    },
+    {
+     "level": 3,
+     "kind": "techmap-equivalence",
+     "sha256": "5bd04aed94512c31367a5d36e07d4ddea09049b399a9502c1ea982fa2f6b62f2",
+     "tool": "YOSYS",
+     "completed": "2026-09-15"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "Full adder",
+   "tier": "component",
+   "project": "Understory",
+   "level": 3,
+   "proof_of_record": {
+    "level": 3,
+    "kind": "techmap-equivalence",
+    "sha256": "6ff2260bb5acfac8d66a74f73eae4eb86d213634b371c3f194bcbc10a3d66c25",
+    "tool": "YOSYS",
+    "completed": "2026-09-16"
+   },
+   "proofs": [
+    {
+     "level": 3,
+     "kind": "techmap-equivalence",
+     "sha256": "6ff2260bb5acfac8d66a74f73eae4eb86d213634b371c3f194bcbc10a3d66c25",
+     "tool": "YOSYS",
+     "completed": "2026-09-16"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "mux2 (2:1 mux)",
+   "tier": "component",
+   "project": "Understory",
+   "level": 3,
+   "proof_of_record": {
+    "level": 3,
+    "kind": "techmap-equivalence",
+    "sha256": "d0f3caa0113fd58c3b61e88d50003cc7c44a48102284b4867c0a1e83f5f140a6",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 3,
+     "kind": "techmap-equivalence",
+     "sha256": "d0f3caa0113fd58c3b61e88d50003cc7c44a48102284b4867c0a1e83f5f140a6",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "priority_encoder8 (8-bit leading-one)",
+   "tier": "component",
+   "project": "Understory",
+   "level": 3,
+   "proof_of_record": {
+    "level": 3,
+    "kind": "techmap-equivalence",
+    "sha256": "8d647cfdf22bf1de1bf4ce7eb197f20a5c6f34a7d8fa278791f23641c85c13ea",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 3,
+     "kind": "techmap-equivalence",
+     "sha256": "8d647cfdf22bf1de1bf4ce7eb197f20a5c6f34a7d8fa278791f23641c85c13ea",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "FP32 ReLU",
+   "tier": "component",
+   "project": "Understory",
+   "level": 2,
+   "proof_of_record": {
+    "level": 2,
+    "kind": "equivalence",
+    "sha256": "23b9a358887699190663bd81c526124afe01cea16d118bc40d636ab3cc1f4ee2",
+    "tool": "YOSYS",
+    "completed": "2026-09-16"
+   },
+   "proofs": [
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "23b9a358887699190663bd81c526124afe01cea16d118bc40d636ab3cc1f4ee2",
+     "tool": "YOSYS",
+     "completed": "2026-09-16"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "Instruction decode + issue",
+   "tier": "component",
+   "project": "Understory",
+   "level": 2,
+   "proof_of_record": {
+    "level": 2,
+    "kind": "equivalence",
+    "sha256": "79d9e1b37eddbdc5a7c0f2b9201391ccdbfc2c2f502559d14e45b712f490cc7e",
+    "tool": "YOSYS",
+    "completed": "2026-09-18"
+   },
+   "proofs": [
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "cf8a57b77b527f7a37e5bdb370c6c8af801fe62f95e813e21d9f19e44057c8be",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    },
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "79d9e1b37eddbdc5a7c0f2b9201391ccdbfc2c2f502559d14e45b712f490cc7e",
+     "tool": "YOSYS",
+     "completed": "2026-09-18"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "Test-pattern generator (color bars)",
+   "tier": "component",
+   "project": "Understory",
+   "level": 2,
+   "proof_of_record": {
+    "level": 2,
+    "kind": "equivalence",
+    "sha256": "da6cff321d0a53b738347b19501e4d62eb2001853b7b93ffd9fcb6e1eaa4dd2d",
+    "tool": "YOSYS",
+    "completed": "2026-09-18"
+   },
+   "proofs": [
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "da6cff321d0a53b738347b19501e4d62eb2001853b7b93ffd9fcb6e1eaa4dd2d",
+     "tool": "YOSYS",
+     "completed": "2026-09-18"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "add32 (32-bit address adder)",
+   "tier": "component",
+   "project": "Understory",
+   "level": 2,
+   "proof_of_record": {
+    "level": 2,
+    "kind": "equivalence",
+    "sha256": "00df08b623554a83950c4283f986289286e55f7104c4dcbeab0dade72f168b7c",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "00df08b623554a83950c4283f986289286e55f7104c4dcbeab0dade72f168b7c",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "bank_conflict4 (4-lane bank-conflict analyzer)",
+   "tier": "component",
+   "project": "Understory",
+   "level": 2,
+   "proof_of_record": {
+    "level": 2,
+    "kind": "equivalence",
+    "sha256": "8140baf8566cc429f1d339b5ac15bf9b2b81dec0d14b91825b030bcfc75121d5",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "8140baf8566cc429f1d339b5ac15bf9b2b81dec0d14b91825b030bcfc75121d5",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "decoder5to32 (5->32 one-hot write decoder)",
+   "tier": "component",
+   "project": "Understory",
+   "level": 2,
+   "proof_of_record": {
+    "level": 2,
+    "kind": "equivalence",
+    "sha256": "d60f308bc6b167322027a609cac1f6b5d2821892935688bd5c6db3c446cf11ea",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "d60f308bc6b167322027a609cac1f6b5d2821892935688bd5c6db3c446cf11ea",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "rr_arbiter8 (round-robin ready-select arbiter)",
+   "tier": "component",
+   "project": "Understory",
+   "level": 2,
+   "proof_of_record": {
+    "level": 2,
+    "kind": "equivalence",
+    "sha256": "96d4b5e74f6a4b9e2e523d040675f645098bc317ef25fa6081a707c1841d8733",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "96d4b5e74f6a4b9e2e523d040675f645098bc317ef25fa6081a707c1841d8733",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "Load/store unit",
+   "tier": "sub-assembly",
+   "project": "Understory",
+   "level": 2,
+   "proof_of_record": {
+    "level": 2,
+    "kind": "equivalence",
+    "sha256": "b04bae794bd91720550034e356c4ff8c9a3dab5917e01a0b8fcade9441d0f623",
+    "tool": "YOSYS",
+    "completed": "2026-09-17"
+   },
+   "proofs": [
+    {
+     "level": 2,
+     "kind": "equivalence",
+     "sha256": "b04bae794bd91720550034e356c4ff8c9a3dab5917e01a0b8fcade9441d0f623",
+     "tool": "YOSYS",
+     "completed": "2026-09-17"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "D flip-flop \u00c2\u00b7 sky130_fd_sc_hd__dfxtp_1",
+   "tier": "standard-cell",
+   "project": "Understory",
+   "level": 1,
+   "proof_of_record": {
+    "level": 1,
+    "kind": "cell-proof",
+    "sha256": "7f29733480d62dbc82d2ee445640d1cf647b0eba644e56d552dd2c949bd2ea5e",
+    "tool": "NGSPICE",
+    "completed": "2026-09-15"
+   },
+   "proofs": [
+    {
+     "level": 1,
+     "kind": "cell-proof",
+     "sha256": "23346ffe0230ee6ec7b96676dbab9b906a11db9df7b0602817dbdbe467c45e21",
+     "tool": "NGSPICE",
+     "completed": "2026-09-14"
+    },
+    {
+     "level": 1,
+     "kind": "cell-proof",
+     "sha256": "7f29733480d62dbc82d2ee445640d1cf647b0eba644e56d552dd2c949bd2ea5e",
+     "tool": "NGSPICE",
+     "completed": "2026-09-15"
+    }
+   ],
+   "human_signoff": "2026-09-17"
+  },
+  {
+   "title": "GPU-C01 INV standard cell (X1): sizing, VTC, delay/power; depends on GPU-D01",
+   "tier": "standard-cell",
+   "project": "Foundry",
+   "level": 1,
+   "proof_of_record": {
+    "level": 1,
+    "kind": "cell-proof",
+    "sha256": "33914ecbeaa3df73f32b3e0c4a94d76176b96e3c9065090c8e345b1d793c7af3",
+    "tool": "NGSPICE",
+    "completed": "2026-09-26"
+   },
+   "proofs": [
+    {
+     "level": 1,
+     "kind": "cell-proof",
+     "sha256": "33914ecbeaa3df73f32b3e0c4a94d76176b96e3c9065090c8e345b1d793c7af3",
+     "tool": "NGSPICE",
+     "completed": "2026-09-26"
+    },
+    {
+     "level": 1,
+     "kind": "cell-proof",
+     "sha256": "33914ecbeaa3df73f32b3e0c4a94d76176b96e3c9065090c8e345b1d793c7af3",
+     "tool": "NGSPICE",
+     "completed": "2026-09-26"
+    }
+   ],
+   "human_signoff": null
+  },
+  {
+   "title": "Inverter \u00c2\u00b7 sky130_fd_sc_hd__inv_1",
+   "tier": "standard-cell",
+   "project": "Understory",
+   "level": 1,
+   "proof_of_record": {
+    "level": 1,
+    "kind": "cell-proof",
+    "sha256": "db93e66a9aaa778ca420e61e85d086d2aa1d19eb20b00e51a1b58b88dfbf732a",
+    "tool": "NGSPICE",
+    "completed": "2026-09-15"
+   },
+   "proofs": [
+    {
+     "level": 1,
+     "kind": "cell-proof",
+     "sha256": "9a385b56a46ed56bb77884b3dbce9781432abb4779bea819ba3f9074e3658980",
+     "tool": "NGSPICE",
+     "completed": "2026-09-14"
+    },
+    {
+     "level": 1,
+     "kind": "cell-proof",
+     "sha256": "db93e66a9aaa778ca420e61e85d086d2aa1d19eb20b00e51a1b58b88dfbf732a",
+     "tool": "NGSPICE",
+     "completed": "2026-09-15"
+    }
+   ],
+   "human_signoff": "2026-09-17"
+  },
+  {
+   "title": "NAND2 \u00c2\u00b7 sky130_fd_sc_hd__nand2_1",
+   "tier": "standard-cell",
+   "project": "Understory",
+   "level": 1,
+   "proof_of_record": {
+    "level": 1,
+    "kind": "cell-proof",
+    "sha256": "8dbfac55cbf0582f1fa802b92f557da84679b2d269e68da6f219c35c268c6619",
+    "tool": "NGSPICE",
+    "completed": "2026-09-14"
+   },
+   "proofs": [
+    {
+     "level": 1,
+     "kind": "cell-proof",
+     "sha256": "8dbfac55cbf0582f1fa802b92f557da84679b2d269e68da6f219c35c268c6619",
+     "tool": "NGSPICE",
+     "completed": "2026-09-14"
+    }
+   ],
+   "human_signoff": "2026-09-17"
+  }
+ ]
+}

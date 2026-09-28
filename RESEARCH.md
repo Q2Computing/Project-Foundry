@@ -62,7 +62,7 @@ Floating-point arithmetic is the worked example for two reasons. It is the arith
 
 ## 5. Data
 
-**The MXFP4 record.** Q2's MXFP4 GEMM accelerator was certified purely by reference to proven parts. Every block's certificate carries the content hash of its real proof of record from the portal's analysis table.
+**The MXFP4 record.** Q2's MXFP4 GEMM accelerator was certified purely by reference to proven parts. Every block's certificate carries the content hash of its real proof of record from the portal's analysis table. The full set of blocks with a passing proof of record, with their hashes, is the [catalog](./catalog.html), exported from the same table.
 
 | Block | Tier | Proof level |
 | --- | --- | --- |
@@ -156,6 +156,8 @@ The analysis is a Lean 4 project, Q2Market.lean, with 58 theorems over a model t
 | $10 | 12,100 | 400 |
 | $1 | 122,000 | 4,000 |
 | 10 cents | 1,340,000 | 40,000 |
+
+**Soundness of composition, proved.** The rule behind level 4, that proven parts plus proven glue yield a proven whole, is now a machine-checked theorem rather than an assumption. The project [proofs/composition-soundness](https://github.com/Q2Computing/Project-Foundry/tree/main/proofs/composition-soundness) models a combinational block as a pair of functions, its implementation and its specification, and proves for sequential, parallel, and general glue composition that if every child's implementation equals its specification and the assembly's implementation equals the wiring of the children's implementations, then the assembly's implementation equals the wiring of the children's specifications. Eighteen theorems in Lean 4.33.1, core kernel only; the sequential and parallel forms depend on no axioms, and the general glue and list forms depend only on Quot.sound through function extensionality. What remains assumed is the fidelity of the checker to the model: that the portal's census instantiates the hypothesis on the children and its Yosys equivalence check instantiates the hypothesis on the glue. Blocks with registers are the next step, scheduled on the roadmap.
 
 **Invariants the contract enforces.** The theorems describe the model; these are the properties of the deployed code that make the model faithful.
 

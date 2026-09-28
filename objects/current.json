@@ -1,0 +1,13 @@
+{
+  "schema": "q2.object.v1",
+  "pdk": "sky130",
+  "structure": "dipole",
+  "note": "Measurement abstraction of a private structure. It carries only the areas and distances the deterministic antenna/latchup rule needs — never the routed geometry, the design method, or the dopant recipe that produced them. The public check verifies the boundary insight; the IP that reached it stays private.",
+  "measurement": {
+    "arms_um": [8.0, 8.0],
+    "metal_width_um": 0.30,
+    "trunk_area_um2": 2.5,
+    "gate_area_um2": 0.63,
+    "tap_distance_um": 6.0
+  }
+}

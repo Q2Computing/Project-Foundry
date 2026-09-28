@@ -223,7 +223,7 @@
       <thead><tr><th>Above the ladder</th><th>What it adds</th><th>Status</th></tr></thead>
       <tbody>
         <tr><td>Refinement to specification</td><td>The composed system satisfies the standard it claims (IEEE 754 correct rounding, the RISC-V ISA), not merely its own RTL. This gives the top-level interface its meaning.</td><td class="road"><a href="./roadmap.html#sec-B">Roadmap: FPGA enumeration, Sep 29 to Oct 3</a>; <a href="./roadmap.html#sec-F">FP32 add and multiply, Oct 5 to 23</a></td></tr>
-        <tr><td>Soundness of composition</td><td>A machine-checked theorem that proven parts plus proven glue yield a proven whole, justifying level 4 for every instance at once.</td><td class="road"><a href="./roadmap.html#sec-C">Roadmap: combinational, Sep 28 to 30</a>; <a href="./roadmap.html#sec-G">clocked, Oct 5 to 16</a></td></tr>
+        <tr><td>Soundness of composition</td><td>A machine-checked theorem that proven parts plus proven glue yield a proven whole, justifying level 4 for every instance at once.</td><td class="real"><a href="https://github.com/Q2Computing/Project-Foundry/tree/main/proofs/composition-soundness">Proven for combinational blocks: 18 theorems, Lean kernel, axioms at most Quot.sound</a>; clocked blocks: <a href="./roadmap.html#sec-G">roadmap, Oct 5 to 16</a></td></tr>
         <tr><td>Proof-carrying trust and attestation</td><td>Proof certificates a verified checker replays, so no solver is trusted on its word; and the custody chain from proven design to fabricated silicon.</td><td class="road">Pending patent disclosure</td></tr>
       </tbody>
     </table>
@@ -331,7 +331,7 @@ record(0xbbe5a7f1...f8f7c, 2200, 16)
 <section>
   <div class="wrap">
     <h2>Where to go next</h2>
-    <p class="body">Every number on this page is reproduced by a measurement or a machine-checked theorem on the <a href="./research.html">research page</a>, written to be read from the beginning by someone new to the field. The contracts, the proofs, the demo, and the co-design and measurement code are in the <a href="https://github.com/Q2Computing/Project-Foundry">repository</a>. The <a href="./roadmap.html">roadmap</a> is a calendar that points at the section in progress, with the stream where the work is done in the open.</p>
+    <p class="body">Every number on this page is reproduced by a measurement or a machine-checked theorem on the <a href="./research.html">research page</a>, written to be read from the beginning by someone new to the field. The contracts, the proofs, the demo, and the co-design and measurement code are in the <a href="https://github.com/Q2Computing/Project-Foundry">repository</a>. The <a href="./catalog.html">catalog</a> lists every block in the portal with a passing proof of record, with the hash a certificate would carry. The <a href="./roadmap.html">roadmap</a> is a calendar that points at the section in progress, with the stream where the work is done in the open.</p>
   </div>
 </section>
 
