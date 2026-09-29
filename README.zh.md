@@ -51,8 +51,6 @@
 
 `python3 analysis/differentiate.py` 测量 sky130 hd、hdll、ls、ms 和 hs 的 buf_16：延迟、每周期能量、驱动它的前级所付出的能量、静止时的漏电，以及取自 LEF 的版图面积。在典型工艺角和 250 fF 下，hs 比 hd 快 26%，每周期能量多 1.1%，漏电为 78 倍，面积大 28%；因此 hs 适合时序紧张、翻转频繁的网络，hd 适合大部分时间静止的网络。全部工艺角和负载见 [results/differentiate.md](results/differentiate.md)；这次运行的锚定记录见 results/differentiate.json。
 
-本仓库早先的版本把 hs 的晶体管配方（低阈值 nfet、标准 pfet）说成是 Q2 对 buf_16 的改进。这其实是 sky130 高速库本来就在用的配方。早先的候选设计及其 oracle 工作流作为记录保留在 candidates/ 和 tools/ 中。
-
 ## 已实现与路线图
 
 已证明：阶梯的第 1 至第 4 层、三份合约、一个将真实 MXFP4 GEMM 加速器贯穿两种许可的演示，以及关于该经济的 Lean 证明包。路线图：精化至规范、组合的可靠性定理、凭证重放，以及硅片认证。两者之间的界线在 [RESEARCH.md](RESEARCH.md) 中如实保持。

@@ -90,11 +90,6 @@ nets that mostly rest. Every corner and load is in
 [results/differentiate.md](results/differentiate.md); the anchor record for the
 run is in results/differentiate.json.
 
-An earlier version of this repository presented the hs transistor recipe (low
-threshold nfet, standard pfet) as a Q2 improvement on buf_16. It is the recipe
-sky130's high-speed library already uses. The earlier candidate designs and
-their oracle workflow remain in candidates/ and tools/ as a record.
-
 ## What is proven and what is roadmap
 
 Proven: levels 1 to 4 of the ladder, the three contracts, a demo that runs a

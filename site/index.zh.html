@@ -298,7 +298,6 @@
         <div class="sub">hs、ms 和 ls 的面积，它们的单元行高于 hd</div></div>
     </div>
     <p class="body" style="margin-top:22px"><strong>这对一个网络意味着什么。</strong>在时序紧张、翻转频繁的网络上，hs 以每次翻转约多百分之一的能量，把延迟缩短四分之一。在大部分时间静止的网络上，若翻转少于每秒约 2,900 次（典型工艺角；快速工艺角为 99,000 次），hs 的功耗至少是 hd 的两倍，此时 hd 才是合适的单元。面积受限时，同样选 hd。在这一驱动强度下，hdll 比 hd 慢，只在快速工艺角下将漏电减半。网络功耗等于每秒翻转次数乘以每次翻转能量，再加上漏电乘以 1.8 V。全部三个工艺角和三种负载见 <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/results/differentiate.md">results/differentiate.md</a>。</p>
-    <p class="body" style="margin-top:14px"><strong>更正，2026 年 9 月 29 日。</strong>本节早先的版本把 hs 的晶体管配方（低阈值 nfet、标准 pfet）说成是 Q2 对 buf_16 的改进。这其实是 sky130 自己的高速库所用的配方，因此本节现在直接比较各个库。</p>
   </div>
 </section>
 <section id="stylus">

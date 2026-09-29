@@ -51,8 +51,6 @@ Fungsi yang sama hadir dalam banyak sel. sky130 menghantar penimbal terkuatnya, 
 
 `python3 analysis/differentiate.py` mengukur buf_16 daripada sky130 hd, hdll, ls, ms dan hs: lengah, tenaga setiap kitaran, tenaga yang ditanggung oleh peringkat pemacu, kebocoran semasa rehat, dan luas susun atur daripada LEF. Pada sudut tipikal dan 250 fF, hs 26% lebih pantas daripada hd dengan tenaga 1.1% lebih tinggi setiap kitaran, kebocoran 78 kali ganda, dan luas 28% lebih besar; jadi hs sesuai untuk net sibuk dengan pemasaan ketat dan hd untuk net yang kebanyakan masanya berehat. Setiap sudut dan beban ada dalam [results/differentiate.md](results/differentiate.md); rekod sauh bagi larian itu ada dalam results/differentiate.json.
 
-Versi terdahulu repositori ini membentangkan resipi transistor hs (nfet voltan ambang rendah, pfet piawai) sebagai penambahbaikan Q2 ke atas buf_16. Itu ialah resipi yang sudah digunakan oleh pustaka berkelajuan tinggi sky130. Reka bentuk calon terdahulu dan aliran kerja oracle-nya kekal dalam candidates/ dan tools/ sebagai rekod.
-
 ## Apa yang sebenar dan apa yang pelan hala tuju
 
 Terbukti: tahap 1 hingga 4 tangga, tiga kontrak, demo yang menjalankan pemecut GEMM MXFP4 sebenar melalui kedua-dua lesen, dan pakej bukti Lean bagi ekonomi tersebut. Pelan hala tuju: penghalusan kepada spesifikasi, teorem kesahihan bagi komposisi, main semula sijil, dan pengesahan silikon. Garis antara kedua-duanya dikekalkan jujur dalam [RESEARCH.md](RESEARCH.md).
