@@ -35,7 +35,7 @@ Three proofs sit above or beside it.
 | --- | --- | --- |
 | Refinement to specification | The composed system satisfies the standard it claims (IEEE 754 correct rounding, the RISC-V ISA), not merely equals its own RTL. This gives the top-level interface its meaning. | Roadmap: the next rung to build |
 | Soundness of the composition rule | A machine-checked theorem that proven parts plus proven glue yield a proven whole, justifying level 4 for every instance at once | Roadmap |
-| Proof-carrying trust and attestation | Proof certificates a verified checker replays, so no solver is trusted on its word; and the custody chain from proven design to fabricated silicon | Pending patent disclosure: content-addressed custody is proven, certificate replay and silicon attestation are roadmap |
+| Proof-carrying trust and attestation | Proof certificates a verified checker replays, so no solver is trusted on its word; and the custody chain from proven design to fabricated silicon | Roadmap: sky130 shuttle commitment, November 4, 2026: content-addressed custody is proven, certificate replay and silicon attestation are roadmap |
 
 Simulation with test vectors is evidence, not a proof. It is recorded, and it
 never advances a certificate on its own.

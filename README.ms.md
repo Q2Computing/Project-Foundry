@@ -23,7 +23,7 @@ Komposisi ialah puncak tangga ketepatan dan ia tertutup: blok yang dikomposisika
 | --- | --- | --- |
 | Penghalusan kepada spesifikasi | Sistem yang dikomposisikan memenuhi piawaian yang didakwanya (pembundaran betul IEEE 754, ISA RISC-V), bukan sekadar sama dengan RTLnya sendiri. Ini memberi makna kepada antara muka peringkat atas. | Pelan hala tuju: anak tangga seterusnya untuk dibina |
 | Kesahihan peraturan komposisi | Teorem yang disemak mesin bahawa bahagian terbukti serta perekat terbukti menghasilkan keseluruhan yang terbukti, mewajarkan tahap 4 bagi setiap contoh sekaligus | Pelan hala tuju |
-| Kepercayaan pembawa bukti dan pengesahan (attestation) | Sijil bukti yang dimainkan semula oleh penyemak yang disahkan, supaya tiada penyelesai dipercayai atas kata-katanya; dan rantaian jagaan daripada reka bentuk terbukti ke silikon yang dikilangkan | Menunggu pendedahan paten: jagaan beralamat kandungan telah terbukti; main semula sijil dan pengesahan silikon ialah pelan hala tuju |
+| Kepercayaan pembawa bukti dan pengesahan (attestation) | Sijil bukti yang dimainkan semula oleh penyemak yang disahkan, supaya tiada penyelesai dipercayai atas kata-katanya; dan rantaian jagaan daripada reka bentuk terbukti ke silikon yang dikilangkan | Pelan hala tuju: komitmen ulang-alik sky130, 4 November 2026: jagaan beralamat kandungan telah terbukti; main semula sijil dan pengesahan silikon ialah pelan hala tuju |
 
 Simulasi dengan vektor ujian ialah keterangan, bukan bukti. Ia direkodkan, dan ia tidak pernah memajukan sijil dengan sendirinya.
 
