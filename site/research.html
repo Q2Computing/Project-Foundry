@@ -107,6 +107,7 @@
   .logo img{width:260px;max-width:70%;height:auto;display:inline-block;border-radius:12px}
   .langbar{font-family:var(--mono);font-size:12px;color:var(--dim);margin:0 0 18px}
   .langbar a{color:var(--blue)} .langbar b{color:var(--ink)}
+  table.ladder{display:block;overflow-x:auto;max-width:100%}
   .ladder th,.ladder td{text-align:left;font-family:var(--sans);vertical-align:top;font-size:13.5px}
   .ladder td:first-child{font-family:var(--mono);white-space:nowrap}
   .ladder .real{color:var(--green)} .ladder .road{color:var(--amber)}
@@ -218,7 +219,7 @@
       </tbody>
     </table>
     <p class="body" style="margin-top:22px"><strong>Beat or fork.</strong> Anyone may list a competing implementation of an existing interface, but must name the block it beats and settle whatever remains of that block's listing cost. The prior lister is made whole. The improvement must be a recorded measurement, never a declaration.</p>
-    <p class="body">The public site carries that rule run end to end on one sky130 standard cell, the foundry's buf_16 driver. An agent proposes fabricable candidate cells (gate areas and threshold-voltage mask mixes inside the foundry's energy band), an oracle in GitHub Actions re-measures the baseline and every candidate in one ngspice bench on the open PDK, and each verified, unique win is hashed for the anchor contract to record with its improvement label. The best in-band candidate lowered energy-delay by 22 percent against buf_16 at the same finger count with no extra transistors, and 22 of 30 fabricable mask combinations beat the foundry ladder inside its own energy-per-cycle band. Those measurements are evidence for the label; the cell's correctness is a separate level-1 proof.</p>
+    <p class="body">The public site applies the proof economy's measurement discipline to a free service: telling cells apart in context. sky130 ships its buf_16 buffer in five standard-cell libraries. One ngspice bench on the open PDK measures all five from the foundry's own netlists, at three process corners and three loads, and the run is hashed into a single record for the anchor contract. At the typical corner and 250 fF, the high-speed library's cell is 26% faster than the high-density default for 1.1% more energy per cycle, 78 times the leakage, and 28% more area; which one a net should use depends on how often it switches. The service is free to a team through its first fabrication run. An earlier version of this paragraph presented the high-speed library's transistor recipe as a Q2 improvement on buf_16; it is the recipe that library already uses.</p>
     <p class="body"><strong>Three contracts</strong> on Arbitrum Stylus carry the economy. The verifier re-runs a bounded proof on chain. The anchor records a content-addressed commitment of an off-chain proof. The composition contract certifies a system by reference to child certificates and settles both licenses. Their invariants are listed in Section 6.</p>
   </div>
 </section>
@@ -296,15 +297,16 @@
         <tr><td>Replication cost, incumbent</td><td>$30,000</td><td>parameter, within the $16,000 to $50,000 loaded range</td></tr>
       </tbody>
     </table>
-    <p class="body" style="margin-top:22px"><strong>The driver loop</strong>, the beat-or-fork example on the public site.</p>
+    <p class="body" style="margin-top:22px"><strong>The differentiation bench</strong>, the worked example on the public site.</p>
     <table class="kv">
       <thead><tr><th>Measure</th><th>Value</th><th>Source</th></tr></thead>
       <tbody>
-        <tr><td>Baseline cell</td><td>sky130 buf_16, foundry library</td><td>public site, the loop</td></tr>
-        <tr><td>Best in-band candidate, energy-delay against buf_16</td><td>22 percent lower, same finger count, slightly less energy</td><td>oracle measurement, ngspice, sky130 tt corner, 1.8 V, 250 fF load</td></tr>
-        <tr><td>Extra transistors in the winning cell</td><td>0; a threshold-voltage mask change</td><td>public site, the loop</td></tr>
-        <tr><td>Fabricable mask combinations that beat the foundry ladder in band</td><td>22 of 30</td><td>oracle measurement</td></tr>
-        <tr><td>Anchor record for the best win</td><td>label 2200 basis points, context 16 (drive strength)</td><td>q2-anchor record() call, prepared, not submitted</td></tr>
+        <tr><td>Cells compared</td><td>buf_16 from sky130 hd, hdll, ls, ms and hs; foundry netlists at pinned commits</td><td>analysis/foundry_cells/SOURCES.json</td></tr>
+        <tr><td>Operating points</td><td>3 corners (ss, tt, ff) by 3 loads (60, 250, 1000 fF), 1.8 V, 50 ps input slew</td><td>results/differentiate.md</td></tr>
+        <tr><td>hs against hd, tt, 250 fF</td><td>26% less delay, 1.1% more energy per cycle</td><td>ngspice transient</td></tr>
+        <tr><td>Leakage, hs against hd</td><td>78 times at tt, 1.3 at ss, 487 at ff</td><td>ngspice operating point</td></tr>
+        <tr><td>Area, hs against hd</td><td>35.16 against 27.53 square micrometers, 28% more</td><td>LEF SIZE</td></tr>
+        <tr><td>Anchor record</td><td>label 1 (measurement), context 16 (drive strength)</td><td>q2-anchor record() call, prepared, not submitted</td></tr>
       </tbody>
     </table>
     <p class="body" style="margin-top:22px"><strong>Proof engines, by level</strong>, and what each trusts.</p>

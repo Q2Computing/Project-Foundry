@@ -107,6 +107,7 @@
   .logo img{width:260px;max-width:70%;height:auto;display:inline-block;border-radius:12px}
   .langbar{font-family:var(--mono);font-size:12px;color:var(--dim);margin:0 0 18px}
   .langbar a{color:var(--blue)} .langbar b{color:var(--ink)}
+  table.ladder{display:block;overflow-x:auto;max-width:100%}
   .ladder th,.ladder td{text-align:left;font-family:var(--sans);vertical-align:top;font-size:13.5px}
   .ladder td:first-child{font-family:var(--mono);white-space:nowrap}
   .ladder .real{color:var(--green)} .ladder .road{color:var(--amber)}
@@ -218,7 +219,7 @@
       </tbody>
     </table>
     <p class="body" style="margin-top:22px"><strong>击败或分叉。</strong>任何人都可以登记某一现有接口的竞争实现，但必须指明其所击败的模块，并结清该模块登记成本的剩余部分。先前的登记者得到全额补偿。改进必须是有记录的测量，绝非声明。</p>
-<p class="body">公开站点承载了该规则在一个 sky130 标准单元，即代工厂的 buf_16 驱动器上从头到尾运行一遍的过程。一个智能体提出可制造的候选单元（代工厂能量带内的栅极面积与阈值电压掩模混合），GitHub Actions 中的预言机在开源 PDK 上以同一 ngspice 测试台重新测量基线与每个候选单元，每项经验证且唯一的胜出都被哈希，供锚定合约连同其改进标签一并记录。最佳带内候选单元在相同指状（finger）数量且无新增晶体管的情况下，相对 buf_16 将能量延迟积降低了 22%，且 30 种可制造掩模组合中有 22 种在代工厂自身的每周期能量带内击败其阶梯。这些测量是标签的证据；该单元的正确性是另一项独立的第 1 层证明。</p>
+<p class="body">公开站点把证明经济的测量纪律用于一项免费服务：按上下文区分单元。sky130 在五个标准单元库中提供 buf_16 缓冲器。一个基于开源 PDK 的 ngspice 测试台，用晶圆厂自己的网表，在三个工艺角和三种负载下测量全部五个单元，这次运行被哈希为一条交给锚定合约的记录。在典型工艺角和 250 fF 下，高速库的单元比高密度默认单元快 26%，每周期能量多 1.1%，漏电为 78 倍，面积大 28%；一个网络该用哪一个，取决于它翻转的频率。团队在首次流片之前均可免费使用这项服务。本段早先的版本把高速库的晶体管配方说成是 Q2 对 buf_16 的改进；那其实是该库本来就在用的配方。</p>
     <p class="body"><strong>三份合约</strong>在 Arbitrum Stylus 上承载该经济。验证器在链上重新运行有界证明。锚定合约记录链下证明的内容寻址承诺。组合合约通过引用子证书认证系统，并结算两种许可。其不变量列于第 6 节。</p>
   </div>
 </section>
@@ -296,15 +297,16 @@
         <tr><td>复现成本，在位者</td><td>30,000 美元</td><td>参数，处于 16,000 至 50,000 美元的综合成本区间内</td></tr>
       </tbody>
     </table>
-    <p class="body" style="margin-top:22px"><strong>驱动器循环</strong>，即公开站点上的击败或分叉范例。</p>
+    <p class="body" style="margin-top:22px"><strong>区分测试台</strong>，公开站点上的完整示例。</p>
     <table class="kv">
-      <thead><tr><th>指标</th><th>数值</th><th>来源</th></tr></thead>
+      <thead><tr><th>度量</th><th>数值</th><th>来源</th></tr></thead>
       <tbody>
-        <tr><td>基线单元</td><td>sky130 buf_16，代工厂单元库</td><td>公开站点，循环</td></tr>
-        <tr><td>最佳带内候选单元，相对 buf_16 的能量延迟积</td><td>低 22%，指状数相同，能量略低</td><td>预言机测量，ngspice，sky130 tt 工艺角，1.8 V，250 fF 负载</td></tr>
-        <tr><td>胜出单元的新增晶体管</td><td>0；一次阈值电压掩模变更</td><td>公开站点，循环</td></tr>
-        <tr><td>在带内击败代工厂阶梯的可制造掩模组合</td><td>30 种中的 22 种</td><td>预言机测量</td></tr>
-        <tr><td>最佳胜出的锚定记录</td><td>label 2200 基点，context 16（驱动强度）</td><td>q2-anchor record() 调用，已准备，未提交</td></tr>
+        <tr><td>比较的单元</td><td>sky130 hd、hdll、ls、ms 和 hs 的 buf_16；固定提交版本的晶圆厂网表</td><td>analysis/foundry_cells/SOURCES.json</td></tr>
+        <tr><td>工作点</td><td>3 个工艺角（ss、tt、ff）乘 3 种负载（60、250、1000 fF），1.8 V，输入斜率 50 ps</td><td>results/differentiate.md</td></tr>
+        <tr><td>hs 对 hd，tt，250 fF</td><td>延迟低 26%，每周期能量高 1.1%</td><td>ngspice 瞬态</td></tr>
+        <tr><td>漏电，hs 对 hd</td><td>tt 下 78 倍，ss 下 1.3 倍，ff 下 487 倍</td><td>ngspice 工作点</td></tr>
+        <tr><td>面积，hs 对 hd</td><td>35.16 对 27.53 平方微米，大 28%</td><td>LEF SIZE</td></tr>
+        <tr><td>锚定记录</td><td>label 1（测量），context 16（驱动强度）</td><td>q2-anchor record() 调用，已准备，未提交</td></tr>
       </tbody>
     </table>
 <p class="body" style="margin-top:22px"><strong>各层级的证明引擎</strong>及各自所信任的内容。</p>

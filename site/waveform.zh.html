@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SPICE 测量</title>
-<meta name="description" content="在有文档记录的 sky130 130nm 工艺上，buf_16 与自定义单元的真实 ngspice 瞬态仿真，附实际晶体管尺寸">
+<title>五个库中的 buf_16</title>
+<meta name="description" content="本页是首页单元区分服务的测量步骤：取 sky130 五个标准单元库各自的晶圆厂原版 buf_16，在同一个测试台上测量。">
 <style>
   :root{--bg:#0d1117;--panel:#161b22;--line:#30363d;--ink:#e6edf3;--dim:#8b949e;
     --green:#3fb950;--red:#f85149;--blue:#58a6ff;
@@ -58,7 +58,7 @@
   code{font-family:var(--mono);background:#0b0f16;border:1px solid var(--line);
     border-radius:6px;padding:1px 6px;font-size:.92em}
   footer{padding:30px 0 60px;color:var(--dim);font-size:14px}
-  @media(max-width:680px){.sheets{grid-template-columns:1fr}}
+  .sheets{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}.tablewrap{overflow-x:auto}td.lib{font-family:var(--mono)}.sw{display:inline-block;width:12px;height:3px;margin-right:8px;vertical-align:middle}.note{background:none;border:0;padding:0;color:var(--ink)}
 </style>
 <style>.langbar{font-family:var(--mono);font-size:14px;color:var(--dim);margin:8px 0 0}.langbar a{color:var(--blue)}.langbar b{color:var(--ink)}</style>
 </head>
@@ -67,15 +67,13 @@
   <div class="wrap">
     <div class="eyebrow">Q2 Computing / Project Foundry</div>
     <p class="langbar">阅读语言： <a href="./waveform.html">English</a> · <a href="./waveform.ms.html">Bahasa Melayu</a> · <b>简体中文</b> · <a href="./waveform.ta.html">தமிழ்</a></p>
-    <h1>buf_16 与自定义驱动器在 250 fF 下的对比</h1>
-    <p class="lede">本页是首页循环中的<strong>评估</strong>步骤：预言机将最佳候选单元与代工厂的 buf_16 对照测量。这是一次瞬态仿真，因此按阶梯自身的规则，它是改进标签的证据，由锚定步骤记录，位于该单元第 1 层证明之旁，而非取而代之。</p>
-    <p class="lede">一次 ngspice 瞬态仿真，sky130 tt 工艺角，1.8 V，两个单元
-      驱动相同的 250 fF 负载。下方的器件参数与波形来自
-      这次运行。用 <code>./run.sh proof</code> 复现</p>
+    <h1>五个 sky130 库中的 buf_16，250 fF</h1>
+    <p class="lede">本页是首页单元区分服务的<strong>测量</strong>步骤：取 sky130 五个标准单元库各自的晶圆厂原版 buf_16，在同一个测试台上测量。</p>
+    <p class="lede">一次 ngspice 运行，典型工艺角，1.8 V，输入斜率 50 ps，每个单元驱动相同的 250 fF 负载。器件列表来自随库附带的晶圆厂网表；波形和数字来自这次运行。复现：<code>python3 analysis/differentiate.py</code></p>
     <div class="links">
-      <a href="./index.zh.html#practice">返回：一个单元上的循环</a>
-      <a href="../results/proof.txt">ngspice 日志</a>
-      <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/tools/proof.py">proof.py</a>
+      <a href="./index.zh.html#practice">返回：单元区分</a>
+      <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/results/differentiate.md">differentiate.md</a>
+      <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/analysis/differentiate.py">differentiate.py</a>
     </div>
   </div>
 </header>
@@ -83,131 +81,75 @@
 <section>
   <div class="wrap">
     <h2>晶体管</h2>
-    <div class="sheets" id="sheets"></div>
-    <div class="note">sky130 绘制尺寸：栅长 L = 0.15 um，NMOS 宽度
-      0.65 um，PMOS（高 Vt）宽度 1.0 um。驱动强度由并联的单位器件
-      构成，buf_16 即如此构建。自定义单元使用相同的两种器件，以
-      13 单位的输入级驱动 32 单位的输出级</div>
+    <div class="sheets"><div class="sheet" style="border-top:3px solid #e6edf3"><h3>sky130_fd_sc_hd__buf_16</h3><div class="sub">44 个晶体管 &#183; 27.53 &#181;m&#178;</div><div class="dev"><div class="devrow"><span class="k">NMOS</span><span>nfet_01v8 <span class="tag">x22</span></span><span class="v">W 0.65u &#183; L 0.150u</span></div><div class="devrow"><span class="k">PMOS</span><span>pfet_01v8_hvt <span class="tag">x22</span></span><span class="v">W 1.00u &#183; L 0.150u</span></div></div></div><div class="sheet" style="border-top:3px solid #bc8cff"><h3>sky130_fd_sc_hdll__buf_16</h3><div class="sub">44 个晶体管 &#183; 31.28 &#181;m&#178;</div><div class="dev"><div class="devrow"><span class="k">NMOS</span><span>nfet_01v8 <span class="tag">x22</span></span><span class="v">W 0.65u &#183; L 0.150u</span></div><div class="devrow"><span class="k">PMOS</span><span>pfet_01v8_hvt <span class="tag">x22</span></span><span class="v">W 1.00u &#183; L 0.180u</span></div></div></div><div class="sheet" style="border-top:3px solid #d29922"><h3>sky130_fd_sc_ls__buf_16</h3><div class="sub">44 个晶体管 &#183; 35.16 &#181;m&#178;</div><div class="dev"><div class="devrow"><span class="k">NMOS</span><span>nfet_01v8 <span class="tag">x22</span></span><span class="v">W 0.74u &#183; L 0.150u</span></div><div class="devrow"><span class="k">PMOS</span><span>pfet_01v8_hvt <span class="tag">x22</span></span><span class="v">W 1.12u &#183; L 0.150u</span></div></div></div><div class="sheet" style="border-top:3px solid #58a6ff"><h3>sky130_fd_sc_ms__buf_16</h3><div class="sub">44 个晶体管 &#183; 35.16 &#181;m&#178;</div><div class="dev"><div class="devrow"><span class="k">NMOS</span><span>nfet_01v8_lvt <span class="tag">x22</span></span><span class="v">W 0.74u &#183; L 0.150u</span></div><div class="devrow"><span class="k">PMOS</span><span>pfet_01v8 <span class="tag">x22</span></span><span class="v">W 1.12u &#183; L 0.180u</span></div></div></div><div class="sheet" style="border-top:3px solid #f778ba"><h3>sky130_fd_sc_hs__buf_16</h3><div class="sub">44 个晶体管 &#183; 35.16 &#181;m&#178;</div><div class="dev"><div class="devrow"><span class="k">NMOS</span><span>nfet_01v8_lvt <span class="tag">x22</span></span><span class="v">W 0.74u &#183; L 0.150u</span></div><div class="devrow"><span class="k">PMOS</span><span>pfet_01v8 <span class="tag">x22</span></span><span class="v">W 1.12u &#183; L 0.150u</span></div></div></div></div>
+    <p class="note" style="margin-top:18px">每个库为不同用途选择晶体管类型和宽度。hd、hdll 和 ls 将标准阈值 nfet 与高阈值 pfet 配对，漏电最低；ms 和 hs 将低阈值 nfet 与标准阈值 pfet 配对，翻转更快、漏电更多。hs、ms 和 ls 的单元行更高（3.33 &#181;m 对 2.72 &#181;m），这就是它们面积更大的原因。面积取自单元 LEF 中的版图尺寸。</p>
   </div>
 </section>
 
 <section>
   <div class="wrap">
-    <h2>上升输出边沿</h2>
-    <canvas id="plot" width="900" height="380" aria-label="输出电压随时间变化"></canvas>
-    <div class="legend">
-      <span><span class="swatch" style="background:#6e7681"></span>输入</span>
-      <span><span class="swatch" style="background:#e6edf3"></span>buf_16 输出</span>
-      <span><span class="swatch" style="background:#3fb950"></span>自定义输出</span>
-      <span><span class="swatch" style="background:#30363d"></span>50% 阈值</span>
-    </div>
+    <h2>输出上升沿</h2>
+    <canvas id="plot" width="900" height="380" aria-label="输出电压 (V)"></canvas>
+    <div class="legend"><span><span class="swatch" style="background:#6e7681"></span>输入</span><span><span class="swatch" style="background:#e6edf3"></span>hd</span><span><span class="swatch" style="background:#bc8cff"></span>hdll</span><span><span class="swatch" style="background:#d29922"></span>ls</span><span><span class="swatch" style="background:#58a6ff"></span>ms</span><span><span class="swatch" style="background:#f778ba"></span>hs</span><span><span class="swatch" style="background:#30363d"></span>50% 阈值</span></div>
   </div>
 </section>
 
 <section>
   <div class="wrap">
-    <h2>实测结果</h2>
-    <table id="metrics">
-      <thead><tr><th>单元</th><th>延迟 (ns)</th><th>能量 (fJ)</th>
-        <th>面积 (um)</th><th>EDP</th></tr></thead>
-      <tbody></tbody>
-    </table>
-    <p style="color:var(--dim);font-size:14px;margin-top:14px" id="summary"></p>
+    <h2>250 fF、典型工艺角下的测量</h2>
+    <div class="tablewrap"><table><thead><tr><th>库</th><th>延迟 (ps)</th><th>每周期能量 (fJ)</th><th>输入能量 (fJ)</th><th>漏电 (nA)</th><th>面积 (&#181;m&#178;)</th></tr></thead><tbody>
+<tr><td class="lib"><span class="sw" style="background:#e6edf3"></span>hd</td><td>145.7</td><td>1007.8</td><td>42.4</td><td>0.0217</td><td>27.53</td></tr>
+<tr><td class="lib"><span class="sw" style="background:#bc8cff"></span>hdll</td><td>175.1<span class="delta worse">&#8593; +20.2%</span></td><td>1018.5<span class="delta worse">&#8593; +1.1%</span></td><td>44.9<span class="delta worse">&#8593; +5.8%</span></td><td>0.0212<span class="delta better">&#8595; -2.3%</span></td><td>31.28<span class="delta worse">&#8593; +13.6%</span></td></tr>
+<tr><td class="lib"><span class="sw" style="background:#d29922"></span>ls</td><td>140.7<span class="delta better">&#8595; -3.5%</span></td><td>1032.2<span class="delta worse">&#8593; +2.4%</span></td><td>47.7<span class="delta worse">&#8593; +12.5%</span></td><td>0.0213<span class="delta better">&#8595; -1.8%</span></td><td>35.16<span class="delta worse">&#8593; +27.8%</span></td></tr>
+<tr><td class="lib"><span class="sw" style="background:#58a6ff"></span>ms</td><td>128.1<span class="delta better">&#8595; -12.1%</span></td><td>1031.3<span class="delta worse">&#8593; +2.3%</span></td><td>48.7<span class="delta worse">&#8593; +14.9%</span></td><td>0.0953<span class="delta worse">&#8593; 4.4&#215;</span></td><td>35.16<span class="delta worse">&#8593; +27.8%</span></td></tr>
+<tr><td class="lib"><span class="sw" style="background:#f778ba"></span>hs</td><td>107.8<span class="delta better">&#8595; -26.0%</span></td><td>1019.3<span class="delta worse">&#8593; +1.1%</span></td><td>45.9<span class="delta worse">&#8593; +8.2%</span></td><td>1.6831<span class="delta worse">&#8593; 77.6&#215;</span></td><td>35.16<span class="delta worse">&#8593; +27.8%</span></td></tr>
+    </tbody></table></div>
+    <p style="color:var(--ink);font-size:14px;margin-top:14px">相对于 hd，hs 快 26%，每周期能量多 1.1%，漏电为 78&#215;，面积大 28%。每一列都是越低越好：向下箭头为降低（绿色），向上箭头为增加（红色）。没有哪个库在每一列都领先。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>各工艺角</h2>
+    <div class="tablewrap"><table><thead><tr><th>工艺角</th><th>hs 延迟对 hd</th><th>hs 能量对 hd</th><th>hs 漏电对 hd</th></tr></thead><tbody>
+<tr><td>ss</td><td>-26.3%</td><td>+1.3%</td><td>1.3&#215;</td></tr>
+<tr><td>tt</td><td>-26.0%</td><td>+1.1%</td><td>77.6&#215;</td></tr>
+<tr><td>ff</td><td>-26.0%</td><td>+1.2%</td><td>486.6&#215;</td></tr>
+    </tbody></table></div>
+    <p style="color:var(--ink);font-size:14px;margin-top:14px">工艺角对漏电的影响远大于对延迟或能量的影响：在快速工艺角下，hs 的漏电是 hd 的 487&#215;。</p>
   </div>
 </section>
 
 <footer><div class="wrap">
-  循环的下一步：胜出结果<a href="./index.zh.html#stylus">由锚定合约哈希并记录</a>。<br>
-  ngspice，sky130 PDK，tt 工艺角。复现：<code>./run.sh proof</code> &#183;
-  <a href="https://github.com/Q2Computing/Project-Foundry">源代码</a>
+  下一步：这次运行被<a href="./index.zh.html#stylus">哈希为一条交给锚定合约的记录</a>。<br>
+  ngspice，sky130 PDK。复现：<code>python3 analysis/differentiate.py</code> &#183;
+  <a href="https://github.com/Q2Computing/Project-Foundry">source</a>
 </div></footer>
 
-<script src="waveforms.js"></script>
+<script src="differentiate.js"></script>
 <script>
-const W = window.WAVE;
-const VDD = W.operating_point.vdd;
-
-// ---- device sheets -----------------------------------------------------------
-function sheet(cls, cell){
-  const rows = cell.devices.map(d =>
-    `<div class="devrow"><span class="k">${d.type.toUpperCase()}</span>`
-    +`<span>${d.model.replace('sky130_fd_pr__','')} <span class="tag">x${d.count}</span></span>`
-    +`<span class="v">W ${d.w_um.toFixed(2)}u &middot; L ${d.l_um.toFixed(3)}u</span></div>`).join('');
-  return `<div class="sheet ${cls}"><h3>${cell.label}</h3>`
-    +`<div class="sub">${cell.total_devices} 个单位晶体管</div>`
-    +`<div class="dev">${rows}</div></div>`;
-}
-document.getElementById('sheets').innerHTML =
-  sheet('part', W.cells.buf_16) + sheet('custom', W.cells.custom);
-
-// ---- metrics table -----------------------------------------------------------
-const b = W.cells.buf_16, c = W.cells.custom;
-// transistor-width proxy for area, from the real device list (sum count * W)
-const areaOf = cell => cell.devices.reduce((s,d)=>s+d.count*d.w_um,0);
-b.area_um = +areaOf(b).toFixed(1); c.area_um = +areaOf(c).toFixed(1);
-// every axis here is lower-is-better; an increase is worse (red, up arrow)
-function delta(v, base){
-  const pct=(v-base)/base*100, up=v>base;
-  if(Math.abs(pct)<0.05) return `<td>${v}</td>`;
-  const arrow = up ? '↑' : '↓';
-  const cls = up ? 'worse' : 'better';
-  return `<td>${v}<span class="delta ${cls}">${arrow} ${pct>0?'+':''}${pct.toFixed(1)}%</span></td>`;
-}
-document.querySelector('#metrics tbody').innerHTML =
-  `<tr class="part"><td>${b.label}</td><td>${b.delay_ns}</td><td>${b.energy_fj}</td><td>${b.area_um}</td><td>${b.edp}</td></tr>`
-  +`<tr><td>${c.label}</td>${delta(c.delay_ns,b.delay_ns)}${delta(c.energy_fj,b.energy_fj)}${delta(c.area_um,b.area_um)}${delta(c.edp,b.edp)}</tr>`;
-const faster=((b.delay_ns-c.delay_ns)/b.delay_ns*100).toFixed(1);
-const emore=((c.energy_fj-b.energy_fj)/b.energy_fj*100).toFixed(1);
-const amore=((c.area_um-b.area_um)/b.area_um*100).toFixed(0);
-const edpg=((b.edp-c.edp)/b.edp*100).toFixed(1);
-document.getElementById('summary').innerHTML =
-  `自定义单元<b style="color:var(--green)">快 ${faster}%</b>，净获`
-  +`<b style="color:var(--green)">低 ${edpg}% 的 EDP</b>，但代价是`
-  +`<b style="color:var(--red)">多 ${emore}% 的能量</b>和`
-  +`<b style="color:var(--red)">多 ${amore}% 的面积</b>。并非每个轴都有改善：`
-  +`更大的驱动买到速度，却以能量与面积付账。上箭头表示`
-  +`增加（在更差处标红），下箭头表示减少`;
-
-// ---- waveform plot (real trace) ----------------------------------------------
-const cv = document.getElementById('plot');
-const ctx = cv.getContext('2d');
+const W = window.DIFF, VDD = W.vdd;
+const cv = document.getElementById('plot'), ctx = cv.getContext('2d');
 function draw(){
-  const dpr = Math.min(devicePixelRatio||1, 2);
-  const cssW = cv.clientWidth, cssH = 380;
+  const dpr = Math.min(devicePixelRatio||1, 2), cssW = cv.clientWidth, cssH = 380;
   cv.width = cssW*dpr; cv.height = cssH*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
-  const t = W.trace.t_ns, vin = W.trace.vin, vb = W.trace.vout_buf16, vc = W.trace.vout_custom;
-  const ml=54, mr=18, mtp=18, mb=34, w=cssW-ml-mr, h=cssH-mtp-mb;
-  const x0=Math.min(...t), x1=Math.max(...t), y0=-0.05*VDD, y1=1.08*VDD;
+  const t = W.trace.t_ps, ml=54, mr=18, mtp=18, mb=34, w=cssW-ml-mr, h=cssH-mtp-mb;
+  const x0=t[0], x1=t[t.length-1], y0=-0.05*VDD, y1=1.08*VDD;
   const X=v=>ml+(v-x0)/(x1-x0)*w, Y=v=>mtp+h-(v-y0)/(y1-y0)*h;
   ctx.clearRect(0,0,cssW,cssH);
-  // grid
   ctx.strokeStyle='#1b2330'; ctx.lineWidth=1;
   for(let i=0;i<=5;i++){const gx=ml+w*i/5;ctx.beginPath();ctx.moveTo(gx,mtp);ctx.lineTo(gx,mtp+h);ctx.stroke();}
-  // 50% threshold
   const yh=Y(VDD/2); ctx.strokeStyle='#30363d'; ctx.setLineDash([5,4]);
   ctx.beginPath();ctx.moveTo(ml,yh);ctx.lineTo(ml+w,yh);ctx.stroke();ctx.setLineDash([]);
-  ctx.fillStyle='#8b949e';ctx.font='12px ui-sans-serif,system-ui';
+  ctx.fillStyle='#8b949e'; ctx.font='12px ui-sans-serif,system-ui';
   ctx.fillText('50%  (0.9 V)', ml+6, yh-6);
-  ctx.fillText('时间 (ns)', ml+w-58, mtp+h+24);
-  ctx.save();ctx.translate(16,mtp+h/2);ctx.rotate(-Math.PI/2);
-  ctx.fillText('输出电压 (V)',-42,0);ctx.restore();
-  // x ticks
-  for(let i=0;i<=5;i++){const tv=x0+(x1-x0)*i/5;ctx.fillText(tv.toFixed(2),ml+w*i/5-12,mtp+h+22);}
+  ctx.fillText("\u65f6\u95f4 (ps)", ml+w-70, mtp+h+24);
+  ctx.save();ctx.translate(16,mtp+h/2);ctx.rotate(-Math.PI/2);ctx.fillText("\u8f93\u51fa\u7535\u538b (V)",-50,0);ctx.restore();
+  for(let i=0;i<=5;i++){const tv=x0+(x1-x0)*i/5;ctx.fillText(tv.toFixed(0),ml+w*i/5-14,mtp+h+22);}
   function line(v,color,wd){ctx.strokeStyle=color;ctx.lineWidth=wd;ctx.beginPath();
-    for(let i=0;i<t.length;i++){const X_=X(t[i]),Y_=Y(v[i]);i?ctx.lineTo(X_,Y_):ctx.moveTo(X_,Y_);}ctx.stroke();}
-  line(vin,'#6e7681',1.5);
-  // crossing markers
-  function cross(v){for(let i=1;i<v.length;i++)if(v[i-1]<VDD/2&&v[i]>=VDD/2){
-    const f=(VDD/2-v[i-1])/(v[i]-v[i-1]);return t[i-1]+f*(t[i]-t[i-1]);}return null;}
-  [['#e6edf3',vb],['#3fb950',vc]].forEach(([col,v])=>{
-    const tc=cross(v); if(tc!=null){ctx.strokeStyle=col;ctx.globalAlpha=.5;ctx.setLineDash([3,3]);
-      ctx.beginPath();ctx.moveTo(X(tc),Y(0));ctx.lineTo(X(tc),yh);ctx.stroke();
-      ctx.setLineDash([]);ctx.globalAlpha=1;}});
-  line(vb,'#e6edf3',2.2); line(vc,'#3fb950',2.2);
-  // annotate the gap
-  const tb=cross(vb), tcs=cross(vc);
-  if(tb&&tcs){ctx.fillStyle='#3fb950';
-    ctx.fillText('自定义单元提前 '+((tb-tcs)*1000).toFixed(0)+' ps 到达 50%', X(tcs)+6, Y(VDD/2)+22);}
+    for(let i=0;i<t.length;i++){const a=X(t[i]),b=Y(v[i]);i?ctx.lineTo(a,b):ctx.moveTo(a,b);}ctx.stroke();}
+  line(W.trace.vin,'#6e7681',1.5);
+  W.libs.forEach(l=>line(W.trace[l],W.colors[l],2));
 }
 draw(); addEventListener('resize', draw);
 </script>

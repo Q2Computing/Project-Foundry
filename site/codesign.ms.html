@@ -72,13 +72,13 @@
     <div class="eyebrow">Q2 Computing / Project Foundry</div>
     <p class="langbar">Baca dalam: <a href="./codesign.html">English</a> · <b>Bahasa Melayu</b> · <a href="./codesign.zh.html">简体中文</a> · <a href="./codesign.ta.html">தமிழ்</a></p>
     <h1>Reka bentuk bersama sel mengikut konteks</h1>
-    <p class="lede">Laman ini ialah langkah <strong>jana</strong> (generate) dalam gelung di laman utama: langkah yang mencadangkan sel calon sebelum oracle mengukurnya. Tombol di bawah ialah tombol yang membina sesuatu calon, iaitu pensaizan dan dopan, dan konteks yang menjadi asas penetapannya ialah beban yang dipacu oleh sel dan berapa kerap ia bersuis.</p>
+    <p class="lede">Laman ini menunjukkan bagaimana konteks sesuatu net mengubah pilihan pensaizan dan jenis voltan ambang yang betul, melalui model boleh beza yang ditentukur dengan SPICE. Titik hujung voltan ambang rendahnya, g=1, ialah resipi yang sudah digunakan oleh pustaka berkelajuan tinggi sky130; laman pengukuran membandingkan sel pustaka itu dengan yang lain secara langsung.</p>
     <p class="lede">Tetapkan beban yang dipacu oleh sel dan sejauh mana ia aktif. Kecerunan
       (gradient) menurun melalui model boleh beza (differentiable) yang ditentukur kepada
       SPICE ke optimum bersama pensaizan dan dopan. Kedua-duanya bergerak: pensaizan
       mengikut beban, dopan mengikut aktiviti</p>
     <div class="links">
-      <a href="./index.ms.html#practice">Kembali: gelung pada satu sel</a>
+      <a href="./index.ms.html#practice">Kembali: pembezaan sel</a>
       <a href="./waveform.ms.html">Seterusnya: pengukuran</a>
       <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/analysis/codesign.py">codesign.py</a>
     </div>
@@ -124,7 +124,7 @@
       topeng. Nilai di antaranya <b>boleh difabrikasi hari ini</b> sebagai campuran topeng (mask blend): k daripada m
       jari (fingers) pada satu topeng Vt, selebihnya pada topeng yang satu lagi, secara selari. Tiada implan baharu, tiada
       hipotesis; campuran 50/50 ialah titik terukur pada
-      <a href="./index.ms.html">carta dalam jalur (in-band)</a>. Diukur pada penyongsang unit, kedua-dua
+      <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/analysis/linearcomb.json">carta dalam jalur (in-band)</a>. Diukur pada penyongsang unit, kedua-dua
       tombol kelajuan adalah tidak simetri: nfet svt&#8594;lvt memperoleh &#8722;9.7% pada pinggir jatuh
       dengan 3&#215; kebocoran (hampir percuma), pfet hvt&#8594;svt memperoleh &#8722;23% pada
       pinggir naik dengan 121&#215; kebocoran (tombol yang mahal). Ketaksimetrian itulah sebabnya
@@ -135,7 +135,7 @@
 </section>
 
 <footer><div class="wrap">
-  Langkah seterusnya dalam gelung: oracle <a href="./waveform.ms.html">mengukur calon berbanding buf_16</a>.<br>
+  Seterusnya: meja uji <a href="./waveform.ms.html">mengukur buf_16 dalam kelima-lima pustaka</a>.<br>
   Model boleh beza yang ditentukur kepada ngspice pada PDK sky130 terbuka. Hasilkan semula:
   <code>python analysis/codesign.py</code> &#183;
   <a href="https://github.com/Q2Computing/Project-Foundry">sumber</a>

@@ -107,6 +107,7 @@
   .logo img{width:260px;max-width:70%;height:auto;display:inline-block;border-radius:12px}
   .langbar{font-family:var(--mono);font-size:12px;color:var(--dim);margin:0 0 18px}
   .langbar a{color:var(--blue)} .langbar b{color:var(--ink)}
+  table.ladder{display:block;overflow-x:auto;max-width:100%}
   .ladder th,.ladder td{text-align:left;font-family:var(--sans);vertical-align:top;font-size:13.5px}
   .ladder td:first-child{font-family:var(--mono);white-space:nowrap}
   .ladder .real{color:var(--green)} .ladder .road{color:var(--amber)}
@@ -186,13 +187,13 @@
     <p class="langbar">Baca dalam: <a href="./index.html">English</a> · <b>Bahasa Melayu</b> · <a href="./index.zh.html">简体中文</a> · <a href="./index.ta.html">தமிழ்</a></p>
     <h1>Ekonomi Bukti</h1>
     <p class="tagline">Buktikan sesuatu litar sekali, secara terbuka, dan biarkan setiap sistem yang dibina di atasnya mewarisi bukti itu.</p>
-    <p class="lede">Sesuatu cip ialah hierarki blok, dan sebelum mana-mana bahagiannya dihantar ke kilang (foundry), setiap blok mesti ditunjukkan betul: satu set topeng (mask set) pada nod moden berharga satu hingga dua juta dolar, dan tinjauan industri meletakkan kejayaan silikon pertama pada 14 peratus pada 2024 dan 5 peratus pada 2026. Hari ini pengesahan itu diulang. Setiap syarikat yang menggunakan penambah atau unit titik terapung mengesahkan semula salinannya sendiri secara tertutup, dan kerja itu dibuang apabila projek tamat. Bukti bagi sesuatu blok tidak bergantung pada siapa yang menggunakan blok itu. Jika bukti itu terbuka dan beralamat kandungan (content-addressed), pasukan seterusnya mewarisinya dan bukannya mengulanginya, dan sistem yang lebih besar dibuktikan melalui rujukan kepada bukti bahagian-bahagiannya tanpa perlu membukanya. Laman ini ialah contoh awam idea tersebut: bagaimana bukti digredkan, apa nilai sesuatu sijil, di mana ia diselesaikan, dan satu sel yang dibawa melalui keseluruhan gelung.</p>
+    <p class="lede">Sesuatu cip ialah hierarki blok, dan sebelum mana-mana bahagiannya dihantar ke kilang (foundry), setiap blok mesti ditunjukkan betul: satu set topeng (mask set) pada nod moden berharga satu hingga dua juta dolar, dan tinjauan industri meletakkan kejayaan silikon pertama pada 14 peratus pada 2024 dan 5 peratus pada 2026. Hari ini pengesahan itu diulang. Setiap syarikat yang menggunakan penambah atau unit titik terapung mengesahkan semula salinannya sendiri secara tertutup, dan kerja itu dibuang apabila projek tamat. Bukti bagi sesuatu blok tidak bergantung pada siapa yang menggunakan blok itu. Jika bukti itu terbuka dan beralamat kandungan (content-addressed), pasukan seterusnya mewarisinya dan bukannya mengulanginya, dan sistem yang lebih besar dibuktikan melalui rujukan kepada bukti bahagian-bahagiannya tanpa perlu membukanya. Laman ini ialah contoh awam idea tersebut: bagaimana bukti digredkan, apa nilai sesuatu sijil, di mana ia diselesaikan, dan satu perkhidmatan percuma yang membezakan sel bagi sesuatu net.</p>
     <div class="cta">
       <a class="btn primary" href="./research.ms.html">Penyelidikan</a>
-      <a class="btn" href="#practice">Gelung pada satu sel</a>
-      <a class="btn" href="./codesign.ms.html">Jana: reka bentuk bersama</a>
-      <a class="btn" href="./waveform.ms.html">Nilai: pengukuran</a>
-      <a class="btn stylus" href="#stylus">Sauh: penyelesaian</a>
+      <a class="btn" href="#practice">Pembezaan sel</a>
+      <a class="btn" href="./codesign.ms.html">Konteks: reka bentuk bersama</a>
+      <a class="btn" href="./waveform.ms.html">Ukur: lima pustaka</a>
+      <a class="btn stylus" href="#stylus">Rekod: sauh</a>
       <a class="btn" href="https://github.com/Q2Computing/Project-Foundry">Repositori</a>
     </div>
   </div>
@@ -268,62 +269,48 @@
 
 <section id="practice">
   <div class="wrap">
-    <h2>Ekonomi dalam amalan: atasi atau cabang pada satu sel</h2>
-    <p class="body">Peraturan di atas menyatakan sesiapa sahaja boleh menyenaraikan pelaksanaan yang lebih baik bagi antara muka sedia ada, dengan syarat penambahbaikan itu diukur dan penyenarai terdahulu dipulihkan sepenuhnya. Berikut ialah peraturan itu dijalankan dari hujung ke hujung pada satu sel piawai sky130, iaitu pemacu buf_16 kilang. Agen mencadangkan sel calon, oracle bebas mengukurnya berbanding sel kilang sendiri, dan setiap kemenangan yang disahkan dikomitkan untuk direkodkan oleh rantaian. Tiga langkah itu ialah tiga halaman laman ini.</p>
+    <h2>Pembezaan sel, percuma hingga larian fabrikasi pertama anda</h2>
+    <p class="body">Fungsi yang sama hadir dalam banyak sel. sky130 sahaja menghantar penimbal terkuatnya, buf_16, dalam lima pustaka sel piawai, setiap satu dibina untuk tugas yang berbeza. Pengetahuan tentang sel mana yang patut digunakan oleh sesuatu net selama ini tersimpan di dalam kilang dan vendor EDA. Q2 mengukur calon-calon bagi net yang anda huraikan, pada satu meja uji terbuka yang boleh dijalankan semula oleh sesiapa sahaja, dan menerbitkan perbandingannya. Perkhidmatan ini percuma bagi sesebuah pasukan hingga dan termasuk larian fabrikasi pertamanya, supaya memilih sel dengan baik tidak menjadi penghalang untuk menghasilkan reka bentuk pertama.</p>
     <div class="loop">
       <div class="card gen">
-        <div class="k">&#9889; jana</div>
-        <h3>Agen mencadangkan</h3>
-        <p>Grid berketentuan atau Gemini mencadangkan sel yang boleh difabrikasi: luas get dan
-          campuran topeng voltan ambang, dikekalkan dalam jalur tenaga kilang. Murah
-          untuk disenaraikan. <a href="./codesign.ms.html">Bagaimana sesuatu calon direka bersama mengikut konteksnya</a></p>
+        <div class="k">huraikan</div>
+        <h3>Anda menghuraikan net itu</h3>
+        <p>Beban yang dipacunya, berapa kerap ia bersuis, dan berapa lama ia berehat. Tiga nombor itu menentukan sel yang betul; tiada sel yang betul di semua tempat. <a href="./codesign.ms.html">Bagaimana konteks mengubah pilihan</a></p>
       </div>
       <div class="card">
-        <div class="k">&#128202; nilai</div>
-        <h3>Oracle menghakimi</h3>
-        <p>GitHub Actions mengukur semula garis dasar dan setiap calon dalam satu
-          meja uji ngspice pada PDK sky130 terbuka, kemudian memutuskan siapa yang menang. <a href="./waveform.ms.html">Pengukuran di sebalik kemenangan terbaik</a></p>
+        <div class="k">ukur</div>
+        <h3>Satu meja uji mengukur setiap calon</h3>
+        <p>Netlist kilang sendiri pada commit yang dipin, ngspice pada PDK sky130 terbuka, tiga sudut proses: lengah, tenaga pensuisan, tenaga yang ditanggung oleh peringkat yang memacunya, kebocoran semasa rehat, dan luas susun atur. <a href="./waveform.ms.html">Pengukuran bagi buf_16</a></p>
       </div>
       <div class="card anchor">
-        <div class="k">&#9875; sauh</div>
-        <h3>Stylus merekodkannya</h3>
-        <p>Setiap kemenangan yang disahkan dan unik dicincang untuk direkodkan oleh
-          kontrak Arbitrum Stylus. Cincang itu mengomitkan reka bentuk, netlist kekal tertutup. Kontrak
-          telah ditulis dan disemak; belum diatur guna. <a href="#stylus">Rekod yang ditulisnya</a></p>
+        <div class="k">rekod</div>
+        <h3>Larian itu direkodkan</h3>
+        <p>Meja uji, netlist dan keputusan dicincang menjadi satu rekod untuk kontrak sauh. Setiap input adalah awam, jadi sesiapa yang menjalankan semula meja uji akan mengira semula cincang yang sama. Kontrak telah ditulis dan disemak; belum diatur guna. <a href="#stylus">Rekod yang ditulisnya</a></p>
       </div>
     </div>
-    <p class="body" style="margin-top:26px"><strong>Hasil gelung itu.</strong> Pengukurannya ialah simulasi fana (transient) dalam ngspice pada sudut tipikal sky130, kedua-dua sel memacu beban yang sama; ia keterangan oracle bagi label penambahbaikan, dan ia terletak di sebelah bukti tahap 1 sel itu dan bukannya menggantikannya.</p>
+    <p class="body" style="margin-top:26px"><strong>Keputusan bagi buf_16.</strong> Sudut tipikal, beban 250 fF, setiap angka berbanding hd, pustaka ketumpatan tinggi yang lazimnya menjadi lalai:</p>
     <div class="stat">
-      <div><div class="big green">+22%</div>
-        <div class="sub">hasil tenaga-lengah (EDP) lebih rendah daripada buf_16, pada bilangan jari yang sama dan
-          tenaga yang sedikit lebih rendah: penukaran voltan ambang, bukan sel yang lebih besar</div></div>
-      <div><div class="big">0</div>
-        <div class="sub">transistor tambahan ditambah. Kemenangan ini ialah perubahan topeng dopan yang
-          tidak ditawarkan oleh pustaka tunggal kilang</div></div>
-      <div><div class="big">22 / 30</div>
-        <div class="sub">kombinasi topeng boleh difabrikasi mengatasi tangga kilang dalam
-          jalur tenaga setiap kitarannya sendiri</div></div>
+      <div><div class="big">&#8722;26%</div>
+        <div class="sub">lengah bagi hs, pustaka berkelajuan tinggi, dengan tenaga 1.1% lebih tinggi bagi setiap suis</div></div>
+      <div><div class="big">78&#215;</div>
+        <div class="sub">kebocoran hs semasa rehat pada sudut tipikal, 487&#215; pada sudut pantas; hd paling rendah kebocorannya antara kelima-lima</div></div>
+      <div><div class="big">+28%</div>
+        <div class="sub">luas hs, ms dan ls, yang duduk dalam baris lebih tinggi daripada hd</div></div>
     </div>
+    <p class="body" style="margin-top:22px"><strong>Maksudnya bagi sesuatu net.</strong> Pada net yang sibuk dengan pemasaan yang ketat, hs memotong suku daripada lengah dengan kira-kira satu peratus tenaga tambahan bagi setiap suis. Pada net yang kebanyakan masanya berehat, hs menarik sekurang-kurangnya dua kali kuasa hd apabila net itu bersuis kurang daripada kira-kira 2,900 kali sesaat pada sudut tipikal (99,000 pada sudut pantas), dan hd ialah sel yang betul. Apabila luas menjadi kekangan, hd juga. hdll lebih perlahan daripada hd pada kekuatan pacuan ini dan hanya separuhkan kebocoran pada sudut pantas. Kuasa sesuatu net ialah suis sesaat didarab tenaga setiap suis, ditambah kebocoran didarab 1.8 V. Ketiga-tiga sudut dan ketiga-tiga beban ada dalam <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/results/differentiate.md">results/differentiate.md</a>.</p>
+    <p class="body" style="margin-top:14px"><strong>Pembetulan, 29 September 2026.</strong> Versi terdahulu bahagian ini membentangkan resipi transistor hs (nfet voltan ambang rendah, pfet piawai) sebagai penambahbaikan Q2 ke atas buf_16. Itu ialah resipi yang digunakan oleh pustaka berkelajuan tinggi sky130 sendiri, dan sebab itulah bahagian ini kini membandingkan pustaka-pustaka itu secara langsung.</p>
   </div>
 </section>
 <section id="stylus">
   <div class="wrap">
     <h2>Apa yang direkodkan oleh sauh</h2>
-    <p class="body">Tujuan sesuatu kemenangan bukanlah tangkapan skrin, tetapi rekod yang
-      tahan lama dan boleh disahkan. Setiap penambahbaikan yang disahkan dikomitkan sebagai cincang untuk
-      direkodkan oleh kontrak Stylus di Arbitrum. Sesiapa yang memegang netlist boleh
-      mengira semula cincang itu dan menyemaknya; tiada orang lain boleh membaca reka bentuk itu. Inilah kontrak sauh daripada jadual di atas, digunakan pada kemenangan terbaik gelung ini.</p>
+    <p class="body">Sesuatu perbandingan berguna apabila sesiapa sahaja boleh menyemak bahawa ia tidak disunting kemudian. Larian itu dikomitkan sebagai satu cincang untuk direkodkan oleh kontrak Stylus di Arbitrum. Cincang itu meliputi kod meja uji, kelima-lima netlist melalui sha256 masing-masing, versi PDK, titik operasi, dan setiap nombor yang diukur. Semuanya awam dalam repositori, jadi sesiapa sahaja boleh menjalankan semula meja uji dan mengira semula cincang yang sama.</p>
     <div class="stylusbox">
       <pre>record(bytes32 artifact_hash, uint16 label, uint16 context)
-// best in-band win: EDP +22% vs buf_16, same area
-record(0xbbe5a7f1...f8f7c, 2200, 16)
-//         hash of the design bundle   basis points   drive strength</pre>
-      <p class="caption" style="margin-top:14px">label ialah mata asas (basis points) penambahbaikan
-        EDP, context ialah kekuatan pacuan bahagian itu. Cincang ialah
-        artifak; netlist tidak perlu diterbitkan sama sekali. Kontrak ini ditulis
-        dalam Rust untuk Arbitrum Stylus dan lulus cargo stylus check. Status: belum
-        diatur guna. anchor.py menyediakan panggilan record() ini, ia tidak menghantarnya
-        (itu memerlukan kunci yang mempunyai dana)</p>
+// buf_16 in five sky130 libraries, 3 corners x 3 loads
+record(0xb9968a68...aaf531, 1, 16)
+//     hash of the bench bundle   1 = measurement   drive strength</pre>
+      <p class="caption" style="margin-top:14px">label 1 menandakan rekod pengukuran dan tidak membawa sebarang tuntutan penambahbaikan. context 16 ialah kekuatan pacuan sel yang dibandingkan. Kontrak ini ditulis dalam Rust untuk Arbitrum Stylus dan lulus cargo stylus check. Status: belum diatur guna. analysis/differentiate.py menulis panggilan record() ini ke results/differentiate.json; menghantarnya memerlukan kunci yang mempunyai dana.</p>
     </div>
   </div>
 </section>

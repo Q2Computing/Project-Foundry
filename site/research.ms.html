@@ -107,6 +107,7 @@
   .logo img{width:260px;max-width:70%;height:auto;display:inline-block;border-radius:12px}
   .langbar{font-family:var(--mono);font-size:12px;color:var(--dim);margin:0 0 18px}
   .langbar a{color:var(--blue)} .langbar b{color:var(--ink)}
+  table.ladder{display:block;overflow-x:auto;max-width:100%}
   .ladder th,.ladder td{text-align:left;font-family:var(--sans);vertical-align:top;font-size:13.5px}
   .ladder td:first-child{font-family:var(--mono);white-space:nowrap}
   .ladder .real{color:var(--green)} .ladder .road{color:var(--amber)}
@@ -218,7 +219,7 @@
       </tbody>
     </table>
     <p class="body" style="margin-top:22px"><strong>Atasi atau cabang (beat or fork).</strong> Sesiapa sahaja boleh menyenaraikan pelaksanaan pesaing bagi antara muka sedia ada, tetapi mesti menamakan blok yang diatasinya dan menyelesaikan baki kos penyenaraian blok itu. Penyenarai terdahulu dipulihkan sepenuhnya. Penambahbaikan mesti berupa pengukuran yang direkodkan, bukan sekadar pengisytiharan.</p>
-<p class="body">Laman awam membawa peraturan itu dijalankan dari hujung ke hujung pada satu sel piawai sky130, iaitu pemacu buf_16 kilang. Agen mencadangkan sel calon yang boleh difabrikasi (luas get dan campuran topeng voltan ambang dalam jalur tenaga kilang), oracle dalam GitHub Actions mengukur semula garis dasar dan setiap calon dalam satu meja uji ngspice pada PDK terbuka, dan setiap kemenangan yang disahkan dan unik dicincang untuk direkodkan oleh kontrak sauh bersama label penambahbaikannya. Calon dalam jalur (in-band) terbaik menurunkan hasil tenaga-lengah sebanyak 22 peratus berbanding buf_16 pada bilangan jari yang sama tanpa transistor tambahan, dan 22 daripada 30 kombinasi topeng boleh difabrikasi mengatasi tangga kilang dalam jalur tenaga setiap kitarannya sendiri. Pengukuran itu ialah keterangan bagi label; ketepatan sel itu ialah bukti tahap 1 yang berasingan.</p>
+<p class="body">Laman awam menggunakan disiplin pengukuran ekonomi bukti untuk satu perkhidmatan percuma: membezakan sel mengikut konteks. sky130 menghantar penimbal buf_16 dalam lima pustaka sel piawai. Satu meja uji ngspice pada PDK terbuka mengukur kelima-limanya daripada netlist kilang sendiri, pada tiga sudut proses dan tiga beban, dan larian itu dicincang menjadi satu rekod untuk kontrak sauh. Pada sudut tipikal dan 250 fF, sel pustaka berkelajuan tinggi 26% lebih pantas daripada lalai ketumpatan tinggi dengan tenaga 1.1% lebih tinggi setiap kitaran, kebocoran 78 kali ganda, dan luas 28% lebih besar; yang mana patut digunakan oleh sesuatu net bergantung pada kekerapannya bersuis. Perkhidmatan ini percuma bagi sesebuah pasukan hingga larian fabrikasi pertamanya. Versi terdahulu perenggan ini membentangkan resipi transistor pustaka berkelajuan tinggi sebagai penambahbaikan Q2 ke atas buf_16; itu ialah resipi yang sudah digunakan oleh pustaka tersebut.</p>
     <p class="body"><strong>Tiga kontrak</strong> di Arbitrum Stylus menampung ekonomi ini. Pengesah (verifier) menjalankan semula bukti terhad di atas rantaian. Sauh (anchor) merekodkan komitmen beralamat kandungan bagi bukti luar rantaian. Kontrak komposisi mensijilkan sistem melalui rujukan kepada sijil anak dan menyelesaikan kedua-dua lesen. Invarian mereka disenaraikan dalam Bahagian 6.</p>
   </div>
 </section>
@@ -296,15 +297,16 @@
         <tr><td>Kos replikasi, penyandang</td><td>$30,000</td><td>parameter, dalam julat berbeban $16,000 hingga $50,000</td></tr>
       </tbody>
     </table>
-    <p class="body" style="margin-top:22px"><strong>Gelung pemacu</strong>, contoh atasi atau cabang di laman awam.</p>
+    <p class="body" style="margin-top:22px"><strong>Meja uji pembezaan</strong>, contoh lengkap di laman awam.</p>
     <table class="kv">
       <thead><tr><th>Ukuran</th><th>Nilai</th><th>Sumber</th></tr></thead>
       <tbody>
-        <tr><td>Sel garis dasar</td><td>sky130 buf_16, pustaka kilang</td><td>laman awam, gelung</td></tr>
-        <tr><td>Calon dalam jalur terbaik, tenaga-lengah berbanding buf_16</td><td>22 peratus lebih rendah, bilangan jari yang sama, tenaga sedikit lebih rendah</td><td>pengukuran oracle, ngspice, sudut tt sky130, 1.8 V, beban 250 fF</td></tr>
-        <tr><td>Transistor tambahan dalam sel yang menang</td><td>0; perubahan topeng voltan ambang</td><td>laman awam, gelung</td></tr>
-        <tr><td>Kombinasi topeng boleh difabrikasi yang mengatasi tangga kilang dalam jalur</td><td>22 daripada 30</td><td>pengukuran oracle</td></tr>
-        <tr><td>Rekod sauh bagi kemenangan terbaik</td><td>label 2200 mata asas, context 16 (kekuatan pacuan)</td><td>panggilan record() q2-anchor, disediakan, tidak dihantar</td></tr>
+        <tr><td>Sel yang dibandingkan</td><td>buf_16 daripada sky130 hd, hdll, ls, ms dan hs; netlist kilang pada commit yang dipin</td><td>analysis/foundry_cells/SOURCES.json</td></tr>
+        <tr><td>Titik operasi</td><td>3 sudut (ss, tt, ff) kali 3 beban (60, 250, 1000 fF), 1.8 V, cerun input 50 ps</td><td>results/differentiate.md</td></tr>
+        <tr><td>hs berbanding hd, tt, 250 fF</td><td>lengah 26% lebih rendah, tenaga 1.1% lebih tinggi setiap kitaran</td><td>fana ngspice</td></tr>
+        <tr><td>Kebocoran, hs berbanding hd</td><td>78 kali pada tt, 1.3 pada ss, 487 pada ff</td><td>titik operasi ngspice</td></tr>
+        <tr><td>Luas, hs berbanding hd</td><td>35.16 berbanding 27.53 mikrometer persegi, 28% lebih besar</td><td>LEF SIZE</td></tr>
+        <tr><td>Rekod sauh</td><td>label 1 (pengukuran), context 16 (kekuatan pacuan)</td><td>panggilan record() q2-anchor, disediakan, belum dihantar</td></tr>
       </tbody>
     </table>
 <p class="body" style="margin-top:22px"><strong>Enjin bukti, mengikut tahap</strong>, dan apa yang dipercayai oleh setiap satu.</p>

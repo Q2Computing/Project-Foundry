@@ -107,6 +107,7 @@
   .logo img{width:260px;max-width:70%;height:auto;display:inline-block;border-radius:12px}
   .langbar{font-family:var(--mono);font-size:12px;color:var(--dim);margin:0 0 18px}
   .langbar a{color:var(--blue)} .langbar b{color:var(--ink)}
+  table.ladder{display:block;overflow-x:auto;max-width:100%}
   .ladder th,.ladder td{text-align:left;font-family:var(--sans);vertical-align:top;font-size:13.5px}
   .ladder td:first-child{font-family:var(--mono);white-space:nowrap}
   .ladder .real{color:var(--green)} .ladder .road{color:var(--amber)}
@@ -186,13 +187,13 @@
     <p class="langbar">Read this in: <b>English</b> · <a href="./index.ms.html">Bahasa Melayu</a> · <a href="./index.zh.html">简体中文</a> · <a href="./index.ta.html">தமிழ்</a></p>
     <h1>The Proof Economy</h1>
     <p class="tagline">Prove a circuit once, in public, and let every system built on it inherit the proof.</p>
-    <p class="lede">A chip is a hierarchy of blocks, and before any of it is sent to a foundry each block must be shown correct: a mask set at a modern node costs one to two million dollars, and industry surveys put first-silicon success at 14 percent in 2024 and 5 percent in 2026. Today that verification is repeated. Every company that uses an adder or a floating-point unit re-verifies its own copy in private, and the work is thrown away when the project ends. A proof of a block does not depend on who uses the block. If the proof is public and content-addressed, the next team inherits it instead of repeating it, and a larger system is proved by reference to the proofs of its parts without ever opening them. This site is the public instance of that idea: how a proof is graded, what a certificate is worth, where it settles, and one cell taken through the whole loop.</p>
+    <p class="lede">A chip is a hierarchy of blocks, and before any of it is sent to a foundry each block must be shown correct: a mask set at a modern node costs one to two million dollars, and industry surveys put first-silicon success at 14 percent in 2024 and 5 percent in 2026. Today that verification is repeated. Every company that uses an adder or a floating-point unit re-verifies its own copy in private, and the work is thrown away when the project ends. A proof of a block does not depend on who uses the block. If the proof is public and content-addressed, the next team inherits it instead of repeating it, and a larger system is proved by reference to the proofs of its parts without ever opening them. This site is the public instance of that idea: how a proof is graded, what a certificate is worth, where it settles, and a free service that tells cells apart for a given net.</p>
     <div class="cta">
       <a class="btn primary" href="./research.html">The research</a>
-      <a class="btn" href="#practice">The loop on one cell</a>
-      <a class="btn" href="./codesign.html">Generate: co-design</a>
-      <a class="btn" href="./waveform.html">Assess: measurement</a>
-      <a class="btn stylus" href="#stylus">Anchor: settlement</a>
+      <a class="btn" href="#practice">Cell differentiation</a>
+      <a class="btn" href="./codesign.html">Context: co-design</a>
+      <a class="btn" href="./waveform.html">Measure: five libraries</a>
+      <a class="btn stylus" href="#stylus">Record: anchor</a>
       <a class="btn" href="https://github.com/Q2Computing/Project-Foundry">Repository</a>
     </div>
   </div>
@@ -266,65 +267,50 @@
   </div>
 </section>
 
-
 <section id="practice">
   <div class="wrap">
-    <h2>The economy in practice: beat or fork on one cell</h2>
-    <p class="body">The rule above says anyone may list a better implementation of an existing interface, provided the improvement is measured and the prior lister is made whole. Here is that rule run end to end on a single sky130 standard cell, the foundry's buf_16 driver. An agent proposes candidate cells, an independent oracle measures them against the foundry's own, and each verified win is committed for the chain to record. The three steps are the three pages of this site.</p>
+    <h2>Cell differentiation, free through your first fabrication run</h2>
+    <p class="body">The same function comes in many cells. sky130 alone ships its strongest buffer, buf_16, in five standard-cell libraries, each built for a different job. Knowing which one a given net should use has lived inside foundries and EDA vendors. Q2 measures the candidates for the net you describe, on one open bench anyone can rerun, and publishes the comparison. The service is free of charge to a team through its first fabrication run, so choosing cells well is not the barrier to getting a first design made.</p>
     <div class="loop">
       <div class="card gen">
-        <div class="k">&#9889; generate</div>
-        <h3>An agent proposes</h3>
-        <p>A deterministic grid or Gemini proposes fabricable cells: gate areas and
-          threshold-voltage mask mixes, kept inside the foundry energy band. Cheap
-          to enumerate. <a href="./codesign.html">How a candidate is co-designed to its context</a></p>
+        <div class="k">describe</div>
+        <h3>You describe the net</h3>
+        <p>The load it drives, how often it switches, and how long it rests. Those three numbers decide which cell is right; no cell is right everywhere. <a href="./codesign.html">How context moves the choice</a></p>
       </div>
       <div class="card">
-        <div class="k">&#128202; assess</div>
-        <h3>The oracle judges</h3>
-        <p>GitHub Actions re-measures the baseline and every candidate in one
-          ngspice bench on the open sky130 PDK, then decides who wins. <a href="./waveform.html">The measurement behind the best win</a></p>
+        <div class="k">measure</div>
+        <h3>One bench measures every candidate</h3>
+        <p>The foundry's own netlists at pinned commits, ngspice on the open sky130 PDK, three process corners: delay, switching energy, the energy it costs the stage driving it, leakage at rest, and laid-out area. <a href="./waveform.html">The measurement for buf_16</a></p>
       </div>
       <div class="card anchor">
-        <div class="k">&#9875; anchor</div>
-        <h3>Stylus records it</h3>
-        <p>Each verified, unique win is hashed for an Arbitrum Stylus contract to
-          record. The hash commits the design, the netlist stays private. Contract
-          written and checked; not deployed yet. <a href="#stylus">The record it writes</a></p>
+        <div class="k">record</div>
+        <h3>The run is recorded</h3>
+        <p>The bench, the netlists and the results are hashed into one record for the anchor contract. Every input is public, so anyone who reruns the bench recomputes the same hash. Contract written and checked; not deployed yet. <a href="#stylus">The record it writes</a></p>
       </div>
     </div>
-    <p class="body" style="margin-top:26px"><strong>The result of that loop.</strong> The measurement is a transient in ngspice at the sky130 typical corner, both cells driving the same load; it is the oracle's evidence for the improvement label, and it sits beside the cell's level-1 proof rather than replacing it.</p>
+    <p class="body" style="margin-top:26px"><strong>The result for buf_16.</strong> Typical corner, 250 fF load, every figure against hd, the high-density library that is the usual default:</p>
     <div class="stat">
-      <div><div class="big green">+22%</div>
-        <div class="sub">lower energy-delay than buf_16, at the same finger count and
-          slightly less energy: a threshold-voltage swap, not a bigger cell</div></div>
-      <div><div class="big">0</div>
-        <div class="sub">extra transistors added. The win is a dopant-mask change the
-          foundry's single library does not offer</div></div>
-      <div><div class="big">22 / 30</div>
-        <div class="sub">fabricable mask combinations beat the foundry ladder inside
-          its own energy-per-cycle band</div></div>
+      <div><div class="big">&#8722;26%</div>
+        <div class="sub">delay of hs, the high-speed library, for 1.1% more energy per switch</div></div>
+      <div><div class="big">78&#215;</div>
+        <div class="sub">leakage of hs at rest at the typical corner, 487&#215; at the fast corner; hd leaks least of the five</div></div>
+      <div><div class="big">+28%</div>
+        <div class="sub">area of hs, ms and ls, which sit in taller rows than hd</div></div>
     </div>
+    <p class="body" style="margin-top:22px"><strong>What that means for a net.</strong> On a busy net where timing is tight, hs cuts a quarter of the delay for about one percent more energy per switch. On a net that mostly rests, hs draws at least twice hd's power once the net switches fewer than about 2,900 times per second at the typical corner (99,000 at the fast corner), and hd is the right cell. Where area is the constraint, hd again. hdll is slower than hd at this drive and halves leakage only at the fast corner. The power of a net is switches per second times energy per switch, plus leakage times 1.8 V. All three corners and all three loads are in <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/results/differentiate.md">results/differentiate.md</a>.</p>
+    <p class="body" style="margin-top:14px"><strong>Correction, September 29, 2026.</strong> An earlier version of this section presented the hs transistor recipe (low-threshold nfet, standard pfet) as a Q2 improvement on buf_16. It is the recipe sky130's own high-speed library uses, which is why this section now compares the libraries directly.</p>
   </div>
 </section>
 <section id="stylus">
   <div class="wrap">
     <h2>What the anchor records</h2>
-    <p class="body">The point of a win is not a screenshot, it is a durable,
-      verifiable record. Each verified improvement is committed as a hash for a
-      Stylus contract on Arbitrum to record. Anyone holding the netlist can
-      recompute the hash and check it; no one else can read the design. This is the anchor contract from the table above, applied to the best win of the loop.</p>
+    <p class="body">A comparison is useful when anyone can check that it was not edited afterward. The run is committed as one hash for a Stylus contract on Arbitrum to record. The hash covers the bench code, the five netlists by their sha256, the PDK version, the operating points, and every measured number. All of it is public in the repository, so anyone can rerun the bench and recompute the same hash.</p>
     <div class="stylusbox">
       <pre>record(bytes32 artifact_hash, uint16 label, uint16 context)
-// best in-band win: EDP +22% vs buf_16, same area
-record(0xbbe5a7f1...f8f7c, 2200, 16)
-//         hash of the design bundle   basis points   drive strength</pre>
-      <p class="caption" style="margin-top:14px">label is basis points of EDP
-        improvement, context is the part's drive strength. The hash is the
-        artifact; the netlist never has to be published. The contract is written
-        in Rust for Arbitrum Stylus and passes cargo stylus check. Status: not
-        deployed. anchor.py prepares this record() call, it does not submit it
-        (that needs a funded key)</p>
+// buf_16 in five sky130 libraries, 3 corners x 3 loads
+record(0xb9968a68...aaf531, 1, 16)
+//     hash of the bench bundle   1 = measurement   drive strength</pre>
+      <p class="caption" style="margin-top:14px">label 1 marks a measurement record and carries no improvement claim. context 16 is the drive strength of the cells compared. The contract is written in Rust for Arbitrum Stylus and passes cargo stylus check. Status: not deployed. analysis/differentiate.py writes this record() call to results/differentiate.json; submitting it needs a funded key.</p>
     </div>
   </div>
 </section>

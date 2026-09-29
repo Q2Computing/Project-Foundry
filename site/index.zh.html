@@ -107,6 +107,7 @@
   .logo img{width:260px;max-width:70%;height:auto;display:inline-block;border-radius:12px}
   .langbar{font-family:var(--mono);font-size:12px;color:var(--dim);margin:0 0 18px}
   .langbar a{color:var(--blue)} .langbar b{color:var(--ink)}
+  table.ladder{display:block;overflow-x:auto;max-width:100%}
   .ladder th,.ladder td{text-align:left;font-family:var(--sans);vertical-align:top;font-size:13.5px}
   .ladder td:first-child{font-family:var(--mono);white-space:nowrap}
   .ladder .real{color:var(--green)} .ladder .road{color:var(--amber)}
@@ -186,13 +187,13 @@
     <p class="langbar">阅读语言：<a href="./index.html">English</a> · <a href="./index.ms.html">Bahasa Melayu</a> · <b>简体中文</b> · <a href="./index.ta.html">தமிழ்</a></p>
     <h1>证明经济</h1>
     <p class="tagline">一个电路只需公开证明一次，其后建立在其上的每个系统都继承该证明。</p>
-    <p class="lede">芯片是由模块构成的层级结构，在其任何部分送往代工厂之前，每个模块都必须被证明正确：现代工艺节点的一套掩模成本为 100 万至 200 万美元，行业调查显示首次流片成功率在 2024 年为 14%，在 2026 年为 5%。如今这种验证在被重复进行。每家使用加法器或浮点单元的公司都在私下重新验证自己的副本，项目结束后这些工作便被丢弃。一个模块的证明不依赖于谁在使用该模块。若证明是公开且内容寻址的，下一个团队便可继承它而无需重复，更大的系统也可通过引用其部件的证明来证明自身，而无需打开这些部件。本站是该理念的公开实例：证明如何分级，证书价值何在，在何处结算，以及一个单元走完整个循环的过程。</p>
+    <p class="lede">芯片是由模块构成的层级结构，在其任何部分送往代工厂之前，每个模块都必须被证明正确：现代工艺节点的一套掩模成本为 100 万至 200 万美元，行业调查显示首次流片成功率在 2024 年为 14%，在 2026 年为 5%。如今这种验证在被重复进行。每家使用加法器或浮点单元的公司都在私下重新验证自己的副本，项目结束后这些工作便被丢弃。一个模块的证明不依赖于谁在使用该模块。若证明是公开且内容寻址的，下一个团队便可继承它而无需重复，更大的系统也可通过引用其部件的证明来证明自身，而无需打开这些部件。本站是该理念的公开实例：证明如何分级，证书价值何在，在何处结算，以及一项为给定网络区分单元的免费服务。</p>
     <div class="cta">
       <a class="btn primary" href="./research.zh.html">研究</a>
-      <a class="btn" href="#practice">一个单元上的循环</a>
-      <a class="btn" href="./codesign.zh.html">生成：协同设计</a>
-      <a class="btn" href="./waveform.zh.html">评估：测量</a>
-      <a class="btn stylus" href="#stylus">锚定：结算</a>
+      <a class="btn" href="#practice">单元区分</a>
+      <a class="btn" href="./codesign.zh.html">上下文：协同设计</a>
+      <a class="btn" href="./waveform.zh.html">测量：五个库</a>
+      <a class="btn stylus" href="#stylus">记录：锚定</a>
       <a class="btn" href="https://github.com/Q2Computing/Project-Foundry">代码仓库</a>
     </div>
   </div>
@@ -268,46 +269,48 @@
 
 <section id="practice">
   <div class="wrap">
-    <h2>经济的实践：在一个单元上击败或分叉</h2>
-    <p class="body">上述规则规定，任何人都可以登记某一现有接口的更优实现，前提是改进经过测量，且先前的登记者得到全额补偿。以下是该规则在单个 sky130 标准单元，即代工厂的 buf_16 驱动器上，从头到尾运行一遍的过程。一个智能体提出候选单元，一个独立的预言机将其与代工厂自身的单元对照测量，每项经验证的胜出都被提交供链记录。这三个步骤即本站的三个页面。</p>
+    <h2>单元区分服务：首次流片之前免费</h2>
+    <p class="body">同一功能有许多种单元实现。仅 sky130 就在五个标准单元库中提供其最强的缓冲器 buf_16，每个库为不同的用途而设计。某个网络应当使用哪一个，这种知识一直掌握在晶圆厂和 EDA 供应商手中。Q2 针对您描述的网络，在任何人都能重跑的同一个开放测试台上测量各候选单元，并公开比较结果。团队在完成首次流片（含首次）之前均可免费使用这项服务，让选好单元不再成为做出第一个设计的障碍。</p>
     <div class="loop">
       <div class="card gen">
-        <div class="k">&#9889; 生成</div>
-        <h3>智能体提出方案</h3>
-        <p>一个确定性网格或 Gemini 提出可制造的单元：栅极面积与阈值电压掩模混合，保持在代工厂能量带之内。枚举成本低廉。<a href="./codesign.zh.html">候选单元如何针对其情境协同设计</a></p>
+        <div class="k">描述</div>
+        <h3>您描述网络</h3>
+        <p>它驱动的负载、翻转的频率、静止的时长。这三个数决定哪个单元合适；没有哪个单元处处合适。 <a href="./codesign.zh.html">上下文如何改变选择</a></p>
       </div>
       <div class="card">
-        <div class="k">&#128202; 评估</div>
-        <h3>预言机作出裁定</h3>
-        <p>GitHub Actions 在开源 sky130 PDK 上以同一 ngspice 测试台重新测量基线与每个候选单元，然后判定胜者。<a href="./waveform.zh.html">最佳胜出背后的测量</a></p>
+        <div class="k">测量</div>
+        <h3>一个测试台测量所有候选</h3>
+        <p>使用晶圆厂自己的网表（固定提交版本），在开源 sky130 PDK 上用 ngspice 测量三个工艺角：延迟、翻转能量、驱动它的前级所付出的能量、静止时的漏电，以及版图面积。 <a href="./waveform.zh.html">buf_16 的测量</a></p>
       </div>
       <div class="card anchor">
-        <div class="k">&#9875; 锚定</div>
-        <h3>Stylus 记录在案</h3>
-        <p>每项经验证且唯一的胜出都被哈希，供 Arbitrum Stylus 合约记录。哈希承诺了设计，网表保持私密。合约已编写并通过检查；尚未部署。<a href="#stylus">它写入的记录</a></p>
+        <div class="k">记录</div>
+        <h3>这次运行被记录</h3>
+        <p>测试台、网表和结果被哈希为一条记录，交给锚定合约。所有输入都是公开的，任何重跑测试台的人都会算出同一哈希。合约已编写并通过检查；尚未部署。 <a href="#stylus">它写入的记录</a></p>
       </div>
     </div>
-    <p class="body" style="margin-top:26px"><strong>该循环的结果。</strong>测量是 ngspice 在 sky130 典型工艺角下的一次瞬态仿真，两个单元驱动相同负载；它是预言机为改进标签提供的证据，位于该单元第 1 层证明之旁，而非取而代之。</p>
+    <p class="body" style="margin-top:26px"><strong>buf_16 的结果。</strong>典型工艺角，250 fF 负载，所有数字均相对于通常作为默认的高密度库 hd：</p>
     <div class="stat">
-      <div><div class="big green">+22%</div>
-        <div class="sub">相对 buf_16 更低的能量延迟积（EDP），指状（finger）数量相同，能量略低：一次阈值电压替换，而非更大的单元</div></div>
-      <div><div class="big">0</div>
-        <div class="sub">新增晶体管数。胜出来自代工厂单一单元库并不提供的掺杂掩模变更</div></div>
-      <div><div class="big">22 / 30</div>
-        <div class="sub">种可制造的掩模组合在代工厂自身的每周期能量带内击败其阶梯</div></div>
+      <div><div class="big">&#8722;26%</div>
+        <div class="sub">hs（高速库）的延迟，每次翻转的能量多 1.1%</div></div>
+      <div><div class="big">78&#215;</div>
+        <div class="sub">hs 在典型工艺角下的静态漏电，快速工艺角下为 487&#215;；五者中 hd 漏电最低</div></div>
+      <div><div class="big">+28%</div>
+        <div class="sub">hs、ms 和 ls 的面积，它们的单元行高于 hd</div></div>
     </div>
+    <p class="body" style="margin-top:22px"><strong>这对一个网络意味着什么。</strong>在时序紧张、翻转频繁的网络上，hs 以每次翻转约多百分之一的能量，把延迟缩短四分之一。在大部分时间静止的网络上，若翻转少于每秒约 2,900 次（典型工艺角；快速工艺角为 99,000 次），hs 的功耗至少是 hd 的两倍，此时 hd 才是合适的单元。面积受限时，同样选 hd。在这一驱动强度下，hdll 比 hd 慢，只在快速工艺角下将漏电减半。网络功耗等于每秒翻转次数乘以每次翻转能量，再加上漏电乘以 1.8 V。全部三个工艺角和三种负载见 <a href="https://github.com/Q2Computing/Project-Foundry/blob/main/results/differentiate.md">results/differentiate.md</a>。</p>
+    <p class="body" style="margin-top:14px"><strong>更正，2026 年 9 月 29 日。</strong>本节早先的版本把 hs 的晶体管配方（低阈值 nfet、标准 pfet）说成是 Q2 对 buf_16 的改进。这其实是 sky130 自己的高速库所用的配方，因此本节现在直接比较各个库。</p>
   </div>
 </section>
 <section id="stylus">
   <div class="wrap">
     <h2>锚定记录的内容</h2>
-    <p class="body">胜出的意义不在于一张截图，而在于一条持久、可验证的记录。每项经验证的改进都以哈希形式提交，供 Arbitrum 上的 Stylus 合约记录。持有网表的任何人都可以重新计算该哈希并加以核对；其他人无法读取设计。这就是上表中的锚定合约，应用于该循环的最佳胜出。</p>
+    <p class="body">一次比较只有在任何人都能核实它事后未被改动时才有用。这次运行被提交为一个哈希，交由 Arbitrum 上的 Stylus 合约记录。哈希覆盖测试台代码、五个网表各自的 sha256、PDK 版本、工作点以及每个测量值。这些全部公开在代码库中，因此任何人都能重跑测试台并算出同一哈希。</p>
     <div class="stylusbox">
       <pre>record(bytes32 artifact_hash, uint16 label, uint16 context)
-// best in-band win: EDP +22% vs buf_16, same area
-record(0xbbe5a7f1...f8f7c, 2200, 16)
-//         hash of the design bundle   basis points   drive strength</pre>
-      <p class="caption" style="margin-top:14px">label 为 EDP 改进的基点数，context 为部件的驱动强度。哈希即为工件；网表永远无需公布。合约以 Rust 为 Arbitrum Stylus 编写，并通过 cargo stylus check。状态：未部署。anchor.py 准备此 record() 调用，但不提交（提交需要已注资的密钥）</p>
+// buf_16 in five sky130 libraries, 3 corners x 3 loads
+record(0xb9968a68...aaf531, 1, 16)
+//     hash of the bench bundle   1 = measurement   drive strength</pre>
+      <p class="caption" style="margin-top:14px">label 1 表示测量记录，不含任何改进声明。context 16 是所比较单元的驱动强度。合约用 Rust 为 Arbitrum Stylus 编写，并通过 cargo stylus check。状态：尚未部署。analysis/differentiate.py 将此 record() 调用写入 results/differentiate.json；提交需要有资金的密钥。</p>
     </div>
   </div>
 </section>

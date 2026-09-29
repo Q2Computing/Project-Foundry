@@ -1,0 +1,62 @@
+{
+  "hd": {
+    "cell": "sky130_fd_sc_hd__buf_16",
+    "netlist": "sky130_fd_sc_hd__buf_16.spice",
+    "source": "github.com/google/skywater-pdk-libs-sky130_fd_sc_hd",
+    "commit": "ac7fb61f06e6470b94e8afdf7c25268f62fbd7b1",
+    "sha256": "b34b1f49c03072dd02879e5b2f776b2ec278b644c9aa2310054f2e3963c493fd",
+    "lef_size_um": [
+      10.12,
+      2.72
+    ],
+    "area_um2": 27.526
+  },
+  "hdll": {
+    "cell": "sky130_fd_sc_hdll__buf_16",
+    "netlist": "sky130_fd_sc_hdll__buf_16.spice",
+    "source": "github.com/google/skywater-pdk-libs-sky130_fd_sc_hdll",
+    "commit": "0694bd23893de20f5233ef024acf6cca1e750ac6",
+    "sha256": "e100a96c894921935af98ae099ef461c853aba48b19f2926f98ced638aaf42fa",
+    "lef_size_um": [
+      11.5,
+      2.72
+    ],
+    "area_um2": 31.28
+  },
+  "hs": {
+    "cell": "sky130_fd_sc_hs__buf_16",
+    "netlist": "sky130_fd_sc_hs__buf_16.spice",
+    "source": "github.com/google/skywater-pdk-libs-sky130_fd_sc_hs",
+    "commit": "1d051f49bfe4e2fe9108d702a8bc2e9c081005a4",
+    "sha256": "2dd65d6d335d3c1475d41ac17b5ef8e2248035094b5261af7535942dd26a6be2",
+    "lef_size_um": [
+      10.56,
+      3.33
+    ],
+    "area_um2": 35.165
+  },
+  "ms": {
+    "cell": "sky130_fd_sc_ms__buf_16",
+    "netlist": "sky130_fd_sc_ms__buf_16.spice",
+    "source": "github.com/google/skywater-pdk-libs-sky130_fd_sc_ms",
+    "commit": "ae1b7f68821505cf2d93d9d44cce5ece22710fad",
+    "sha256": "75d0391e63897d99c223fba97215baaa6820fc573679cb79f51071e4e7e4b8a8",
+    "lef_size_um": [
+      10.56,
+      3.33
+    ],
+    "area_um2": 35.165
+  },
+  "ls": {
+    "cell": "sky130_fd_sc_ls__buf_16",
+    "netlist": "sky130_fd_sc_ls__buf_16.spice",
+    "source": "github.com/google/skywater-pdk-libs-sky130_fd_sc_ls",
+    "commit": "4f549e30dd91a1c264f8895e07b2872fe410a8c2",
+    "sha256": "5b0436b07c9c22d971bfa35326d316175743412f8351cb7178ffd80df8bf09c3",
+    "lef_size_um": [
+      10.56,
+      3.33
+    ],
+    "area_um2": 35.165
+  }
+}

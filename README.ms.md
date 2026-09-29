@@ -4,7 +4,7 @@ Baca dalam: [English](README.md) · Bahasa Melayu · [简体中文](README.zh.md
 
 Bukti bagi sesuatu litar ialah sijil. Sijil dilesenkan ke dalam bukti yang lebih besar dan ke dalam silikon yang dikilangkan, dengan harga lantai yang tidak dapat ditandingi oleh mana-mana pesaing, dan diselesaikan di Arbitrum Stylus. Pengesahan dikongsi, bukan diulang: sesuatu blok dibuktikan sekali, secara terbuka, dan setiap sistem yang dibina di atasnya mewarisi bukti itu.
 
-Repositori ini ialah contoh awam ekonomi tersebut. Ia mengandungi gelung yang mengatasi sel kilang (foundry) dan membuktikannya, kontrak yang menyelesaikan bukti di atas rantaian, dan tahap bukti yang menggredkan setiap sijil. Rekod saintifik di sebalik setiap angka terdapat dalam [RESEARCH.md](RESEARCH.md) (dalam bahasa Inggeris).
+Repositori ini ialah contoh awam ekonomi tersebut. Ia mengandungi perkhidmatan percuma yang membezakan sel kilang (foundry) bagi sesuatu net, kontrak yang menyelesaikan bukti di atas rantaian, dan tahap bukti yang menggredkan setiap sijil. Rekod saintifik di sebalik setiap angka terdapat dalam [RESEARCH.md](RESEARCH.md) (dalam bahasa Inggeris).
 
 ## Tahap bukti
 
@@ -45,19 +45,13 @@ Tiga kontrak Arbitrum Stylus, satu bagi setiap mod penyelesaian.
 | q2-anchor | Sauh | Merekodkan komitmen beralamat kandungan bagi bukti luar rantaian dengan label penambahbaikan. |
 | q2-composition | Komposisi dan lesen | Mensijilkan sistem yang lebih besar melalui rujukan kepada sijil anak dan menyelesaikan kedua-dua lesen. |
 
-## Gelung yang menyuapnya
+## Pembezaan sel, percuma hingga larian fabrikasi pertama
 
-Pilih sel piawai yang dibekalkan oleh kilang. Biarkan ejen mereka bentuk sel tersuai yang mengatasinya dari segi keluasan, kelajuan dan tenaga. Ukur semula segala-galanya secara terbuka, dari awal, dalam integrasi berterusan. Sauhkan kemenangan itu di atas rantaian tanpa menerbitkan reka bentuk.
+Fungsi yang sama hadir dalam banyak sel. sky130 menghantar penimbal terkuatnya, buf_16, dalam lima pustaka sel piawai, setiap satu dibina untuk tugas yang berbeza. Huraikan sesuatu net (beban yang dipacunya, kekerapan ia bersuis, berapa lama ia berehat) dan satu meja uji terbuka mengukur calon-calon baginya, percuma bagi sesebuah pasukan hingga dan termasuk larian fabrikasi pertamanya.
 
-```
-  jana                     nilai (oracle)                    sauh
-  ejen mencadangkan  ==>   CI mengukur semula garis    ==>   hash + label
-  sel calon                asas dan setiap calon dalam        direkodkan di atas
-                           satu bangku ngspice pada PDK       rantaian; netlist
-                           sky130 terbuka                     kekal peribadi
-```
+`python3 analysis/differentiate.py` mengukur buf_16 daripada sky130 hd, hdll, ls, ms dan hs: lengah, tenaga setiap kitaran, tenaga yang ditanggung oleh peringkat pemacu, kebocoran semasa rehat, dan luas susun atur daripada LEF. Pada sudut tipikal dan 250 fF, hs 26% lebih pantas daripada hd dengan tenaga 1.1% lebih tinggi setiap kitaran, kebocoran 78 kali ganda, dan luas 28% lebih besar; jadi hs sesuai untuk net sibuk dengan pemasaan ketat dan hd untuk net yang kebanyakan masanya berehat. Setiap sudut dan beban ada dalam [results/differentiate.md](results/differentiate.md); rekod sauh bagi larian itu ada dalam results/differentiate.json.
 
-Dua sifat menjadikannya boleh dipercayai. Penilai bebas daripada penjana: penjanaan boleh menggunakan mana-mana model secara luar talian, penilaian bersifat penentu dan berjalan dalam CI, jadi keputusannya ialah artifak awam yang boleh dijalankan semula oleh sesiapa sahaja. Dan semua diukur dengan pembaris yang sama: satu bangku ujian ngspice, beban, slew dan sudut yang sama, peranti PDK yang sama, bagi sel tersuai dan sel kilang.
+Versi terdahulu repositori ini membentangkan resipi transistor hs (nfet voltan ambang rendah, pfet piawai) sebagai penambahbaikan Q2 ke atas buf_16. Itu ialah resipi yang sudah digunakan oleh pustaka berkelajuan tinggi sky130. Reka bentuk calon terdahulu dan aliran kerja oracle-nya kekal dalam candidates/ dan tools/ sebagai rekod.
 
 ## Apa yang sebenar dan apa yang pelan hala tuju
 

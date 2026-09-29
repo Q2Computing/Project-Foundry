@@ -9,8 +9,8 @@ and into manufactured silicon, priced at a floor no competitor can match, and
 settled on Arbitrum Stylus. Verification is shared, not repeated: a block is
 proved once, in public, and every system built on it inherits the proof.
 
-This repository is the public instance of that economy. It holds the loop that
-beats foundry cells and proves it, the contracts that settle proofs on chain,
+This repository is the public instance of that economy. It holds a free service
+that tells foundry cells apart for a given net, the contracts that settle proofs on chain,
 and the levels of proof every certificate is graded by. The scientific record
 behind every number lives in [RESEARCH.md](RESEARCH.md).
 
@@ -66,26 +66,34 @@ Three Arbitrum Stylus contracts, one per settlement mode.
 | q2-anchor | Anchor | Records a content-addressed commitment of an off-chain proof with an improvement label. |
 | q2-composition | Compose and license | Certifies a larger system by reference to child certificates and settles both licenses. |
 
-## The loop that feeds it
+## Cell differentiation, free through a first fabrication run
 
-Pick a standard cell the foundry ships. Have an agent design a custom cell
-that beats it on area, speed, and energy. Re-measure everything in the open,
-from scratch, in continuous integration. Anchor the win on chain without
-publishing the design.
+The same function comes in many cells. sky130 ships its strongest buffer,
+buf_16, in five standard-cell libraries, each built for a different job.
+Describe a net (the load it drives, how often it switches, how long it rests)
+and one open bench measures the candidates for it, free of charge to a team
+through its first fabrication run.
 
 ```
-  generate                 assess (the oracle)               anchor
-  agent proposes    ==>    CI re-measures baseline and  ==>  hash + label
-  candidate cells          every candidate in one            recorded on chain;
-                           ngspice bench on the open         the netlist stays
-                           sky130 PDK                        private
+  describe                  measure                            record
+  load, switching    ==>    foundry netlists at pinned   ==>   bench + netlists +
+  rate, rest time           commits, ngspice on the open       results hashed into
+                            sky130 PDK, 3 corners x 3 loads    one anchor record
 ```
 
-Two properties make it credible. The judge is independent of the generator:
-generation may use any model offline, assessment is deterministic and runs in
-CI, so the verdict is a public artifact anyone can re-run. And everyone is
-measured on the same ruler: one ngspice testbench, the same load, slew, and
-corner, the same PDK devices, for the custom cell and the foundry cell alike.
+`python3 analysis/differentiate.py` measures buf_16 from sky130 hd, hdll, ls,
+ms and hs: delay, energy per cycle, the energy it costs the driving stage,
+leakage at rest, and laid-out area from the LEF. At the typical corner and
+250 fF, hs is 26% faster than hd for 1.1% more energy per cycle, 78 times the
+leakage, and 28% more area, so hs suits busy nets with tight timing and hd suits
+nets that mostly rest. Every corner and load is in
+[results/differentiate.md](results/differentiate.md); the anchor record for the
+run is in results/differentiate.json.
+
+An earlier version of this repository presented the hs transistor recipe (low
+threshold nfet, standard pfet) as a Q2 improvement on buf_16. It is the recipe
+sky130's high-speed library already uses. The earlier candidate designs and
+their oracle workflow remain in candidates/ and tools/ as a record.
 
 ## What is proven and what is roadmap
 
