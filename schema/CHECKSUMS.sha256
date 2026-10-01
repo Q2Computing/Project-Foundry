@@ -1,0 +1,13 @@
+# The certificate format, mirrored byte-identical in the public Project-Foundry
+# and the private Private-Foundry. A circuit the Private Foundry mints hashes to
+# exactly what a public reviewer recomputes from the published bundle. Content is
+# LF-normalized before hashing so both repos agree regardless of CRLF handling.
+# Drift is detectable by comparing this one file across the two repos.
+# Regenerate with tools/gen_checksums.sh; update both repos in one change.
+80fef8651d747fe3122014bff504f5c7440ac8a482846fb194c1a37aa3245f71  schema/certificate.v1.schema.json
+3a827d0c6a84c70fd1b783a54c0f783c43758808358b87739ded4ff0c45830e7  tools/cert_hash.py
+23cb34c72463872b6f53bcd9ab4eba3d1afa826c63440eac66ce6e5f1805161f  docs/characterization.md
+d77d040ea0dc57ef6955114ce3203b2d3a8cc86808923c1635cb533181e18761  contracts/q2-anchor/src/lib.rs
+1e1bdf3dbc8b481e7881cbfa719e7bf36a2c20823d88bdbf4dc3c4915402c395  contracts/q2-verifier/src/lib.rs
+b4dad44d3064a3b16146d4c68fcfe25b8cff6647bdf3f333cd317b2f621f3db5  contracts/q2-composition/src/lib.rs
+29fb0166e69338c3e4cad64e3e04108135c7b194c88f62513f33c9373917b389  contracts/q2-anchor/abi/IQ2Anchor.sol
