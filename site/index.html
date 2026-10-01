@@ -208,6 +208,13 @@
 
 <section>
   <div class="wrap">
+    <h2>One instrument, two halves: correctness and cost</h2>
+    <p class="body">A certificate binds two facts about a block, and the economy needs both. The first is <strong>correctness</strong>: the block computes the right function, proved once, so a larger design inherits it without re-checking. The proof ladder below settles this, and the mathematics proves it. The second is <strong>cost</strong>: what the block spends in the three physical resources a circuit cannot escape, area, time, and energy, with information as the yardstick that makes them comparable (Shannon's measure of information, Landauer's floor of kT ln2 of energy per bit a calculation destroys, and the area-time bound of Thompson and of Mead and Conway). The engineering measures this on one open bench. Correctness is why a system may inherit a block; cost is why a designer chooses one block over another that computes the same function. There is rarely a single best block, because a design binds on whichever resource it is short of, so a certificate publishes a point on the cost surface rather than a ranking. The certificate carries both halves, and the Arbitrum Stylus contracts settle it as one asset. The cell-differentiation service lower on this page is the cost half made public for one family of cells; the ladder is the correctness half made public for every block.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
     <h2>How a proof is graded: the levels of proof</h2>
     <p class="body">Every certificate names the level at which its block is proved. The ladder runs from the strongest bounded proof to the one that scales without bound. Exhaustive checking costs 2 to the power of the input width, so it stops at small blocks; composition is the top and it is closed: a composed block is a part for the next composition.</p>
     <table class="ladder">
