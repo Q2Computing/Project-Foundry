@@ -1,0 +1,208 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://q2computing.github.io/Project-Foundry/schema/certificate.v1.schema.json",
+  "title": "Q2 circuit certificate, characterization v1",
+  "description": "The canonical bundle a Q2 certificate commits to. The on-chain record stores sha256 of this bundle (with the `certificate` block removed) as artifact_hash, so the certificate proves possession of the circuit's structure and the measured conformance and cost of that circuit, without disclosing the design. Every smart-contract registration of a circuit references a bundle conforming to this schema.",
+  "type": "object",
+  "required": ["schema", "identity", "proof_of_record", "conformance", "characterization"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "const": "q2.certificate.v1" },
+
+    "identity": {
+      "type": "object",
+      "required": ["title", "tier", "interface", "interface_hash", "design_hash"],
+      "additionalProperties": false,
+      "properties": {
+        "title":      { "type": "string", "minLength": 1 },
+        "tier":       { "enum": ["device", "standard-cell", "component", "sub-assembly", "assembly", "subsystem", "system", "soc"] },
+        "interface":  { "type": "string", "description": "The port/behaviour contract a parent may rely on. Public." },
+        "interface_hash": { "$ref": "#/$defs/hash32", "description": "keccak256(interface). The on-chain interface_hash." },
+        "design_hash":    { "$ref": "#/$defs/sha256", "description": "sha256 of the design bundle (RTL/GDS). Commitment only; the design stays private." },
+        "lineage":    { "type": "array", "items": { "$ref": "#/$defs/sha256" }, "description": "artifact_hash of each DIRECT child certificate this circuit is composed from." }
+      }
+    },
+
+    "proof_of_record": {
+      "type": "object",
+      "description": "The mathematical proof that this structure is what it claims to be.",
+      "required": ["level", "kind", "tool", "sha256", "completed"],
+      "additionalProperties": false,
+      "properties": {
+        "level":  { "type": "integer", "minimum": 1, "maximum": 4, "description": "1 exhaustive (SPICE truth table); 2 SAT equivalence; 3 techmap onto proven cells; 4 composition of proven parts." },
+        "kind":   { "enum": ["exhaustive-spice", "sat-equivalence", "techmap", "composition-proof", "fpga-enumeration", "lean-refinement"] },
+        "tool":   { "type": "string" },
+        "tool_version": { "type": "string" },
+        "sha256": { "$ref": "#/$defs/sha256", "description": "Hash of the proof artifact of record." },
+        "completed": { "type": "string", "format": "date" },
+        "soundness": { "type": "string", "description": "Reference to the composition-soundness theorem under which level 4 is valid, when applicable." }
+      }
+    },
+
+    "conformance": {
+      "type": "object",
+      "description": "The external standard the circuit meets, and the exact parameters within which it meets it. This is 'accomplishes IEEE 754 within a set of parameters'.",
+      "required": ["standard", "operation", "method", "result", "coverage"],
+      "additionalProperties": false,
+      "properties": {
+        "standard":  { "type": "string", "description": "e.g. 'IEEE 754-2019 binary32', 'RISC-V RV32I', 'OCP MX v1.0'." },
+        "operation": { "type": "string", "description": "e.g. 'add', 'mul', 'fma', 'sqrt', 'f2i'." },
+        "scope":     { "type": "string", "description": "The parameter set the claim holds within: rounding modes, subnormal handling, exception flags, operand ranges. State every limitation." },
+        "method":    { "enum": ["softfloat-exhaustive", "softfloat-vectors", "fpga-enumeration", "lean-refinement", "sat-equivalence"], "description": "How conformance was established. Simulation with vectors is evidence, never a stand-alone proof." },
+        "result":    { "enum": ["exact", "bounded"], "description": "exact = bit-identical to the reference; bounded = within max_ulp." },
+        "max_ulp":   { "type": "number", "minimum": 0, "description": "Required when result is 'bounded'." },
+        "coverage":  { "type": "string", "description": "e.g. '2^32 exhaustive unary', '2^64 via 3-stage decomposition + Lean glue', 'N directed+random vectors'." }
+      },
+      "allOf": [
+        { "if": { "properties": { "result": { "const": "bounded" } } }, "then": { "required": ["max_ulp"] } }
+      ]
+    },
+
+    "characterization": {
+      "type": "object",
+      "description": "The circuit-intrinsic cost axes, every figure pinned to a stated corner, temperature and input activity. A circuit is a point on this surface; different circuits for the same interface specialize on different axes (area, energy, time), which is expected, not a defect.",
+      "required": ["pdk", "corner", "temp_c", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "pdk":         { "type": "string", "description": "e.g. 'sky130A'." },
+        "pdk_version": { "type": "string" },
+        "corner":      { "enum": ["tt", "ss", "ff", "sf", "fs"] },
+        "temp_c":      { "type": "number" },
+
+        "area": {
+          "type": "object", "additionalProperties": false,
+          "properties": {
+            "cell_area_um2": { "type": "number", "minimum": 0, "description": "Sum of standard-cell area (pre-layout)." },
+            "die_area_um2":  { "type": "number", "minimum": 0, "description": "Placed-and-routed area, when available." },
+            "gate_equiv":    { "type": "number", "minimum": 0 },
+            "transistors":   { "type": "integer", "minimum": 0 }
+          }
+        },
+
+        "time": {
+          "type": "object", "additionalProperties": false,
+          "properties": {
+            "latency_ns":      { "type": "number", "minimum": 0, "description": "Combinational delay or cycles x period for the operation." },
+            "fmax_mhz":        { "type": "number", "minimum": 0, "description": "From static timing on the critical path." },
+            "throughput_ops_s":{ "type": "number", "minimum": 0 }
+          }
+        },
+
+        "energy": {
+          "type": "object",
+          "description": "Energy is not a scalar: it depends on the input distribution and the duty cycle. Every figure names its activity and idle fraction.",
+          "additionalProperties": false,
+          "properties": {
+            "activity":          { "type": "string", "description": "The stated input distribution / switching-activity assumption the dynamic figure is measured at, e.g. 'uniform-random operands', 'alpha=0.2'." },
+            "dynamic_fj_per_op": { "type": "number", "minimum": 0 },
+            "static_leakage_nw": { "type": "number", "minimum": 0 },
+            "idle_fraction":     { "type": "number", "minimum": 0, "maximum": 1, "description": "Duty cycle used to fold leakage into energy_fj_per_op." },
+            "energy_fj_per_op":  { "type": "number", "minimum": 0, "description": "Total per operation at the stated activity and idle fraction." }
+          }
+        },
+
+        "power": {
+          "type": "object", "additionalProperties": false,
+          "properties": {
+            "power_density_w_mm2": { "type": "number", "minimum": 0, "description": "Dissipation rate per area. A workload can be power-limited while energy-abundant." },
+            "thermal_margin":      { "type": "string", "description": "Headroom to the process's power-density / junction-temperature ceiling." }
+          }
+        },
+
+        "precision": {
+          "type": "object", "additionalProperties": false,
+          "properties": {
+            "result":        { "enum": ["exact", "bounded"] },
+            "max_ulp":       { "type": "number", "minimum": 0 },
+            "mantissa_bits": { "type": "integer", "minimum": 0, "description": "Bits of significand preserved, when the circuit trades precision for cost." }
+          }
+        },
+
+        "entropy": {
+          "type": "object",
+          "description": "The information-theoretic normalizer. Lets every cost axis be priced per useful bit and against the Landauer floor, and lets a mission's workload (bits to process) be compared to a process's capability.",
+          "additionalProperties": false,
+          "properties": {
+            "operand_distribution":    { "type": "string", "description": "The input distribution the entropy figures are relative to; entropy is not an intrinsic circuit property." },
+            "bits_discarded_per_op":   { "type": "number", "minimum": 0, "description": "H(input|output): the information the operation necessarily destroys under the stated distribution. For IEEE 754 the alignment shift and rounding dominate this." },
+            "landauer_floor_fj_per_op":{ "type": "number", "minimum": 0, "description": "bits_discarded_per_op x k*ln2*T at temp_c." },
+            "thermodynamic_efficiency":{ "type": "number", "minimum": 0, "maximum": 1, "description": "landauer_floor / energy. Distance to the physical floor; two circuits equal on area and time can differ here, and that distance is the licensable improvement." }
+          }
+        },
+
+        "status": {
+          "type": "object",
+          "description": "Measurement state per axis, so a certificate is honest about what is measured versus pending.",
+          "additionalProperties": { "enum": ["measured", "pending", "n/a"] },
+          "properties": {
+            "area":      { "enum": ["measured", "pending", "n/a"] },
+            "time":      { "enum": ["measured", "pending", "n/a"] },
+            "energy":    { "enum": ["measured", "pending", "n/a"] },
+            "power":     { "enum": ["measured", "pending", "n/a"] },
+            "precision": { "enum": ["measured", "pending", "n/a"] },
+            "entropy":   { "enum": ["measured", "pending", "n/a"] }
+          }
+        }
+      }
+    },
+
+    "payload": {
+      "type": "object",
+      "description": "Process- and mission-applied, not circuit-intrinsic: derived from the fabrication stack and package when the circuit is placed in a system. Optional at registration.",
+      "additionalProperties": false,
+      "properties": {
+        "mass_mg":     { "type": "number", "minimum": 0 },
+        "volume_mm3":  { "type": "number", "minimum": 0 },
+        "note":        { "type": "string" }
+      }
+    },
+
+    "reliability": {
+      "type": "object",
+      "description": "Mission-applied: error rate and wear over sustained operation, set by the environment (temperature, radiation) and lifetime. Optional at registration.",
+      "additionalProperties": false,
+      "properties": {
+        "soft_error_rate_fit": { "type": "number", "minimum": 0, "description": "Failures in time (per 1e9 device-hours)." },
+        "lifetime_note":       { "type": "string", "description": "Electromigration / NBTI / HCI wear assumptions." }
+      }
+    },
+
+    "measurement_provenance": {
+      "type": "object",
+      "description": "What produced the numbers, so any skeptic can reproduce them. Content-addresses the apparatus, not only the artifact.",
+      "additionalProperties": false,
+      "properties": {
+        "harness_sha256": { "$ref": "#/$defs/sha256" },
+        "pdk_version":    { "type": "string" },
+        "reference":      { "type": "string", "description": "The conformance oracle, e.g. 'Berkeley SoftFloat 3e'." },
+        "notes":          { "type": "string" }
+      }
+    },
+
+    "certificate": {
+      "type": "object",
+      "description": "The on-chain commitment. artifact_hash is sha256 of this whole bundle with the `certificate` block removed (see tools/cert_hash.py). Filled in when the circuit is registered.",
+      "additionalProperties": false,
+      "properties": {
+        "artifact_hash": { "$ref": "#/$defs/sha256" },
+        "on_chain": {
+          "type": "object", "additionalProperties": false,
+          "properties": {
+            "contract":  { "type": "string", "description": "q2-anchor or q2-composition." },
+            "chain":     { "type": "string", "description": "e.g. 'arbitrum-sepolia'." },
+            "address":   { "type": "string" },
+            "record_id": { "type": "integer" },
+            "proof_kind":{ "type": "integer", "minimum": 0, "maximum": 65535 },
+            "label":     { "type": "integer", "minimum": 0, "maximum": 65535 },
+            "context":   { "type": "integer", "minimum": 0, "maximum": 65535 }
+          }
+        }
+      }
+    }
+  },
+
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^(0x)?[0-9a-f]{64}$" },
+    "hash32": { "type": "string", "pattern": "^0x[0-9a-f]{64}$" }
+  }
+}

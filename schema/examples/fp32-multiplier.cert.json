@@ -1,0 +1,66 @@
+{
+  "schema": "q2.certificate.v1",
+  "identity": {
+    "title": "FP32 multiplier",
+    "tier": "component",
+    "interface": "fp32_mul(a: binary32, b: binary32, rm: round_mode) -> (y: binary32, flags: {invalid,overflow,underflow,inexact})",
+    "interface_hash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "design_hash": "f7c92ade4ec33b6df5a6311356c5fc41bc165d4d3dbff25d71f5ff14b43cbfd6",
+    "lineage": []
+  },
+  "proof_of_record": {
+    "level": 4,
+    "kind": "composition-proof",
+    "tool": "YOSYS",
+    "tool_version": "0.57",
+    "sha256": "f7c92ade4ec33b6df5a6311356c5fc41bc165d4d3dbff25d71f5ff14b43cbfd6",
+    "completed": "2026-09-16",
+    "soundness": "proofs/composition-soundness (combinational), 18 theorems"
+  },
+  "conformance": {
+    "standard": "IEEE 754-2019 binary32",
+    "operation": "mul",
+    "scope": "round-to-nearest-even; normals and subnormals; invalid/overflow/underflow/inexact flags set; NaN propagation per the standard",
+    "method": "softfloat-vectors",
+    "result": "exact",
+    "coverage": "directed corners + randomized vectors against Berkeley SoftFloat; exhaustive refinement pending (roadmap F)"
+  },
+  "characterization": {
+    "pdk": "sky130A",
+    "pdk_version": "0fe599b2afb6708d281543108caf8310912f54af",
+    "corner": "tt",
+    "temp_c": 27,
+    "area": {},
+    "time": {},
+    "energy": {
+      "activity": "uniform-random operands"
+    },
+    "power": {},
+    "precision": {
+      "result": "exact"
+    },
+    "entropy": {
+      "operand_distribution": "uniform-random binary32 operands"
+    },
+    "status": {
+      "area": "pending",
+      "time": "pending",
+      "energy": "pending",
+      "power": "pending",
+      "precision": "measured",
+      "entropy": "pending"
+    }
+  },
+  "measurement_provenance": {
+    "reference": "Berkeley SoftFloat 3e",
+    "notes": "proof_of_record is the YOSYS composition proof; the area/energy/time axes are measured through the portal OPENLANE/STA pipeline, tracked as roadmap work."
+  },
+  "certificate": {
+    "on_chain": {
+      "contract": "q2-composition",
+      "chain": "arbitrum-sepolia",
+      "proof_kind": 4
+    },
+    "artifact_hash": "0x8bde1e3c947ca8e51611f64172b8cfac956c8663c5d48470ffc4321839affcbe"
+  }
+}
