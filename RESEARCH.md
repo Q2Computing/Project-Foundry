@@ -209,7 +209,7 @@ The bets in Section 6 remain bets. Elasticity is tested one rung at a time and t
 2. [130 nm wafer and MPW cost, mask set $1 to 2 million](https://anysilicon.com/130nm-wafer-mpw-cost/)
 3. [Photomask cost by node, SemiAnalysis](https://newsletter.semianalysis.com/p/the-dark-side-of-the-semiconductor)
 4. [First-silicon success at 14 percent, 2024 Wilson Research study](https://semiengineering.com/first-time-silicon-success-plummets/)
-5. [First-silicon success at 5 percent, 2026 study](https://blogs.sw.siemens.com/verificationhorizons/2025/09/03/why-first-silicon-success-is-getting-harder-for-system-companies/)
+5. [First-silicon success at 5 percent, 2026 Wilson Research / Siemens study (14.4 percent in 2024, IC/ASIC industry-wide)](https://blogs.sw.siemens.com/verificationhorizons/2026/09/08/the-2026-functional-verification-study/)
 6. [Vermont residential electricity, 24.44 cents per kWh, September 2026](https://www.electricchoice.com/electricity-prices-by-state/vermont/)
 7. [IEEE 754-2019, Standard for Floating-Point Arithmetic](https://ieeexplore.ieee.org/document/8766229)
 8. [OCP Microscaling Formats (MX) Specification v1.0](https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf)
