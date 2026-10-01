@@ -46,11 +46,8 @@ extern crate alloc;
 use alloc::vec::Vec;
 use alloy_sol_types::sol;
 use stylus_sdk::{
-    alloy_primitives::{Address, FixedBytes, U16, U64, U256, U8},
-    block,
-    call::transfer_eth,
-    crypto::keccak,
-    evm, msg,
+    call::transfer::transfer_eth,
+    alloy_primitives::{Address, FixedBytes, U16, U64, U256, U8, keccak256},
     prelude::*,
 };
 
@@ -248,6 +245,7 @@ impl Q2Composition {
 
     /// Pay a capped royalty to a certificate's owner and advance its recovery.
     fn pay_royalty(&mut self, cert: U256, amount: U256) {
+        let sender = self.vm().msg_sender();
         if amount == U256::ZERO {
             return;
         }
@@ -255,8 +253,8 @@ impl Q2Composition {
         self.credit(owner, amount);
         let got = self.recovered.get(cert) + amount;
         self.recovered.setter(cert).set(got);
-        evm::log(RoyaltyPaid {
-            cert, payer: msg::sender(), amount,
+        self.vm().log(RoyaltyPaid {
+            cert, payer: sender, amount,
             recovered: got, target: self.recovery_target.get(cert),
         });
     }
@@ -314,11 +312,13 @@ impl Q2Composition {
         recovery_target: U256,
         baseline: U256,
     ) -> Result<U256, CompositionError> {
+        let sender = self.vm().msg_sender();
+        let now = self.vm().block_timestamp();
         if !commons && recovery_target > MAX_RECOVERY_TARGET {
             return Err(CompositionError::TargetTooHigh(TargetTooHigh {}));
         }
         let (existed, due) = self.baseline_due(interface_hash, baseline)?;
-        let paid = msg::value();
+        let paid = self.vm().msg_value();
         if paid < due {
             return Err(CompositionError::Underpaid(Underpaid {}));
         }
@@ -327,9 +327,9 @@ impl Q2Composition {
         self.artifact_hash.setter(id).set(artifact_hash);
         self.interface_hash.setter(id).set(interface_hash);
         self.proof_kind.setter(id).set(U16::from(proof_kind));
-        self.owner.setter(id).set(msg::sender());
+        self.owner.setter(id).set(sender);
         self.is_composition.setter(id).set(false);
-        let ts = block::timestamp();
+        let ts = now;
         self.registered_at.setter(id).set(U64::from(ts));
         let (rp, rt) = if commons { (U256::ZERO, U256::ZERO) } else { (ref_price, recovery_target) };
         self.commons.setter(id).set(commons);
@@ -339,21 +339,21 @@ impl Q2Composition {
         // listing gas. Any excess is the caller's to withdraw.
         if existed {
             self.pay_royalty(baseline, due);
-            evm::log(BaselineSettled { cert: id, baseline, amount: due });
+            self.vm().log(BaselineSettled { cert: id, baseline, amount: due });
         }
         if paid > due {
-            self.credit(msg::sender(), paid - due);
+            self.credit(sender, paid - due);
         }
         self.bind_interface(id, interface_hash, existed, baseline);
-        evm::log(CertificateRegistered {
-            id, owner: msg::sender(), artifact_hash, interface_hash, proof_kind,
+        self.vm().log(CertificateRegistered {
+            id, owner: sender, artifact_hash, interface_hash, proof_kind,
             commons, ref_price: rp, recovery_target: rt, timestamp: ts,
         });
         Ok(id)
     }
 
     /// Certify a larger system by reference. The contract recomputes
-    /// keccak(system_hash ‖ interface_hash ‖ each direct child's REGISTERED
+    /// keccak256(system_hash ‖ interface_hash ‖ each direct child's REGISTERED
     /// interface_hash) and requires it to equal `binding`, so the parent is bound
     /// to exactly those certified interfaces and no child design was needed.
     /// Royalties go ONLY to the direct children, the abstractions this system
@@ -375,6 +375,8 @@ impl Q2Composition {
         recovery_target: U256,
         baseline: U256,
     ) -> Result<U256, CompositionError> {
+        let sender = self.vm().msg_sender();
+        let now = self.vm().block_timestamp();
         let n = child_ids.len();
         if n == 0 {
             return Err(CompositionError::NoChildren(NoChildren {}));
@@ -390,7 +392,7 @@ impl Q2Composition {
             self.check_cert(child_ids[i])?;
             buf.extend_from_slice(self.interface_hash.get(child_ids[i]).as_slice());
         }
-        let recomputed: FixedBytes<32> = keccak(&buf);
+        let recomputed: FixedBytes<32> = keccak256(&buf);
         if recomputed != binding {
             return Err(CompositionError::BindingMismatch(BindingMismatch {}));
         }
@@ -413,7 +415,7 @@ impl Q2Composition {
                 .checked_add(self.royalty_due(*id))
                 .ok_or(CompositionError::Overflow(Overflow {}))?;
         }
-        let paid = msg::value();
+        let paid = self.vm().msg_value();
         if paid < total {
             return Err(CompositionError::Underpaid(Underpaid {}));
         }
@@ -425,7 +427,7 @@ impl Q2Composition {
             self.pay_royalty(baseline, bdue);
         }
         if paid > total {
-            self.credit(msg::sender(), paid - total);
+            self.credit(sender, paid - total);
         }
 
         // Mint the parent: it can now be referenced one rung up.
@@ -434,9 +436,9 @@ impl Q2Composition {
         self.artifact_hash.setter(id).set(system_hash);
         self.interface_hash.setter(id).set(interface_hash);
         self.proof_kind.setter(id).set(U16::from(proof_kind));
-        self.owner.setter(id).set(msg::sender());
+        self.owner.setter(id).set(sender);
         self.is_composition.setter(id).set(true);
-        self.registered_at.setter(id).set(U64::from(block::timestamp()));
+        self.registered_at.setter(id).set(U64::from(now));
         self.commons.setter(id).set(false);
         self.ref_price.setter(id).set(ref_price);
         self.recovery_target.setter(id).set(recovery_target);
@@ -446,10 +448,10 @@ impl Q2Composition {
         }
         self.bind_interface(id, interface_hash, existed, baseline);
         if existed {
-            evm::log(BaselineSettled { cert: id, baseline, amount: bdue });
+            self.vm().log(BaselineSettled { cert: id, baseline, amount: bdue });
         }
-        evm::log(SystemCertified {
-            id, submitter: msg::sender(), system_hash,
+        self.vm().log(SystemCertified {
+            id, submitter: sender, system_hash,
             child_count: n as u64, royalties_paid: total,
         });
         Ok(id)
@@ -457,8 +459,9 @@ impl Q2Composition {
 
     /// Re-pace recovery of a certificate you own. Commons cannot be priced.
     pub fn set_ref_price(&mut self, id: U256, price: U256) -> Result<(), CompositionError> {
+        let sender = self.vm().msg_sender();
         self.check_cert(id)?;
-        if self.owner.get(id) != msg::sender() {
+        if self.owner.get(id) != sender {
             return Err(CompositionError::NotOwner(NotOwner {}));
         }
         if self.commons.get(id) {
@@ -486,8 +489,9 @@ impl Q2Composition {
         foundry: Address,
         package_hash: FixedBytes<32>,
     ) -> Result<(), CompositionError> {
+        let sender = self.vm().msg_sender();
         self.check_cert(id)?;
-        if self.owner.get(id) != msg::sender() {
+        if self.owner.get(id) != sender {
             return Err(CompositionError::NotOwner(NotOwner {}));
         }
         if terms > TERMS_UNLIMITED {
@@ -506,7 +510,7 @@ impl Q2Composition {
         self.mfg_quantity.setter(id).set(quantity);
         self.foundry.setter(id).set(foundry);
         self.mfg_package.setter(id).set(package_hash);
-        evm::log(ManufacturingOffer { cert: id, terms, price, quantity, foundry, package_hash });
+        self.vm().log(ManufacturingOffer { cert: id, terms, price, quantity, foundry, package_hash });
         Ok(())
     }
 
@@ -516,6 +520,7 @@ impl Q2Composition {
     /// pay on each consumed unit instead.
     #[payable]
     pub fn buy_license(&mut self, cert: U256) -> Result<U256, CompositionError> {
+        let sender = self.vm().msg_sender();
         self.check_cert(cert)?;
         let terms = self.mfg_terms.get(cert).to::<u8>();
         if terms == TERMS_NONE {
@@ -525,14 +530,14 @@ impl Q2Composition {
             TERMS_FREE_PUBLIC | TERMS_PER_USE => U256::ZERO,
             _ => self.mfg_price.get(cert),
         };
-        let paid = msg::value();
+        let paid = self.vm().msg_value();
         if paid < price {
             return Err(CompositionError::Underpaid(Underpaid {}));
         }
         let owner = self.owner.get(cert);
         self.credit(owner, price);
         if paid > price {
-            self.credit(msg::sender(), paid - price);
+            self.credit(sender, paid - price);
         }
         let remaining = match terms {
             TERMS_SINGLE_SHUTTLE_DIE => U256::from(1),
@@ -543,7 +548,7 @@ impl Q2Composition {
         let lic = self.lic_count.get() + U256::from(1);
         self.lic_count.set(lic);
         self.lic_cert.setter(lic).set(cert);
-        self.lic_licensee.setter(lic).set(msg::sender());
+        self.lic_licensee.setter(lic).set(sender);
         self.lic_terms.setter(lic).set(U8::from(terms));
         self.lic_remaining.setter(lic).set(remaining);
         self.lic_uses.setter(lic).set(U256::ZERO);
@@ -552,7 +557,7 @@ impl Q2Composition {
         self.lic_unit_price.setter(lic).set(self.mfg_price.get(cert));
         self.lic_foundry.setter(lic).set(self.foundry.get(cert));
         self.lic_package.setter(lic).set(self.mfg_package.get(cert));
-        evm::log(LicenseIssued { lic, cert, licensee: msg::sender(), terms, paid: price });
+        self.vm().log(LicenseIssued { lic, cert, licensee: sender, terms, paid: price });
         Ok(lic)
     }
 
@@ -563,6 +568,7 @@ impl Q2Composition {
     /// releases.
     #[payable]
     pub fn consume(&mut self, lic: U256, units: U256) -> Result<U256, CompositionError> {
+        let sender = self.vm().msg_sender();
         if lic == U256::ZERO || lic > self.lic_count.get() {
             return Err(CompositionError::UnknownLicense(UnknownLicense {}));
         }
@@ -572,7 +578,7 @@ impl Q2Composition {
         let cert = self.lic_cert.get(lic);
         // The foundry authorized for THIS license, as sold; a later change to the
         // offer cannot redirect or strand an existing license.
-        if msg::sender() != self.lic_foundry.get(lic) {
+        if sender != self.lic_foundry.get(lic) {
             return Err(CompositionError::NotFoundry(NotFoundry {}));
         }
         if units == U256::ZERO {
@@ -611,14 +617,14 @@ impl Q2Composition {
                     .get(lic)
                     .checked_mul(units)
                     .ok_or(CompositionError::Overflow(Overflow {}))?;
-                let paid = msg::value();
+                let paid = self.vm().msg_value();
                 if paid < cost {
                     return Err(CompositionError::Underpaid(Underpaid {}));
                 }
                 let owner = self.owner.get(cert);
                 self.credit(owner, cost);
                 if paid > cost {
-                    self.credit(msg::sender(), paid - cost);
+                    self.credit(sender, paid - cost);
                 }
                 paid_now = cost;
             }
@@ -627,7 +633,7 @@ impl Q2Composition {
         self.lic_remaining.setter(lic).set(remaining);
         let uses = self.lic_uses.get(lic) + units;
         self.lic_uses.setter(lic).set(uses);
-        evm::log(LicenseConsumed { lic, units, remaining, paid: paid_now });
+        self.vm().log(LicenseConsumed { lic, units, remaining, paid: paid_now });
         Ok(remaining)
     }
 
@@ -636,12 +642,13 @@ impl Q2Composition {
     /// `set_manufacturing_terms`, so the chain proves the foundry received the
     /// certified design, without the design ever going on-chain.
     pub fn record_disclosure(&mut self, lic: U256, package_hash: FixedBytes<32>) -> Result<(), CompositionError> {
+        let sender = self.vm().msg_sender();
         if lic == U256::ZERO || lic > self.lic_count.get() {
             return Err(CompositionError::UnknownLicense(UnknownLicense {}));
         }
         // Both the authorized foundry and the package commitment are the ones
         // frozen into this license at purchase.
-        if msg::sender() != self.lic_foundry.get(lic) {
+        if sender != self.lic_foundry.get(lic) {
             return Err(CompositionError::NotFoundry(NotFoundry {}));
         }
         let committed = self.lic_package.get(lic);
@@ -649,7 +656,7 @@ impl Q2Composition {
             return Err(CompositionError::PackageMismatch(PackageMismatch {}));
         }
         self.lic_disclosure.setter(lic).set(package_hash);
-        evm::log(DisclosureRecorded { lic, package_hash });
+        self.vm().log(DisclosureRecorded { lic, package_hash });
         Ok(())
     }
 
@@ -659,8 +666,9 @@ impl Q2Composition {
     /// is a measured public signal, not a declaration. Owner-only; the
     /// certificate must already have a baseline.
     pub fn claim_beat(&mut self, id: U256, improvement_ref: FixedBytes<32>) -> Result<(), CompositionError> {
+        let sender = self.vm().msg_sender();
         self.check_cert(id)?;
-        if self.owner.get(id) != msg::sender() {
+        if self.owner.get(id) != sender {
             return Err(CompositionError::NotOwner(NotOwner {}));
         }
         let baseline = self.baseline_of.get(id);
@@ -671,7 +679,7 @@ impl Q2Composition {
             return Err(CompositionError::ImprovementRequired(ImprovementRequired {}));
         }
         self.beat_ref.setter(id).set(improvement_ref);
-        evm::log(BeatClaimed { cert: id, baseline, improvement_ref });
+        self.vm().log(BeatClaimed { cert: id, baseline, improvement_ref });
         Ok(())
     }
 
@@ -680,14 +688,15 @@ impl Q2Composition {
     /// Withdraw everything credited to you. Balance is zeroed before the
     /// transfer, so there is no reentrancy on the payout.
     pub fn withdraw(&mut self) -> Result<U256, CompositionError> {
-        let who = msg::sender();
+        let sender = self.vm().msg_sender();
+        let who = sender;
         let amount = self.owed.get(who);
         if amount == U256::ZERO {
             return Err(CompositionError::NothingOwed(NothingOwed {}));
         }
         self.owed.setter(who).set(U256::ZERO);
-        transfer_eth(who, amount).map_err(|_| CompositionError::TransferFailed(TransferFailed {}))?;
-        evm::log(Withdrawn { owner: who, amount });
+        transfer_eth(self.vm(), who, amount).map_err(|_| CompositionError::TransferFailed(TransferFailed {}))?;
+        self.vm().log(Withdrawn { owner: who, amount });
         Ok(amount)
     }
 

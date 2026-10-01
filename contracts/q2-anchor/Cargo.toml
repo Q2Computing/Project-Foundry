@@ -1,0 +1,31 @@
+[package]
+name = "q2-anchor"
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+description = "A generic content-addressed provenance anchor on Arbitrum Stylus: commit a hash + an opaque label, immutably, and verify it. Work stays off-chain."
+
+[dependencies]
+stylus-sdk = "0.10.9"
+alloy-primitives = "1.5.7"
+alloy-sol-types = "1.5.7"
+
+[features]
+export-abi = ["stylus-sdk/export-abi"]
+
+[lib]
+crate-type = ["lib", "cdylib"]
+
+# Bin target exists only so `cargo stylus export-abi` (which runs `cargo run
+# --features export-abi`) has something to run. Under the wasm build it is
+# `no_main` and produces nothing that reaches the deployed contract.
+[[bin]]
+name = "q2-anchor"
+path = "src/main.rs"
+
+[profile.release]
+codegen-units = 1
+strip = true
+lto = true
+panic = "abort"
+opt-level = "s"
