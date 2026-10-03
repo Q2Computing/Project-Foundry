@@ -1,0 +1,17 @@
+{
+  "schema": "q2.witness.v1",
+  "interface": "sky130_fd_sc_hd__nand2_1",
+  "tier": "standard-cell",
+  "fingerprint": "0x6c809533b9df50b2a64135daa77d0b58b7c3a80991414a3b5e069e1bab052338",
+  "result_hash": "0xfb436f12fb893dc5c7fbbc4e847b2e43f73b70914e81d0b0cf57864572bab06e",
+  "verdict": "pass",
+  "measure": {
+    "area_um2": 1.1,
+    "delay_ns": 0.11,
+    "energy_j": 2.2e-15,
+    "n_bits": 1
+  },
+  "wallet": "0x5ff955ed3365ecb31d1bdf64e5d8447eaf9ec157",
+  "wallet_sig": "0x74322afb65be201a1f8a7199554b8a1a12871c30b38d3a5e8a5e6ae7c05b24d37414f481d35c3ddbd8921cab83cadf1d62b4c8abe46475c1ab70562765f761511b",
+  "submitted_at": "2026-10-03T20:00:00.000Z"
+}

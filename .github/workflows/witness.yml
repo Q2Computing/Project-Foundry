@@ -1,0 +1,58 @@
+name: witness
+
+# Interim off-chain witness + leaderboard, while Arbitrum Stylus activation is
+# paused. A wallet signs the HASH of a design + result (never the design); this
+# workflow verifies the signature (ecrecover) and rebuilds the leaderboard. The
+# red X is the protocol: a submission whose signature does not recover to its
+# claimed wallet fails the run. No design content is ever uploaded.
+#
+# Hosts contacted: registry.npmjs.org (ethers), api.github.com (push on main).
+
+on:
+  pull_request:
+    paths:
+      - "submissions/**"
+      - "tools/witness-lib.mjs"
+      - "tools/verify-submission.mjs"
+      - "tools/leaderboard.mjs"
+  push:
+    branches: [main]
+    paths:
+      - "submissions/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  witness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install ethers (ecrecover only)
+        run: npm i --no-save ethers@6
+
+      - name: Verify submissions (signature + schema; red X on any failure)
+        run: node tools/verify-submission.mjs
+
+      - name: Rebuild leaderboard
+        run: node tools/leaderboard.mjs
+
+      # On merge to main, commit the regenerated board. The submissions/ files are
+      # the append-only record; leaderboard.json + the page are derived from them.
+      - name: Commit leaderboard (push to main only)
+        if: github.event_name == 'push'
+        run: |
+          git config user.name "q2-witness-bot"
+          git config user.email "witness@q2computing.local"
+          git add leaderboard.json site/leaderboard.html
+          if git diff --cached --quiet; then
+            echo "leaderboard unchanged"
+          else
+            git commit -m "witness: rebuild leaderboard [skip ci]"
+            git push
+          fi
