@@ -6,11 +6,12 @@ Read this in: English · [Bahasa Melayu](README.ms.md) · [简体中文](README.
 
 A proof of a circuit is a certificate. Certificates license into larger proofs
 and into manufactured silicon, priced at a floor no competitor can match, and
-settled on Arbitrum Stylus. Verification is shared, not repeated: a block is
+built to settle on Arbitrum Stylus. Verification is shared, not repeated: a block is
 proved once, in public, and every system built on it inherits the proof.
 
 This repository is the public instance of that economy. It holds a free service
-that tells foundry cells apart for a given net, the contracts that settle proofs on chain,
+that tells foundry cells apart for a given net, the contracts that settle proofs on chain
+(written and validated against Arbitrum Sepolia, deployment pending),
 and the levels of proof every certificate is graded by. The scientific record
 behind every number lives in [RESEARCH.md](RESEARCH.md).
 

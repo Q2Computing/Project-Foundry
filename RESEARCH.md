@@ -13,7 +13,7 @@ This page is written for a reader who has not seen the literature. It builds the
 
 **The observation.** A proof of a block, once produced, does not depend on who uses the block. If the proof is public and content-addressed, a second team can inherit it instead of repeating it, and a larger system can be proved by reference to the proofs of its parts without ever opening the parts. Verification becomes a shared asset rather than a private expense.
 
-**The claim.** Q2 Computing has built the first instrument that makes this inheritance a market: a proof is a certificate, certificates license into larger proofs at cost and into manufactured silicon at a fixed floor, and both licenses settle on a public chain. The rest of this page shows what was built, measures what it cost, proves what the instrument guarantees, and states what follows for anyone who tries to compete with it.
+**The claim.** Q2 Computing has built the first instrument that makes this inheritance a market: a proof is a certificate, certificates license into larger proofs at cost and into manufactured silicon at a fixed floor, and both licenses settle on a public chain through contracts that pass Arbitrum's validation and await deployment. The rest of this page shows what was built, measures what it cost, proves what the instrument guarantees, and states what follows for anyone who tries to compete with it.
 
 ## 2. The proof economy
 
@@ -30,7 +30,7 @@ Every certificate carries two licenses. The protocol takes nothing from either.
 
 The public site applies the proof economy's measurement discipline to a free service: telling cells apart in context. sky130 ships its buf_16 buffer in five standard-cell libraries. One ngspice bench on the open PDK measures all five from the foundry's own netlists, at three process corners and three loads, and the run is hashed into a single record for the anchor contract. At the typical corner and 250 fF, the high-speed library's cell is 26% faster than the high-density default for 1.1% more energy per cycle, 78 times the leakage, and 28% more area; which one a net should use depends on how often it switches. The service is free to a team through its first fabrication run.
 
-**Three contracts** on Arbitrum Stylus carry the economy. The verifier re-runs a bounded proof on chain. The anchor records a content-addressed commitment of an off-chain proof. The composition contract certifies a system by reference to child certificates and settles both licenses. Their invariants are listed in Section 6.
+**Three contracts** written for Arbitrum Stylus carry the economy. The verifier re-runs a bounded proof on chain. The anchor records a content-addressed commitment of an off-chain proof. The composition contract certifies a system by reference to child certificates and settles both licenses. All three pass Arbitrum's validation check (`cargo stylus check`) on Sepolia; none is deployed yet, because Arbitrum paused new Stylus activations network-wide on October 2, 2026. Their invariants are listed in Section 6.
 
 ## 3. VLSI and digital design
 
@@ -166,7 +166,7 @@ The analysis is a Lean 4 project, Q2Market.lean, with 58 theorems over a model t
 
 **Soundness of composition, proved.** The rule behind level 4, that proven parts plus proven glue yield a proven whole, is now a machine-checked theorem rather than an assumption. The project [proofs/composition-soundness](https://github.com/Q2Computing/Project-Foundry/tree/main/proofs/composition-soundness) models a combinational block as a pair of functions, its implementation and its specification, and proves for sequential, parallel, and general glue composition that if every child's implementation equals its specification and the assembly's implementation equals the wiring of the children's implementations, then the assembly's implementation equals the wiring of the children's specifications. Eighteen theorems in Lean 4.33.1, core kernel only; the sequential and parallel forms depend on no axioms, and the general glue and list forms depend only on Quot.sound through function extensionality. What remains assumed is the fidelity of the checker to the model: that the portal's census instantiates the hypothesis on the children and its Yosys equivalence check instantiates the hypothesis on the glue. Blocks with registers are the next step, scheduled on the roadmap.
 
-**Invariants the contract enforces.** The theorems describe the model; these are the properties of the deployed code that make the model faithful.
+**Invariants the contract enforces.** The theorems describe the model; these are the properties of the contract code that make the model faithful.
 
 | Invariant | Mechanism |
 | --- | --- |
