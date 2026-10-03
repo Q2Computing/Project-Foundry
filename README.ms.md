@@ -33,7 +33,7 @@ Dua lesen berada pada setiap sijil. Protokol mengambil sifar dalam kedua-duanya.
 
 **Rujukan: milik bersama (commons).** Primitif PDK kilang bebas untuk dirujuk selama-lamanya. Setiap sijil lain hanya memulihkan gas penyenaraiannya, dibayar oleh abstraksi yang menggunakannya secara langsung, dihadkan pada gas itu, kemudian ia bebas. Sesiapa yang mengatasi sesuatu blok membayar kos penyenaraiannya. Pemulihan kos, bukan sewa.
 
-**Pembuatan: produk pereka.** Hak untuk meletakkan reka bentuk ke dalam SoC yang difabrikasi. Reka bentuk hanya diserahkan kepada kilang yang dinamakan oleh pereka, yang mesti membuktikan ia telah menerima pakej yang dikomitkan sebelum ia boleh menggunakan satu unit pun. Pemegang lesen tidak pernah memuat turun fail itu. Harganya ialah harga lantai: $100 bagi setiap set topeng (mask set), meliputi setiap blok yang disijilkan dalam topeng itu, diturunkan seiring dengan peningkatan penerimaan sehingga ia menumpu kepada kos fizikal sebenar untuk menghasilkan dan menyelesaikan sesuatu bukti.
+**Pembuatan: produk pereka.** Hak untuk meletakkan reka bentuk ke dalam SoC yang difabrikasi. Reka bentuk hanya diserahkan kepada kilang yang dinamakan oleh pereka, yang mesti membuktikan ia telah menerima pakej yang dikomitkan sebelum ia boleh menggunakan satu unit pun. Pemegang lesen tidak pernah memuat turun fail itu. Harganya ialah harga lantai jauh di bawah kos mengulang semula bukti itu, bagi setiap set topeng (mask set), meliputi setiap blok yang disijilkan dalam topeng itu, diturunkan seiring dengan peningkatan penerimaan sehingga ia menumpu kepada kos fizikal sebenar untuk menghasilkan dan menyelesaikan sesuatu bukti.
 
 ## Kontrak
 

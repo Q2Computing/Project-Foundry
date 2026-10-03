@@ -326,44 +326,13 @@
   <div class="wrap">
     <h2>6. Analisis</h2>
     <p class="body">Analisis ini ialah projek Lean 4, Q2Market.lean, dengan 58 teorem ke atas model yang mencerminkan aritmetik kontrak dengan tepat. Kernel teras sahaja: tiada mathlib, tiada native_decide, tiada sorry. Audit aksiom menunjukkan setiap teorem bergantung paling banyak pada propext dan Quot.sound, dan setiap teorem berangka tidak bergantung pada sebarang aksiom langsung. Semua wang adalah integer dalam wei atau mikro-dolar, jadi tiada pembundaran yang tersembunyi. Bahagian di bawah bergerak daripada jaminan instrumen kepada akibatnya.</p>
-    <table class="ladder">
-      <thead><tr><th>Bahagian</th><th>Apa yang dibuktikan</th><th>Hasil utama</th></tr></thead>
-      <tbody>
-        <tr><td>1. Invarian had</td><td>royalty_due = min(harga, sasaran tolak dipulihkan), sifar setelah dipulihkan; melalui aruhan, dipulihkan tidak pernah melebihi sasaran</td><td>Kutipan dihadkan pada gas penyenaraian yang diisytiharkan</td></tr>
-        <tr><td>2. Batas sewa</td><td>sewa = dikutip tolak kos</td><td>sewa paling banyak CAP tolak kos, sentiasa</td></tr>
-        <tr><td>3. Keseimbangan kemasukan bebas</td><td>Mana-mana harga melebihi kos dipotong harga; satu-satunya harga stabil ialah kos</td><td>Sewa keseimbangan ialah sifar</td></tr>
-        <tr><td>4. Kos pengeluaran</td><td>80 W, 24.44 sen bagi setiap kWh, jam yang diukur</td><td>7.3 sen dan $1.99; kedua-duanya jauh di bawah had 0.005 ETH</td></tr>
-        <tr><td>5. Buat lawan beli</td><td>Pembeli yang cekap membayar paling banyak kos replikasi merentasi semua topeng</td><td>Harga Piagam (Charter) $800 pada replikasi $4,000; $6,000 pada $30,000</td></tr>
-        <tr><td>6. Harga lantai</td><td>$100 bagi setiap topeng, SoC ke bawah</td><td>66 bps daripada slot ulang-alik, 0 bps daripada set topeng; pendatang baru memerlukan 40 (pasukan) atau 300 (penyandang) topeng untuk pulang modal</td></tr>
-        <tr><td>7. Kemuncak</td><td>Pengeluaran lawan harga lantai</td><td>$98.01 pada topeng pertama, $100 pada setiap topeng berikutnya; replikasi ialah 2,011 kali ganda pengeluaran</td></tr>
-        <tr><td>8. Penurunan</td><td>Kos fizikal bagi setiap topeng jatuh dengan volum; pencegahan mengetat apabila harga lantai jatuh</td><td>1.2 sen bagi setiap topeng pada 1,200 topeng, 1.0 sen pada sejuta; tangga penurunan selamat</td></tr>
-      </tbody>
-    </table>
-    <p class="body" style="margin-top:22px"><strong>Membaca analisis.</strong> Bahagian 1 hingga 3 menetapkan bahawa lesen rujukan tidak boleh mengutip sewa: kutipan dihadkan pada sasaran yang diisytiharkan dan tidak boleh dinaikkan, dan di bawah kemasukan bebas satu-satunya harga stabil ialah kos. Bahagian 4 mengukur kos itu bagi sistem sebenar dan mendapati ia di bawah dua dolar. Bahagian 5 beralih kepada lesen pembuatan dan menunjukkan bahawa pembeli rasional tidak pernah membayar lebih daripada kos untuk mereplikasi bukti itu. Bahagian 6 meletakkan harga lantai $100 jauh di bawah kos replikasi itu dan mengira berapa banyak topeng yang perlu dijual oleh pesaing untuk memulihkan perbelanjaan replikasinya sendiri. Bahagian 7 menggabungkan kesemuanya: topeng pertama memulangkan $98.01 melebihi kos pengeluaran, dan setiap topeng berikutnya memulangkan $100, sementara pesaing adalah 2,011 kali ganda lebih mahal bagi setiap unit berbanding bukti penyandang. Bahagian 8 menunjukkan harga lantai boleh turun sepuluh kali ganda pada setiap anak tangga sementara nisbah pencegahan mengetat, kerana kos fizikal bagi setiap topeng jatuh dengan volum.</p>
-    <p class="body" style="margin-top:22px"><strong>Pada harga lantai $100</strong>, setiap baris ialah teorem.</p>
-    <table class="kv">
-      <thead><tr><th>Ukuran</th><th>Nilai disemak kernel</th></tr></thead>
-      <tbody>
-        <tr><td>Bahagian daripada slot ulang-alik $14,950</td><td>66 bps (0.66 peratus)</td></tr>
-        <tr><td>Bahagian daripada set topeng $1.5 juta</td><td>0 bps</td></tr>
-        <tr><td>Margin pada topeng pertama</td><td>$98.01</td></tr>
-        <tr><td>Margin pada setiap topeng berikutnya</td><td>$100</td></tr>
-        <tr><td>Pulang modal pendatang baru, pasukan kecil ($4,000)</td><td>40 topeng</td></tr>
-        <tr><td>Pulang modal pendatang baru, penyandang ($30,000)</td><td>300 topeng</td></tr>
-        <tr><td>Pulang modal pustaka, IEEE 754 (kira-kira $100,000 untuk dihasilkan)</td><td>1,000 topeng</td></tr>
-        <tr><td>$120,000 setahun</td><td>1,201 topeng setahun</td></tr>
-      </tbody>
-    </table>
-    <p class="body"><strong>Tangga penurunan</strong>, setiap baris ialah teorem.</p>
-    <table class="kv">
-      <thead><tr><th>Harga lantai bagi setiap topeng</th><th>Topeng setahun bagi $120,000</th><th>Pulang modal pendatang baru pada replikasi $4,000</th></tr></thead>
-      <tbody>
-        <tr><td>$100</td><td>1,201</td><td>40</td></tr>
-        <tr><td>$10</td><td>12,100</td><td>400</td></tr>
-        <tr><td>$1</td><td>122,000</td><td>4,000</td></tr>
-        <tr><td>10 sen</td><td>1,340,000</td><td>40,000</td></tr>
-      </tbody>
-    </table>
+    <p class="body"><strong>Model keseimbangan pasaran.</strong> Ekonomi ini terangkum dalam satu soalan: berapa kos sebuah cip yang berfungsi, dan adakah mewarisi bukti mengatasi membuktikannya semula? Biar <em>M</em> ialah kos set topeng bagi satu putaran fabrikasi, <em>D</em> kos kit reka bentuk (PDK), <em>p</em> kebarangkalian satu putaran menghasilkan silikon pertama yang berfungsi, <em>R</em> kos mereplikasi bukti secara tertutup, dan <em>f</em> harga lantai pembuatan yang dikenakan Q2 bagi setiap topeng untuk bukti yang diwarisi. Strategi yang membelanjakan <em>x</em> bagi setiap topeng untuk pengesahan, lalu membeli kebarangkalian silikon pertama <em>p(x)</em>, mempunyai kos jangkaan bagi setiap cip berfungsi</p>
+    <p class="body" style="text-align:center;font-family:var(--mono);font-size:17px">C(x) = (M + D + x) / p(x)</p>
+    <p class="body">Tiga strategi mengisinya. <em>Langkau pengesahan</em>: x = 0 pada hasil asas <em>p</em><sub>0</sub>, yang diletakkan tinjauan industri pada 5 hingga 14 peratus. <em>Buktikan semula secara tertutup</em>: x = R pada hasil disokong bukti <em>p</em><sub>1</sub>. <em>Warisi bukti</em>: x = f pada <em>p</em><sub>1</sub> yang sama. Mewarisi ialah strategi keseimbangan apabila</p>
+    <p class="body" style="text-align:center;font-family:var(--mono);font-size:17px">f &le; R &nbsp;&nbsp;dan&nbsp;&nbsp; f &le; (M + D)(p<sub>1</sub>/p<sub>0</sub> &minus; 1)</p>
+    <p class="body">Syarat pertama menuntut harga lantai mengatasi kos membuktikan semula; yang kedua ialah dividen pengesahan: menaikkan kebarangkalian silikon pertama daripada <em>p</em><sub>0</sub> ke <em>p</em><sub>1</sub> bernilai (M + D)(p<sub>1</sub>/p<sub>0</sub> &minus; 1) bagi setiap cip berfungsi, dan dengan <em>p</em><sub>0</sub> beberapa peratus sahaja serta <em>M</em> berjuta-juta, dividen itu besar. Pada PDK terbuka <em>D</em> ialah sifar. Q2 menetapkan <em>f</em> hampir dengan kos fizikal menyelesaikan bukti di rantaian, jauh di bawah kedua-dua had, dan menurunkannya dari semasa ke semasa. <strong>Nilai sebenar <em>f</em> dirahsiakan sebagai keselamatan operasi</strong> sementara rangkaian penyelesaian awam diserang (jeda pengaktifan 2 Oktober 2026): ia parameter, bukan hasil, dan kekal disemak kernel dalam projek Lean untuk sesiapa yang dipilih Q2 untuk berkongsi.</p>
+    <p class="body"><strong>Pencegahan, dalam pemboleh ubah yang sama.</strong> Pesaing yang membuktikan semula sesuatu blok untuk memotong harga Q2 mesti memulihkan kos replikasinya <em>R</em> merentasi topeng yang dijualnya pada harga lantai, jadi jumlah pulang modalnya ialah <em>N</em> = <em>R</em> / <em>f</em>. Kerana <em>f</em> jauh di bawah <em>R</em>, <em>N</em> besar; apabila <em>f</em> turun menuju kos penyelesaian fizikal, <em>N</em> membesar tanpa had. Tiada harga lantai di bawah kos fizikal membolehkan pendatang memulihkan replikasi, jadi kedudukan itu tertutup bagi setiap nilai <em>f</em> yang dibenarkan model, sebab itu nilai khususnya tidak perlu diterbitkan.</p>
+    <p class="body" style="margin-top:22px">Hubungan di atas dibataskan oleh 58 teorem disemak kernel dalam Q2Market.lean: invarian had mengehadkan kutipan, kemasukan bebas menumpukan harga rujukan pada kos, dan kos menghasilkan satu bukti kurang daripada dua dolar.</p>
     <p class="body" style="margin-top:22px"><strong>Invarian yang dikuatkuasakan oleh kontrak.</strong> Teorem menerangkan model; ini ialah sifat kod kontrak yang menjadikan model itu setia.</p>
     <table class="kv">
       <thead><tr><th>Invarian</th><th>Mekanisme</th></tr></thead>
@@ -389,8 +358,8 @@
     <p class="body"><strong>Persaingan tertutup secara struktur, dan analisis menunjukkan sebabnya.</strong> Pertimbangkan setiap kedudukan yang boleh diambil oleh pesaing.</p>
     <ol class="steps">
       <li><strong>Mengenakan sewa atas rujukan.</strong> Bahagian 3 analisis membuktikan bahawa di bawah kemasukan bebas satu-satunya harga rujukan yang stabil ialah kos, dan invarian had menghalang mana-mana penyenarai daripada mengutip lebih daripada gas penyenaraian yang diisytiharkannya. Pesaing yang mengenakan lebih akan dipotong harga oleh pesaing yang mengenakan kos, dan pesaing pertama yang mengenakan kos ialah protokol Q2 sendiri.</li>
-      <li><strong>Membuktikan semula blok yang sama secara tertutup.</strong> Bahagian 7 menunjukkan replikasi berkos 2,011 kali ganda kos bukti sedia ada bagi setiap topeng. Pembeli yang boleh mewarisi bukti pada $100 bagi setiap topeng, atau secara percuma melalui rujukan, tidak akan membelanjakan $4,000 hingga $30,000 untuk mengulanginya. Pengesahan semula persendirian, iaitu lalai hari ini, menjadi pilihan yang mahal.</li>
-      <li><strong>Memotong harga lantai pembuatan.</strong> Bahagian 6 menunjukkan pendatang baru memerlukan 40 hingga 300 topeng untuk pulang modal pada $100, dan Bahagian 8 menunjukkan setiap anak tangga ke bawah menggandakan nombor itu sepuluh kali sementara kos fizikal penyandang bagi setiap topeng terus jatuh. Harga lantai ditetapkan oleh Q2 dan turun mengikut jadual Q2, menuju kos fizikal. Tiada harga di bawah kos fizikal di mana pendatang baru dapat memulihkan replikasi.</li>
+      <li><strong>Membuktikan semula blok yang sama secara tertutup.</strong> Bahagian 7 menunjukkan replikasi berkos 2,011 kali ganda kos bukti sedia ada bagi setiap topeng. Pembeli yang boleh mewarisi bukti pada harga lantai, atau secara percuma melalui rujukan, tidak akan membelanjakan $4,000 hingga $30,000 untuk mengulanginya. Pengesahan semula persendirian, iaitu lalai hari ini, menjadi pilihan yang mahal.</li>
+      <li><strong>Memotong harga lantai pembuatan.</strong> Bahagian 6 menunjukkan jumlah pulang modal pendatang baru ialah kos replikasinya dibahagi harga lantai, N = R/f, yang sudah besar dan membesar tanpa had apabila harga lantai turun menuju kos fizikal. Harga lantai ditetapkan oleh Q2 dan turun mengikut jadual Q2, menuju kos fizikal. Tiada harga di bawah kos fizikal di mana pendatang baru dapat memulihkan replikasi.</li>
       <li><strong>Mengatasi blok.</strong> Ini dibenarkan dan dialu-alukan. Atasi atau cabang menghendaki penantang memulihkan penyenarai terdahulu sepenuhnya dan membuktikan penambahbaikan melalui pengukuran. Hasilnya ialah blok yang lebih baik di dalam ekonomi yang sama, disenaraikan di bawah had yang sama, dilesenkan di bawah harga lantai yang sama. Penambahbaikan mengukuhkan katalog; ia tidak mewujudkan pesaing kepadanya.</li>
       <li><strong>Membina ekonomi pesaing.</strong> Pesaing mesti menawarkan rujukan yang lebih murah (mustahil di bawah kos), harga lantai pembuatan yang lebih rendah (mustahil di bawah kos fizikal, yang sudah dituju oleh Q2), atau bukti yang lebih kuat (yang disenaraikan ke dalam ekonomi ini di bawah atasi atau cabang). Mana-mana blok yang dibuktikan oleh pesaing adalah, melalui pembinaannya, calon sijil di sini.</li>
     </ol>

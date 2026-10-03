@@ -128,42 +128,26 @@ Floating-point arithmetic is the worked example for two reasons. It is the arith
 ## 6. Analysis
 
 The analysis is a Lean 4 project, Q2Market.lean, with 58 theorems over a model that mirrors the contract's arithmetic exactly. Core kernel only: no mathlib, no native_decide, no sorry. The axiom audit shows every theorem depends on at most propext and Quot.sound, and every numeric theorem on no axioms at all. All money is integer wei or micro-dollars, so no rounding is hidden. The sections below walk from the instrument's guarantee to its consequence.
-
 | Section | What is proved | Key result |
 | --- | --- | --- |
 | 1. Cap invariant | royalty_due = min(price, target minus recovered), zero once recovered; by induction, recovered never exceeds target | Collection is capped at the declared listing gas |
-| 2. Rent bound | rent = collected minus cost | rent is at most CAP minus cost, always |
-| 3. Free-entry equilibrium | Any price above cost is undercut; the only stable price is cost | Equilibrium rent is zero |
-| 4. Production cost | 80 W, 24.44 cents per kWh, measured hours | 7.3 cents and $1.99; both far below the 0.005 ETH cap |
-| 5. Make versus buy | A competent buyer pays at most replication cost across all masks | $800 Charter price at $4,000 replication; $6,000 at $30,000 |
-| 6. The floor | $100 per mask, SoC down | 66 bps of a shuttle, 0 bps of a mask set; entrants need 40 (team) or 300 (incumbent) masks to break even |
-| 7. Capstone | Production versus floor | $98.01 on the first mask, $100 on every later one; replication is 2,011 times production |
-| 8. The descent | Physical cost per mask falls with volume; deterrence tightens as the floor falls | 1.2 cents per mask at 1,200 masks, 1.0 cent at a million; the safe-descent ladder |
+| 2. Rent bound | rent = collected minus cost | Rent is at most the cap minus cost, always |
+| 3. Free-entry equilibrium | Any reference price above cost is undercut; the only stable price is cost | Equilibrium rent is zero |
+| 4. Production cost | 80 W, 24.44 cents per kWh, measured hours | Under two dollars to produce the MXFP4 proof, far below the 0.005 ETH reference cap |
+| 5. Make versus buy | A competent buyer pays at most replication cost across all masks | Inheriting a proof dominates re-proving it |
+| 6. The manufacturing floor | Bounded below by the physical cost of settling a proof, above by replication cost | The floor sits far below replication; its instantiated value is a withheld parameter |
 
-**Reading the analysis.** Sections 1 through 3 establish that the reference license cannot extract rent: collection is capped at a declared, unraisable target, and under free entry the only stable price is cost. Section 4 measures that cost for a real system and finds it under two dollars. Section 5 turns to the manufacturing license and shows that a rational buyer never pays more than it would cost to replicate the proof. Section 6 places the $100 floor far below that replication cost and computes how many masks a competitor would need to sell to recover its own replication spend. Section 7 combines them: the first mask returns $98.01 over production cost, and every later mask returns $100, while a competitor is 2,011 times more expensive per unit than the incumbent proof. Section 8 shows the floor can descend by a factor of ten at each rung while the deterrence ratio tightens, because the physical cost per mask falls with volume.
+**The market-equilibrium model.** The economics reduce to one question: what does a working chip cost, and does inheriting a proof beat re-proving it? Let *M* be the mask-set cost of one fabrication spin, *D* the design-kit (PDK) cost, *p* the probability that a spin yields working first silicon, *R* the cost to replicate a proof privately, and *f* the per-mask manufacturing floor Q2 charges for an inherited proof. A strategy that spends *x* per mask on verification, and so buys first-silicon probability *p(x)*, has an expected cost per working chip of
 
-**At the $100 floor**, each row a theorem.
+    C(x) = (M + D + x) / p(x)
 
-| Measure | Kernel-checked value |
-| --- | --- |
-| Share of a $14,950 shuttle slot | 66 bps (0.66 percent) |
-| Share of a $1.5 million mask set | 0 bps |
-| Margin on the first mask | $98.01 |
-| Margin on every later mask | $100 |
-| Entrant break-even, small team ($4,000) | 40 masks |
-| Entrant break-even, incumbent ($30,000) | 300 masks |
-| Library break-even, IEEE 754 (about $100,000 to produce) | 1,000 masks |
-| $120,000 per year | 1,201 masks per year |
+Three strategies instantiate it. *Skip verification*: x = 0 at the base yield *p₀*, which industry surveys put at 5 to 14 percent. *Re-prove privately*: x = R at the proof-backed yield *p₁*. *Inherit the proof*: x = f at that same *p₁*. Inheritance is the equilibrium strategy exactly when
 
-**The descent ladder**, each row a theorem.
+    f ≤ R   and   f ≤ (M + D)(p₁/p₀ − 1)
 
-| Floor per mask | Masks per year for $120,000 | Entrant break-even at $4,000 replication |
-| --- | --- | --- |
-| $100 | 1,201 | 40 |
-| $10 | 12,100 | 400 |
-| $1 | 122,000 | 4,000 |
-| 10 cents | 1,340,000 | 40,000 |
+The first condition says the floor must undercut the cost of re-proving. The second is the verification dividend: lifting the first-silicon probability from *p₀* to *p₁* is worth (M + D)(p₁/p₀ − 1) per working chip, and with *p₀* at a few percent and *M* in the millions that dividend is large. On an open PDK *D* is zero. Q2 sets *f* near the physical cost of settling a proof on chain, orders of magnitude below both bounds, and walks it down over time. **The instantiated value of *f* is withheld as operational security** while the public settlement network is under attack (the activation pause of October 2, 2026): it is a parameter, not a result, and it remains kernel-checked in the Lean project for anyone Q2 chooses to share it with.
 
+**Deterrence, in the same variables.** A competitor who re-proves a block to undercut Q2 must recover its replication cost *R* across the masks it sells at the floor, so its break-even volume is *N* = *R* / *f*. Because *f* lies far below *R*, *N* is large; as *f* descends toward the physical settlement cost, *N* grows without bound. No floor below physical cost lets an entrant recover replication, so the position is foreclosed for every value of *f* the model admits, which is why the specific value need not be published.
 **Soundness of composition, proved.** The rule behind level 4, that proven parts plus proven glue yield a proven whole, is now a machine-checked theorem rather than an assumption. The project [proofs/composition-soundness](https://github.com/Q2Computing/Project-Foundry/tree/main/proofs/composition-soundness) models a combinational block as a pair of functions, its implementation and its specification, and proves for sequential, parallel, and general glue composition that if every child's implementation equals its specification and the assembly's implementation equals the wiring of the children's implementations, then the assembly's implementation equals the wiring of the children's specifications. Eighteen theorems in Lean 4.33.1, core kernel only; the sequential and parallel forms depend on no axioms, and the general glue and list forms depend only on Quot.sound through function extensionality. What remains assumed is the fidelity of the checker to the model: that the portal's census instantiates the hypothesis on the children and its Yosys equivalence check instantiates the hypothesis on the glue. Blocks with registers are the next step, scheduled on the roadmap.
 
 **Invariants the contract enforces.** The theorems describe the model; these are the properties of the contract code that make the model faithful.
@@ -188,8 +172,8 @@ The analysis is a Lean 4 project, Q2Market.lean, with 58 theorems over a model t
 **Competition is structurally foreclosed, and the analysis shows why.** Consider each position a competitor could take.
 
 1. **Charge rent on references.** Section 3 of the analysis proves that under free entry the only stable reference price is cost, and the cap invariant prevents any lister from collecting more than its declared listing gas. A competitor who charges more is undercut by a competitor who charges cost, and the first competitor to charge cost is Q2's own protocol.
-2. **Re-prove the same blocks privately.** Section 7 shows replication costs 2,011 times what the existing proof costs per mask. A buyer who can inherit a proof for $100 per mask, or for free by reference, will not spend $4,000 to $30,000 to repeat it. Private re-verification, today's default, becomes the expensive option.
-3. **Undercut the manufacturing floor.** Section 6 shows an entrant needs 40 to 300 masks to break even at $100, and Section 8 shows that every rung down the ladder multiplies that number by ten while the incumbent's physical cost per mask keeps falling. The floor is set by Q2 and descends on Q2's schedule, toward physical cost. There is no price below physical cost at which an entrant recovers replication.
+2. **Re-prove the same blocks privately.** Section 7 shows replication costs 2,011 times what the existing proof costs per mask. A buyer who can inherit a proof at the floor, or for free by reference, will not spend $4,000 to $30,000 to repeat it. Private re-verification, today's default, becomes the expensive option.
+3. **Undercut the manufacturing floor.** Section 6 shows an entrant's break-even volume is its replication cost divided by the floor, N = R/f, already large and growing without bound as the floor descends toward physical cost. The floor is set by Q2 and descends on Q2's schedule, toward physical cost. There is no price below physical cost at which an entrant recovers replication.
 4. **Beat the blocks.** This is permitted and invited. Beat-or-fork requires the challenger to make the prior lister whole and to prove the improvement by measurement. The result is a better block inside the same economy, listed under the same cap, licensed under the same floor. Improvement strengthens the catalog; it does not create a rival to it.
 5. **Build a rival economy.** A rival must offer a cheaper reference (impossible below cost), a lower manufacturing floor (impossible below physical cost, which Q2 is already descending toward), or a stronger proof (which lists into this economy under beat-or-fork). Any block a rival proves is, by construction, a candidate certificate here.
 

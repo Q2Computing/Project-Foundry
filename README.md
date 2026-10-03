@@ -53,7 +53,7 @@ beats a block pays its listing cost. Cost recovery, never rent.
 **Manufacturing: the designer's product.** The right to put a design into a
 fabricated SoC. The design goes only to a designer-named foundry, which must
 prove it received the committed package before it may consume a single unit.
-The licensee never downloads the file. The price is a floor: $100 per mask set,
+The licensee never downloads the file. The price is a floor far below the cost of replicating the proof, per mask set,
 covering every certified block in that mask, walked down as adoption grows
 until it converges on what a proof physically costs to produce and settle.
 

@@ -1,0 +1,895 @@
+{
+  "_about": "Timestamps-only provenance of the proof runs behind Project Foundry's catalog. Design content is intentionally excluded; each run carries only its proof level, engine, completion date, and public proof-of-record hash. Derived from site/catalog.json.",
+  "generated_at": "2026-09-28T19:26:15+00:00",
+  "levels": {
+    "1": "exhaustive",
+    "2": "equivalence",
+    "3": "techmap onto proven cells",
+    "4": "composition"
+  },
+  "count": 124,
+  "mxfp4_accelerator_cost_summary": {
+    "completed_runs": 23,
+    "proving_hours": 3.724,
+    "proving_breakdown_hours": {
+      "OpenLane": 3.714,
+      "Icarus": 0.007,
+      "Yosys": 0.003
+    },
+    "creation_span_hours": 101.72,
+    "machine_watts": 80,
+    "electricity_cents_per_kwh": 24.44,
+    "source": "portal analysis table (private); per-run started_at/completed_at and these aggregates are reproduced by proof-cost/portal-durations.sql, and the cost in micro-dollars is kernel-checked in contracts/q2-composition/proofs/Q2Market.lean",
+    "note": "started_at is portal-only and is not republished here; the per-block completion timestamps below are the public portion."
+  },
+  "runs": [
+    {
+      "tier": "assembly",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-18",
+      "proof_of_record_sha256": "d14922f4fd9ff1ef1c6e311d95141c8dc2076f2e5e53685a922fdf5dc065e894"
+    },
+    {
+      "tier": "assembly",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-18",
+      "proof_of_record_sha256": "590df8c20a0525cd0de4d4f910c1311abd49e11300b28ed6a23f6ea10de73e4c"
+    },
+    {
+      "tier": "assembly",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-16",
+      "proof_of_record_sha256": "b88111a9302b44bf958c62f86c7c378437ec33e6dc6fadade79c919c10875e4c"
+    },
+    {
+      "tier": "assembly",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-16",
+      "proof_of_record_sha256": "d17267f3b73907364754e1e7d8a574c2278a3046ac8359b45a5866811befd496"
+    },
+    {
+      "tier": "assembly",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-15",
+      "proof_of_record_sha256": "97dff7ab10249f78a6ce9e290686f0bae213299b20a4f615e8aa0361f6cfd6c5"
+    },
+    {
+      "tier": "assembly",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-18",
+      "proof_of_record_sha256": "7dba51e61b202b69ca8fa77b32b2829510ec4c7036d91f57cdc8004a95c5a75d"
+    },
+    {
+      "tier": "assembly",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-18",
+      "proof_of_record_sha256": "91e7a9cd8c81efc5e183b9d6a21d4ea090ea9cf109c0b61808850ad5f0d5b25b"
+    },
+    {
+      "tier": "assembly",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-16",
+      "proof_of_record_sha256": "1473c8d20bdf12f702f43a9af4044d3d95523077284613dbd969b3885bc88cac"
+    },
+    {
+      "tier": "assembly",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-16",
+      "proof_of_record_sha256": "70dda16230b7f1fc5bd09a1a07d36c0a9d30caf6c95233cbe514d1977c922827"
+    },
+    {
+      "tier": "assembly",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-18",
+      "proof_of_record_sha256": "3a8f7d2ec7315ec71fb801fbf73a8e11af3a5c410cd9ce80e4c6aed61821b58d"
+    },
+    {
+      "tier": "component",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-16",
+      "proof_of_record_sha256": "dec6829e41dbe820b9bb93ff0906a68301b24c08a01eaa3959ca8946f6156608"
+    },
+    {
+      "tier": "component",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "bde8e15183c6b021035589c39cb5d6f963a38067fa232e765770102c5072230a"
+    },
+    {
+      "tier": "component",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "727d06fc57e660a20b74c397016ba9e2046d576955e7ba21f81bed026b32acb7"
+    },
+    {
+      "tier": "component",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-16",
+      "proof_of_record_sha256": "24ada49eea78e3345b9387c595c31f61c47109b4b2aa51032231e61ecd486660"
+    },
+    {
+      "tier": "component",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "403fd111c7b25f628db0bbeb9612e79b25d265dec7a2c76ef6fc9c068f393567"
+    },
+    {
+      "tier": "component",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "d603c6ad7a6293292b8ad36762283eb61f7e10d2615ed59ca97c929218a9dcba"
+    },
+    {
+      "tier": "component",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-16",
+      "proof_of_record_sha256": "f7c92ade4ec33b6df5a6311356c5fc41bc165d4d3dbff25d71f5ff14b43cbfd6"
+    },
+    {
+      "tier": "component",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "7c7a66fb6f3873c83dac7bd668250fa76e1f8e79066fad8ad6ffe4bda276a077"
+    },
+    {
+      "tier": "component",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-16",
+      "proof_of_record_sha256": "e430614bad207f79e8a9602339ea0b883d186a3e2fe0fa5f8789f559129f9404"
+    },
+    {
+      "tier": "component",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "af569010c6d76fa97e07810b8e1f55ee8b7941a01cdb827da8ff8f25cbc0770f"
+    },
+    {
+      "tier": "component",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "2ebfdc388451457fc586a59560c97f4f99983301f883be1e2d9404d5603a507c"
+    },
+    {
+      "tier": "component",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-16",
+      "proof_of_record_sha256": "a3800f2766f1ce02f618919a97af4d9e4dd216417cf1a8e06889a4dad071f205"
+    },
+    {
+      "tier": "component",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "a9c07125db2505d89660712589f0cb6ee9be29266b6a39379d64b87f59560111"
+    },
+    {
+      "tier": "component",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "c54bacabf8b11213745e0fca9273714cd6fd78da96ce8d5067e2e3d3b4015f96"
+    },
+    {
+      "tier": "component",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "7a3a849d220c13314bab5520a3a1f1c1f709d80779daa11ff2eb7d9dd2a1be48"
+    },
+    {
+      "tier": "component",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "37adcd202d55c55b2e3d42c6c28e56cc35f5003d460cff58203ab0c55f22bc3a"
+    },
+    {
+      "tier": "component",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "e849aa18f017257888000f2f4d2a7eb91678e467946a4f536ee42b738e53bd20"
+    },
+    {
+      "tier": "component",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "ab9f1cfad1cf854cb009313c5e290139f4acfeea78cb2964f9f7b79d2b2aa319"
+    },
+    {
+      "tier": "component",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "f454d5dd37041ff14f1e754fe181e4124aaa0ecb1a637099131c2cc38117c951"
+    },
+    {
+      "tier": "component",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "60c981bba8121e027fb7647ca1e81d7d8ec882a44a032fb17c54e277d214ee9e"
+    },
+    {
+      "tier": "component",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "bc44cf681fe8017b7af74209efa4b317d93786f9ffab08e371aff210c6e3e5c0"
+    },
+    {
+      "tier": "component",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "3f7d5d4f8073cc7be5d6659a9d336d79f3d93742225ffeb46109297c00cf588c"
+    },
+    {
+      "tier": "soc",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-15",
+      "proof_of_record_sha256": "9d608d607377aea53348d7426d7843ae997639d60454481eedb5f4a3a5199017"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-19",
+      "proof_of_record_sha256": "29a36f44ef9781e82075ddcc9c3c63a389b508cdd05e0abf5349c7d7e5499e3e"
+    },
+    {
+      "tier": "sub-assembly",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-16",
+      "proof_of_record_sha256": "8235ed0766da8a7c4f015ccf25b9ff141259140cf9866d21908b87a224d87101"
+    },
+    {
+      "tier": "sub-assembly",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-16",
+      "proof_of_record_sha256": "163a4ef8400df5dd1ecb3d025f98255f37186e7768ac69a5defd1a0100592f8f"
+    },
+    {
+      "tier": "sub-assembly",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-16",
+      "proof_of_record_sha256": "a318bbcf17a0d55d5a6c73047b3ade721a40bb7da1b106d64c7d430b20a08db8"
+    },
+    {
+      "tier": "sub-assembly",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "d869ef1d141274d535f1454ca9c033a9eed80d4d96f22e9f26c515f3d2d893db"
+    },
+    {
+      "tier": "sub-assembly",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-16",
+      "proof_of_record_sha256": "d127b83983c5f08630bd35331c13f39c4b56d606dec25e82fbf64a78eda61995"
+    },
+    {
+      "tier": "sub-assembly",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-16",
+      "proof_of_record_sha256": "5f19a57b4bed8145a2e3415bdd3e10e92cb6d693385f8bc287eb7d868ffcc20c"
+    },
+    {
+      "tier": "sub-assembly",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-16",
+      "proof_of_record_sha256": "7f85f825a952e2fb21f033e194f04afed447b75da610a9d7479c9f4e9e082bbb"
+    },
+    {
+      "tier": "sub-assembly",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-16",
+      "proof_of_record_sha256": "631e958e8bb1b1e4aad1ed6ec3b96d1702b0cd5cc17cfc50fe2d1483da0d7341"
+    },
+    {
+      "tier": "sub-assembly",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-16",
+      "proof_of_record_sha256": "48b011598dc39972866574dfa3aca94da948f0131196af1565109a7f4f82aab8"
+    },
+    {
+      "tier": "sub-assembly",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-15",
+      "proof_of_record_sha256": "80a4c0c0cfe51a56d86c92ed7a4c1a5d48bf6964ab630d8eb438cc478a674cc6"
+    },
+    {
+      "tier": "sub-assembly",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "4c63a5b7751f9116c2ebb8ea9f41ced24b13b95a028c06c9296af9e4d22736ad"
+    },
+    {
+      "tier": "sub-assembly",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "c2bfded9e50ccab65d4897e7ac5a026e0e63a118beeda68c7bd0e5ee0e6ebb48"
+    },
+    {
+      "tier": "system",
+      "level": 4,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "3fa6357a125d596e99f42a793fccf100ab81aa358811004eddc040311197340d"
+    },
+    {
+      "tier": "component",
+      "level": 3,
+      "engine": "YOSYS",
+      "completed": "2026-09-15",
+      "proof_of_record_sha256": "5bd04aed94512c31367a5d36e07d4ddea09049b399a9502c1ea982fa2f6b62f2"
+    },
+    {
+      "tier": "component",
+      "level": 3,
+      "engine": "YOSYS",
+      "completed": "2026-09-16",
+      "proof_of_record_sha256": "6ff2260bb5acfac8d66a74f73eae4eb86d213634b371c3f194bcbc10a3d66c25"
+    },
+    {
+      "tier": "component",
+      "level": 3,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "d0f3caa0113fd58c3b61e88d50003cc7c44a48102284b4867c0a1e83f5f140a6"
+    },
+    {
+      "tier": "component",
+      "level": 3,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "8d647cfdf22bf1de1bf4ce7eb197f20a5c6f34a7d8fa278791f23641c85c13ea"
+    },
+    {
+      "tier": "component",
+      "level": 2,
+      "engine": "YOSYS",
+      "completed": "2026-09-16",
+      "proof_of_record_sha256": "23b9a358887699190663bd81c526124afe01cea16d118bc40d636ab3cc1f4ee2"
+    },
+    {
+      "tier": "component",
+      "level": 2,
+      "engine": "YOSYS",
+      "completed": "2026-09-18",
+      "proof_of_record_sha256": "79d9e1b37eddbdc5a7c0f2b9201391ccdbfc2c2f502559d14e45b712f490cc7e"
+    },
+    {
+      "tier": "component",
+      "level": 2,
+      "engine": "YOSYS",
+      "completed": "2026-09-18",
+      "proof_of_record_sha256": "da6cff321d0a53b738347b19501e4d62eb2001853b7b93ffd9fcb6e1eaa4dd2d"
+    },
+    {
+      "tier": "component",
+      "level": 2,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "00df08b623554a83950c4283f986289286e55f7104c4dcbeab0dade72f168b7c"
+    },
+    {
+      "tier": "component",
+      "level": 2,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "8140baf8566cc429f1d339b5ac15bf9b2b81dec0d14b91825b030bcfc75121d5"
+    },
+    {
+      "tier": "component",
+      "level": 2,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "d60f308bc6b167322027a609cac1f6b5d2821892935688bd5c6db3c446cf11ea"
+    },
+    {
+      "tier": "component",
+      "level": 2,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "96d4b5e74f6a4b9e2e523d040675f645098bc317ef25fa6081a707c1841d8733"
+    },
+    {
+      "tier": "sub-assembly",
+      "level": 2,
+      "engine": "YOSYS",
+      "completed": "2026-09-17",
+      "proof_of_record_sha256": "b04bae794bd91720550034e356c4ff8c9a3dab5917e01a0b8fcade9441d0f623"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "0cdc3d9f5d634d90f588ab95233ad5844ea83eb966e05e526d93b40ed11596fa"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "8cb93ed2d41415b627091a2fbf22821a43faef705b64d0fe41f567d546f241f4"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "ca863c0ba8dfcdc3964fbac7c154301592ccdd90f0c640f96928396424f8b87b"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "121e43d2e586ca707b9f9376795e76d78f570faf5c4377eef962236cfb78572e"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "0381678060d8cdc294c41bee41921cd3810dc1f040deca7249da197ebed416eb"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "7a2a3b452a69724ea7e3fc142884b7decb4badc8ed53274e291bee6e98a5bcd0"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "9e0696db9ba8080c98f43dce50769ec974cbbcc5dcf8685685280dab512ff12d"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "999b9ae53c7a019ba98120fee619815a0aa9404e75e4178189b7e64ecd694bab"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "37f3c6c03d688942179dbd9e7991e71dbc49752a7f36b6f57d22cf8ddc9d0262"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "17a1d15b0ba2433bb7aa9b29af0e6fa27429a509b0cb31f9146b48f6e3dc7828"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "993159aae7854a56aebf7f1f0288b59333e6ecd8f7a8d4034b5a152a7a3dbc5a"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "c0980e6ba036a520c978f0ad71b56c05d500830a60099e68490a1365b55ce4d6"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "0ef525a7362aeecea7b515f1d369d155987fde6c95994111e2c0572160d4085e"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "48153d9928f4cc95011d09b8c78e61d60fc93c487ee9a6c43d631976d3bfdc53"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "c6692c7d26ff89327eab6049217146840b602a1db4610fc4b8860734ca8fae1e"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "b6112575e4ac96f1b52368f2fea158094eb1f1a4a157573ee7a606ecda16120d"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "dd7b246017d3719948590363325918659162899210392d232d55e4e8f1f7b794"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "0821896ae54fb03bdc74a69663948e355a872fe710e2967aacf86423bdde7fd8"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "9831a3b2d935b14751c2798dabdd9a21edbf42e578a4cb382176825d96e43fcc"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-15",
+      "proof_of_record_sha256": "7f29733480d62dbc82d2ee445640d1cf647b0eba644e56d552dd2c949bd2ea5e"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-26",
+      "proof_of_record_sha256": "33914ecbeaa3df73f32b3e0c4a94d76176b96e3c9065090c8e345b1d793c7af3"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "7d167d70ee3b347efc13bf8347979d5dd9336a1079473c2586f1f1684ccf4535"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "d38ad148bd777bed0d30a8306e7f2f42a1843422aa768f8dc972bc28e6e18f7a"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "d1e8e4751bda079a6619ef7c08d600a1a18d156afde0c23b397f629a444f1ea9"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "ba476bed64978c623588b6400d0a157e041ff9d951732dbc1509a8dd1b07f1da"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "873693d9580292ef1b5588cc86d6d2d94ff573560ffb2a117e246dd02a8837f5"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "eea2ca6c59dacbc0e33a5a932e92c217521bfac22866d57179d7bce17fa35494"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-15",
+      "proof_of_record_sha256": "db93e66a9aaa778ca420e61e85d086d2aa1d19eb20b00e51a1b58b88dfbf732a"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "bf700ae9b27dab8a9c7c2870d3c0fbf67672b713a651d7cb06f6452f059e3cc6"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "1d8f1548135dc6e7f390ab2a3769460bfd5a14168846860a362c25e1491d99a5"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "c84a4fe5c116ceb13dd9e88544a0f104fcb5c568e89ef9766a137dcb4290f7b4"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "ff50253e167f51361f91495d060df6bbb029f204c7d0bde52417c983c6654525"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "69c3983c05a1a8256accf199d67c6461ddbad197f8b4549843e9afdabb32f4db"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "919a3ac9cd5bfb56ac96aa872eedd7dce907b4bf189b6af90de9694b697b04b4"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "21d0134c1d05eddfa82393a59f9b5103b32fc421ce6ed49f051cd18bbfe0673f"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "d03b390addcc9759b746e7f0ce7ae016bc59002297e0ab3a050ee355079fa472"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-14",
+      "proof_of_record_sha256": "8dbfac55cbf0582f1fa802b92f557da84679b2d269e68da6f219c35c268c6619"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "fc4a8c0cf4ea7fce0696fca43c640837bce646473cdf614a0d6f228a88a947ac"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "b0805fbfeee4da69e41897afbab7c41d820856b4106d2153c842283ab12cda5b"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "4d5251944e74564cac1066598af78fc0b706d889ff516ce84d9a22c182b99615"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "036d7166f0c5bfe8e23f4ce163d00ceb381c62414f79dc851e400f9f37b47f49"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "e63a35e4cee726b36cb71289fcf4f8168bd1da7d731b600ab9a8184cc087ffc1"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "839324b8ecdca0f3d302714643887ef6448fe26d866034cf7e63a025f47dc30d"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "979b6f78aca3fd959853a4553199e5a25207736529833714c3f73570a58d4581"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "63532639233d9843edbbfd25d6eb21b127a93f30112125120278125b82cf052a"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "6b3ef74c295ef1874ebc6f87edf9b9d83406b788cbc27119b63b540e779fa0b2"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "5364c8de6db1f701e2a1351fb696a39ecb72c29a20cff5618d3310269b86d434"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "6b6ea0e9cdc68e1c587b52868121278414a6f13e9c34aae5518c5031f0e5775e"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "73a12f962be223a552afed4804b8695491f4f427f10e13cdcb0bd55453fe8113"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "fce7026ccc65d47274d4b2ce71d3812473e14072c9a1bfb5385d4434897c7a35"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "06a1811b4ebeb6d06ef4111a2bbfa44b08ee6261678bc5d76af6034612dc64c3"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "ee6e0f8c1658ca2eca05af4850feb97be41cb4a3b09514c40bcc8ce414f366af"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "4d12c48c7955029161ea192d1ebc5607586ddbe016f81327429c3a2c1130ccba"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "a6522dee01af515e8b7640956c8f16dc0e3d17a0a6ac659546b53d42462ed222"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "991790b1a59fa131e9c1008eb18022676c06f2d269991a9dfe4afae89c16d04e"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "c8c86464f4d01c32770ca15f552cd1c2bdf93fc56a0268eb6873c4278f05dc47"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "ec8339eae1ae66685fb2ef0fbc1c5c8a7404ddcdba11cef1a3a99c4b0b0c6a37"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "faf4f55373508ba53b24b16fd889a775af7001ed4f3ecb339df01ad63b69572a"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "651db310b2ceafb8727f11b81ff13ba166ad4aa5e5454a1036bab9e5542b7d2c"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "8f9bb0a73cd508bdb35a704b640b02995e2ae0893635d1b476ddd8f98d6e0d6f"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "745958a158841a534f720937505a013408b8d04c777e1a5608ecb7553a6726de"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "1af93acc0378601136527c9e0471c0cbf4edfe41015708ecb47f7d08a0ec626a"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "a37e03238cc99759b485da3af10036f0d60716d55116b0feef5714717e197972"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "d676db581d41bc98887f1a7c412c451dfd66e63f101b7850463f7c0046c94519"
+    },
+    {
+      "tier": "standard-cell",
+      "level": 1,
+      "engine": "NGSPICE",
+      "completed": "2026-09-28",
+      "proof_of_record_sha256": "bd925a2b381870f6801b81dda3095a6bd37408cc160d8ba69b5e249000cd3407"
+    }
+  ]
+}
