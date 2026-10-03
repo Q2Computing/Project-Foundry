@@ -1,0 +1,72 @@
+{
+  "schema": "q2.leaderboard.v1",
+  "generated_at": "2026-10-03T21:56:44.680Z",
+  "note": "Interim off-chain witness board during the Arbitrum Stylus activation pause. Entries are wallet-witnessed CLAIMS (status: witnessed): a wallet signed the hash of a design + result, never the design. Verified when the owner reveals and the measurement is re-run against the open PDK; settled on-chain when activation returns.",
+  "metric": "information-entropy-normalized efficiency. eta_E = (kT ln2) / (energy per bit) vs Landauer; eta_AT = best(area*delay/bit) / (area*delay/bit) vs the per-interface area-time frontier (Thompson); index = sqrt(eta_E * eta_AT).",
+  "count": 3,
+  "ranked": [
+    {
+      "interface": "sky130_fd_sc_hd__nand2_1",
+      "tier": "standard-cell",
+      "wallet": "0x5ff955ed3365ecb31d1bdf64e5d8447eaf9ec157",
+      "verdict": "pass",
+      "fingerprint": "0x6c809533b9df50b2a64135daa77d0b58b7c3a80991414a3b5e069e1bab052338",
+      "submitted_at": "2026-10-03T20:00:00.000Z",
+      "status": "witnessed",
+      "area_um2": 1.1,
+      "delay_ns": 0.11,
+      "energy_j": 2.2e-15,
+      "n_bits": 1,
+      "energy_per_bit": 2.2e-15,
+      "at_per_bit": 0.12100000000000001,
+      "eta_E": 0.000001304990402308511,
+      "eta_AT": 1,
+      "index": 0.0011423617650764188
+    },
+    {
+      "interface": "sky130_fd_sc_hd__inv_1",
+      "tier": "standard-cell",
+      "wallet": "0xc4cde49d3fddb6376be3bdeb2d563f58f9deeea9",
+      "verdict": "pass",
+      "fingerprint": "0xa4c853a48a168b07e918cbe2f804c31cd6507716c0dfe6895e3e3ec931eb4f23",
+      "submitted_at": "2026-10-03T20:00:00.000Z",
+      "status": "witnessed",
+      "area_um2": 1.4,
+      "delay_ns": 0.06,
+      "energy_j": 2.6e-15,
+      "n_bits": 1,
+      "energy_per_bit": 2.6e-15,
+      "at_per_bit": 0.08399999999999999,
+      "eta_E": 0.0000011042226481072015,
+      "eta_AT": 1,
+      "index": 0.0010508199884410277
+    },
+    {
+      "interface": "sky130_fd_sc_hd__inv_1",
+      "tier": "standard-cell",
+      "wallet": "0xa9b00c2b214e96d92fdbe9bd3471ef9e0fd77448",
+      "verdict": "pass",
+      "fingerprint": "0xaf4af7d5724373d1cec700528891be9bd2523f4c55024a313b5a2b17d85f0be0",
+      "submitted_at": "2026-10-03T20:00:00.000Z",
+      "status": "witnessed",
+      "area_um2": 0.9,
+      "delay_ns": 0.14,
+      "energy_j": 1.8e-15,
+      "n_bits": 1,
+      "energy_per_bit": 1.8e-15,
+      "at_per_bit": 0.12600000000000003,
+      "eta_E": 0.00000159498826948818,
+      "eta_AT": 0.6666666666666664,
+      "index": 0.001031176761274283
+    }
+  ],
+  "frontiers": {
+    "sky130_fd_sc_hd__inv_1": [
+      "0xa4c853a48a168b07e918cbe2f804c31cd6507716c0dfe6895e3e3ec931eb4f23",
+      "0xaf4af7d5724373d1cec700528891be9bd2523f4c55024a313b5a2b17d85f0be0"
+    ],
+    "sky130_fd_sc_hd__nand2_1": [
+      "0x6c809533b9df50b2a64135daa77d0b58b7c3a80991414a3b5e069e1bab052338"
+    ]
+  }
+}
