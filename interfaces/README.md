@@ -12,13 +12,21 @@ rail.
 Only generic building blocks whose interface is defined by a public standard or
 textbook function:
 
-- **sky130 PDK standard cells** — SkyWater `sky130_fd_sc_hd` (open-source,
-  Apache-2.0). Functions and ports are taken directly from the PDK Liberty.
+- **sky130 PDK standard cells** — the full SkyWater `sky130_fd_sc_hd` logic
+  library (open-source, Apache-2.0): 123 contracts (93 combinational gates + 30
+  flip-flops/latches), with functions, ports, and sequential behavior extracted
+  directly from the PDK Liberty and blackbox Verilog.
 - **IEEE 754 binary32 (FP32) devices** — per IEEE 754-2019.
 - **OCP Microscaling (MX)** — per the OCP MX Specification v1.0 (E2M1, K=32
   blocks, shared E8M0 scale).
 - **Generic integer datapath** — textbook, width-parameterized adders,
   shifters, encoders, decoders, multipliers, registers.
+
+How a submission is checked and who signs off is in
+[`VERIFICATION.md`](VERIFICATION.md); the authoritative reference models and
+their licenses are logged in [`GOLDEN-REFERENCES.md`](GOLDEN-REFERENCES.md).
+Physical, analog, clock-tree, isolation and fill cells are deliberately omitted
+from the PDK bucket — they are not implement-a-better-one targets.
 
 See `catalog.json` for the machine-readable list and the per-bucket pages:
 [`pdk-standard-cells.md`](pdk-standard-cells.md),
