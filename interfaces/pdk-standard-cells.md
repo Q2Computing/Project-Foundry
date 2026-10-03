@@ -2,7 +2,7 @@
 
 The complete **sky130_fd_sc_hd** logic library as published by the open PDK (Apache-2.0).
 Functions, ports, and sequential behavior are extracted directly from the PDK Liberty and
-blackbox Verilog mounted in the reference flow &mdash; the gold-standard reference. Every cell
+blackbox Verilog mounted in the reference flow, the gold-standard reference. Every cell
 also carries the four standard power/bulk pins `VPWR, VGND, VPB, VNB`.
 
 Physical, analog, clock-tree, isolation and fill cells (clk*, dly*, decap, diode, tap, conb,
@@ -111,7 +111,7 @@ then measured by sky130 physical signoff for the leaderboard metric.
 | `sky130_fd_sc_hd__xor2` | XOR | X, A, B | `(A&!B) | (!A&B)` | x1, x2, x4 |
 | `sky130_fd_sc_hd__xor3` | XOR | X, A, B, C | `(A&!B&!C) | (!A&B&!C) | (!A&!B&C) | (A&B&C)` | x1, x2, x4 |
 
-## Sequential &mdash; flip-flops and latches (30)
+## Sequential: flip-flops and latches (30)
 
 | Interface id | Type | Ports | Behavior | Drives |
 |---|---|---|---|---|

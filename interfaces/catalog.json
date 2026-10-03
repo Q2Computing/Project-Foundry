@@ -1,6 +1,6 @@
 {
   "schema": "q2.interface-catalog.v1",
-  "note": "Public interface contracts to compete against. Each entry is a generic, standards-grounded I/O contract and metric, NOT a Q2 implementation. Mission-specific physical devices (sensors, emitters) and integrated mission ICs are never listed here.",
+  "note": "Interface contracts for the open sky130 competition. Each entry is an I/O contract and an efficiency metric drawn from a public standard: the SkyWater sky130 PDK (Apache-2.0), IEEE 754-2019, and the OCP Microscaling specification v1.0. Implement one, measure it at sky130 signoff, and register the result hash-only on the witness board.",
   "metric": {
     "fields": [
       "area_um2",
