@@ -5,7 +5,7 @@
 Read this in: English · [Bahasa Melayu](README.ms.md) · [简体中文](README.zh.md) · [தமிழ்](README.ta.md)
 
 A proof of a circuit is a certificate. Certificates license into larger proofs
-and into manufactured silicon, priced at a floor no competitor can match, and
+and into manufactured silicon, priced at a floor far below the cost of replicating the proof, and
 built to settle on Arbitrum Stylus. Verification is shared, not repeated: a block is
 proved once, in public, and every system built on it inherits the proof.
 

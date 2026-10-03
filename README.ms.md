@@ -2,7 +2,7 @@
 
 Baca dalam: [English](README.md) · Bahasa Melayu · [简体中文](README.zh.md) · [தமிழ்](README.ta.md)
 
-Bukti bagi sesuatu litar ialah sijil. Sijil dilesenkan ke dalam bukti yang lebih besar dan ke dalam silikon yang dikilangkan, dengan harga lantai yang tidak dapat ditandingi oleh mana-mana pesaing, dan dibina untuk diselesaikan di Arbitrum Stylus. Pengesahan dikongsi, bukan diulang: sesuatu blok dibuktikan sekali, secara terbuka, dan setiap sistem yang dibina di atasnya mewarisi bukti itu.
+Bukti bagi sesuatu litar ialah sijil. Sijil dilesenkan ke dalam bukti yang lebih besar dan ke dalam silikon yang dikilangkan, dengan harga lantai jauh di bawah kos mengulang semula bukti itu, dan dibina untuk diselesaikan di Arbitrum Stylus. Pengesahan dikongsi, bukan diulang: sesuatu blok dibuktikan sekali, secara terbuka, dan setiap sistem yang dibina di atasnya mewarisi bukti itu.
 
 Repositori ini ialah contoh awam ekonomi tersebut. Ia mengandungi perkhidmatan percuma yang membezakan sel kilang (foundry) bagi sesuatu net, kontrak yang menyelesaikan bukti di atas rantaian (ditulis dan disahkan, menunggu pengaturgunaan), dan tahap bukti yang menggredkan setiap sijil. Rekod saintifik di sebalik setiap angka terdapat dalam [RESEARCH.md](RESEARCH.md) (dalam bahasa Inggeris).
 
