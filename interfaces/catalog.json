@@ -1,0 +1,2241 @@
+{
+  "schema": "q2.interface-catalog.v1",
+  "note": "Interface contracts for the open sky130 competition. Each entry is an I/O contract and an efficiency metric drawn from a public standard: the SkyWater sky130 PDK (Apache-2.0), IEEE 754-2019, and the OCP Microscaling specification v1.0. Implement one, measure it at sky130 signoff, and register the result hash-only on the witness board.",
+  "metric": {
+    "fields": [
+      "area_um2",
+      "delay_ns",
+      "energy_j",
+      "n_bits"
+    ],
+    "ranking": "information-entropy-normalized efficiency (see WITNESS.md); submit via the witness rail, design stays private (hash-only)."
+  },
+  "standards": {
+    "pdk": "SkyWater sky130 (open-source, Apache-2.0); functions/ports from the PDK Liberty.",
+    "ieee754": "IEEE 754-2019, binary32 (1 sign / 8 exponent / 23 significand), roundTiesToEven default.",
+    "ocp_mx": "OCP Microscaling Formats (MX) Specification v1.0; E2M1 elements, K=32 block, shared E8M0 scale."
+  },
+  "buckets": {
+    "pdk-standard-cells": [
+      {
+        "id": "sky130_fd_sc_hd__a2111o",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND-OR complex gate",
+        "ports": "X, A1, A2, B1, C1, D1",
+        "function": "(A1&A2) | (B1) | (C1) | (D1)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__a2111o (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__a2111oi",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND-OR complex gate",
+        "ports": "Y, A1, A2, B1, C1, D1",
+        "function": "(!A1&!B1&!C1&!D1) | (!A2&!B1&!C1&!D1)",
+        "drives": [
+          0,
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__a2111oi (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__a211o",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND-OR complex gate",
+        "ports": "X, A1, A2, B1, C1",
+        "function": "(A1&A2) | (B1) | (C1)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__a211o (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__a211oi",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND-OR complex gate",
+        "ports": "Y, A1, A2, B1, C1",
+        "function": "(!A1&!B1&!C1) | (!A2&!B1&!C1)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__a211oi (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__a21bo",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND-OR complex gate",
+        "ports": "X, A1, A2, B1_N",
+        "function": "(A1&A2) | (!B1_N)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__a21bo (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__a21boi",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND-OR complex gate",
+        "ports": "Y, A1, A2, B1_N",
+        "function": "(!A1&B1_N) | (!A2&B1_N)",
+        "drives": [
+          0,
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__a21boi (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__a21o",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND-OR complex gate",
+        "ports": "X, A1, A2, B1",
+        "function": "(A1&A2) | (B1)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__a21o (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__a21oi",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND-OR complex gate",
+        "ports": "Y, A1, A2, B1",
+        "function": "(!A1&!B1) | (!A2&!B1)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__a21oi (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__a221o",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND-OR complex gate",
+        "ports": "X, A1, A2, B1, B2, C1",
+        "function": "(B1&B2) | (A1&A2) | (C1)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__a221o (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__a221oi",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND-OR complex gate",
+        "ports": "Y, A1, A2, B1, B2, C1",
+        "function": "(!A1&!B1&!C1) | (!A1&!B2&!C1) | (!A2&!B1&!C1) | (!A2&!B2&!C1)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__a221oi (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__a222oi",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND-OR complex gate",
+        "ports": "Y, A1, A2, B1, B2, C1, C2",
+        "function": "(!A1&!B1&!C1) | (!A1&!B1&!C2) | (!A1&!B2&!C1) | (!A2&!B1&!C1) | (!A1&!B2&!C2) | (!A2&!B1&!C2) | (!A2&!B2&!C1) | (!A2&!B2&!C2)",
+        "drives": [
+          1
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__a222oi (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__a22o",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND-OR complex gate",
+        "ports": "X, A1, A2, B1, B2",
+        "function": "(B1&B2) | (A1&A2)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__a22o (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__a22oi",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND-OR complex gate",
+        "ports": "Y, A1, A2, B1, B2",
+        "function": "(!A1&!B1) | (!A1&!B2) | (!A2&!B1) | (!A2&!B2)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__a22oi (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__a2bb2o",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND-OR complex gate",
+        "ports": "X, A1_N, A2_N, B1, B2",
+        "function": "(B1&B2) | (!A1_N&!A2_N)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__a2bb2o (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__a2bb2oi",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND-OR complex gate",
+        "ports": "Y, A1_N, A2_N, B1, B2",
+        "function": "(A1_N&!B1) | (A1_N&!B2) | (A2_N&!B1) | (A2_N&!B2)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__a2bb2oi (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__a311o",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND-OR complex gate",
+        "ports": "X, A1, A2, A3, B1, C1",
+        "function": "(A1&A2&A3) | (B1) | (C1)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__a311o (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__a311oi",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND-OR complex gate",
+        "ports": "Y, A1, A2, A3, B1, C1",
+        "function": "(!A1&!B1&!C1) | (!A2&!B1&!C1) | (!A3&!B1&!C1)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__a311oi (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__a31o",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND-OR complex gate",
+        "ports": "X, A1, A2, A3, B1",
+        "function": "(A1&A2&A3) | (B1)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__a31o (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__a31oi",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND-OR complex gate",
+        "ports": "Y, A1, A2, A3, B1",
+        "function": "(!A1&!B1) | (!A2&!B1) | (!A3&!B1)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__a31oi (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__a32o",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND-OR complex gate",
+        "ports": "X, A1, A2, A3, B1, B2",
+        "function": "(A1&A2&A3) | (B1&B2)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__a32o (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__a32oi",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND-OR complex gate",
+        "ports": "Y, A1, A2, A3, B1, B2",
+        "function": "(!A1&!B1) | (!A1&!B2) | (!A2&!B1) | (!A3&!B1) | (!A2&!B2) | (!A3&!B2)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__a32oi (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__a41o",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND-OR complex gate",
+        "ports": "X, A1, A2, A3, A4, B1",
+        "function": "(A1&A2&A3&A4) | (B1)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__a41o (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__a41oi",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND-OR complex gate",
+        "ports": "Y, A1, A2, A3, A4, B1",
+        "function": "(!A1&!B1) | (!A2&!B1) | (!A3&!B1) | (!A4&!B1)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__a41oi (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__and2",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND",
+        "ports": "X, A, B",
+        "function": "(A&B)",
+        "drives": [
+          0,
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__and2 (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__and2b",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND",
+        "ports": "X, A_N, B",
+        "function": "(!A_N&B)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__and2b (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__and3",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND",
+        "ports": "X, A, B, C",
+        "function": "(A&B&C)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__and3 (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__and3b",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND",
+        "ports": "X, A_N, B, C",
+        "function": "(!A_N&B&C)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__and3b (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__and4",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND",
+        "ports": "X, A, B, C, D",
+        "function": "(A&B&C&D)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__and4 (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__and4b",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND",
+        "ports": "X, A_N, B, C, D",
+        "function": "(!A_N&B&C&D)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__and4b (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__and4bb",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "AND",
+        "ports": "X, A_N, B_N, C, D",
+        "function": "(!A_N&!B_N&C&D)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__and4bb (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__buf",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "Buffer",
+        "ports": "X, A",
+        "function": "(A)",
+        "drives": [
+          1,
+          2,
+          4,
+          6,
+          8,
+          12,
+          16
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__buf (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__bufbuf",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "Buffer",
+        "ports": "X, A",
+        "function": "(A)",
+        "drives": [
+          8,
+          16
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__bufbuf (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__bufinv",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "Buffer",
+        "ports": "Y, A",
+        "function": "(!A)",
+        "drives": [
+          8,
+          16
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__bufinv (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__ebufn",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "Tri-state buffer",
+        "ports": "Z, A, TE_B",
+        "function": "(A)",
+        "drives": [
+          1,
+          2,
+          4,
+          8
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__ebufn (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__einvn",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "Tri-state inverter",
+        "ports": "Z, A, TE_B",
+        "function": "(!A)",
+        "drives": [
+          0,
+          1,
+          2,
+          4,
+          8
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__einvn (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__einvp",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "Tri-state inverter",
+        "ports": "Z, A, TE",
+        "function": "(!A)",
+        "drives": [
+          1,
+          2,
+          4,
+          8
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__einvp (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__fa",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "Full adder",
+        "ports": "COUT, SUM, A, B, CIN",
+        "function": "(A&B) | (A&CIN) | (B&CIN)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__fa (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__fah",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "Full adder (carry)",
+        "ports": "COUT, SUM, A, B, CI",
+        "function": "(A&B) | (A&CI) | (B&CI)",
+        "drives": [
+          1
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__fah (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__fahcin",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "Full adder (carry)",
+        "ports": "COUT, SUM, A, B, CIN",
+        "function": "(A&!CIN) | (A&B) | (B&!CIN)",
+        "drives": [
+          1
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__fahcin (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__fahcon",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "Full adder (carry)",
+        "ports": "COUT_N, SUM, A, B, CI",
+        "function": "(!A&!CI) | (!A&!B) | (!B&!CI)",
+        "drives": [
+          1
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__fahcon (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__ha",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "Half adder",
+        "ports": "COUT, SUM, A, B",
+        "function": "(A&B)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__ha (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__inv",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "Inverter",
+        "ports": "Y, A",
+        "function": "(!A)",
+        "drives": [
+          1,
+          2,
+          4,
+          6,
+          8,
+          12,
+          16
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__inv (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__maj3",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "Majority",
+        "ports": "X, A, B, C",
+        "function": "(A&B) | (A&C) | (B&C)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__maj3 (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__mux2",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "Multiplexer",
+        "ports": "X, A0, A1, S",
+        "function": "(A0&!S) | (A1&S)",
+        "drives": [
+          1,
+          2,
+          4,
+          8
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__mux2 (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__mux2i",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "Multiplexer",
+        "ports": "Y, A0, A1, S",
+        "function": "(!A0&!S) | (!A1&S)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__mux2i (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__mux4",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "Multiplexer",
+        "ports": "X, A0, A1, A2, A3, S0, S1",
+        "function": "(A0&!S0&!S1) | (A1&S0&!S1) | (A2&!S0&S1) | (A3&S0&S1)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__mux4 (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__nand2",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "NAND",
+        "ports": "Y, A, B",
+        "function": "(!A) | (!B)",
+        "drives": [
+          1,
+          2,
+          4,
+          8
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__nand2 (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__nand2b",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "NAND",
+        "ports": "Y, A_N, B",
+        "function": "(A_N) | (!B)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__nand2b (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__nand3",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "NAND",
+        "ports": "Y, A, B, C",
+        "function": "(!A) | (!B) | (!C)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__nand3 (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__nand3b",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "NAND",
+        "ports": "Y, A_N, B, C",
+        "function": "(A_N) | (!B) | (!C)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__nand3b (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__nand4",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "NAND",
+        "ports": "Y, A, B, C, D",
+        "function": "(!A) | (!B) | (!C) | (!D)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__nand4 (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__nand4b",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "NAND",
+        "ports": "Y, A_N, B, C, D",
+        "function": "(A_N) | (!B) | (!C) | (!D)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__nand4b (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__nand4bb",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "NAND",
+        "ports": "Y, A_N, B_N, C, D",
+        "function": "(A_N) | (B_N) | (!C) | (!D)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__nand4bb (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__nor2",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "NOR",
+        "ports": "Y, A, B",
+        "function": "(!A&!B)",
+        "drives": [
+          1,
+          2,
+          4,
+          8
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__nor2 (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__nor2b",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "NOR",
+        "ports": "Y, A, B_N",
+        "function": "(!A&B_N)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__nor2b (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__nor3",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "NOR",
+        "ports": "Y, A, B, C",
+        "function": "(!A&!B&!C)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__nor3 (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__nor3b",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "NOR",
+        "ports": "Y, A, B, C_N",
+        "function": "(!A&!B&C_N)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__nor3b (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__nor4",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "NOR",
+        "ports": "Y, A, B, C, D",
+        "function": "(!A&!B&!C&!D)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__nor4 (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__nor4b",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "NOR",
+        "ports": "Y, A, B, C, D_N",
+        "function": "(!A&!B&!C&D_N)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__nor4b (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__nor4bb",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "NOR",
+        "ports": "Y, A, B, C_N, D_N",
+        "function": "(!A&!B&C_N&D_N)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__nor4bb (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__o2111a",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR-AND complex gate",
+        "ports": "X, A1, A2, B1, C1, D1",
+        "function": "(A1&B1&C1&D1) | (A2&B1&C1&D1)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__o2111a (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__o2111ai",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR-AND complex gate",
+        "ports": "Y, A1, A2, B1, C1, D1",
+        "function": "(!A1&!A2) | (!B1) | (!C1) | (!D1)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__o2111ai (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__o211a",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR-AND complex gate",
+        "ports": "X, A1, A2, B1, C1",
+        "function": "(A1&B1&C1) | (A2&B1&C1)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__o211a (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__o211ai",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR-AND complex gate",
+        "ports": "Y, A1, A2, B1, C1",
+        "function": "(!A1&!A2) | (!B1) | (!C1)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__o211ai (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__o21a",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR-AND complex gate",
+        "ports": "X, A1, A2, B1",
+        "function": "(A1&B1) | (A2&B1)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__o21a (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__o21ai",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR-AND complex gate",
+        "ports": "Y, A1, A2, B1",
+        "function": "(!A1&!A2) | (!B1)",
+        "drives": [
+          0,
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__o21ai (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__o21ba",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR-AND complex gate",
+        "ports": "X, A1, A2, B1_N",
+        "function": "(A1&!B1_N) | (A2&!B1_N)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__o21ba (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__o21bai",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR-AND complex gate",
+        "ports": "Y, A1, A2, B1_N",
+        "function": "(!A1&!A2) | (B1_N)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__o21bai (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__o221a",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR-AND complex gate",
+        "ports": "X, A1, A2, B1, B2, C1",
+        "function": "(A1&B1&C1) | (A2&B1&C1) | (A1&B2&C1) | (A2&B2&C1)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__o221a (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__o221ai",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR-AND complex gate",
+        "ports": "Y, A1, A2, B1, B2, C1",
+        "function": "(!B1&!B2) | (!A1&!A2) | (!C1)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__o221ai (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__o22a",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR-AND complex gate",
+        "ports": "X, A1, A2, B1, B2",
+        "function": "(A1&B1) | (A2&B1) | (A1&B2) | (A2&B2)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__o22a (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__o22ai",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR-AND complex gate",
+        "ports": "Y, A1, A2, B1, B2",
+        "function": "(!B1&!B2) | (!A1&!A2)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__o22ai (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__o2bb2a",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR-AND complex gate",
+        "ports": "X, A1_N, A2_N, B1, B2",
+        "function": "(!A1_N&B1) | (!A2_N&B1) | (!A1_N&B2) | (!A2_N&B2)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__o2bb2a (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__o2bb2ai",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR-AND complex gate",
+        "ports": "Y, A1_N, A2_N, B1, B2",
+        "function": "(!B1&!B2) | (A1_N&A2_N)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__o2bb2ai (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__o311a",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR-AND complex gate",
+        "ports": "X, A1, A2, A3, B1, C1",
+        "function": "(A1&B1&C1) | (A2&B1&C1) | (A3&B1&C1)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__o311a (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__o311ai",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR-AND complex gate",
+        "ports": "Y, A1, A2, A3, B1, C1",
+        "function": "(!A1&!A2&!A3) | (!B1) | (!C1)",
+        "drives": [
+          0,
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__o311ai (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__o31a",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR-AND complex gate",
+        "ports": "X, A1, A2, A3, B1",
+        "function": "(A1&B1) | (A2&B1) | (A3&B1)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__o31a (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__o31ai",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR-AND complex gate",
+        "ports": "Y, A1, A2, A3, B1",
+        "function": "(!A1&!A2&!A3) | (!B1)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__o31ai (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__o32a",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR-AND complex gate",
+        "ports": "X, A1, A2, A3, B1, B2",
+        "function": "(A1&B1) | (A1&B2) | (A2&B1) | (A3&B1) | (A2&B2) | (A3&B2)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__o32a (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__o32ai",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR-AND complex gate",
+        "ports": "Y, A1, A2, A3, B1, B2",
+        "function": "(!A1&!A2&!A3) | (!B1&!B2)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__o32ai (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__o41a",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR-AND complex gate",
+        "ports": "X, A1, A2, A3, A4, B1",
+        "function": "(A1&B1) | (A2&B1) | (A3&B1) | (A4&B1)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__o41a (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__o41ai",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR-AND complex gate",
+        "ports": "Y, A1, A2, A3, A4, B1",
+        "function": "(!A1&!A2&!A3&!A4) | (!B1)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__o41ai (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__or2",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR",
+        "ports": "X, A, B",
+        "function": "(A) | (B)",
+        "drives": [
+          0,
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__or2 (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__or2b",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR",
+        "ports": "X, A, B_N",
+        "function": "(A) | (!B_N)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__or2b (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__or3",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR",
+        "ports": "X, A, B, C",
+        "function": "(A) | (B) | (C)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__or3 (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__or3b",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR",
+        "ports": "X, A, B, C_N",
+        "function": "(A) | (B) | (!C_N)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__or3b (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__or4",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR",
+        "ports": "X, A, B, C, D",
+        "function": "(A) | (B) | (C) | (D)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__or4 (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__or4b",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR",
+        "ports": "X, A, B, C, D_N",
+        "function": "(A) | (B) | (C) | (!D_N)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__or4b (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__or4bb",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "OR",
+        "ports": "X, A, B, C_N, D_N",
+        "function": "(A) | (B) | (!C_N) | (!D_N)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__or4bb (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__xnor2",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "XNOR",
+        "ports": "Y, A, B",
+        "function": "(!A&!B) | (A&B)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__xnor2 (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__xnor3",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "XNOR",
+        "ports": "X, A, B, C",
+        "function": "(!A&!B&!C) | (A&B&!C) | (A&!B&C) | (!A&B&C)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__xnor3 (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__xor2",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "XOR",
+        "ports": "X, A, B",
+        "function": "(A&!B) | (!A&B)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__xor2 (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__xor3",
+        "class": "pdk-standard-cell",
+        "type": "combinational",
+        "family": "XOR",
+        "ports": "X, A, B, C",
+        "function": "(A&!B&!C) | (!A&B&!C) | (!A&!B&C) | (A&B&C)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__xor3 (PDK functional Verilog)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__dfbbn",
+        "class": "pdk-standard-cell",
+        "type": "flip-flop",
+        "family": "Sequential (flip-flop)",
+        "ports": "Q, Q_N, D, CLK_N, SET_B, RESET_B",
+        "function": "Edge-triggered flip-flop; Q <= D on the falling edge of clock; async clear !RESET_B; async preset !SET_B",
+        "drives": [
+          1,
+          2
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__dfbbn (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__dfbbp",
+        "class": "pdk-standard-cell",
+        "type": "flip-flop",
+        "family": "Sequential (flip-flop)",
+        "ports": "Q, Q_N, D, CLK, SET_B, RESET_B",
+        "function": "Edge-triggered flip-flop; Q <= D on the rising edge of clock; async clear !RESET_B; async preset !SET_B",
+        "drives": [
+          1
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__dfbbp (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__dfrbp",
+        "class": "pdk-standard-cell",
+        "type": "flip-flop",
+        "family": "Sequential (flip-flop)",
+        "ports": "Q, Q_N, CLK, D, RESET_B",
+        "function": "Edge-triggered flip-flop; Q <= D on the rising edge of clock; async clear !RESET_B",
+        "drives": [
+          1,
+          2
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__dfrbp (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__dfrtn",
+        "class": "pdk-standard-cell",
+        "type": "flip-flop",
+        "family": "Sequential (flip-flop)",
+        "ports": "Q, CLK_N, D, RESET_B",
+        "function": "Edge-triggered flip-flop; Q <= D on the falling edge of clock; async clear !RESET_B",
+        "drives": [
+          1
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__dfrtn (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__dfrtp",
+        "class": "pdk-standard-cell",
+        "type": "flip-flop",
+        "family": "Sequential (flip-flop)",
+        "ports": "Q, CLK, D, RESET_B",
+        "function": "Edge-triggered flip-flop; Q <= D on the rising edge of clock; async clear !RESET_B",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__dfrtp (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__dfsbp",
+        "class": "pdk-standard-cell",
+        "type": "flip-flop",
+        "family": "Sequential (flip-flop)",
+        "ports": "Q, Q_N, CLK, D, SET_B",
+        "function": "Edge-triggered flip-flop; Q <= D on the rising edge of clock; async preset !SET_B",
+        "drives": [
+          1,
+          2
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__dfsbp (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__dfstp",
+        "class": "pdk-standard-cell",
+        "type": "flip-flop",
+        "family": "Sequential (flip-flop)",
+        "ports": "Q, CLK, D, SET_B",
+        "function": "Edge-triggered flip-flop; Q <= D on the rising edge of clock; async preset !SET_B",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__dfstp (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__dfxbp",
+        "class": "pdk-standard-cell",
+        "type": "flip-flop",
+        "family": "Sequential (flip-flop)",
+        "ports": "Q, Q_N, CLK, D",
+        "function": "Edge-triggered flip-flop; Q <= D on the rising edge of clock",
+        "drives": [
+          1,
+          2
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__dfxbp (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__dfxtp",
+        "class": "pdk-standard-cell",
+        "type": "flip-flop",
+        "family": "Sequential (flip-flop)",
+        "ports": "Q, CLK, D",
+        "function": "Edge-triggered flip-flop; Q <= D on the rising edge of clock",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__dfxtp (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__dlrbn",
+        "class": "pdk-standard-cell",
+        "type": "latch",
+        "family": "Sequential (latch)",
+        "ports": "Q, Q_N, RESET_B, D, GATE_N",
+        "function": "Level-sensitive D latch; Q follows D while !GATE_N is asserted; async clear !RESET_B",
+        "drives": [
+          1,
+          2
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__dlrbn (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__dlrbp",
+        "class": "pdk-standard-cell",
+        "type": "latch",
+        "family": "Sequential (latch)",
+        "ports": "Q, Q_N, RESET_B, D, GATE",
+        "function": "Level-sensitive D latch; Q follows D while GATE is asserted; async clear !RESET_B",
+        "drives": [
+          1,
+          2
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__dlrbp (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__dlrtn",
+        "class": "pdk-standard-cell",
+        "type": "latch",
+        "family": "Sequential (latch)",
+        "ports": "Q, RESET_B, D, GATE_N",
+        "function": "Level-sensitive D latch; Q follows D while !GATE_N is asserted; async clear !RESET_B",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__dlrtn (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__dlrtp",
+        "class": "pdk-standard-cell",
+        "type": "latch",
+        "family": "Sequential (latch)",
+        "ports": "Q, RESET_B, D, GATE",
+        "function": "Level-sensitive D latch; Q follows D while GATE is asserted; async clear !RESET_B",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__dlrtp (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__dlxbn",
+        "class": "pdk-standard-cell",
+        "type": "latch",
+        "family": "Sequential (latch)",
+        "ports": "Q, Q_N, D, GATE_N",
+        "function": "Level-sensitive D latch; Q follows D while !GATE_N is asserted",
+        "drives": [
+          1,
+          2
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__dlxbn (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__dlxbp",
+        "class": "pdk-standard-cell",
+        "type": "latch",
+        "family": "Sequential (latch)",
+        "ports": "Q, Q_N, D, GATE",
+        "function": "Level-sensitive D latch; Q follows D while GATE is asserted",
+        "drives": [
+          1
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__dlxbp (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__dlxtn",
+        "class": "pdk-standard-cell",
+        "type": "latch",
+        "family": "Sequential (latch)",
+        "ports": "Q, D, GATE_N",
+        "function": "Level-sensitive D latch; Q follows D while !GATE_N is asserted",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__dlxtn (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__dlxtp",
+        "class": "pdk-standard-cell",
+        "type": "latch",
+        "family": "Sequential (latch)",
+        "ports": "Q, D, GATE",
+        "function": "Level-sensitive D latch; Q follows D while GATE is asserted",
+        "drives": [
+          1
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__dlxtp (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__edfxbp",
+        "class": "pdk-standard-cell",
+        "type": "flip-flop",
+        "family": "Sequential (flip-flop)",
+        "ports": "Q, Q_N, CLK, D, DE",
+        "function": "Edge-triggered flip-flop; Q <= (D&DE) | (IQ&!DE) on the rising edge of clock",
+        "drives": [
+          1
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__edfxbp (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__edfxtp",
+        "class": "pdk-standard-cell",
+        "type": "flip-flop",
+        "family": "Sequential (flip-flop)",
+        "ports": "Q, CLK, D, DE",
+        "function": "Edge-triggered flip-flop; Q <= (D&DE) | (IQ&!DE) on the rising edge of clock",
+        "drives": [
+          1
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__edfxtp (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__sdfbbn",
+        "class": "pdk-standard-cell",
+        "type": "flip-flop",
+        "family": "Sequential (flip-flop)",
+        "ports": "Q, Q_N, D, SCD, SCE, CLK_N, SET_B, RESET_B",
+        "function": "Edge-triggered flip-flop; Q <= (D&!SCE) | (SCD&SCE) on the falling edge of clock; async clear !RESET_B; async preset !SET_B",
+        "drives": [
+          1,
+          2
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__sdfbbn (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__sdfbbp",
+        "class": "pdk-standard-cell",
+        "type": "flip-flop",
+        "family": "Sequential (flip-flop)",
+        "ports": "Q, Q_N, D, SCD, SCE, CLK, SET_B, RESET_B",
+        "function": "Edge-triggered flip-flop; Q <= (D&!SCE) | (SCD&SCE) on the rising edge of clock; async clear !RESET_B; async preset !SET_B",
+        "drives": [
+          1
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__sdfbbp (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__sdfrbp",
+        "class": "pdk-standard-cell",
+        "type": "flip-flop",
+        "family": "Sequential (flip-flop)",
+        "ports": "Q, Q_N, CLK, D, SCD, SCE, RESET_B",
+        "function": "Edge-triggered flip-flop; Q <= (D&!SCE) | (SCD&SCE) on the rising edge of clock; async clear !RESET_B",
+        "drives": [
+          1,
+          2
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__sdfrbp (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__sdfrtn",
+        "class": "pdk-standard-cell",
+        "type": "flip-flop",
+        "family": "Sequential (flip-flop)",
+        "ports": "Q, CLK_N, D, SCD, SCE, RESET_B",
+        "function": "Edge-triggered flip-flop; Q <= (D&!SCE) | (SCD&SCE) on the falling edge of clock; async clear !RESET_B",
+        "drives": [
+          1
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__sdfrtn (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__sdfrtp",
+        "class": "pdk-standard-cell",
+        "type": "flip-flop",
+        "family": "Sequential (flip-flop)",
+        "ports": "Q, CLK, D, SCD, SCE, RESET_B",
+        "function": "Edge-triggered flip-flop; Q <= (D&!SCE) | (SCD&SCE) on the rising edge of clock; async clear !RESET_B",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__sdfrtp (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__sdfsbp",
+        "class": "pdk-standard-cell",
+        "type": "flip-flop",
+        "family": "Sequential (flip-flop)",
+        "ports": "Q, Q_N, CLK, D, SCD, SCE, SET_B",
+        "function": "Edge-triggered flip-flop; Q <= (D&!SCE) | (SCD&SCE) on the rising edge of clock; async preset !SET_B",
+        "drives": [
+          1,
+          2
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__sdfsbp (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__sdfstp",
+        "class": "pdk-standard-cell",
+        "type": "flip-flop",
+        "family": "Sequential (flip-flop)",
+        "ports": "Q, CLK, D, SCD, SCE, SET_B",
+        "function": "Edge-triggered flip-flop; Q <= (D&!SCE) | (SCD&SCE) on the rising edge of clock; async preset !SET_B",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__sdfstp (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__sdfxbp",
+        "class": "pdk-standard-cell",
+        "type": "flip-flop",
+        "family": "Sequential (flip-flop)",
+        "ports": "Q, Q_N, CLK, D, SCD, SCE",
+        "function": "Edge-triggered flip-flop; Q <= (D&!SCE) | (SCD&SCE) on the rising edge of clock",
+        "drives": [
+          1,
+          2
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__sdfxbp (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__sdfxtp",
+        "class": "pdk-standard-cell",
+        "type": "flip-flop",
+        "family": "Sequential (flip-flop)",
+        "ports": "Q, CLK, D, SCD, SCE",
+        "function": "Edge-triggered flip-flop; Q <= (D&!SCE) | (SCD&SCE) on the rising edge of clock",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__sdfxtp (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__sedfxbp",
+        "class": "pdk-standard-cell",
+        "type": "flip-flop",
+        "family": "Sequential (flip-flop)",
+        "ports": "Q, Q_N, CLK, D, DE, SCD, SCE",
+        "function": "Edge-triggered flip-flop; Q <= (D&DE&!SCE) | (IQ&!DE&!SCE) | (SCD&SCE) on the rising edge of clock",
+        "drives": [
+          1,
+          2
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__sedfxbp (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__sedfxtp",
+        "class": "pdk-standard-cell",
+        "type": "flip-flop",
+        "family": "Sequential (flip-flop)",
+        "ports": "Q, CLK, D, DE, SCD, SCE",
+        "function": "Edge-triggered flip-flop; Q <= (D&DE&!SCE) | (IQ&!DE&!SCE) | (SCD&SCE) on the rising edge of clock",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "golden_ref": "sky130_fd_sc_hd__sedfxtp (PDK functional Verilog + .lib ff/latch)",
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      }
+    ],
+    "ieee754-fp32": [
+      {
+        "id": "q2_if.fp32_mul",
+        "class": "ieee754-binary32",
+        "desc": "FP32 multiplier",
+        "ports": "p[31:0], a[31:0], b[31:0], rmode[2:0]",
+        "semantics": "p = round(a * b)",
+        "status": "754-mandated",
+        "notes": "Correctly-rounded binary32 product. Handle signed zero, inf, NaN, subnormals per 754-2019.",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.fp32_add",
+        "class": "ieee754-binary32",
+        "desc": "FP32 adder / accumulator",
+        "ports": "s[31:0], a[31:0], b[31:0], rmode[2:0]",
+        "semantics": "s = round(a + b)",
+        "status": "754-mandated",
+        "notes": "Correctly-rounded binary32 sum. Accumulator variant chains s_next = round(acc + x).",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.fp32_sub",
+        "class": "ieee754-binary32",
+        "desc": "FP32 subtract",
+        "ports": "d[31:0], a[31:0], b[31:0], rmode[2:0]",
+        "semantics": "d = round(a - b)",
+        "status": "754-mandated",
+        "notes": "Correctly-rounded binary32 difference.",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.fp32_sqrt",
+        "class": "ieee754-binary32",
+        "desc": "FP32 square root",
+        "ports": "q[31:0], a[31:0], rmode[2:0]",
+        "semantics": "q = round(sqrt(a))",
+        "status": "754-mandated",
+        "notes": "754-2019 mandates a correctly-rounded square root.",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.fp32_rne",
+        "class": "ieee754-binary32",
+        "desc": "Round to nearest even",
+        "ports": "y[31:0], a_wide, sticky",
+        "semantics": "y = roundTiesToEven(a_wide)",
+        "status": "754-mandated",
+        "notes": "The 754-2019 default rounding attribute applied to a wider intermediate.",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.fp32_f2i",
+        "class": "ieee754-binary32",
+        "desc": "FP32 to Int32 convert",
+        "ports": "i[31:0], a[31:0], rmode[2:0]",
+        "semantics": "i = convertToInteger(a)",
+        "status": "754-mandated",
+        "notes": "754-2019 convertToInteger; signal/saturate on overflow and NaN per the chosen policy (state it).",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.fp32_i2f",
+        "class": "ieee754-binary32",
+        "desc": "Int32 to FP32 convert",
+        "ports": "y[31:0], i[31:0], rmode[2:0]",
+        "semantics": "y = round(real(i))",
+        "status": "754-mandated",
+        "notes": "754-2019 convertFromInt; round when |i| exceeds 24-bit exact range.",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.fp32_maxmin",
+        "class": "ieee754-binary32",
+        "desc": "FP32 max / min",
+        "ports": "y[31:0], a[31:0], b[31:0], sel",
+        "semantics": "y = sel ? maxNum(a,b) : minNum(a,b)",
+        "status": "754-mandated",
+        "notes": "754-2019 maximumNumber / minimumNumber NaN-handling.",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.fp32_relu",
+        "class": "ieee754-binary32",
+        "desc": "FP32 ReLU",
+        "ports": "y[31:0], a[31:0]",
+        "semantics": "y = (a > +0) ? a : +0",
+        "status": "exact (non-754)",
+        "notes": "Exact on binary32; not a 754-defined op. Define NaN pass-through.",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.fp32_normpack",
+        "class": "ieee754-binary32",
+        "desc": "FP32 normalize / pack",
+        "ports": "y[31:0], sign, exp_wide, mant_wide",
+        "semantics": "y = pack_round(sign, exp, mant)",
+        "status": "exact (non-754)",
+        "notes": "Exact: normalize an unpacked (sign, exponent, significand) triple to a rounded binary32 field. Building block.",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.fp32_recip",
+        "class": "ieee754-binary32",
+        "desc": "FP32 reciprocal (SFU)",
+        "ports": "y[31:0], a[31:0]",
+        "semantics": "y ~= 1/a",
+        "status": "approximation",
+        "notes": "binary32 approximation (e.g. Newton-Raphson). Publish the achieved ULP/relative-error bound as part of the contract.",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.fp32_rsqrt",
+        "class": "ieee754-binary32",
+        "desc": "FP32 reciprocal sqrt (SFU)",
+        "ports": "y[31:0], a[31:0]",
+        "semantics": "y ~= 1/sqrt(a)",
+        "status": "approximation",
+        "notes": "binary32 approximation. Publish the achieved accuracy bound.",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.fp32_exp2",
+        "class": "ieee754-binary32",
+        "desc": "FP32 base-2 exponential (SFU)",
+        "ports": "y[31:0], a[31:0]",
+        "semantics": "y ~= 2**a",
+        "status": "approximation",
+        "notes": "binary32 approximation. Publish the achieved accuracy bound.",
+        "n_bits": 32
+      }
+    ],
+    "ocp-mx": [
+      {
+        "id": "q2_if.mx_e2m1_decode",
+        "class": "ocp-mx",
+        "desc": "E2M1 element decode",
+        "ports": "val[31:0], e2m1[3:0]",
+        "semantics": "Decode one OCP MX FP4 (E2M1) element to its real value.",
+        "notes": "E2M1 = 1 sign / 2 exponent / 1 mantissa bit; value set {0, +/-0.5, +/-1, +/-1.5, +/-2, +/-3, +/-4, +/-6}.",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.mxfp4_lane_mul",
+        "class": "ocp-mx",
+        "desc": "MXFP4 lane multiply",
+        "ports": "p[?:0], a_e2m1[3:0], b_e2m1[3:0]",
+        "semantics": "p = decode(a) * decode(b) for one element pair.",
+        "notes": "Per-element product ahead of block reduction. Scales applied at block level, not per lane.",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.mxfp4_dot32",
+        "class": "ocp-mx",
+        "desc": "MXFP4 block dot-product",
+        "ports": "acc[31:0], a_blk[127:0], b_blk[127:0], a_scale[7:0], b_scale[7:0]",
+        "semantics": "acc = (a_scale*b_scale) * sum_{i=0..31} decode(a_i)*decode(b_i)",
+        "notes": "OCP MX block of K=32 E2M1 elements with one shared E8M0 (8-bit power-of-two) scale each. Accumulate to binary32.",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.mxfp4_pe",
+        "class": "ocp-mx",
+        "desc": "MXFP4 accumulating PE",
+        "ports": "acc_out[31:0], a_blk, b_blk, a_scale, b_scale, acc_in[31:0]",
+        "semantics": "acc_out = acc_in + mxfp4_dot32(...)",
+        "notes": "One accumulating processing element: a block dot-product added to a running binary32 accumulator.",
+        "n_bits": 32
+      }
+    ],
+    "integer-datapath": [
+      {
+        "id": "q2_if.full_adder",
+        "class": "integer-datapath",
+        "desc": "1-bit full adder",
+        "ports": "s, cout, a, b, cin",
+        "function": "{cout,s} = a + b + cin",
+        "notes": "n_bits=1."
+      },
+      {
+        "id": "q2_if.rca",
+        "class": "integer-datapath",
+        "desc": "Ripple-carry adder (N-bit)",
+        "ports": "sum[N-1:0], cout, a[N-1:0], b[N-1:0], cin",
+        "function": "{cout,sum} = a + b + cin",
+        "notes": "Parameterized width N. Portal instances: N in {8,16,48,52}. The 48-bit instance is an explicit challenge target."
+      },
+      {
+        "id": "q2_if.add_tree",
+        "class": "integer-datapath",
+        "desc": "Adder reduction tree",
+        "ports": "sum[W:0], x_0..x_{M-1}",
+        "function": "sum = x_0 + x_1 + ... + x_{M-1}",
+        "notes": "Portal instance: 32-way."
+      },
+      {
+        "id": "q2_if.sub",
+        "class": "integer-datapath",
+        "desc": "Integer subtractor (N-bit)",
+        "ports": "d[N-1:0], bout, a[N-1:0], b[N-1:0]",
+        "function": "d = a - b (two's complement)",
+        "notes": "Portal instance: 32-bit."
+      },
+      {
+        "id": "q2_if.inc",
+        "class": "integer-datapath",
+        "desc": "Incrementer (N-bit)",
+        "ports": "y[N-1:0], a[N-1:0]",
+        "function": "y = a + 1",
+        "notes": "Portal instance: 32-bit."
+      },
+      {
+        "id": "q2_if.barrel_shift",
+        "class": "integer-datapath",
+        "desc": "Barrel shifter (N-bit)",
+        "ports": "y[N-1:0], a[N-1:0], sh[log2N-1:0], dir",
+        "function": "y = (dir==L) ? a << sh : a >> sh",
+        "notes": "Combinational shift by any amount. Portal instances: left-32, left-64, right-64."
+      },
+      {
+        "id": "q2_if.prio_enc",
+        "class": "integer-datapath",
+        "desc": "Priority encoder (N-bit)",
+        "ports": "idx[log2N-1:0], valid, a[N-1:0]",
+        "function": "idx = index of the leading one of a; valid = |a",
+        "notes": "Leading-one detector. Portal instances: N in {8,32,64}."
+      },
+      {
+        "id": "q2_if.decoder",
+        "class": "integer-datapath",
+        "desc": "One-hot decoder",
+        "ports": "oh[2^K-1:0], sel[K-1:0], en",
+        "function": "oh = en ? (1 << sel) : 0",
+        "notes": "Portal instance: 5->32 write decoder."
+      },
+      {
+        "id": "q2_if.mux2_bus",
+        "class": "integer-datapath",
+        "desc": "2:1 bus multiplexer (N-bit)",
+        "ports": "y[N-1:0], a[N-1:0], b[N-1:0], s",
+        "function": "y = s ? b : a",
+        "notes": "Datapath-width 2:1 select."
+      },
+      {
+        "id": "q2_if.reg",
+        "class": "integer-datapath",
+        "desc": "Register (N-bit)",
+        "ports": "q[N-1:0], d[N-1:0], clk, en",
+        "function": "q <= en ? d : q at rising clk",
+        "notes": "Portal instance: 32-bit."
+      },
+      {
+        "id": "q2_if.regfile",
+        "class": "integer-datapath",
+        "desc": "Register file",
+        "ports": "rd_data..., rd_addr..., wr_data, wr_addr, wr_en, clk",
+        "function": "Synchronous-write, combinational/registered-read multi-port register file",
+        "notes": "Portal instance: 32x32, multi-ported. Specify port count and read timing in your submission."
+      },
+      {
+        "id": "q2_if.array_mul",
+        "class": "integer-datapath",
+        "desc": "Array multiplier (NxN)",
+        "ports": "p[2N-1:0], a[N-1:0], b[N-1:0]",
+        "function": "p = a * b (unsigned integer)",
+        "notes": "Portal instance: 24x24."
+      }
+    ]
+  }
+}
