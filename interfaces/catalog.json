@@ -1,0 +1,618 @@
+{
+  "schema": "q2.interface-catalog.v1",
+  "note": "Public interface contracts to compete against. Each entry is a generic, standards-grounded I/O contract and metric, NOT a Q2 implementation. Mission-specific physical devices (sensors, emitters) and integrated mission ICs are never listed here.",
+  "metric": {
+    "fields": [
+      "area_um2",
+      "delay_ns",
+      "energy_j",
+      "n_bits"
+    ],
+    "ranking": "information-entropy-normalized efficiency (see WITNESS.md); submit via the witness rail, design stays private (hash-only)."
+  },
+  "standards": {
+    "pdk": "SkyWater sky130 (open-source, Apache-2.0); functions/ports from the PDK Liberty.",
+    "ieee754": "IEEE 754-2019, binary32 (1 sign / 8 exponent / 23 significand), roundTiesToEven default.",
+    "ocp_mx": "OCP Microscaling Formats (MX) Specification v1.0; E2M1 elements, K=32 block, shared E8M0 scale."
+  },
+  "buckets": {
+    "pdk-standard-cells": [
+      {
+        "id": "sky130_fd_sc_hd__inv",
+        "class": "pdk-standard-cell",
+        "desc": "Inverter",
+        "ports": "Y, A",
+        "function": "Y = !A",
+        "drives": [
+          1,
+          2,
+          4,
+          6,
+          8,
+          12,
+          16
+        ],
+        "n_bits": 1,
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__buf",
+        "class": "pdk-standard-cell",
+        "desc": "Buffer",
+        "ports": "X, A",
+        "function": "X = A",
+        "drives": [
+          1,
+          2,
+          4,
+          6,
+          8,
+          12,
+          16
+        ],
+        "n_bits": 1,
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__nand2",
+        "class": "pdk-standard-cell",
+        "desc": "2-input NAND",
+        "ports": "Y, A, B",
+        "function": "Y = !(A & B)",
+        "drives": [
+          1,
+          2,
+          4,
+          8
+        ],
+        "n_bits": 1,
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__nand3",
+        "class": "pdk-standard-cell",
+        "desc": "3-input NAND",
+        "ports": "Y, A, B, C",
+        "function": "Y = !(A & B & C)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__nor2",
+        "class": "pdk-standard-cell",
+        "desc": "2-input NOR",
+        "ports": "Y, A, B",
+        "function": "Y = !(A | B)",
+        "drives": [
+          2,
+          4,
+          8
+        ],
+        "n_bits": 1,
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__nor3",
+        "class": "pdk-standard-cell",
+        "desc": "3-input NOR",
+        "ports": "Y, A, B, C",
+        "function": "Y = !(A | B | C)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__and2",
+        "class": "pdk-standard-cell",
+        "desc": "2-input AND",
+        "ports": "X, A, B",
+        "function": "X = A & B",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__and3",
+        "class": "pdk-standard-cell",
+        "desc": "3-input AND",
+        "ports": "X, A, B, C",
+        "function": "X = A & B & C",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__or2",
+        "class": "pdk-standard-cell",
+        "desc": "2-input OR",
+        "ports": "X, A, B",
+        "function": "X = A | B",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__or3",
+        "class": "pdk-standard-cell",
+        "desc": "3-input OR",
+        "ports": "X, A, B, C",
+        "function": "X = A | B | C",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__xor2",
+        "class": "pdk-standard-cell",
+        "desc": "2-input XOR",
+        "ports": "X, A, B",
+        "function": "X = A ^ B",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__xor3",
+        "class": "pdk-standard-cell",
+        "desc": "3-input XOR",
+        "ports": "X, A, B, C",
+        "function": "X = A ^ B ^ C",
+        "drives": [
+          1
+        ],
+        "n_bits": 1,
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__xnor2",
+        "class": "pdk-standard-cell",
+        "desc": "2-input XNOR",
+        "ports": "Y, A, B",
+        "function": "Y = !(A ^ B)",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__mux2",
+        "class": "pdk-standard-cell",
+        "desc": "2:1 multiplexer",
+        "ports": "X, A0, A1, S",
+        "function": "X = S ? A1 : A0",
+        "drives": [
+          1,
+          2,
+          4,
+          8
+        ],
+        "n_bits": 1,
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__maj3",
+        "class": "pdk-standard-cell",
+        "desc": "3-input majority",
+        "ports": "X, A, B, C",
+        "function": "X = (A&B) | (A&C) | (B&C)",
+        "drives": [
+          1
+        ],
+        "n_bits": 1,
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__a21o",
+        "class": "pdk-standard-cell",
+        "desc": "AND2-OR (2-1)",
+        "ports": "X, A1, A2, B1",
+        "function": "X = (A1 & A2) | B1",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__a21oi",
+        "class": "pdk-standard-cell",
+        "desc": "AND2-OR-INVERT (2-1)",
+        "ports": "Y, A1, A2, B1",
+        "function": "Y = !((A1 & A2) | B1)",
+        "drives": [
+          1
+        ],
+        "n_bits": 1,
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__a22o",
+        "class": "pdk-standard-cell",
+        "desc": "AND2-OR (2-2)",
+        "ports": "X, A1, A2, B1, B2",
+        "function": "X = (A1 & A2) | (B1 & B2)",
+        "drives": [
+          1
+        ],
+        "n_bits": 1,
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__a22oi",
+        "class": "pdk-standard-cell",
+        "desc": "AND2-OR-INVERT (2-2)",
+        "ports": "Y, A1, A2, B1, B2",
+        "function": "Y = !((A1 & A2) | (B1 & B2))",
+        "drives": [
+          1
+        ],
+        "n_bits": 1,
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__o21a",
+        "class": "pdk-standard-cell",
+        "desc": "OR2-AND (2-1)",
+        "ports": "X, A1, A2, B1",
+        "function": "X = (A1 | A2) & B1",
+        "drives": [
+          1,
+          2,
+          4
+        ],
+        "n_bits": 1,
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__o21ai",
+        "class": "pdk-standard-cell",
+        "desc": "OR2-AND-INVERT (2-1)",
+        "ports": "Y, A1, A2, B1",
+        "function": "Y = !((A1 | A2) & B1)",
+        "drives": [
+          1
+        ],
+        "n_bits": 1,
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__o22a",
+        "class": "pdk-standard-cell",
+        "desc": "OR2-AND (2-2)",
+        "ports": "X, A1, A2, B1, B2",
+        "function": "X = (A1 | A2) & (B1 | B2)",
+        "drives": [
+          1
+        ],
+        "n_bits": 1,
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__o22ai",
+        "class": "pdk-standard-cell",
+        "desc": "OR2-AND-INVERT (2-2)",
+        "ports": "Y, A1, A2, B1, B2",
+        "function": "Y = !((A1 | A2) & (B1 | B2))",
+        "drives": [
+          1
+        ],
+        "n_bits": 1,
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      },
+      {
+        "id": "sky130_fd_sc_hd__dfxtp",
+        "class": "pdk-standard-cell",
+        "desc": "Positive-edge D flip-flop",
+        "ports": "Q, CLK, D",
+        "function": "Q <= D at the rising edge of CLK",
+        "drives": [
+          1
+        ],
+        "n_bits": 1,
+        "power_pins": "VPWR, VGND, VPB, VNB"
+      }
+    ],
+    "ieee754-fp32": [
+      {
+        "id": "q2_if.fp32_mul",
+        "class": "ieee754-binary32",
+        "desc": "FP32 multiplier",
+        "ports": "p[31:0], a[31:0], b[31:0], rmode[2:0]",
+        "semantics": "p = round(a * b)",
+        "status": "754-mandated",
+        "notes": "Correctly-rounded binary32 product. Handle signed zero, inf, NaN, subnormals per 754-2019.",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.fp32_add",
+        "class": "ieee754-binary32",
+        "desc": "FP32 adder / accumulator",
+        "ports": "s[31:0], a[31:0], b[31:0], rmode[2:0]",
+        "semantics": "s = round(a + b)",
+        "status": "754-mandated",
+        "notes": "Correctly-rounded binary32 sum. Accumulator variant chains s_next = round(acc + x).",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.fp32_sub",
+        "class": "ieee754-binary32",
+        "desc": "FP32 subtract",
+        "ports": "d[31:0], a[31:0], b[31:0], rmode[2:0]",
+        "semantics": "d = round(a - b)",
+        "status": "754-mandated",
+        "notes": "Correctly-rounded binary32 difference.",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.fp32_sqrt",
+        "class": "ieee754-binary32",
+        "desc": "FP32 square root",
+        "ports": "q[31:0], a[31:0], rmode[2:0]",
+        "semantics": "q = round(sqrt(a))",
+        "status": "754-mandated",
+        "notes": "754-2019 mandates a correctly-rounded square root.",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.fp32_rne",
+        "class": "ieee754-binary32",
+        "desc": "Round to nearest even",
+        "ports": "y[31:0], a_wide, sticky",
+        "semantics": "y = roundTiesToEven(a_wide)",
+        "status": "754-mandated",
+        "notes": "The 754-2019 default rounding attribute applied to a wider intermediate.",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.fp32_f2i",
+        "class": "ieee754-binary32",
+        "desc": "FP32 to Int32 convert",
+        "ports": "i[31:0], a[31:0], rmode[2:0]",
+        "semantics": "i = convertToInteger(a)",
+        "status": "754-mandated",
+        "notes": "754-2019 convertToInteger; signal/saturate on overflow and NaN per the chosen policy (state it).",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.fp32_i2f",
+        "class": "ieee754-binary32",
+        "desc": "Int32 to FP32 convert",
+        "ports": "y[31:0], i[31:0], rmode[2:0]",
+        "semantics": "y = round(real(i))",
+        "status": "754-mandated",
+        "notes": "754-2019 convertFromInt; round when |i| exceeds 24-bit exact range.",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.fp32_maxmin",
+        "class": "ieee754-binary32",
+        "desc": "FP32 max / min",
+        "ports": "y[31:0], a[31:0], b[31:0], sel",
+        "semantics": "y = sel ? maxNum(a,b) : minNum(a,b)",
+        "status": "754-mandated",
+        "notes": "754-2019 maximumNumber / minimumNumber NaN-handling.",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.fp32_relu",
+        "class": "ieee754-binary32",
+        "desc": "FP32 ReLU",
+        "ports": "y[31:0], a[31:0]",
+        "semantics": "y = (a > +0) ? a : +0",
+        "status": "exact (non-754)",
+        "notes": "Exact on binary32; not a 754-defined op. Define NaN pass-through.",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.fp32_normpack",
+        "class": "ieee754-binary32",
+        "desc": "FP32 normalize / pack",
+        "ports": "y[31:0], sign, exp_wide, mant_wide",
+        "semantics": "y = pack_round(sign, exp, mant)",
+        "status": "exact (non-754)",
+        "notes": "Exact: normalize an unpacked (sign, exponent, significand) triple to a rounded binary32 field. Building block.",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.fp32_recip",
+        "class": "ieee754-binary32",
+        "desc": "FP32 reciprocal (SFU)",
+        "ports": "y[31:0], a[31:0]",
+        "semantics": "y ~= 1/a",
+        "status": "approximation",
+        "notes": "binary32 approximation (e.g. Newton-Raphson). Publish the achieved ULP/relative-error bound as part of the contract.",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.fp32_rsqrt",
+        "class": "ieee754-binary32",
+        "desc": "FP32 reciprocal sqrt (SFU)",
+        "ports": "y[31:0], a[31:0]",
+        "semantics": "y ~= 1/sqrt(a)",
+        "status": "approximation",
+        "notes": "binary32 approximation. Publish the achieved accuracy bound.",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.fp32_exp2",
+        "class": "ieee754-binary32",
+        "desc": "FP32 base-2 exponential (SFU)",
+        "ports": "y[31:0], a[31:0]",
+        "semantics": "y ~= 2**a",
+        "status": "approximation",
+        "notes": "binary32 approximation. Publish the achieved accuracy bound.",
+        "n_bits": 32
+      }
+    ],
+    "ocp-mx": [
+      {
+        "id": "q2_if.mx_e2m1_decode",
+        "class": "ocp-mx",
+        "desc": "E2M1 element decode",
+        "ports": "val[31:0], e2m1[3:0]",
+        "semantics": "Decode one OCP MX FP4 (E2M1) element to its real value.",
+        "notes": "E2M1 = 1 sign / 2 exponent / 1 mantissa bit; value set {0, +/-0.5, +/-1, +/-1.5, +/-2, +/-3, +/-4, +/-6}.",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.mxfp4_lane_mul",
+        "class": "ocp-mx",
+        "desc": "MXFP4 lane multiply",
+        "ports": "p[?:0], a_e2m1[3:0], b_e2m1[3:0]",
+        "semantics": "p = decode(a) * decode(b) for one element pair.",
+        "notes": "Per-element product ahead of block reduction. Scales applied at block level, not per lane.",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.mxfp4_dot32",
+        "class": "ocp-mx",
+        "desc": "MXFP4 block dot-product",
+        "ports": "acc[31:0], a_blk[127:0], b_blk[127:0], a_scale[7:0], b_scale[7:0]",
+        "semantics": "acc = (a_scale*b_scale) * sum_{i=0..31} decode(a_i)*decode(b_i)",
+        "notes": "OCP MX block of K=32 E2M1 elements with one shared E8M0 (8-bit power-of-two) scale each. Accumulate to binary32.",
+        "n_bits": 32
+      },
+      {
+        "id": "q2_if.mxfp4_pe",
+        "class": "ocp-mx",
+        "desc": "MXFP4 accumulating PE",
+        "ports": "acc_out[31:0], a_blk, b_blk, a_scale, b_scale, acc_in[31:0]",
+        "semantics": "acc_out = acc_in + mxfp4_dot32(...)",
+        "notes": "One accumulating processing element: a block dot-product added to a running binary32 accumulator.",
+        "n_bits": 32
+      }
+    ],
+    "integer-datapath": [
+      {
+        "id": "q2_if.full_adder",
+        "class": "integer-datapath",
+        "desc": "1-bit full adder",
+        "ports": "s, cout, a, b, cin",
+        "function": "{cout,s} = a + b + cin",
+        "notes": "n_bits=1."
+      },
+      {
+        "id": "q2_if.rca",
+        "class": "integer-datapath",
+        "desc": "Ripple-carry adder (N-bit)",
+        "ports": "sum[N-1:0], cout, a[N-1:0], b[N-1:0], cin",
+        "function": "{cout,sum} = a + b + cin",
+        "notes": "Parameterized width N. Portal instances: N in {8,16,48,52}. The 48-bit instance is an explicit challenge target."
+      },
+      {
+        "id": "q2_if.add_tree",
+        "class": "integer-datapath",
+        "desc": "Adder reduction tree",
+        "ports": "sum[W:0], x_0..x_{M-1}",
+        "function": "sum = x_0 + x_1 + ... + x_{M-1}",
+        "notes": "Portal instance: 32-way."
+      },
+      {
+        "id": "q2_if.sub",
+        "class": "integer-datapath",
+        "desc": "Integer subtractor (N-bit)",
+        "ports": "d[N-1:0], bout, a[N-1:0], b[N-1:0]",
+        "function": "d = a - b (two's complement)",
+        "notes": "Portal instance: 32-bit."
+      },
+      {
+        "id": "q2_if.inc",
+        "class": "integer-datapath",
+        "desc": "Incrementer (N-bit)",
+        "ports": "y[N-1:0], a[N-1:0]",
+        "function": "y = a + 1",
+        "notes": "Portal instance: 32-bit."
+      },
+      {
+        "id": "q2_if.barrel_shift",
+        "class": "integer-datapath",
+        "desc": "Barrel shifter (N-bit)",
+        "ports": "y[N-1:0], a[N-1:0], sh[log2N-1:0], dir",
+        "function": "y = (dir==L) ? a << sh : a >> sh",
+        "notes": "Combinational shift by any amount. Portal instances: left-32, left-64, right-64."
+      },
+      {
+        "id": "q2_if.prio_enc",
+        "class": "integer-datapath",
+        "desc": "Priority encoder (N-bit)",
+        "ports": "idx[log2N-1:0], valid, a[N-1:0]",
+        "function": "idx = index of the leading one of a; valid = |a",
+        "notes": "Leading-one detector. Portal instances: N in {8,32,64}."
+      },
+      {
+        "id": "q2_if.decoder",
+        "class": "integer-datapath",
+        "desc": "One-hot decoder",
+        "ports": "oh[2^K-1:0], sel[K-1:0], en",
+        "function": "oh = en ? (1 << sel) : 0",
+        "notes": "Portal instance: 5->32 write decoder."
+      },
+      {
+        "id": "q2_if.mux2_bus",
+        "class": "integer-datapath",
+        "desc": "2:1 bus multiplexer (N-bit)",
+        "ports": "y[N-1:0], a[N-1:0], b[N-1:0], s",
+        "function": "y = s ? b : a",
+        "notes": "Datapath-width 2:1 select."
+      },
+      {
+        "id": "q2_if.reg",
+        "class": "integer-datapath",
+        "desc": "Register (N-bit)",
+        "ports": "q[N-1:0], d[N-1:0], clk, en",
+        "function": "q <= en ? d : q at rising clk",
+        "notes": "Portal instance: 32-bit."
+      },
+      {
+        "id": "q2_if.regfile",
+        "class": "integer-datapath",
+        "desc": "Register file",
+        "ports": "rd_data..., rd_addr..., wr_data, wr_addr, wr_en, clk",
+        "function": "Synchronous-write, combinational/registered-read multi-port register file",
+        "notes": "Portal instance: 32x32, multi-ported. Specify port count and read timing in your submission."
+      },
+      {
+        "id": "q2_if.array_mul",
+        "class": "integer-datapath",
+        "desc": "Array multiplier (NxN)",
+        "ports": "p[2N-1:0], a[N-1:0], b[N-1:0]",
+        "function": "p = a * b (unsigned integer)",
+        "notes": "Portal instance: 24x24."
+      }
+    ]
+  }
+}
